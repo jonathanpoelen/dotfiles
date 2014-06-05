@@ -1,0 +1,23 @@
+#newtab-scrollbox, #newtab-scrollbox:not([page-disabled]){
+  background-color: hsl(255,0%,20%)!important;
+  background-image:none!important;
+}
+
+#newtab-margin-top, #newtab-margin-bottom{
+  min-height: 10px!important;
+  max-height: 30px!important;
+}
+
+.newtab-title {
+  background-color:#333!important;
+  color:#c3c3c3!important
+}
+
+/*html{
+  background-color:#1c1c1c;
+  color:#c3c3c3;
+}*/
+
+/*a {
+  color: #587CD6;
+}*/

@@ -1,0 +1,61 @@
+/*button:hover{
+  color: #000 !important;
+}*/
+
+/* Shrink tab titles by 10% */
+.tabbrowser-tabs .tab-text {
+/*   font-size: .8em; */
+  text-shadow:none !important;
+}
+
+.tabbrowser-tabs {
+  height: 10px !important;
+}
+/*.tabbrowser-tab:not([selected="true"]):not(:hover),
+.tabs-newtab-button:not(:hover){
+  background-image: -moz-linear-gradient(bottom, rgba(10%,10%,10%,.4) 1px, transparent 1px), -moz-linear-gradient(hsla(0,0%,100%,.3) 1px, hsla(0,0%,35%,.2) 80%, hsla(0,0%,60%,.2)),
+  -moz-linear-gradient(-moz-dialog, -moz-dialog) !important;
+}*/
+tab/*:not([selected="true"])*/ {
+/*   background-color: #555; */
+  background-image: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+/*   border-right: 1px !important; */
+/*   border-left: 1px !important; */
+}
+tab:hover {
+  background-color: #333 !important;
+/*   background-image: none !important; */
+}
+
+/*#urlbar, #toolbar-menubar, #search-bar, #nav-bar, .link, a {
+  color: orange !important;
+  background: cyan !important;
+  padding:0;
+}*/
+
+#toolbar-menubar, #nav-bar {
+/*   color: orange !important; */
+  height: 28px !important;
+}
+
+/*
+#urlbar :not(dropmarker) {
+  color: green !important;
+  background: blue !important;
+}*/
+
+/* blink { text-decoration: none ! important; } */
+
+/* The following 3 lines were to forbid navigation bar history and bookmark to display in blue caracters*/
+.ac-url-text {
+  color: orange !important;
+}
+/*.autocomplete-richlistitem[selected="true"] .ac-url-text {
+  color: darkorange !important;
+  background-color: Highlight !important;
+}
+.autocomplete-richlistitem {
+  border-bottom: 1px solid ThreeDShadow !important;
+}*/
