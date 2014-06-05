@@ -1,0 +1,58 @@
+#!/bin/sh
+
+cmd='ls'
+grep_rgx=
+opts="EaAbBcCdDfFghHiIklLmnNopqQrRsStTuUvwxXZ"
+
+while getopts $opts optname
+do
+	case "$optname" in
+	'x' | 'a' | 'A' | 'b' | 'B' | 'c' | 'C' | 'd' | 'D' | 'f' | 'F' | 'g' | 'h' | 'H' | 'i' | 'I' | 'k' | 'l' | 'L' | 'm' | 'n' | 'N' | 'o' | 'p' | 'q' | 'Q' | 'r' | 'R' | 's' | 'S' | 't' | 'T' | 'u' | 'U' | 'v' | 'w' | 'x' | 'X' | 'Z')
+		cmd="$cmd -$optname"
+		;;
+	'E')
+		grep_rgx='E'
+		;;
+	'?' | ':')
+		break
+		;;
+	esac
+done
+
+shift $(($OPTIND-1))
+
+normalize_name(){
+	echo -n "$1" | sed s'/\/$//'
+}
+
+if [ -z "$*" ]
+then
+	echo "$0 [-$opts] file_filter [...]" >&2
+	exit 1
+fi
+
+if [ -z $grep_rgx ]
+then
+	if [ $# = 1 ]; then
+		$cmd | grep -v "$(normalize_name "$1")"
+	else
+		files=$($cmd | grep -v "$(normalize_name "$1")")
+		while [ $# != 0 ] ; do
+			files=$(echo "$files" | grep -v "$(normalize_name "$1")")
+			shift 1
+		done
+		echo "$files"
+	fi
+else
+	filter=$(normalize_name "$1")
+	shift 1
+	if [ ! -z "$1" ]; then
+		while [ $# != 0 ] ; do
+			filter="$filter|"$(normalize_name "$1")
+			shift 1
+		done
+	fi
+	$cmd | grep -vE "$filter"
+fi
+
+exit $?

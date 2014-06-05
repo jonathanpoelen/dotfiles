@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#git config --global core.askpass ~/game/git-ksshaskpass
+
+set $*
+#exec ksshaskpass $1\@$3
+ksshaskpass $1\@$3

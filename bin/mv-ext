@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#autoload -U zmv
+#zmv (*).lis '$1.txt'
+
+# zmv -v '(* *)' '${1// /_}'
+# For  any  file  in the current directory with at least one space in the name, replace every space by an underscore and display the commands executed.
+
+
+if [ $# -lt 2 ]; then
+	echo usage: $0 extension new_extension [files]
+	exit 100
+fi
+
+mv_ext()
+{
+	mv $name $(basename "$name" "$ext")"$new_ext"
+}
+
+ext=$1
+new_ext=$2
+if [ $# -gt 2 ]; then
+	shift 2
+	for name in $*; do
+		mv_ext
+	done
+else
+	for name in $(ls *"$1"); do
+		mv_ext
+	done
+fi
+
+exit 0
