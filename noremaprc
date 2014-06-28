@@ -1,0 +1,4 @@
+noremap ; ^
+noremap ' $
+noremap - f_
+noremap _ F_
