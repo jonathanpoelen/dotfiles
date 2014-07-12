@@ -59,7 +59,7 @@ alias g1y='g++-4.9 -std=c++1y'
 alias colorgcc11='colorgcc-4.8 -std=c11'
 alias colorgcc1y='gcc-4.9 -fdiagnostics-color=always -std=c11'
 alias colorg11='colorg++ -std=c++11'
-alias colorg1y='g++-4.9 -fdiagnostics-color=always -std=c++1y'
+alias colorg1y='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++-4.9 -fdiagnostics-color=always -std=c++1y'
 
 flag='-Wall -Wextra -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Werror-implicit-function-declaration -Wfloat-equal -Wshadow -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Winit-self -Wcast-qual -pedantic'
 cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings'
@@ -83,7 +83,9 @@ alias colorgw++="color++-4.8 $cxxflag -Wlong-long"
 alias colorgw11="colorg++ $cxxflag -std=c++11"
 alias colorgw1y="g++-4.9 -fdiagnostics-color=always $cxxflag -std=c++1y"
 
-#optimize compilation: -O3 -funroll-loops -fpeel-loops -ffast-math -march=native -ffat-lto-objects
+alias colorclangw++='clang++ fcolor-diagnostics -Werror -Weverything -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes'
+
+# optimize flags compiler: -O3 -funroll-loops -fpeel-loops -ffast-math -march=native -ffat-lto-objects
 
 unset cxxflag
 
@@ -295,7 +297,7 @@ function extract {
       *.tar.bz2|*.tbz2) tar xjf "$1"    ;;
       *.tar.gz|*.tgz)   tar xzf "$1"    ;;
       *.bz2)            bunzip2 "$1"    ;;
-      *.rar)            unrar e "$1"    ;;
+      *.rar)            unrar x "$1"    ;;
       *.gz)             gunzip "$1"     ;;
       *.tar)            tar xf "$1"     ;;
       *.zip)            unzip "$1"      ;;

@@ -26,6 +26,7 @@ tab/*:not([selected="true"])*/ {
 }
 tab:hover {
   background-color: #333 !important;
+  color: #7a7 !important;
 /*   background-image: none !important; */
 }
 
