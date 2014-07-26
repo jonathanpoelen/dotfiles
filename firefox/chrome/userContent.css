@@ -13,6 +13,11 @@
   color:#c3c3c3!important
 }
 
+
+#newtab-margin-undo-container, #newtab-search-container, #newtab-margin-bottom /*,#newtab-margin-top*/ {
+  display:none!important;
+}
+
 /*html{
   background-color:#1c1c1c;
   color:#c3c3c3;
