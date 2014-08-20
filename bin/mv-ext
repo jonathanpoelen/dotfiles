@@ -14,18 +14,18 @@ fi
 
 mv_ext()
 {
-	mv $name $(basename "$name" "$ext")"$new_ext"
+	mv "$name" "$(basename "$name" "$ext")""$new_ext"
 }
 
-ext=$1
-new_ext=$2
+ext="$1"
+new_ext="$2"
 if [ $# -gt 2 ]; then
 	shift 2
-	for name in $*; do
+	for name in "$@" ; do
 		mv_ext
 	done
 else
-	for name in $(ls *"$1"); do
+  ls *"$1" | while read name ; do
 		mv_ext
 	done
 fi
