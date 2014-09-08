@@ -14,7 +14,9 @@ if [ -x /usr/bin/dircolors ]; then
 	alias egrep='egrep --color=auto'
 	alias rgrep='rgrep --color=auto'
 
-	alias wcgrep='wcgrep --color=auto'
+	#alias wcgrep='wcgrep --color=auto'
+
+	GREP_COLOR='1;31'
 fi
 
 # some more ls aliases
@@ -59,7 +61,8 @@ alias g1y='g++-4.9 -std=c++1y'
 alias colorgcc11='colorgcc-4.8 -std=c11'
 alias colorgcc1y='gcc-4.9 -fdiagnostics-color=always -std=c11'
 alias colorg11='colorg++ -std=c++11'
-alias colorg1y='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++-4.9 -fdiagnostics-color=always -std=c++1y'
+alias colorg++-4.9='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++-4.9 -fdiagnostics-color=always'
+alias colorg1y='colorg++-4.9 -std=c++1y'
 
 flag='-Wall -Wextra -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Werror-implicit-function-declaration -Wfloat-equal -Wshadow -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Winit-self -Wcast-qual -pedantic'
 cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings'
@@ -81,7 +84,7 @@ alias gw1y="g++-4.9 $cxxflag -std=c++1y"
 
 alias colorgw++="color++-4.8 $cxxflag -Wlong-long"
 alias colorgw11="colorg++ $cxxflag -std=c++11"
-alias colorgw1y="g++-4.9 -fdiagnostics-color=always $cxxflag -std=c++1y"
+alias colorgw1y="colorg++-4.9 $cxxflag -std=c++1y"
 
 alias colorclangw++='clang++ fcolor-diagnostics -Werror -Weverything -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes'
 
@@ -142,7 +145,7 @@ alias govideo='cd ~/Videos'
 alias gomusic='cd ~/Music'
 alias gopicture='cd ~/Pictures'
 alias gofalcon='cd ~/projects/falcon'
-alias goingesup='cd ~/Documents/Ingesup-3'
+alias gobd='cd ~/BD'
 alias goh='cd ~/Desktop/h'
 alias tmp='cd /tmp'
 
@@ -205,8 +208,8 @@ function acf() {
 	if [ -z "$1" ] ; then
 		echo $0 regex filter >&2
 		return 1
-  elif [ -z "$2" ] ; then
-    apt-cache search "$1" | grep -i "$1"
+	elif [ -z "$2" ] ; then
+    		apt-cache search "$1" | grep -i "$1"
 	else
 		apt-cache search "$1" | grep -i "$2"
 	fi
@@ -252,15 +255,12 @@ function calc(){
 
 function jhibernate(){
 	sudo pm-hibernate
-  sleep 2
+	sleep 2
 	qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 20 >/dev/null
 }
 #alias jhibernate='sudo pm-hibernate'
 
 alias isearch='search -i'
-
-# alias wifiingesup='wificonnect Wifi@INGESUP'
-# alias wififree='wificonnect FreeWifi'
 
 source ~/.bash_aliases_apt
 
@@ -315,3 +315,6 @@ function extract {
 function bak {
   cp "$1" "$1"_`date +%H:%M:%S_%d-%m-%Y`
 }
+
+alias hi='source-highlight -f esc -i'
+alias hin='source-highlight -f esc -n -i'

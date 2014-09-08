@@ -7,6 +7,7 @@ My configuration files
  * bash
  * gdb
  * konsole
- * kde (shortcuts)
+ * kde
  * firefox
+ * mplayer
  * ...
