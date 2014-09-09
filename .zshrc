@@ -69,7 +69,7 @@ alias -g L='|less'
 alias -g G='|grep'
 alias -g T='>/tmp/l'
 alias -g TT='>/tmp/ll'
-# alias -g C='--color=always'
+alias -g C='--color=always'
 
 function cmdcoloring {
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
