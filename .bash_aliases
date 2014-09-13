@@ -145,6 +145,8 @@ alias govideo='cd ~/Videos'
 alias gomusic='cd ~/Music'
 alias gopicture='cd ~/Pictures'
 alias gofalcon='cd ~/projects/falcon'
+alias gosw='cd ~/projects/sunwars\ v2/newgame'
+alias goconfigs='cd ~/projects/myconfigs'
 alias gobd='cd ~/BD'
 alias goh='cd ~/Desktop/h'
 alias tmp='cd /tmp'
@@ -291,7 +293,6 @@ function swap {
 }
 
 function extract {
-  local filename="$1"
   if [ -f "$1" ] ; then
     case "$1" in
       *.tar.bz2|*.tbz2) tar xjf "$1"    ;;
