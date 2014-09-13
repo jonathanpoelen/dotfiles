@@ -47,10 +47,14 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 
 function _extglob {
-	setopt localoptions extendedglob
+  setopt localoptions extendedglob
 	local command="$1"
 	shift
-	$==command $==~* # redo globbing on arguments
+	if [ "$command" = nocorrect ] ; then
+    command="$1"
+    shift
+  fi
+  $==command $==~* # redo globbing on arguments
 }
 alias extglob='noglob _extglob ' # delay globbing until inside
 #ex: extglob echo .(#i)ic*
@@ -69,6 +73,8 @@ alias -g L='|less'
 alias -g G='|grep'
 alias -g T='>/tmp/l'
 alias -g TT='>/tmp/ll'
+alias -g T2='2>/tmp/l'
+alias -g TT2='2>/tmp/ll'
 alias -g C='--color=always'
 
 function cmdcoloring {
