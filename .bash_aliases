@@ -146,7 +146,6 @@ alias gomusic='cd ~/Music'
 alias gopicture='cd ~/Pictures'
 alias gofalcon='cd ~/projects/falcon'
 alias gosw='cd ~/projects/sunwars\ v2/newgame'
-alias goconfigs='cd ~/projects/myconfigs'
 alias gobd='cd ~/BD'
 alias goh='cd ~/Desktop/h'
 alias tmp='cd /tmp'
@@ -319,3 +318,4 @@ function bak {
 
 alias hi='source-highlight -f esc -i'
 alias hin='source-highlight -f esc -n -i'
+alias n=nano

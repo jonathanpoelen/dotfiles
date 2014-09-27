@@ -1,0 +1,50 @@
+[FullScreen]
+FullScreenColorScheme=MyWontonSoup18062014.colors
+
+[General]
+HistoryEnabled=false
+SideBarPage=folders
+UrlNavigatorIsEditable=true
+ViewBackgroundValue=30
+
+[ImageView]
+AnimationMethod=DocumentView::NoAnimation
+ShowLockZoomButton=true
+
+[KFileDialog Settings]
+Height 900=510
+Recent Files[$e]=
+Recent URLs[$e]=
+Width 1600=816
+
+[KPropertiesDialog]
+Height 900=421
+Width 1600=486
+
+[MainWindow]
+Height 900=901
+State=AAAA/wAAAAD9AAAAAAAABkAAAAMhAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+Width 1600=1601
+
+[Open-with settings]
+CompletionMode=5
+History=konsole
+
+[Recent Files]
+
+[SideBar]
+PreferredMetaInfoKeyList=General.Name,General.Size,General.ImageSize
+
+[SideBar-BrowseMode]
+IsVisible=false
+
+[SideBar-FullScreenMode]
+IsVisible=false
+
+[SideBar-ViewMode]
+IsVisible=false
+
+[ThumbnailView]
+ListVideos=false
+ThumbnailSize=250
