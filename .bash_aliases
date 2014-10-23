@@ -230,11 +230,11 @@ alias gba='git branch -a'
 alias gss='git status -s'
 alias gst='git status'
 alias gd='git diff'
+alias gdc='git diff --word-diff-regex=.'
 alias ga='git add'
 alias gm='git merge'
 alias grh='git reset HEAD'
 alias grhh='git reset HEAD --hard'
-alias gdiff='git diff'
 function git_current_branch () {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
   echo ${ref#refs/heads/}

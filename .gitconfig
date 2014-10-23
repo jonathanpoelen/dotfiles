@@ -1,0 +1,23 @@
+[user]
+	name = 
+	email = 
+[core]
+	#pager = cat
+	whitespace = -trailing-space
+	askpass = /home/jonathan/bin/git-ksshaskpass
+[alias]
+	st = status
+	ci = commit
+	lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
+	dw = diff --word-diff
+	oops = commit --amend --no-edit
+[diff]
+	mnemonicPrefix = true
+	#wordRegex = .
+[color]
+	diff = auto
+	ui = auto
+[color "branch"]
+	upstream = cyan
+[push]
+	default = simple

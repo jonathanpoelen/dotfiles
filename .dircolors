@@ -274,6 +274,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .spl                  38;5;173
 .wv                   38;5;149
 .wvc                  38;5;149
+.wma                  38;5;150
 # fonts
 .afm                  38;5;58
 .pfb                  38;5;58
