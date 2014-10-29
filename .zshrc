@@ -76,6 +76,7 @@ alias -g TT='>/tmp/ll'
 alias -g T2='2>/tmp/l'
 alias -g TT2='2>/tmp/ll'
 alias -g C='--color=always'
+alias -g V='|view -'
 
 function cmdcoloring {
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)

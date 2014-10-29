@@ -64,8 +64,8 @@ alias colorg11='colorg++ -std=c++11'
 alias colorg++-4.9='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++-4.9 -fdiagnostics-color=always'
 alias colorg1y='colorg++-4.9 -std=c++1y'
 
-flag='-Wall -Wextra -Weffc++ -Wswitch-default -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Werror-implicit-function-declaration -Wfloat-equal -Wshadow -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Winit-self -Wcast-qual -pedantic'
-cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings'
+flag='-Wall -Wextra -Weffc++ -Wswitch-default -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Wfloat-equal -Wshadow -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic'
+cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings -Winit-self'
 cxxflag=$flag' -Wold-style-cast -Woverloaded-virtual -Wnon-virtual-dtor'
 unset flag
 alias gwcc="gcc-4.8 $cflag -Wlong-long"
@@ -86,11 +86,13 @@ alias colorgw++="color++-4.8 $cxxflag -Wlong-long"
 alias colorgw11="colorg++ $cxxflag -std=c++11"
 alias colorgw1y="colorg++-4.9 $cxxflag -std=c++1y"
 
-alias colorclangw++='clang++ fcolor-diagnostics -Werror -Weverything -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes'
+unset cxxflag
+
+alias clangw++='clang++ -Werror -Weverything -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes'
+alias colorclangw++='clangw++ -fcolor-diagnostics'
 
 # optimize flags compiler: -O3 -funroll-loops -fpeel-loops -ffast-math -march=native -ffat-lto-objects
 
-unset cxxflag
 
 alias ne="$EDITOR"
 alias e="$EDITOR"
@@ -224,6 +226,9 @@ alias gc='git commit -v'
 alias gca='git commit -v -a'
 alias gc!='git commit --amend'
 alias gca!='git commit --amend -a'
+alias gcm='git commit -v -m'
+alias gcam='git commit -v -a -m'
+alias goops='git commit -v --amend --no-edit'
 alias gco='git checkout'
 alias gb='git branch'
 alias gba='git branch -a'
@@ -231,10 +236,15 @@ alias gss='git status -s'
 alias gst='git status'
 alias gd='git diff'
 alias gdc='git diff --word-diff-regex=.'
+alias gdw='git diff --word-diff'
 alias ga='git add'
 alias gm='git merge'
 alias grh='git reset HEAD'
 alias grhh='git reset HEAD --hard'
+alias glg='GIT_PAGER=cat git log --stat --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" --max-count=4'
+alias glgg='GIT_PAGER=cat git log --graph --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" --max-count=10'
+alias glo='GIT_PAGER=cat git log --oneline --max-count=20'
+
 function git_current_branch () {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
   echo ${ref#refs/heads/}
@@ -243,6 +253,7 @@ function git_current_repository() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
   echo $(git remote -v | cut -d':' -f 2)
 }
+
 # these aliases take advantage of the previous function
 alias ggpull='git pull origin $(git_current_branch)'
 alias ggpush='git push origin $(git_current_branch)'
