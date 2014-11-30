@@ -1,0 +1,4 @@
+16c16
+<   args2=( '*:input file:_files -g "*.([cCmisSoak]|cc|cxx|ii|k[ih])(-.)"' )
+---
+>   args2=( '*:input file:_files -g "*.([cCmisSoak]|cpp|cc|cxx|ii|k[ih])(-.)"' )
