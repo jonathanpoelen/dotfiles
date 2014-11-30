@@ -78,6 +78,8 @@ alias -g TT2='2>/tmp/ll'
 alias -g C='--color=always'
 alias -g V='|view -'
 
+zstyle ':completion:*' hosts off
+
 function cmdcoloring {
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 

@@ -243,9 +243,9 @@ alias ga='git add'
 alias gm='git merge'
 alias grh='git reset HEAD'
 alias grhh='git reset HEAD --hard'
-alias glg='GIT_PAGER=cat git log --stat --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" --max-count=4'
-alias glgg='GIT_PAGER=cat git log --graph --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" --max-count=10'
-alias glo='GIT_PAGER=cat git log --oneline --max-count=20'
+alias glg='git log --stat --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" --max-count=4'
+alias glgg='GIT_PAGER=cat git log --graph --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" --max-count=15'
+alias glo='GIT_PAGER=cat git log --oneline --max-count=15'
 
 function git_current_branch () {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
@@ -270,7 +270,7 @@ function calc(){
 function jhibernate(){
 	sudo pm-hibernate
 	sleep 2
-	qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 20 >/dev/null
+	qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 25 >/dev/null
 }
 #alias jhibernate='sudo pm-hibernate'
 
@@ -331,4 +331,6 @@ function bak {
 
 alias hi='source-highlight -f esc -i'
 alias hin='source-highlight -f esc -n -i'
+alias ihi='source -highlight -f esc -s'
+alias ihin='source-highlight -f esc -n -s'
 alias n=nano
