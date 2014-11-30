@@ -9,13 +9,19 @@
 }
 
 .newtab-title {
-  background-color:#333!important;
-  color:#c3c3c3!important
+  background-color: #333!important;
+  color: #c3c3c3!important
 }
 
 
 #newtab-margin-undo-container, #newtab-search-container, #newtab-margin-bottom /*,#newtab-margin-top*/ {
-  display:none!important;
+  display: none!important;
+}
+
+#newtab-grid {
+  overflow: none!important;
+  max-height: none!important;
+  max-width: none!important;
 }
 
 /*html{
@@ -26,3 +32,9 @@
 /*a {
   color: #587CD6;
 }*/
+
+/*server not found*/
+html[hasBrowserHandlers="true"] body {
+  background-color: #333!important;
+  color: #c3c3c3!important
+}
