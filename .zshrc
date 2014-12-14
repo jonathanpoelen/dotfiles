@@ -59,7 +59,8 @@ function _extglob {
 alias extglob='noglob _extglob ' # delay globbing until inside
 #ex: extglob echo .(#i)ic*
 
-alias lf='extglob ls *(^/)'
+alias lf='ls *(^/)'
+alias lfh='ls -sh *(^/)'
 
 source $HOME/.bash_aliases
 
