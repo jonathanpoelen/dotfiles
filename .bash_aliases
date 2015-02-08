@@ -331,6 +331,6 @@ function bak {
 
 alias hi='source-highlight -f esc -i'
 alias hin='source-highlight -f esc -n -i'
-alias ihi='source -highlight -f esc -s'
+alias ihi='source-highlight -f esc -s'
 alias ihin='source-highlight -f esc -n -s'
 alias n=nano
