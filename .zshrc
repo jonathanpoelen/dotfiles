@@ -69,7 +69,7 @@ source $HOME/.bash_aliases
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # don't complete the same filenames again
-zstyle ':completion:*:(rm|cp|mv):*' ignore-line other
+zstyle ':completion:*:(rm|cp|mv|ls):*' ignore-line other
 
 alias calc='noglob calc'
 
