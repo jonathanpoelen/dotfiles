@@ -30,12 +30,13 @@ DISABLE_AUTO_TITLE='true'
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # plugins=(git svn screen)
-plugins=()
+# plugins=()
 # plugins=(screen command-coloring)
 # plugins=(screen zsh-syntax-highlighting)
 
 DISABLE_CORRECTION='true'
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
+source $HOME/.zsh_profile
 
 # alias cmdcoloring="source $ZSH/plugins/command-coloring.plugin.zsh"
 

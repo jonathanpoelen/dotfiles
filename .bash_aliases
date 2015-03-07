@@ -334,3 +334,4 @@ alias hin='source-highlight -f esc -n -i'
 alias ihi='source-highlight -f esc -s'
 alias ihin='source-highlight -f esc -n -s'
 alias n=nano
+alias i=display
