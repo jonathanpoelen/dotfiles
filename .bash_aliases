@@ -65,7 +65,7 @@ alias colorg11='colorg++ -std=c++11'
 alias colorg++-4.9='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++-4.9 -fdiagnostics-color=always'
 alias colorg1y='colorg++-4.9 -std=c++1y'
 
-flag='-Wall -Wextra -Weffc++ -Wswitch-default -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Wfloat-equal -Wshadow -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic'
+flag='-Wall -Wextra -Weffc++ -Wswitch-default -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Wfloat-equal -Wshadow -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic -Wvla'
 cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings -Winit-self'
 cxxflag=$flag' -Wold-style-cast -Woverloaded-virtual -Wnon-virtual-dtor'
 unset flag
