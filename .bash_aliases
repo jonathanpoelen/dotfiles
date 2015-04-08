@@ -335,3 +335,4 @@ alias ihi='source-highlight -f esc -s'
 alias ihin='source-highlight -f esc -n -s'
 alias n=nano
 alias i=display
+alias mp='mplayer -af scaletempo'
