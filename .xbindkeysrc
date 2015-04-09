@@ -1,1 +1,20 @@
-/home/jonathan/.xbindkeysrc
+"echo p > ~/rawdisk/music-control"
+	Mod4 + space
+
+"echo pt_s 1 > ~/rawdisk/music-control"
+        Mod4 + Right
+
+"echo pt_s -1 > ~/rawdisk/music-control"
+        Mod4 + Left
+
+"echo seek 5 > ~/rawdisk/music-control"
+        Mod4 + Up 
+
+"echo seek -5 > ~/rawdisk/music-control"
+        Mod4 + Down 
+
+"echo loop 2 > ~/rawdisk/music-control"
+        Mod4 + l
+
+"readlink /proc/"$(ps -o pid,command -C mplayer | grep music-control | read pid o && echo $pid)"/fd/4 >> ~/track_passed.txt ; echo pt_s 1 > ~/rawdisk/music-control"
+	Mod4 + u
