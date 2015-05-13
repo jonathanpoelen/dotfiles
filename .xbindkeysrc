@@ -16,5 +16,5 @@
 "echo loop 2 > ~/rawdisk/music-control"
         Mod4 + l
 
-"readlink /proc/"$(ps -o pid,command -C mplayer | grep music-control | read pid o && echo $pid)"/fd/4 >> ~/track_passed.txt ; echo pt_s 1 > ~/rawdisk/music-control"
+"readlink /proc/"$(ps -o pid,command -C mplayer | grep music-control | (read pid o && echo $pid))"/fd/4 >> ~/track_passed.txt ; echo pt_s 1 > ~/rawdisk/music-control"
 	Mod4 + u
