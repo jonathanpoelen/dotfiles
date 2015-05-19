@@ -26,6 +26,10 @@ var INFO = xml`
     <spec>:tabh<oa>istory</oa> forward</spec>
     <description><p>Go forward the history</p></description>
   </item>
+  <item>
+    <spec>:tabh<oa>istory</oa> swap</spec>
+    <description><p>Go last selected tab</p></description>
+  </item>
   <item> 
     <spec>:tabh<oa>istory</oa> clear</spec>
     <description><p>Clear the history</p></description>
@@ -118,6 +122,12 @@ var tabHistory = (function(){
       } else
         select(tab);
     },
+    goLastSelected: function () {
+      if (this.canGoForward)
+        this.goForward();
+      else
+        this.goBack();
+    },
     go: function (idx) {
       if (idx < history.length - index || idx > -index) {
         var tab = history[index+idx];
@@ -162,6 +172,9 @@ var tabHistory = (function(){
       case 'forward':
         TH.goForward();
         break;
+      case 'swap':
+        TH.goLastSelected();
+        break;
       case 'clear':
         TH.clear();
         break;
@@ -189,6 +202,9 @@ var tabHistory = (function(){
 
         if (TH.canGoBack)
           list.push(['back', 'Back to "' + history[index - 1].label + '"']);
+
+        if (TH.canGoForward || TH.canGoBack)
+          list.push(['swap', 'Last selected tab ("' + history[index - 1].label + '")']);
 
 	context.title = ['TabSelectionHistory', 'SubCmd'];
         context.compare = null;
