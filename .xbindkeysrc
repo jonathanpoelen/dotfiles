@@ -1,10 +1,10 @@
-"echo p > ~/rawdisk/music-control"
+"echo cycle pause > ~/rawdisk/music-control"
 	Mod4 + space
 
-"echo pt_s 1 > ~/rawdisk/music-control"
+"echo playlist_next > ~/rawdisk/music-control"
         Mod4 + Right
 
-"echo pt_s -1 > ~/rawdisk/music-control"
+"echo playlist_prev > ~/rawdisk/music-control"
         Mod4 + Left
 
 "echo seek 5 > ~/rawdisk/music-control"
@@ -13,8 +13,14 @@
 "echo seek -5 > ~/rawdisk/music-control"
         Mod4 + Down 
 
-"echo loop 2 > ~/rawdisk/music-control"
+"echo cycle loop-file > ~/rawdisk/music-control"
         Mod4 + l
 
-"readlink /proc/"$(ps -o pid,command -C mplayer | grep music-control | (read pid o && echo $pid))"/fd/4 >> ~/track_passed.txt ; echo pt_s 1 > ~/rawdisk/music-control"
+"readlink /proc/"$(ps -o pid,command -C mpv | grep music-control | (read pid o && echo $pid))"/fd/11 >> ~/track_passed.txt ; echo playlist_next > ~/rawdisk/music-control"
 	Mod4 + u
+
+#"xvkbd -xsendevent -text '\[Prior]'"
+#	b:8
+#
+#"xvkbd -xsendevent -text '\[Next]'"
+#	b:9
