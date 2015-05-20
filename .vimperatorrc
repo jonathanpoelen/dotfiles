@@ -1,2 +1,5 @@
 :set editor=kwrite
 :colorscheme seaweed
+:nmap <C-[> :tabh back<CR>
+:nmap <C-]> :tabh forward<CR>
+:nmap <C-6> :tabh swap<CR>
