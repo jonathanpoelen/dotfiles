@@ -38,3 +38,9 @@ html[hasBrowserHandlers="true"] body {
   background-color: #333!important;
   color: #c3c3c3!important
 }
+
+input, textarea, select, option {
+  /*color: #eee;*/
+  /*background: #686868;*/
+  background: #666;
+}
