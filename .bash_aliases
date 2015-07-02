@@ -52,40 +52,40 @@ alias hsi='hs -i'
 #   sleep 10; alert
 # alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias gcc-4.9=/usr/lib/gcc-snapshot/bin/gcc
+# alias gcc-4.9=/usr/lib/gcc-snapshot/bin/gcc
 
-alias gcc11='gcc-4.9 -std=c11'
+# alias gcc11='gcc-4.9 -std=c11'
 # alias gcc1x='gcc-4.8 -std=c1x'
 alias g11='g++ -std=c++11'
-alias g1y='g++-4.9 -std=c++1y'
+alias g1y='g++-5.0 -std=c++1y'
 
-alias colorgcc11='colorgcc-4.8 -std=c11'
-alias colorgcc1y='gcc-4.9 -fdiagnostics-color=always -std=c11'
+# alias colorgcc11='colorgcc-4.8 -std=c11'
+# alias colorgcc1y='gcc-4.9 -fdiagnostics-color=always -std=c11'
 alias colorg11='colorg++ -std=c++11'
-alias colorg++-4.9='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++-4.9 -fdiagnostics-color=always'
+alias colorg++-5.0='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++-4.9 -fdiagnostics-color=always'
 alias colorg1y='colorg++-4.9 -std=c++1y'
 
 flag='-Wall -Wextra -Weffc++ -Wswitch-default -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Wfloat-equal -Wshadow -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic -Wvla'
-cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings -Winit-self'
+# cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings -Winit-self'
 cxxflag=$flag' -Wold-style-cast -Woverloaded-virtual -Wnon-virtual-dtor'
 unset flag
-alias gwcc="gcc-4.8 $cflag -Wlong-long"
-alias gwcc1x="gcc-4.8 $cflag -std=c1x"
+# alias gwcc="gcc-4.8 $cflag -Wlong-long"
+# alias gwcc1x="gcc-4.8 $cflag -std=c1x"
 
-alias colorgwcc="colorgcc-4.8 $cflag -Wlong-long"
-alias colorgwcc1x="colorgcc-4.8 $cflag -std=c1x"
+# alias colorgwcc="colorgcc-4.8 $cflag -Wlong-long"
+# alias colorgwcc1x="colorgcc-4.8 $cflag -std=c1x"
 
-unset cflag
+# unset cflag
 
-alias g++-4.9=/usr/lib/gcc-snapshot/bin/g++
+alias g++-5.0=/usr/lib/gcc-snapshot/bin/g++
 
 alias gw++="g++ $cxxflag -Wlong-long"
 alias gw11="g++ $cxxflag -std=c++11"
-alias gw1y="g++-4.9 $cxxflag -std=c++1y"
+alias gw1y="g++-5.0 $cxxflag -std=c++1y"
 
 alias colorgw++="color++-4.8 $cxxflag -Wlong-long"
 alias colorgw11="colorg++ $cxxflag -std=c++11"
-alias colorgw1y="colorg++-4.9 $cxxflag -std=c++1y"
+alias colorgw1y="colorg++-5.0 $cxxflag -std=c++1y"
 
 unset cxxflag
 
