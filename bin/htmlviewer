@@ -14,7 +14,7 @@ echo '<html>
 var names = ['
 
 while [ $# != 0 ] ; do
-	find "$1" -type f | grep -vE '/Thumbs.db$|\.directory$' | sort | sed -E s'/(.*)/"\1",/'
+	find "$1" -type f | grep -vE '/Thumbs.db$|\.directory$' | sort -V | sed -E s'/(.*)/"\1",/'
 	shift 1
 done
 
