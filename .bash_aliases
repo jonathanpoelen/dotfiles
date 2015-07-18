@@ -54,16 +54,19 @@ alias hsi='hs -i'
 
 # alias gcc-4.9=/usr/lib/gcc-snapshot/bin/gcc
 
+alias g++-6=/usr/lib/gcc-snapshot/bin/g++
+
 # alias gcc11='gcc-4.9 -std=c11'
 # alias gcc1x='gcc-4.8 -std=c1x'
 alias g11='g++ -std=c++11'
-alias g1y='g++-5.0 -std=c++1y'
+alias g1y='g++-5 -std=c++1y'
+alias g1y-6='g++-6 -std=c++1y'
 
 # alias colorgcc11='colorgcc-4.8 -std=c11'
 # alias colorgcc1y='gcc-4.9 -fdiagnostics-color=always -std=c11'
-alias colorg11='colorg++ -std=c++11'
-alias colorg++-5.0='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++-4.9 -fdiagnostics-color=always'
-alias colorg1y='colorg++-4.9 -std=c++1y'
+alias colorg++='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++ -fdiagnostics-color=always -std=c++11'
+alias colorg++-5='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++-5 -fdiagnostics-color=always -std=c++11'
+alias colorg++-6='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++-6 -fdiagnostics-color=always -std=c++11'
 
 flag='-Wall -Wextra -Weffc++ -Wswitch-default -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Wfloat-equal -Wshadow -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic -Wvla'
 # cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings -Winit-self'
@@ -77,15 +80,13 @@ unset flag
 
 # unset cflag
 
-alias g++-5.0=/usr/lib/gcc-snapshot/bin/g++
-
-alias gw++="g++ $cxxflag -Wlong-long"
 alias gw11="g++ $cxxflag -std=c++11"
-alias gw1y="g++-5.0 $cxxflag -std=c++1y"
+alias gw1y="g++-5 $cxxflag -std=c++1y"
+alias gw1y-6="g++-6 $cxxflag -std=c++1y"
 
-alias colorgw++="color++-4.8 $cxxflag -Wlong-long"
 alias colorgw11="colorg++ $cxxflag -std=c++11"
-alias colorgw1y="colorg++-5.0 $cxxflag -std=c++1y"
+alias colorgw1y="colorg++-5 $cxxflag -std=c++1y"
+alias colorgw1y-6="colorg++-6 $cxxflag -std=c++1y"
 
 unset cxxflag
 
@@ -336,4 +337,4 @@ alias ihi='source-highlight -f esc -s'
 alias ihin='source-highlight -f esc -n -s'
 alias n=nano
 alias i=display
-alias mp='mplayer -af scaletempo'
+mp() { mpv -af scaletempo "$@" ; } # auto-complete only for files
