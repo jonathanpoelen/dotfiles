@@ -307,22 +307,24 @@ function swap {
 }
 
 function extract {
-  if [ -f "$1" ] ; then
-    case "$1" in
-      *.tar.bz2|*.tbz2) tar xjf "$1"    ;;
-      *.tar.gz|*.tgz)   tar xzf "$1"    ;;
-      *.bz2)            bunzip2 "$1"    ;;
-      *.rar)            unrar x "$1"    ;;
-      *.gz)             gunzip "$1"     ;;
-      *.tar)            tar xf "$1"     ;;
-      *.zip)            unzip "$1"      ;;
-      *.Z)              uncompress "$1" ;;
-      *.7z)             7z x "$1"       ;;
-      *)     echo "$0: '$1' cannot be extracted via extract()" >&2 ; return 2;;
-      esac
-  else
-    echo "$0: '$1' is not a valid file" >&2 ; return 1
-  fi
+  for f in "$@" ; do
+    if [ -f "$f" ] ; then
+      case "$1" in
+        *.tar.bz2|*.tbz2) tar xjf "$f"    ;;
+        *.tar.gz|*.tgz)   tar xzf "$f"    ;;
+        *.bz2)            bunzip2 "$f"    ;;
+        *.rar)            unrar x "$f"    ;;
+        *.gz)             gunzip "$f"     ;;
+        *.tar)            tar xf "$f"     ;;
+        *.zip)            unzip "$f"      ;;
+        *.Z)              uncompress "$f" ;;
+        *.7z)             7z x "$f"       ;;
+        *)     echo "$0: '$f' cannot be extracted via extract()" >&2 ; return 2;;
+        esac
+    else
+      echo "$0: '$f' is not a valid file" >&2 ; return 1
+    fi
+  done
 }
 
 # alias cal='cal ; d=$(date +%-d) echo -n "${var/$d/\033[1;31m$d\033[0m}"'
