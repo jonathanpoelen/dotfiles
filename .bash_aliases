@@ -64,9 +64,10 @@ alias g1y-6='g++-6 -std=c++1y'
 
 # alias colorgcc11='colorgcc-4.8 -std=c11'
 # alias colorgcc1y='gcc-4.9 -fdiagnostics-color=always -std=c11'
-alias colorg++='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++ -fdiagnostics-color=always -std=c++11'
-alias colorg++-5='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++-5 -fdiagnostics-color=always -std=c++11'
-alias colorg++-6='GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32" g++-6 -fdiagnostics-color=always -std=c++11'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32'
+alias colorg++="g++ -fdiagnostics-color=always -std=c++11"
+alias colorg++-5="g++-5 -fdiagnostics-color=always -std=c++11"
+alias colorg++-6="g++-6 -fdiagnostics-color=always -std=c++11"
 
 flag='-Wall -Wextra -Weffc++ -Wswitch-default -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Wfloat-equal -Wshadow -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic -Wvla'
 # cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings -Winit-self'
@@ -215,7 +216,7 @@ function acf() {
 		echo $0 regex filter >&2
 		return 1
 	elif [ -z "$2" ] ; then
-    		apt-cache search "$1" | grep -i "$1"
+		apt-cache search "$1" | grep -i "$1"
 	else
 		apt-cache search "$1" | grep -i "$2"
 	fi
@@ -339,4 +340,4 @@ alias ihi='source-highlight -f esc -s'
 alias ihin='source-highlight -f esc -n -s'
 alias n=nano
 alias i=display
-mp() { mpv -af scaletempo "$@" ; } # auto-complete only for files
+mp() { mpv -af scaletempo --really-quiet "$@" ; } # auto-complete only for files

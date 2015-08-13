@@ -4,7 +4,7 @@
 " inspired by https://github.com/trapd00r/configs/blob/master/vimperator/color/seaweed.vimp
 
 hi Bell					border: 0 none; background-color: #2f2f2f;
-hi Boolean				color: #f6e9e9;
+hi Boolean				color: #d2d2d2;
 " hi CmdLine				background: rgba(47,47,47,.5); font-family: Sans; padding: 0px;
 hi CmdLine				background: #2f2f2f; font-family: Sans; padding: 0px;
 hi CmdOutput			white-space: pre;
@@ -20,7 +20,7 @@ hi ErrorMsg				color: red; background: #2f2f2f; font-weight: bold;
 hi Filter				font-weight: bold;
 " hi FrameIndicator		background-color: #2f2f2f; opacity: 0.5; z-index: 999; position: fixed; top: 0; bottom: 0; left: 0; right: 0;
 hi FrameIndicator		background-color: #2f2f2f; z-index: 999; position: fixed; top: 0; bottom: 0; left: 0; right: 0;
-hi Function				color: navy;
+hi Function				color: #6ea0d2;
 hi Hint					font-family: Sans; font-size: 10px; font-weight: bold; color: #f6e9e9; background-color: red; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding 0px 1px 0px 1px;
 hi Hint::after			content: attr(number);
 hi HintActive			background: #2f2f2f; color: #f6e9e9;
@@ -34,14 +34,14 @@ hi ModeMsg				color: #8ade8e; background: #2f2f2f;
 hi MoreMsg				color: #8ade8e; background: #2f2f2f;
 hi NonText				color: #559; min-height: 12px; padding-left: 2px;
 hi Normal				color: #8ade8e; background: #2f2f2f;
-hi Null					color: blue;
-hi Number				color: blue;
-hi Object				color: maroon;
+hi Null					color: #d26e6e;
+hi Number				color: #d26ed2;
+hi Object				color: #d2966e;
 hi Preview				color: gray;
 hi Question				color: #8ade8e; background: green; font-weight: bold;
 " hi StatusLine			color: #9acd32; background: #2f2f2f;
 hi StatusLine			color: #83ad22; background: #2f2f2f;
-hi String				color: green;
+hi String				color: #6ea06e;
 hi Tag					color: blue;
 hi Title				color: green; background: #2f2f2f; font-weight: bold;
 hi URL					text-decoration: none; color: green; background: inherit;
