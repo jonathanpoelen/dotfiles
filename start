@@ -1,0 +1,7 @@
+sudo mount -t tmpfs -o size=128M tmpfs rawdisk && \
+cd rawdisk && \
+mkfifo music-control && \
+xbindkeys && \
+mpv --quiet --shuffle --idle=yes --input file=/home/jonathan/rawdisk/music-control --no-video --playlist ~/mocplaylist.m3u --no-input-terminal & \
+killall plasmashell && \
+klipper &
