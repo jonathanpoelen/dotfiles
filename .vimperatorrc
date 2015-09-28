@@ -1,4 +1,5 @@
 :set editor=kwrite
+:set autocomplete=false
 :colorscheme seaweed
 :nmap <C-[> :tabh back<CR>
 :nmap <C-]> :tabh forward<CR>
