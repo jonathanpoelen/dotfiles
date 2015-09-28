@@ -1,7 +1,7 @@
 # kate: syntax bash
 # enable color support of ls and also add handy aliases
 
-export EDITOR=kwrite
+export EDITOR=nano
 
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -97,8 +97,7 @@ alias colorclangw++='clangw++ -fcolor-diagnostics'
 # optimize flags compiler: -O3 -funroll-loops -fpeel-loops -ffast-math -march=native -ffat-lto-objects
 
 
-alias ne="$EDITOR"
-alias e="$EDITOR"
+alias e=kwrite
 
 alias ux='chmod u+x'
 alias wl='wc -l'
@@ -272,7 +271,7 @@ function calc(){
 function jhibernate(){
 	sudo pm-hibernate
 	sleep 2
-	qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 25 >/dev/null
+	qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 33 >/dev/null
 	xmodmap ~/.Xmodmap
 }
 #alias jhibernate='sudo pm-hibernate'
@@ -314,7 +313,7 @@ function extract {
         *.tar.bz2|*.tbz2) tar xjf "$f"    ;;
         *.tar.gz|*.tgz)   tar xzf "$f"    ;;
         *.bz2)            bunzip2 "$f"    ;;
-        *.rar)            unrar x "$f"    ;;
+        *.rar|*.cbr)      unrar x "$f"    ;;
         *.gz)             gunzip "$f"     ;;
         *.tar)            tar xf "$f"     ;;
         *.zip)            unzip "$f"      ;;
