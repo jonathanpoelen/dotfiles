@@ -150,3 +150,4 @@ user_pref("services.sync.prefs.sync.security.OCSP.enabled", false);
 user_pref("social.remote-install.enabled", false);
 user_pref("social.toast-notifications.enabled", false);
 user_pref("webgl.disabled", true);
+user_pref("network.http.speculative-parallel-limit", 0);
