@@ -1,3 +1,10 @@
+page {
+  background: #333!important;
+  color: #ccc!important;
+}
+
+/* New tab*/
+
 #newtab-scrollbox, #newtab-scrollbox:not([page-disabled]){
   background-color: hsl(255,0%,20%)!important;
   background-image:none!important;
@@ -13,7 +20,7 @@
   color: #c3c3c3!important
 }
 
-
+/* newtab: no search-bar */
 #newtab-margin-undo-container, #newtab-search-container, #newtab-margin-bottom /*,#newtab-margin-top*/ {
   display: none!important;
 }
@@ -24,6 +31,90 @@
   max-width: none!important;
 }
 
+
+/* Server not found*/
+
+html[hasBrowserHandlers="true"] body {
+  background-color: #333!important;
+  color: #c3c3c3!important
+}
+
+#errorTitleText {
+  color: #cc9!important;
+}
+
+#errorTryAgain {
+  background:#666!important;
+  color: #ccc!important
+}
+#errorTryAgain:hover, #errorTryAgain:focus {
+  background:#777!important;
+}
+
+
+/* Download */
+
+#contentAreaDownloadsView {
+  padding: 0!important
+}
+
+#downloadsRichListBox {
+  background: #333!important;
+}
+
+richlistitem.download {
+  height: 0!important;
+  color: #ccc!important;
+}
+
+.download .download-state {
+  padding: 0!important;
+}
+
+
+/* Addon */
+
+#addons-page {
+  /*background: #544!important;*/
+  background: #333!important;
+}
+
+#header-utils-btn, #header-search, .addon-control {
+  background: #ddd!important;
+}
+
+#header-utils-btn:focus, #header-search:focus, .addon-control:focus
+#header-utils-btn:hover, #header-search:hover, .addon-control:hover {
+  background: #eee!important;
+}
+
+hbox.textbox-input-box>input.textbox-input {
+  background: #ccc!important;
+}
+
+richlistitem.addon{
+  color: #ccc!important;
+}
+
+richlistitem.addon[selected]{
+  /*background: #433!important;*/
+  background: #555!important;
+  color: #ccc!important;
+}
+
+richlistitem.addon[active="false"][selected]{
+  /*background: #433!important;*/
+  background: #555!important;
+}
+
+hbox#detail-desc-container, vbox#detail-summary, rows#detail-rows {
+  text-shadow:none!important;
+  color: #ccc!important;
+}
+
+
+/* General */
+
 /*html{
   background-color:#1c1c1c;
   color:#c3c3c3;
@@ -32,12 +123,6 @@
 /*a {
   color: #587CD6;
 }*/
-
-/*server not found*/
-html[hasBrowserHandlers="true"] body {
-  background-color: #333!important;
-  color: #c3c3c3!important
-}
 
 input, textarea, select, option {
   /*color: #eee;*/
