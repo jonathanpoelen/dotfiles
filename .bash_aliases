@@ -2,6 +2,8 @@
 # enable color support of ls and also add handy aliases
 
 export EDITOR=nano
+# for gcc and others
+export TMPDIR=/home/jonathan/rawdisk
 
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
