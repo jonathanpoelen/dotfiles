@@ -4,3 +4,8 @@
 :nmap <C-[> :tabh back<CR>
 :nmap <C-]> :tabh forward<CR>
 :nmap <C-6> :tabh swap<CR>
+:nmap ? gnogndgnz
+:set! extensions.liberator.saved.browser.link.open_newwindow=1
+:set! extensions.liberator.saved.browser.link.open_newwindow.restriction=1
+:set! browser.link.open_newwindow=1
+:set! browser.link.open_newwindow.restriction=1
