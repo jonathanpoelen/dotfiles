@@ -316,7 +316,7 @@ function swap {
 function extract {
   for f in "$@" ; do
     if [ -f "$f" ] ; then
-      case "$1" in
+      case "$f" in
         *.tar.bz2|*.tbz2) tar xjf "$f"    ;;
         *.tar.gz|*.tgz)   tar xzf "$f"    ;;
         *.bz2)            bunzip2 "$f"    ;;
@@ -327,7 +327,7 @@ function extract {
         *.Z)              uncompress "$f" ;;
         *.7z)             7z x "$f"       ;;
         *)     echo "$0: '$f' cannot be extracted via extract()" >&2 ; return 2;;
-        esac
+      esac
     else
       echo "$0: '$f' is not a valid file" >&2 ; return 1
     fi
