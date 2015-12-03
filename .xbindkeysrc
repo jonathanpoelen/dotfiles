@@ -4,6 +4,9 @@
 "echo playlist_next > ~/rawdisk/music-control"
         Mod4 + Right
 
+"echo playlist_next > ~/rawdisk/music-control"
+        Mod4 + n
+
 "echo playlist_prev > ~/rawdisk/music-control"
         Mod4 + Left
 

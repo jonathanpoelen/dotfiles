@@ -1,67 +1,67 @@
 [Background]
-Color=34,34,34
+Color=31,31,31
 MaxRandomHue=0
 MaxRandomSaturation=0
 MaxRandomValue=0
 
 [BackgroundIntense]
-Color=36,52,79
+Color=invalid
 
 [Color0]
-Color=104,104,104
+Color=0,0,0
 
 [Color0Intense]
-Color=123,123,123
+Color=102,102,102
 
 [Color1]
-Color=213,90,92
+Color=221,109,111
 
 [Color1Intense]
-Color=221,51,52
+Color=255,77,80
 
 [Color2]
-Color=167,182,66
+Color=135,204,135
 
 [Color2Intense]
 Color=158,196,0
 
 [Color3]
-Color=231,140,69
+Color=249,145,87
 
 [Color3Intense]
-Color=221,189,68
+Color=255,204,102
 
 [Color4]
-Color=122,166,218
+Color=102,153,204
 
 [Color4Intense]
-Color=83,137,222
+Color=102,153,204
 
 [Color5]
-Color=195,151,216
+Color=204,153,204
 
 [Color5Intense]
 Color=183,119,224
 
 [Color6]
-Color=112,192,177
+Color=102,204,204
 
 [Color6Intense]
 Color=84,206,214
 
 [Color7]
-Color=182,154,97
+Color=81,81,81
 
 [Color7Intense]
-Color=206,142,142
+Color=57,57,57
 
 [Foreground]
-Color=190,188,187
+Color=204,204,204
 
 [ForegroundIntense]
-Color=240,130,176
+Color=122,122,122
 
 [General]
-Description=MyTomorrowNightBright
+Description=TommorrowNight
 Opacity=1
 Wallpaper=

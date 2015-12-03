@@ -46,7 +46,7 @@ alias j='jobs'
 
 alias h='history'
 function hs {
-	history | grep $@
+	history | grep "$@"
 }
 alias hsi='hs -i'
 
@@ -143,24 +143,26 @@ alias gocpp='cd ~/Code/cpp'
 # alias gohtml='cd ~/Code/html\ css'
 alias goshell='cd ~/Code/shell'
 alias goproject='cd ~/projects'
-alias godl='cd ~/Downloads'
+#alias godl='cd ~/Downloads'
 alias godoc='cd ~/Documents'
-alias godesktop='cd ~/Desktop'
+#alias godesktop='cd ~/Desktop'
 alias goscan='cd ~/Scans'
-alias govideo='cd ~/Videos'
-alias gomusic='cd ~/Music'
-alias gopicture='cd ~/Pictures'
+#alias govideo='cd ~/Videos'
+#alias gomusic='cd ~/Music'
+#alias gopicture='cd ~/Pictures'
 alias gofalcon='cd ~/projects/falcon/falcon'
-alias gosw='cd ~/projects/sunwars\ v2/newgame'
+#alias gosw='cd ~/projects/sunwars\ v2/newgame'
 alias gobd='cd ~/BD'
 alias goh='cd ~/Desktop/h'
-alias tmp='cd /tmp'
+#alias tmp='cd /tmp'
+alias tmp='cd ~/rawdisk2'
+alias goregex='cd ~/project/regex'
 
 # Push and pop directories on directory stack
 alias pu='pushd'
 alias po='popd'
 
-alias afind='ack-grep -il'
+#alias afind='ack-grep -il'
 
 # some more grep aliases
 # alias igrep='grep -i'
@@ -206,6 +208,7 @@ function mdcd() {
 	[ $# -lt 1 ] && echo "Usage: $0 missing directory" >&2 && return 1
 	mkdir -p "$@" && cd -- "$1"
 }
+alias mdm=mdcd
 
 # alias aptupdate='sudo apt-get update'
 # alias aptupgrade='sudo apt-get upgrade'
