@@ -22,8 +22,15 @@
 "readlink /proc/"$(ps -o pid,command -C mpv | grep music-control | (read pid o && echo $pid))"/fd/* | grep /home/jonathan/Music >> ~/track_passed.txt ; echo playlist_next > ~/rawdisk/music-control"
 	Mod4 + u
 
+"amixer set Master 2+"
+	XF86AudioRaiseVolume
+
+"amixer set Master 2-"
+	XF86AudioLowerVolume
+
 #"xvkbd -xsendevent -text '\[Prior]'"
 #	b:8
 #
 #"xvkbd -xsendevent -text '\[Next]'"
 #	b:9
+
