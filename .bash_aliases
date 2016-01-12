@@ -350,3 +350,5 @@ alias ihin='source-highlight -f esc -n -s'
 alias n=nano
 alias i=display
 mp() { mpv -af scaletempo --really-quiet "$@" ; } # auto-complete only for files
+
+alias mcal="gcal -H '\e[01;34m:\e[0m:\e[34m:\e[0m' -s1 -q FR -N -b3 .+"
