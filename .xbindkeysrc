@@ -28,6 +28,9 @@
 "amixer set Master 2-"
 	XF86AudioLowerVolume
 
+"pid=$(xdotool getactivewindow getwindowpid %@) && (read x x s x < /proc/"$pid"/stat ; [ "$s" = 'T' ] && kill -CONT $pid || kill -STOP $pid)"
+	Mod4 + s
+
 #"xvkbd -xsendevent -text '\[Prior]'"
 #	b:8
 #

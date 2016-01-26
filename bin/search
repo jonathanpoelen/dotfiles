@@ -1,56 +1,43 @@
-#!/bin/sh
+#!/bin/bash
 
-usage='usage [-d][-e][-i][-p path] filtername [...]
+usage() {
+ echo 'usage [-d][-e][-i][-p path] filtername [...]
  -e extension only
  -i insensitive case
  -d display command'
-
-[ $# = '0' ] && echo $usage && exit 1
+}
 
 opt_pattern=-name
 path=.
-ext_only=
-display=
+ext_only=0
+display=0
 while getopts 'deip:' optname
 do
-	case "$optname" in
-	'i')
-	opt_pattern=-iname
-		;;
-	'p')
-	path=$OPTARG
-		;;
-	'e')
-	ext_only=1
-		;;
-	'd')
-	display=1
-		;;
-	'?' | ':')
-		echo $usage
-		exit 100
-		;;
-	esac
+  case "$optname" in
+    'i') opt_pattern=-iname ;;
+    'p') path="$OPTARG" ;;
+    'e') ext_only=1 ;;
+    'd') display=1 ;;
+    '?' | ':') usage ; exit 100 ;;
+  esac
 done
 shift $(($OPTIND-1))
 
-if [ "$ext_only" = '1' ]
-then
-	p="$path $opt_pattern '*\.$1'"
-	shift 1
-	while [ $# != 0 ] ; do
-		p="$p -or $opt_pattern '*\.$1'"
-		shift 1
-	done
-else
-	p="$path $opt_pattern '*$1*'"
-	shift 1
-	while [ $# != 0 ] ; do
-		p="$p -or $opt_pattern '*$1*'"
-		shift 1
-	done
-fi
+[ $# -eq 0 ] && usage && exit 1
 
-[ "$display" = '1' ] && echo find $p || eval find $p
+[ $ext_only -eq 1 ] && \
+  push_pattern() { p+="$opt_pattern '*\\.${1//\'/\'\\\'\'}'" ; } || \
+  push_pattern() { p+="$opt_pattern '*${1//\'/\'\\\'\'}*'" ; }
+
+p="'${path//\'/\'\\\'\'}' "
+push_pattern "$1"
+shift 1
+while [ $# -ne 0 ] ; do
+  p+=' -or '
+  push_pattern "$1"
+  shift 1
+done
+
+[ $display -eq 1 ] && echo find "$p" || eval find $p
 
 exit $?

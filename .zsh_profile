@@ -553,5 +553,5 @@ if [ "$USER" = root ]; then
 fi
 
 # RPROMPT='%{$fg[red]%}%6~$(git_prompt_info)$(svn_prompt_info)%{$reset_color%}'
-RPROMPT='%{$fg[red]%}%6~%{$reset_color%}'
+# RPROMPT='%{$fg[red]%}%6~%{$reset_color%}'
 PS2='%{$fg[green]%}>%{$reset_color%}'

@@ -2,8 +2,11 @@
 # enable color support of ls and also add handy aliases
 
 export EDITOR=nano
+
 # for gcc and others
 export TMPDIR=/home/jonathan/rawdisk
+
+export RLWRAP_HOME=/home/jonathan/.rlwrap
 
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -60,21 +63,26 @@ alias g++-6=/usr/lib/gcc-snapshot/bin/g++
 
 # alias gcc11='gcc-4.9 -std=c11'
 # alias gcc1x='gcc-4.8 -std=c1x'
-alias g11='g++ -std=c++11'
-alias g1y='g++-5 -std=c++1y'
-alias g1y-6='g++-6 -std=c++1y'
+
+alias g++='g++ -fdiagnostics-color=always'
+alias g11='g++ -fdiagnostics-color=always -std=c++11'
+alias g1y='g++ -fdiagnostics-color=always -std=c++1y'
+alias g1z='g++-6 -fdiagnostics-color=always -std=c++1z'
+alias g1y-6='g++-6 -fdiagnostics-color=always -std=c++1y'
+
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32'
 
 # alias colorgcc11='colorgcc-4.8 -std=c11'
 # alias colorgcc1y='gcc-4.9 -fdiagnostics-color=always -std=c11'
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32'
-alias colorg++="g++ -fdiagnostics-color=always -std=c++11"
-alias colorg++-5="g++-5 -fdiagnostics-color=always -std=c++11"
-alias colorg++-6="g++-6 -fdiagnostics-color=always -std=c++11"
+#alias colorg++="g++ -fdiagnostics-color=always -std=c++11"
+#alias colorg++-6="g++-6 -fdiagnostics-color=always -std=c++11"
+
 
 flag='-Wall -Wextra -Weffc++ -Wswitch-default -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Wfloat-equal -Wshadow -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic -Wvla'
 # cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings -Winit-self'
 cxxflag=$flag' -Wold-style-cast -Woverloaded-virtual -Wnon-virtual-dtor'
 unset flag
+
 # alias gwcc="gcc-4.8 $cflag -Wlong-long"
 # alias gwcc1x="gcc-4.8 $cflag -std=c1x"
 
@@ -83,18 +91,21 @@ unset flag
 
 # unset cflag
 
-alias gw11="g++ $cxxflag -std=c++11"
-alias gw1y="g++-5 $cxxflag -std=c++1y"
-alias gw1y-6="g++-6 $cxxflag -std=c++1y"
-
-alias colorgw11="colorg++ $cxxflag -std=c++11"
-alias colorgw1y="colorg++-5 $cxxflag -std=c++1y"
-alias colorgw1y-6="colorg++-6 $cxxflag -std=c++1y"
+alias gw++="g++ $cxxflag"
+alias gw11="g11 $cxxflag"
+alias gw1y="g1y $cxxflag"
+alias gw1z="g1z $cxxflag"
+alias gw1y-6="g1y-6 $cxxflag"
 
 unset cxxflag
 
-alias clangw++='clang++ -Werror -Weverything -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes'
-alias colorclangw++='clangw++ -fcolor-diagnostics'
+cxxflag='-Weverything -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes'
+export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer-3.7
+alias clangw++="clang++ $cxxflag -fcolor-diagnostics"
+alias clangw11="clang++ $cxxflag -fcolor-diagnostics -std=c++11"
+alias clangw1y="clang++ $cxxflag -fcolor-diagnostics -std=c++1y"
+alias clangw1z="clang++ $cxxflag -fcolor-diagnostics -std=c++1z"
+unset cxxflag
 
 # optimize flags compiler: -O3 -funroll-loops -fpeel-loops -ffast-math -march=native -ffat-lto-objects
 
@@ -103,7 +114,7 @@ alias e=kwrite
 
 alias ux='chmod u+x'
 alias wl='wc -l'
-alias lc='wc -l'
+#alias lc='wc -l'
 
 if [ "$SHELL" = 'bash' ]; then
   alias lve='/home/jonathan/Code/shell/lv.sh -E'
@@ -156,7 +167,7 @@ alias gobd='cd ~/BD'
 alias goh='cd ~/Desktop/h'
 #alias tmp='cd /tmp'
 alias tmp='cd ~/rawdisk2'
-alias goregex='cd ~/project/regex'
+alias goregex='cd ~/project/falcon.regex-dfa'
 
 # Push and pop directories on directory stack
 alias pu='pushd'
@@ -281,7 +292,7 @@ function calc(){
 function jhibernate(){
 	sudo pm-hibernate
 	sleep 2
-	qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 33 >/dev/null
+	#qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 33 >/dev/null
 	xmodmap ~/.Xmodmap
 }
 #alias jhibernate='sudo pm-hibernate'
@@ -337,8 +348,6 @@ function extract {
   done
 }
 
-# alias cal='cal ; d=$(date +%-d) echo -n "${var/$d/\033[1;31m$d\033[0m}"'
-
 function bak {
   cp "$1" "$1"_`date +%H:%M:%S_%d-%m-%Y`
 }
@@ -348,7 +357,12 @@ alias hin='source-highlight -f esc -n -i'
 alias ihi='source-highlight -f esc -s'
 alias ihin='source-highlight -f esc -n -s'
 alias n=nano
-alias i=display
+alias i='feh -Z'
 mp() { mpv -af scaletempo --really-quiet "$@" ; } # auto-complete only for files
 
-alias mcal="gcal -H '\e[01;34m:\e[0m:\e[34m:\e[0m' -s1 -q FR -N -b3 .+"
+alias mcal="gcal -H '\e[01;33m:\e[0m:\e[31m:\e[0m' -s1 -q FR -N -b3 .+"
+
+function vg {
+  valgrind --suppressions=/home/jonathan/projects/configs/usr/lib/valgrind/dl_init.supp "$@" |& colout -t valgrind
+}
+alias vgl='vg --leak-check=full --show-leak-kinds=all'

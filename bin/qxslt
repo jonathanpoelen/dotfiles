@@ -1,0 +1,19 @@
+#!/bin/bash
+
+d1=''
+d2=''
+
+if [ ! -z "$1" ] && [ "${1:0:1}" != '/' ] ; then
+  d1="$PWD/"
+fi
+if [ ! -z "$2" ] && [ "${2:0:1}" != '/' ] ; then
+  d2="$PWD/"
+fi
+
+if [ $# -eq 1 ] ; then
+  /home/jonathan/game/qxslt "$d1$1"
+elif [ $# -eq 2 ] ; then
+  /home/jonathan/game/qxslt "$d1$1" "$d2$2"
+else
+  /home/jonathan/game/qxslt "$@"
+fi

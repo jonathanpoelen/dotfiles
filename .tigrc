@@ -1,1 +1,5 @@
-color cursor white black bold
+set tab-size = 4
+color cursor yellow black bold
+color title-blur white default
+color title-focus white default
+#color title-focus white default standout
