@@ -10,4 +10,4 @@ klipper &
 killall plasmashell
 
 md ff && \
-ln -s ~/vimperatorrc ~/vimperator ~/.mozilla ff/
+ln -s ~/.vimperatorrc ~/.vimperator ~/.mozilla ff/
