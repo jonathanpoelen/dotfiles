@@ -121,3 +121,22 @@ function cmdcoloring {
     bracket-level-2         'fg=red,bold'
   )
 }
+
+function bt {
+  esc="$(echo -e "\e")"
+  prog="$1"
+  shift
+  gdb -q "$prog" <<<"r ${@:q}
+  bt" |& ihi cpp |& \
+  sed -E '/ +at/{
+    s/.\[[0-9]*m//g;
+    s#at (.*/)([a-zA-Z0-9_-]+\.[ch]pp:[0-9]+)$#at '$esc'[48;2;33;33;33m\1'$esc'[1;33;48;2;44;44;44m\2'$esc'[m#
+  }'
+}
+
+function qbt {
+  prog="$1"
+  shift
+  gdb -q "$prog" <<<"r ${@:q}
+  bt" | grep -C11 ' at .\+:[0-9]\+$'
+}

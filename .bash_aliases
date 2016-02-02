@@ -360,16 +360,3 @@ function vg {
   valgrind --suppressions=/home/jonathan/projects/configs/usr/lib/valgrind/dl_init.supp "$@" |& colout -t valgrind
 }
 alias vgl='vg --leak-check=full --show-leak-kinds=all'
-
-function bt {
-  esc="$(echo -e "\e")"
-  gdb -q -ex r -ex bt "$@" <<< '' |& ihi cpp |& \
-  sed -E '/ +at/{
-    s/.\[[0-9]*m//g;
-    s#at (.*/)([a-zA-Z0-9_-]+\.[ch]pp:[0-9]+)$#at '$esc'[48;2;33;33;33m\1'$esc'[1;33;48;2;44;44;44m\2'$esc'[m#
-  }'
-}
-
-function qbt {
-  gdb -q -ex r -ex bt "$@" <<< '' | grep -C11 ' at .\+:[0-9]\+$'
-}
