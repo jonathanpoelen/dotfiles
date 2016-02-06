@@ -7,3 +7,6 @@
 :nmap ? gnogndgnz
 :nmap <C-Y> :set! browser.link.open_newwindow=1<CR> :set! browser.link.open_newwindow.restriction=1<CR>
 :js statusline.setVisibility(statusline.setVisibility.TOGGLE)
+:js document.getElementById("liberator-status-location").style.width="9999px"
+:js document.getElementById("liberator-status-location").style['border-left']="1px solid green"
+:js document.getElementById("liberator-status-location").style['padding-left']="1em"
