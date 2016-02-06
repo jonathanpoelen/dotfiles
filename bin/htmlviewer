@@ -1,7 +1,7 @@
 #!/bin/sh
 echo '<html>
 <head>
-	<title>Viewer '"$(dirname "$0")/$1"'</title>
+	<title>Viewer: '"$@"'</title>
 	<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=UTF-8" />
 	<style>
 	body{margin:0;padding:0;background:#000}
@@ -13,10 +13,7 @@ echo '<html>
 <script type="text/javascript">
 var names = ['
 
-while [ $# != 0 ] ; do
-	find "$1" -type f | grep -vE '/Thumbs.db$|\.directory$' | sort -V | sed -E s'/(.*)/"\1",/'
-	shift 1
-done
+find "$@" -type f | sort -V | sed '/\(Thumbs\.db\|\.directory\)$/d;s/^/"/;s/$/",/g'
 
 echo '];
 
@@ -24,35 +21,140 @@ var n = +window.location.search.split("=")[1] || 0;
 var img = document.getElementsByTagName("img")[0];
 var body = document.body;
 var len = names.length;
-img.src = names[n];
 var iswebkit = (/(webkit)[ \/]([\w.]+)/).exec(navigator.userAgent.toLowerCase())
 
-var key_actions = {
-	"80": function(){ n = Math.min(n+100, len-1); },
-	"67": function(){ n = Math.min(n+30, len-1); },
-	"68": function(){ n = Math.min(n+12, len-1); },
-	"69": function(){ n = Math.min(n+5, len-1); },
-	"81": function(){ n = Math.max(n-5, 0); },
-	"65": function(){ n = Math.max(n-12, 0); },
-	"90": function(){ n = Math.max(n-30, 0); },
-	"73": function(){ n = Math.max(n-100, 0); },
-	"37": function(){ n && --n; },
-	"39": function(){ n !== len && ++n; },
-};
-key_actions["8"] = key_actions["37"];
+img.src = names[n];
 
-window.addEventListener(iswebkit ? "keydown" : "keypress", function(e){
-	var a;
-	if ((a = key_actions[e.keyCode]))
-	{
-		a();
+var key_move_actions = {
+	"80"/*p*/: function(){ n = Math.min(n+100, len-1); },
+	"67"/*c*/: function(){ n = Math.min(n+30, len-1); },
+	"68"/*d*/: function(){ n = Math.min(n+12, len-1); },
+	"69"/*e*/: function(){ n = Math.min(n+5, len-1); },
+	"81"/*q*/: function(){ n = Math.max(n-5, 0); },
+	"65"/*a*/: function(){ n = Math.max(n-12, 0); },
+	"90"/*z*/: function(){ n = Math.max(n-30, 0); },
+	"73"/*i*/: function(){ n = Math.max(n-100, 0); },
+	"37"/*<-*/: function(){ n && --n; },
+	"39"/*->*/: function(){ n !== len && ++n; },
+};
+key_move_actions["8"] = key_move_actions["37"];
+
+var normal_ctx = {
+	move: function() {
 		img.src = names[n];
 		body.scrollTop = 0;
-		return false;
-	} else if ((e.keyCode === 0 || e.keyCode === 32) && body.clientHeight + (iswebkit ? body.scrollTop : e.pageY) >= body.scrollHeight - 20 && n !== len){
-		e.preventDefault();
+	},
+	next: function() {
 		img.src = names[++n];
 		body.scrollTop = 0;
+	}
+};
+var db_ctx = {
+	start: function() {
+		this.db = false;
+	},
+	move: function() {
+		this.db = false;
+		img.src = names[n];
+		body.scrollTop = 0;
+	},
+	next: function() {
+		if (this.dp) {
+			img.src = names[++n];
+		}
+		this.dp = !this.dp;
+		body.scrollTop = 0;
+	}
+};
+var hz_ctx = {
+	start: function() {
+		if (!this.eimgs) {
+			var div = document.createElement("div");
+			for (var i = 0; i < len; ++i) {
+				var e = document.createElement("img");
+				e.src = names[i];
+				div.appendChild(e);
+			}
+			this.eimgs = div;
+
+			var update_n = function() {
+				var es = div.children;
+				var top = body.scrollTop;
+				var pos = (es[n].offsetTop + es[n].clientHeight > top) ? 0 : n;
+				var len = names.length - n;
+				var half, middle;
+				while (len > 0) {
+					half = ~~(len / 2);
+					middle = pos + half;
+					if (es[middle].offsetTop < top) {
+						pos = middle + 1;
+						len = len - half - 1;
+					}
+					else {
+						len = half;
+					}
+				}
+				n = pos;
+				if (n == names.length) {
+					--n;
+				}
+			};
+
+			var acts = {};
+			for (var k in key_move_actions) {
+				acts[k] = (function(a){
+					return function() {
+						update_n();
+						a();
+					};
+				})(key_move_actions[k]);
+			}
+			this.old_acts = key_move_actions;
+			this.new_acts = acts;
+		}
+
+		body.removeChild(img);
+		body.appendChild(this.eimgs);
+		key_move_actions = this.new_acts;
+	},
+	stop: function() {
+		body.removeChild(this.eimgs);
+		img.src = names[n];
+		body.appendChild(img);
+		key_move_actions = this.old_acts;
+	},
+	move: function() {
+		body.scrollTop = this.eimgs.children[n].offsetTop;
+	},
+	next: function() {
+		body.scrollTop = this.eimgs.children[++n].offsetTop;
+	}
+};
+
+var key_contexts = {
+	"77"/*m*/: hz_ctx,
+	"78"/*n*/: db_ctx,
+	"66"/*b*/: normal_ctx
+};
+
+var ctx = normal_ctx;
+// ctx.start();
+
+var a;
+window.addEventListener(iswebkit ? "keydown" : "keypress", function(e){
+	if ((a = key_move_actions[e.keyCode])) {
+		a();
+		ctx.move();
+		return false;
+	}
+	else if ((a = key_contexts[e.keyCode])) {
+		ctx.stop && ctx.stop();
+		ctx = a;
+		ctx.start && ctx.start();
+	}
+	else if ((e.keyCode === 0 || e.keyCode === 32) && body.clientHeight + (iswebkit ? body.scrollTop : e.pageY) >= body.scrollHeight - 20 && n !== len){
+		e.preventDefault();
+		ctx.next();
 		//window.location.search = "?n="+n;
 		return false;
 	}
