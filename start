@@ -1,6 +1,6 @@
 sudo rmmod intel_powerclamp
 
-sudo mount -t tmpfs -o size=856M tmpfs ~/rawdisk2 && \
+sudo mount -t tmpfs -o size=1856M tmpfs ~/rawdisk2 && \
 sudo mount -t tmpfs -o size=128M tmpfs ~/rawdisk && \
 cd ~/rawdisk && mkfifo music-control &&
 mpv --quiet --shuffle --idle=yes --input file=/home/jonathan/rawdisk/music-control  --no-video --playlist ~/mocplaylist.m3u --no-input-terminal &
