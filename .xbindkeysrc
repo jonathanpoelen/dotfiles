@@ -19,7 +19,7 @@
 "echo cycle loop-file > ~/rawdisk/music-control"
         Mod4 + l
 
-"readlink /proc/"$(ps -o pid,command -C mpv | grep music-control | (read pid o && echo $pid))"/fd/* | grep /home/jonathan/Music >> ~/track_passed.txt ; echo playlist_next > ~/rawdisk/music-control"
+"readlink /proc/"$(ps h -o pid,command -C mpv | grep music-control | (read pid o && echo $pid))"/fd/* | grep /home/jonathan/Music >> ~/track_passed.txt ; echo playlist_next > ~/rawdisk/music-control"
 	Mod4 + u
 
 "amixer set Master 2+"
