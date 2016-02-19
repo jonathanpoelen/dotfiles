@@ -342,9 +342,7 @@ function extract {
   done
 }
 
-function bak {
-  cp "$1" "$1"_`date +%H:%M:%S_%d-%m-%Y`
-}
+bak() { cp "$1" "$1"_`date +%H:%M:%S_%d-%m-%Y` ; }
 
 alias hi='source-highlight -f esc -i'
 alias hin='source-highlight -f esc -n -i'
@@ -356,7 +354,5 @@ mp() { mpv -af scaletempo --really-quiet "$@" ; } # auto-complete only for files
 
 alias mcal="gcal -H '\e[01;33m:\e[0m:\e[31m:\e[0m' -s1 -q FR -N -b3 .+"
 
-function vg {
-  valgrind --suppressions=/home/jonathan/projects/configs/usr/lib/valgrind/dl_init.supp "$@" |& colout -t valgrind
-}
+vg() { valgrind --suppressions=/home/jonathan/projects/configs/usr/lib/valgrind/dl_init.supp "$@" |& colout -t valgrind ; }
 alias vgl='vg --leak-check=full --show-leak-kinds=all'
