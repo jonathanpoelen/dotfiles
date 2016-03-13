@@ -21,9 +21,17 @@ var n = +window.location.search.split("=")[1] || 0;
 var img = document.getElementsByTagName("img")[0];
 var body = document.body;
 var len = names.length;
-var iswebkit = (/(webkit)[ \/]([\w.]+)/).exec(navigator.userAgent.toLowerCase())
+//var iswebkit = (/(webkit)[ \/]([\w.]+)/).exec(navigator.userAgent.toLowerCase())
 
 img.src = names[n];
+
+function add_rotation(deg) {
+	var r = img.getAttribute("style");
+	if (r) {
+		deg += Number(r.substring(25, r.length-4));
+	}
+	img.setAttribute("style", "-webkit-transform:rotate(" + deg + "deg)");
+}
 
 var key_move_actions = {
 	"80"/*p*/: function(){ n = Math.min(n+100, len-1); },
@@ -35,7 +43,11 @@ var key_move_actions = {
 	"90"/*z*/: function(){ n = Math.max(n-30, 0); },
 	"73"/*i*/: function(){ n = Math.max(n-100, 0); },
 	"37"/*←*/: function(){ n && --n; },
+	"86"/*v*/: function(){ n && --n; },
+	"78"/*n*/: function(){ n && --n; },
 	"39"/*→*/: function(){ n !== len && ++n; },
+	"89"/*y*/: function() { add_rotation(-90); },
+	"85"/*u*/: function() { add_rotation(90); },
 };
 key_move_actions["8"] = key_move_actions["37"];
 
@@ -130,17 +142,17 @@ var hz_ctx = {
 };
 
 var key_contexts = {
-	"77"/*m*/: hz_ctx,
-	"78"/*n*/: db_ctx,
-	"66"/*b*/: normal_ctx
+	"76"/*l*/: hz_ctx,
+	"74"/*j*/: db_ctx,
+	"75"/*k*/: normal_ctx
 };
 
 var ctx = normal_ctx;
 // ctx.start();
 
 var a;
-window.addEventListener(iswebkit ? "keydown" : "keypress", function(e){
-	if ((e.keyCode === 0 || e.keyCode === 32) && body.clientHeight + (iswebkit ? body.scrollTop : e.pageY) >= body.scrollHeight - 20 && n !== len){
+window.addEventListener(/*iswebkit ? */"keydown"/* : "keypress"*/, function(e){
+	if ((e.keyCode === 0 || e.keyCode === 32) && body.clientHeight + /*(iswebkit ? */body.scrollTop/* : e.pageY)*/ >= body.scrollHeight - 20 && n !== len){
 		e.preventDefault();
 		ctx.next();
 		//window.location.search = "?n="+n;
@@ -157,7 +169,7 @@ window.addEventListener(iswebkit ? "keydown" : "keypress", function(e){
 		ctx.start && ctx.start();
 		return false;
 	}
-	else if (e.keyCode === 190 /*.*/) {
+	else if (e.keyCode === 190 /*.*/ || e.keyCode === 77 /*m*/ || e.keyCode === 66 /*b*/) {
 		body.scrollTop -= 800;
 		return false;
 	}
