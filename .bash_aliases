@@ -66,9 +66,9 @@ alias g++-6=/usr/lib/gcc-snapshot/bin/g++
 
 alias g++='g++ -fdiagnostics-color=always'
 alias g11='g++ -fdiagnostics-color=always -std=c++11'
-alias g1y='g++ -fdiagnostics-color=always -std=c++1y'
+alias g14='g++ -fdiagnostics-color=always -std=c++14'
 alias g1z='g++-6 -fdiagnostics-color=always -std=c++1z'
-alias g1y-6='g++-6 -fdiagnostics-color=always -std=c++1y'
+alias g14-6='g++-6 -fdiagnostics-color=always -std=c++14'
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32'
 
@@ -93,9 +93,9 @@ unset flag
 
 alias gw++="g++ $cxxflag"
 alias gw11="g11 $cxxflag"
-alias gw1y="g1y $cxxflag"
+alias gw14="g14 $cxxflag"
 alias gw1z="g1z $cxxflag"
-alias gw1y-6="g1y-6 $cxxflag"
+alias gw14-6="g14-6 $cxxflag"
 
 unset cxxflag
 
@@ -103,7 +103,7 @@ cxxflag='-Weverything -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-c
 export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer-3.7
 alias clangw++="clang++ $cxxflag -fcolor-diagnostics"
 alias clangw11="clang++ $cxxflag -fcolor-diagnostics -std=c++11"
-alias clangw1y="clang++ $cxxflag -fcolor-diagnostics -std=c++1y"
+alias clangw14="clang++ $cxxflag -fcolor-diagnostics -std=c++14"
 alias clangw1z="clang++ $cxxflag -fcolor-diagnostics -std=c++1z"
 unset cxxflag
 
