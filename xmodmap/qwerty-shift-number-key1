@@ -1,0 +1,11 @@
+keycode  10 = exclam 1 1 exclam onesuperior exclamdown onesuperior exclamdown 1 exclam onesuperior exclamdown
+keycode  11 = underscore 2 2 underscore twosuperior dead_doubleacute twosuperior
+keycode  12 = numbersign 3 3 numbersign threesuperior dead_macron threesuperior dead_macron 3 numbersign threesuperior dead_macron
+keycode  13 = dollar 4 4 dollar currency sterling currency sterling 4 dollar currency sterling
+keycode  14 = percent 5 5 percent EuroSign dead_cedilla EuroSign dead_cedilla 5 percent EuroSign dead_cedilla
+keycode  15 = asciicircum 6 6 asciicircum dead_circumflex onequarter dead_circumflex onequarter 6 asciicircum dead_circumflex onequarter
+keycode  16 = ampersand 7 7 ampersand dead_horn onehalf dead_horn onehalf 7 ampersand dead_horn onehalf
+keycode  17 = asterisk 8 8 asterisk dead_ogonek threequarters dead_ogonek threequarters 8 asterisk dead_ogonek threequarters
+keycode  18 = parenleft 9 9 parenleft leftsinglequotemark dead_breve leftsinglequotemark dead_breve 9 parenleft leftsinglequotemark dead_breve
+keycode  19 = parenright 0 0 parenright rightsinglequotemark dead_abovering rightsinglequotemark dead_abovering 0 parenright rightsinglequotemark dead_abovering
+keycode  20 = minus at at minus yen dead_belowdot yen dead_belowdot minus underscore yen dead_belowdot
