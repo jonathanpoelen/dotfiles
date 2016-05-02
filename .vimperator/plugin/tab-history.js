@@ -183,17 +183,13 @@ var tabHistory = (function(){
           TH.go(Number(args[0]));
         }
         else {
-          let xml = template.table('TabHistory', [
-            [i - index, tab.label] for ([i, tab] in Iterator(history))
-          ]);
+          let xml = template.table('TabHistory', history.map((tab, i) => [i - tabhistory.index, tab.label]));
           liberator.echo(xml);
         }
       }
     }, {
       completer: function TH_completer (context) {
-        var list = [
-          [i - index, tab.label] for ([i, tab] in Iterator(history)) if (i !== index)
-        ];
+        var list = history.filter((_, i) => i !== index).map((tab, i) => [i - index, tab.label]);
 
 	list.push(['clear', 'Clear']);
 
