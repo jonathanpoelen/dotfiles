@@ -116,7 +116,7 @@ alias ux='chmod u+x'
 alias wl='wc -l'
 #alias lc='wc -l'
 
-if [ "$SHELL" = 'bash' ]; then
+if [ ! -z "$BASH" ]; then
   alias lve='/home/jonathan/Code/shell/lv.sh -E'
   alias lva='/home/jonathan/Code/shell/lv.sh -a'
   alias lvae='/home/jonathan/Code/shell/lv.sh -Ea'
@@ -149,7 +149,6 @@ alias -- -='cd -'
 alias gocode='cd ~/Code'
 alias gocpp='cd ~/Code/cpp'
 alias goshell='cd ~/Code/shell'
-alias goproject='cd ~/projects'
 #alias godl='cd ~/Downloads'
 alias godoc='cd ~/Documents'
 #alias godesktop='cd ~/Desktop'
@@ -157,11 +156,28 @@ alias goscan='cd ~/Scans'
 #alias govideo='cd ~/Videos'
 #alias gomusic='cd ~/Music'
 #alias gopicture='cd ~/Pictures'
-alias gofalcon='cd ~/projects/falcon/falcon'
+alias goproject='cd ~/projects'
+alias goconfig='cd ~/projects/configs'
+if [ ! -z "$BASH" ]; then
+  gofalcon () {
+    if [ $# = 0 ] ; then cd ~/projects/falcon
+    else
+      cd ~/projects/falcon/"$1"* 2>/dev/null || cd ~/projects/falcon/*"$1"*
+    fi
+  }
+else
+  gofalcon () {
+    if [ $# = 0 ] ; then cd ~/projects/falcon
+    else
+      local files=(~/projects/falcon/"$1"*)2>/dev/null || local files=(~/projects/falcon/*"$1"*)
+      [ -d "${files[1]}" ] && cd "${files[1]}"
+    fi
+  }
+fi
+alias gof=gofalcon
 alias gobd='cd ~/BD'
 alias goh='cd ~/Desktop/h'
 alias tmp='cd ~/rawdisk2'
-alias goregex='cd ~/projects/falcon.regex-dfa'
 
 # Push and pop directories on directory stack
 alias pu='pushd'
