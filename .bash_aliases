@@ -70,7 +70,7 @@ alias g14='g++ -fdiagnostics-color=always -std=c++14'
 alias g1z='g++-6 -fdiagnostics-color=always -std=c++1z'
 alias g14-6='g++-6 -fdiagnostics-color=always -std=c++14'
 
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:quote=00;32'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:quote=00;32'
 
 # alias colorgcc11='colorgcc-4.8 -std=c11'
 # alias colorgcc1y='gcc-4.9 -fdiagnostics-color=always -std=c11'
@@ -78,9 +78,9 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;33:
 #alias colorg++-6="g++-6 -fdiagnostics-color=always -std=c++11"
 
 
-flag='-Wall -Wextra -Weffc++ -Wswitch-default -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Wfloat-equal -Wshadow -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic -Wvla'
+flag='-Wall -Wextra -Weffc++ -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Wfloat-equal -Wshadow -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic -Wmissing-include-dirs -Warray-bounds=2'
 # cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings -Winit-self'
-cxxflag=$flag' -Wold-style-cast -Woverloaded-virtual -Wnon-virtual-dtor'
+cxxflag=$flag' -Wold-style-cast -Woverloaded-virtual -Wnon-virtual-dtor -Wzero-as-null-pointer-constant -Wsuggest-override'
 unset flag
 
 # alias gwcc="gcc-4.8 $cflag -Wlong-long"
@@ -94,17 +94,17 @@ unset flag
 alias gw++="g++ $cxxflag"
 alias gw11="g11 $cxxflag"
 alias gw14="g14 $cxxflag"
-alias gw1z="g1z $cxxflag"
+alias gw1z="g1z $cxxflag -Wmisleading-indentation -Wduplicated-cond"
 alias gw14-6="g14-6 $cxxflag"
 
 unset cxxflag
 
 cxxflag='-Weverything -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes'
 export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer-3.7
-alias clangw++="clang++ $cxxflag -fcolor-diagnostics"
-alias clangw11="clang++ $cxxflag -fcolor-diagnostics -std=c++11"
-alias clangw14="clang++ $cxxflag -fcolor-diagnostics -std=c++14"
-alias clangw1z="clang++ $cxxflag -fcolor-diagnostics -std=c++1z"
+alias cw++="clang++ $cxxflag -fcolor-diagnostics"
+alias cw11="clang++ $cxxflag -fcolor-diagnostics -Wno-c++98-compat-pedantic -std=c++11"
+alias cw14="clang++ $cxxflag -fcolor-diagnostics -Wno-c++98-compat-pedantic -std=c++14"
+alias cw1z="clang++ $cxxflag -fcolor-diagnostics -Wno-c++98-compat-pedantic -std=c++1z"
 unset cxxflag
 
 # optimize flags compiler: -O3 -funroll-loops -fpeel-loops -ffast-math -march=native -ffat-lto-objects
@@ -230,6 +230,7 @@ function mdcd() {
 	mkdir -p "$@" && cd -- "$1"
 }
 alias mdm=mdcd
+alias M=mdcd
 
 # alias aptupdate='sudo apt-get update'
 # alias aptupgrade='sudo apt-get upgrade'
@@ -262,6 +263,7 @@ alias gco='git checkout'
 alias gb='git branch'
 alias gba='git branch -a'
 alias gss='git status -s'
+alias gs='git status -s'
 alias gst='git status'
 alias gd='git diff'
 alias gdc='git diff --word-diff-regex=.'
@@ -292,6 +294,10 @@ function git_current_repository() {
 alias ggpull='git pull origin $(git_current_branch)'
 alias ggpush='git push origin $(git_current_branch)'
 alias ggpnp='git pull origin $(git_current_branch) && git push origin $(git_current_branch)'
+
+alias gpl=ggpull
+alias gph=ggpush
+alias gpp='ggpull && ggpush'
 
 function calc(){
 	echo $(($*))
@@ -366,6 +372,10 @@ alias ihi='source-highlight -f esc -s'
 alias ihin='source-highlight -f esc -n -s'
 alias n=nano
 alias i='feh -Z'
+alias x=xpdf
+alias t=tree
+alias ta='tree -a'
+alias v=vim
 mp() { mpv -af scaletempo --really-quiet "$@" ; } # auto-complete only for files
 
 alias mcal="gcal -H '\e[01;33m:\e[0m:\e[31m:\e[0m' -s1 -q FR -N -b3 .+"
