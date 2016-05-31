@@ -66,7 +66,7 @@ alias lfh='ls -sh *(^/)'
 source $HOME/.bash_aliases
 
 # Same color as ls for completion
-# eval "$(dircolors -b ~/.dircolors)" # write in .bash_aliases
+# eval "$(dircolors -b ~/.dircolors)" # writing in .bash_aliases
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # don't complete the same filenames again
@@ -75,15 +75,23 @@ zstyle ':completion:*:(rm|cp|mv|ls):*' ignore-line other
 alias calc='noglob calc'
 
 alias -g N='>/dev/null'
-alias -g N2='2>/dev/null'
-alias -g L='|less'
-alias -g L2='|&less'
-alias -g G='|grep'
-alias -g G2='|&grep'
 alias -g T='>/rawdisk2/l'
 alias -g TT='>/rawdisk2/ll'
+
+alias -g L='|less'
+alias -g G='|grep'
+alias -g S='|sed '
+alias -g W='|while read'
+
+alias -g N2='2>/dev/null'
 alias -g T2='2>/rawdisk2/l'
 alias -g TT2='2>/rawdisk2/ll'
+
+alias -g L2='|&less'
+alias -g G2='|&grep'
+alias -g S2='|&sed '
+alias -g W2='|&while read'
+
 alias -g C='--color=always'
 alias -g V='|view -'
 
