@@ -25,10 +25,10 @@
 "xcalib -a -i"
 	Mod4 + i
 
-"amixer set Master 2+"
+"amixer set Master 3+"
 	XF86AudioRaiseVolume
 
-"amixer set Master 2-"
+"amixer set Master 3-"
 	XF86AudioLowerVolume
 
 "pid=$(xdotool getactivewindow getwindowpid %@) && (read x x s x < /proc/"$pid"/stat ; [ "$s" = 'T' ] && kill -CONT $pid || kill -STOP $pid)"

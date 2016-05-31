@@ -2,22 +2,24 @@
 :set autocomplete=false
 :colorscheme seaweed
 
-:nmap <C-[> :tabh back<CR>
-:nmap <C-]> :tabh forward<CR>
-:nmap <C-6> :tabh swap<CR>
-:nmap ? gnogndgnz2gT
-:nmap <C-Y> :set! browser.link.open_newwindow=1<CR>:set! browser.link.open_newwindow.restriction=1<CR>
-
 nnoremap j      8j
 nnoremap k      8k
 nnoremap J      16j
 nnoremap K      16k
 nnoremap <A-j>  32j
 nnoremap <A-k>  32k
-nnoremap é      g$
-nnoremap á      g0
-nnoremap <C-e>  g$
-nnoremap <C-a>  g0
+nnoremap ø      32j
+nnoremap œ      32k
+
+nnoremap <A-space> <C-b>
+nnoremap <C-space> <C-b>
+nnoremap <C-A-space> <C-b>
+
+:nmap <C-[> :tabh back<CR>
+:nmap <C-]> :tabh forward<CR>
+:nmap <C-6> :tabh swap<CR>
+:nmap ? gno4jgndjgnz2gT
+:nmap <C-Y> :set! browser.link.open_newwindow=1<CR>:set! browser.link.open_newwindow.restriction=1<CR>
 
 :js statusline.setVisibility(statusline.setVisibility.TOGGLE);
 :set fullscreen=true
