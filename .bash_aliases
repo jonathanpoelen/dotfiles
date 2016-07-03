@@ -57,12 +57,7 @@ alias hsi='hs -i'
 #   sleep 10; alert
 # alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# alias gcc-4.9=/usr/lib/gcc-snapshot/bin/gcc
-
 alias g++-6=/usr/lib/gcc-snapshot/bin/g++
-
-# alias gcc11='gcc-4.9 -std=c11'
-# alias gcc1x='gcc-4.8 -std=c1x'
 
 alias g++='g++ -fdiagnostics-color=always'
 alias g11='g++ -fdiagnostics-color=always -std=c++11'
@@ -72,22 +67,10 @@ alias g14-6='g++-6 -fdiagnostics-color=always -std=c++14'
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:quote=00;32'
 
-# alias colorgcc11='colorgcc-4.8 -std=c11'
-# alias colorgcc1y='gcc-4.9 -fdiagnostics-color=always -std=c11'
-#alias colorg++="g++ -fdiagnostics-color=always -std=c++11"
-#alias colorg++-6="g++-6 -fdiagnostics-color=always -std=c++11"
-
-
-flag='-Wall -Wextra -Weffc++ -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Wfloat-equal -Wshadow -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic -Wmissing-include-dirs -Warray-bounds=2'
+flag='-Wall -Wextra -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Wfloat-equal -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic -Wmissing-include-dirs -Warray-bounds=2'
 # cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings -Winit-self'
 cxxflag=$flag' -Wold-style-cast -Woverloaded-virtual -Wnon-virtual-dtor -Wzero-as-null-pointer-constant -Wsuggest-override'
 unset flag
-
-# alias gwcc="gcc-4.8 $cflag -Wlong-long"
-# alias gwcc1x="gcc-4.8 $cflag -std=c1x"
-
-# alias colorgwcc="colorgcc-4.8 $cflag -Wlong-long"
-# alias colorgwcc1x="colorgcc-4.8 $cflag -std=c1x"
 
 # unset cflag
 
@@ -95,11 +78,11 @@ alias gw++="g++ $cxxflag"
 alias gw11="g11 $cxxflag"
 alias gw14="g14 $cxxflag"
 alias gw1z="g1z $cxxflag -Wmisleading-indentation -Wduplicated-cond"
-alias gw14-6="g14-6 $cxxflag"
+alias gw14-6="g14-6 $cxxflag -Wmisleading-indentation -Wduplicated-cond"
 
 unset cxxflag
 
-cxxflag='-Weverything -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes'
+cxxflag='-Weverything -Wno-shadow -Wno-effc++ -Wno-padded -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes'
 export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer-3.7
 alias cw++="clang++ $cxxflag -fcolor-diagnostics"
 alias cw11="clang++ $cxxflag -fcolor-diagnostics -Wno-c++98-compat-pedantic -std=c++11"
@@ -107,7 +90,7 @@ alias cw14="clang++ $cxxflag -fcolor-diagnostics -Wno-c++98-compat-pedantic -std
 alias cw1z="clang++ $cxxflag -fcolor-diagnostics -Wno-c++98-compat-pedantic -std=c++1z"
 unset cxxflag
 
-# optimize flags compiler: -O3 -funroll-loops -fpeel-loops -ffast-math -march=native -ffat-lto-objects
+# optimize flags compiler: -O3 -funroll-loops -fpeel-loops -ffast-math -march=native -ffat-lto-objects -flto
 
 
 alias e=kwrite
@@ -153,7 +136,7 @@ alias goshell='cd ~/Code/shell'
 alias godoc='cd ~/Documents'
 #alias godesktop='cd ~/Desktop'
 alias goscan='cd ~/Scans'
-#alias govideo='cd ~/Videos'
+alias govideo='cd ~/Videos'
 #alias gomusic='cd ~/Music'
 #alias gopicture='cd ~/Pictures'
 alias goproject='cd ~/projects'
@@ -191,9 +174,9 @@ alias po='popd'
 alias g='grep'
 alias rg='grep -r'
 alias eg='grep -E'
-alias ig='grep -i'
-alias rig='grep -ir'
-alias reg='grep -Er'
+# alias ig='grep -i'
+# alias rig='grep -ir'
+# alias reg='grep -Er'
 # alias rieg='grep -iEr'
 # alias vg='grep -v'
 # alias rvg='grep -rv'
@@ -225,12 +208,10 @@ alias g1='grep -m1'
 # alias veg1='grep -vErm1'
 # alias verg1='grep -vErm1'
 
-function mdcd() {
+function m() {
 	[ $# -lt 1 ] && echo "Usage: $0 missing directory" >&2 && return 1
 	mkdir -p "$@" && cd -- "$1"
 }
-alias mdm=mdcd
-alias M=mdcd
 
 # alias aptupdate='sudo apt-get update'
 # alias aptupgrade='sudo apt-get upgrade'
@@ -262,7 +243,7 @@ alias goops='git commit -v --amend --no-edit'
 alias gco='git checkout'
 alias gb='git branch'
 alias gba='git branch -a'
-alias gss='git status -s'
+#alias gss='git status -s'
 alias gs='git status -s'
 alias gst='git status'
 alias gd='git diff'
@@ -291,13 +272,9 @@ function git_current_repository() {
 }
 
 # these aliases take advantage of the previous function
-alias ggpull='git pull origin $(git_current_branch)'
-alias ggpush='git push origin $(git_current_branch)'
-alias ggpnp='git pull origin $(git_current_branch) && git push origin $(git_current_branch)'
-
-alias gpl=ggpull
-alias gph=ggpush
-alias gpp='ggpull && ggpush'
+alias gpl='git pull origin $(git_current_branch)'
+alias gph='git push origin $(git_current_branch)'
+alias gpp='git pull origin $(git_current_branch) && git push origin $(git_current_branch)'
 
 function calc(){
 	echo $(($*))
@@ -366,6 +343,18 @@ function extract {
 
 bak() { cp "$1" "$1"_`date +%H:%M:%S_%d-%m-%Y` ; }
 
+alias c1='awk { print $1 }'
+alias c2='awk { print $2 }'
+alias c3='awk { print $3 }'
+alias c4='awk { print $4 }'
+alias c5='awk { print $5 }'
+alias c6='awk { print $6 }'
+alias c7='awk { print $7 }'
+alias c8='awk { print $8 }'
+alias c9='awk { print $9 }'
+col() { awk '{ print $'$1' }' ; }
+k() { awk "{ print $@ }" ; }
+
 alias hi='source-highlight -f esc -i'
 alias hin='source-highlight -f esc -n -i'
 alias ihi='source-highlight -f esc -s'
@@ -376,7 +365,9 @@ alias x=xpdf
 alias t=tree
 alias ta='tree -a'
 alias v=vim
-mp() { mpv -af scaletempo --really-quiet "$@" ; } # auto-complete only for files
+alias s=sed
+alias a=calc
+p() { mpv -af scaletempo --really-quiet "$@" ; } # auto-complete only for files
 
 alias mcal="gcal -H '\e[01;33m:\e[0m:\e[31m:\e[0m' -s1 -q FR -N -b3 .+"
 

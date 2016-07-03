@@ -81,6 +81,8 @@ alias -g TT='>/rawdisk2/ll'
 alias -g L='|less'
 alias -g G='|grep'
 alias -g S='|sed '
+alias -g K='|k'
+alias -g A='|awk'
 alias -g W='|while read'
 
 alias -g N2='2>/dev/null'
@@ -90,10 +92,23 @@ alias -g TT2='2>/rawdisk2/ll'
 alias -g L2='|&less'
 alias -g G2='|&grep'
 alias -g S2='|&sed '
+alias -g K2='|&k'
+alias -g A2='|&awk'
 alias -g W2='|&while read'
 
 alias -g C='--color=always'
 alias -g V='|view -'
+
+alias -g @@='|col'
+alias -g @1='|awk { print $1 }'
+alias -g @2='|awk { print $2 }'
+alias -g @3='|awk { print $3 }'
+alias -g @4='|awk { print $4 }'
+alias -g @5='|awk { print $5 }'
+alias -g @6='|awk { print $6 }'
+alias -g @7='|awk { print $7 }'
+alias -g @8='|awk { print $8 }'
+alias -g @9='|awk { print $9 }'
 
 zstyle ':completion:*' hosts off
 

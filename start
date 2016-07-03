@@ -1,6 +1,6 @@
 sudo rmmod intel_powerclamp
 
-sudo mount -t tmpfs -o size=1856M tmpfs ~/rawdisk2 &&
+sudo mount -t tmpfs -o size=2304M tmpfs ~/rawdisk2 &&
 sudo mount -t tmpfs -o size=512M tmpfs ~/rawdisk &&
 sudo mount -t tmpfs -o size=256M tmpfs ~/.ccache &&
 sudo mount -t tmpfs -o size=128M tmpfs ~/projects/build &&
@@ -13,3 +13,7 @@ killall plasmashell
 
 md ff &&
 ln -s ~/.vimperatorrc ~/.vimperator ~/.mozilla ff/
+
+# fix grammalec
+mkdir -p /home/jonathan/rawdisk/home/jonathan/
+ln -s /home/jonathan/rawdisk/ /home/jonathan/rawdisk/home/jonathan/
