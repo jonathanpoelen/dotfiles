@@ -129,6 +129,10 @@ alias '....'='cd ../../..'
 alias '.....'='cd ../../../..'
 alias -- -='cd -'
 
+alias md='mkdir -p'
+alias rd=rmdir
+alias d='dirs -v | head -10'
+
 alias gocode='cd ~/Code'
 alias gocpp='cd ~/Code/cpp'
 alias goshell='cd ~/Code/shell'
@@ -142,14 +146,14 @@ alias govideo='cd ~/Videos'
 alias goproject='cd ~/projects'
 alias goconfig='cd ~/projects/configs'
 if [ ! -z "$BASH" ]; then
-  gofalcon () {
+  f () {
     if [ $# = 0 ] ; then cd ~/projects/falcon
     else
       cd ~/projects/falcon/"$1"* 2>/dev/null || cd ~/projects/falcon/*"$1"*
     fi
   }
 else
-  gofalcon () {
+  f () {
     if [ $# = 0 ] ; then cd ~/projects/falcon
     else
       local files=(~/projects/falcon/"$1"*)2>/dev/null || local files=(~/projects/falcon/*"$1"*)
@@ -157,7 +161,6 @@ else
     fi
   }
 fi
-alias gof=gofalcon
 alias gobd='cd ~/BD'
 alias goh='cd ~/Desktop/h'
 alias tmp='cd ~/rawdisk2'
@@ -230,8 +233,11 @@ function acf() {
 }
 
 # some more git aliases
+alias gsh='git stash'
 alias gst='git status'
 alias gl='git pull'
+alias gpo='git push origin'
+alias glo='git pull origin'
 alias gp='git push'
 alias gc='git commit -v'
 alias gca='git commit -v -a'
@@ -256,7 +262,7 @@ alias grh='git reset HEAD'
 alias grhh='git reset HEAD --hard'
 alias glg='git log --stat --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" --max-count=4'
 alias glgg='GIT_PAGER=cat git log --graph --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" --max-count=15'
-alias glo='GIT_PAGER=cat git log --oneline --max-count=15'
+#alias glo='GIT_PAGER=cat git log --oneline --max-count=15'
 alias cgd='GIT_PAGER=cat git diff'
 alias cgdc='GIT_PAGER=cat git diff --word-diff-regex=.'
 alias cgdw='GIT_PAGER=cat git diff --word-diff-regex=\\w+'
@@ -367,9 +373,9 @@ alias ta='tree -a'
 alias v=vim
 alias s=sed
 alias a=calc
-p() { mpv -af scaletempo --really-quiet "$@" ; } # auto-complete only for files
+p() { mpv -af scaletempo --really-quiet -fs --speed=1.61 "$@" ; } # auto-complete only for files
 
 alias mcal="gcal -H '\e[01;33m:\e[0m:\e[31m:\e[0m' -s1 -q FR -N -b3 .+"
 
-vg() { valgrind --suppressions=/home/jonathan/projects/configs/usr/lib/valgrind/dl_init.supp "$@" |& colout -t valgrind ; }
+vg() { valgrind --suppressions=/home/jonathan/projects/configs/usr/lib/valgrind/dl_init.supp "$@" 2> >(colout -t valgrind) ; }
 alias vgl='vg --leak-check=full --show-leak-kinds=all'

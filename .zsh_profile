@@ -11,12 +11,12 @@
 ## aliases
 
 # Push and pop directories on directory stack
-alias pu='pushd'
-alias po='popd'
+# alias pu='pushd'
+# alias po='popd'
 
 # Basic directory operations
-alias ...='cd ../..'
-alias -- -='cd -'
+# alias ...='cd ../..'
+# alias -- -='cd -'
 
 # Super user
 # alias _='sudo'
@@ -124,7 +124,7 @@ zstyle '*' single-ignored show
 
 alias man='nocorrect man'
 alias mv='nocorrect mv'
-alias mysql='nocorrect mysql'
+#alias mysql='nocorrect mysql'
 alias mkdir='nocorrect mkdir'
 # alias gist='nocorrect gist'
 # alias heroku='nocorrect heroku'
@@ -145,12 +145,7 @@ setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
 
-alias ..='cd ..'
-alias cd..='cd ..'
-alias cd...='cd ../..'
-alias cd....='cd ../../..'
-alias cd.....='cd ../../../..'
-alias cd/='cd /'
+#alias ..='cd ..'
 
 alias 1='cd -'
 alias 2='cd -2'
@@ -179,16 +174,16 @@ alias 9='cd -9'
 #   fi
 # }
 
-alias md='mkdir -p'
-alias rd=rmdir
-alias d='dirs -v | head -10'
+#alias md='mkdir -p'
+#alias rd=rmdir
+#alias d='dirs -v | head -10'
 
 
 ## functions
 
-function zsh_stats() {
-  history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
-}
+#function zsh_stats() {
+#  history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
+#}
 
 # function take() {
 #   mkdir -p $1

@@ -75,8 +75,8 @@ zstyle ':completion:*:(rm|cp|mv|ls):*' ignore-line other
 alias calc='noglob calc'
 
 alias -g N='>/dev/null'
-alias -g T='>/rawdisk2/l'
-alias -g TT='>/rawdisk2/ll'
+alias -g T='>~/rawdisk2/l'
+alias -g TT='>~/rawdisk2/ll'
 
 alias -g L='|less'
 alias -g G='|grep'
@@ -86,8 +86,8 @@ alias -g A='|awk'
 alias -g W='|while read'
 
 alias -g N2='2>/dev/null'
-alias -g T2='2>/rawdisk2/l'
-alias -g TT2='2>/rawdisk2/ll'
+alias -g T2='2>~/rawdisk2/l'
+alias -g TT2='2>~/rawdisk2/ll'
 
 alias -g L2='|&less'
 alias -g G2='|&grep'
@@ -110,7 +110,30 @@ alias -g @7='|awk { print $7 }'
 alias -g @8='|awk { print $8 }'
 alias -g @9='|awk { print $9 }'
 
-zstyle ':completion:*' hosts off
+#zstyle ':completion:*' hosts off
+
+_y () {
+  youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk "$@"
+}
+alias y='noglob _y'
+
+_dl () {
+  local url="$1"
+  local fmt="$2"
+  local ext="$3"
+  local name="$4"
+  local n="$5"
+
+  shift 5
+
+  local i d
+  for i in "$@" ; do 
+    d="$(printf $fmt $name $i)"
+    mkdir -p -- "$d" && cd -- "$d" && { wget --no-verbose $url$d{01..$n}$ext -c ; - }
+  done 
+}
+alias dl='noglob _dl'
+
 
 function cmdcoloring {
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
