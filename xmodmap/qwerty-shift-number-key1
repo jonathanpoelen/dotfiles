@@ -8,4 +8,4 @@ keycode  16 = ampersand 7 7 ampersand dead_horn onehalf dead_horn onehalf 7 ampe
 keycode  17 = asterisk 8 8 asterisk dead_ogonek threequarters dead_ogonek threequarters 8 asterisk dead_ogonek threequarters
 keycode  18 = parenleft 9 9 parenleft leftsinglequotemark dead_breve leftsinglequotemark dead_breve 9 parenleft leftsinglequotemark dead_breve
 keycode  19 = parenright 0 0 parenright rightsinglequotemark dead_abovering rightsinglequotemark dead_abovering 0 parenright rightsinglequotemark dead_abovering
-keycode  20 = minus at at minus yen dead_belowdot yen dead_belowdot minus underscore yen dead_belowdot
+keycode  20 = underscore minus minus underscore yen dead_belowdot yen dead_belowdot minus underscore yen dead_belowdot
