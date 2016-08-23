@@ -43,6 +43,7 @@ var key_move_actions = {
 	"90"/*z*/: function(){ n = Math.max(n-30, 0); },
 	"73"/*i*/: function(){ n = Math.max(n-100, 0); },
 	"37"/*←*/: function(){ n && --n; },
+	"83"/*s*/: function(){ n && --n; },
 	"86"/*v*/: function(){ n && --n; },
 	"78"/*n*/: function(){ n && --n; },
 	"188"/*,*/: function(){ n && --n; },
