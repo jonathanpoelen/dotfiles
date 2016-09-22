@@ -38,8 +38,6 @@ DISABLE_CORRECTION='true'
 # source $ZSH/oh-my-zsh.sh
 source $HOME/.zsh_profile
 
-# alias cmdcoloring="source $ZSH/plugins/command-coloring.plugin.zsh"
-
 # alias showshlvl='PS1="%{$fg_no_bold[yellow]%}[$SHLVL]$PS1"'
 
 # alias prompt_highlighted='PS1="%{$bg_bold[white]%}$PS1"'
@@ -129,16 +127,36 @@ _dl () {
   local i d
   for i in "$@" ; do 
     d="$(printf $fmt $name $i)"
-    mkdir -p -- "$d" && cd -- "$d" && { wget --no-verbose $url$d{01..$n}$ext -c ; - }
+    mkdir -p -- "$d" && cd -- "$d" && { wget --user-agent=Mozilla/5.0 --no-verbose "$url$d"{01..$n}"$ext" -c ; - }
   done 
 }
 alias dl='noglob _dl'
+
+_accept_and_menu() {
+  zle complete-word
+  zle accept-search
+  zle complete-word
+  zle complete-word
+}
+zle -N _accept_and_menu
+bindkey '^[o' _accept_and_menu
+
+_inc_last_arg() {
+  local r=${BUFFER/* }
+  [ '}' = "${r[${#r}]}" ] && r=${r/\{*}${${r/*..}:0:-1}
+  local n=$((${r//[^0-9]/}+1))
+  [ ! -z "$NUMERIC" ] && n="{$n..$(($n+$NUMERIC))}"
+  BUFFER=${BUFFER% *}' '$n
+  CURSOR=$#BUFFER
+}
+zle -N _inc_last_arg
+bindkey "^[=" _inc_last_arg
 
 
 function cmdcoloring {
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-  source $ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source $HOME/repo/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
   ZSH_HIGHLIGHT_STYLES+=(
 #     default none

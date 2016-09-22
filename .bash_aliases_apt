@@ -22,13 +22,12 @@ alias at='aptitude'
 # Some self-explanatory aliases
 alias acs='apt-cache search'
 alias acsn='apt-cache search --names-only'
-alias aps='aptitude search'
-alias as="aptitude -F \"* %p -> %d \n(%v/%V)\" \
-		--no-gui --disable-columns search"	# search package
+#alias aps='aptitude search'
+#alias as="aptitude -F \"* %p -> %d \n(%v/%V)\" --no-gui --disable-columns search" # search package
 
 # apt-file
-alias afs='apt-file search --regexp'
-
+alias afs='apt-file search'
+alias afl='apt-file list'
 
 # These are apt-get only
 alias asrc='apt-get source'
@@ -61,8 +60,7 @@ if [[ $use_sudo -eq 1 ]]; then
     alias di='sudo dpkg -i ./*.deb'
 
     # Remove ALL kernel images and headers EXCEPT the one in use
-    alias kclean='sudo aptitude remove -P ?and(~i~nlinux-(ima|hea) \
-        ?not(~n`uname -r`))'
+    #alias kclean='sudo aptitude remove -P ?and(~i~nlinux-(ima|hea) ?not(~n`uname -r`))'
 
 
 # commands using su #########
@@ -100,8 +98,7 @@ else
     alias di='su -lc "dpkg -i ./*.deb" root'
 
     # Remove ALL kernel images and headers EXCEPT the one in use
-    alias kclean='su -lc '\''aptitude remove -P ?and(~i~nlinux-(ima|hea) \
-        ?not(~n`uname -r`))'\'' root'
+    #alias kclean='su -lc '\''aptitude remove -P ?and(~i~nlinux-(ima|hea) ?not(~n`uname -r`))'\'' root'
 fi
 
 
@@ -166,16 +163,15 @@ apt-history () {
 }
 
 # Kernel-package building shortcut
-kerndeb () {
-    # temporarily unset MAKEFLAGS ( '-j3' will fail )
-    MAKEFLAGS=$( print - $MAKEFLAGS | perl -pe 's/-j\s*[\d]+//g' )
-    print '$MAKEFLAGS set to '"'$MAKEFLAGS'"
-	appendage='-custom' # this shows up in $ (uname -r )
-    revision=$(date +"%Y%m%d") # this shows up in the .deb file name
-
-    make-kpkg clean
-
-    time fakeroot make-kpkg --append-to-version "$appendage" --revision \
-        "$revision" kernel_image kernel_headers
-}
-
+#kerndeb () {
+#    # temporarily unset MAKEFLAGS ( '-j3' will fail )
+#    MAKEFLAGS=$( print - $MAKEFLAGS | perl -pe 's/-j\s*[\d]+//g' )
+#    print '$MAKEFLAGS set to '"'$MAKEFLAGS'"
+#	appendage='-custom' # this shows up in $ (uname -r )
+#    revision=$(date +"%Y%m%d") # this shows up in the .deb file name
+#
+#    make-kpkg clean
+#
+#    time fakeroot make-kpkg --append-to-version "$appendage" --revision \
+#        "$revision" kernel_image kernel_headers
+#}

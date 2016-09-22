@@ -243,13 +243,18 @@ alias gc='git commit -v'
 alias gca='git commit -v -a'
 alias gc!='git commit --amend'
 alias gca!='git commit --amend -a'
-alias gcm='git commit -v -m'
-alias gcam='git commit -v -a -m'
+_gcm() { git commit -v -m "$*" ; }
+_gcmm() { git commit -amend -m "$*" ; }
+_gcam() { git commit -v -a -m "$*" ; }
+_gcamm() { git commit --amend -a -m "$*" ; }
+alias gcm='noglob _gcm'
+alias gcm!='noglob _gcmm'
+alias gcam='noglob _gcam'
+alias gcam!='noglob _gcamm'
 alias goops='git commit -v --amend --no-edit'
 alias gco='git checkout'
 alias gb='git branch'
 alias gba='git branch -a'
-#alias gss='git status -s'
 alias gs='git status -s'
 alias gst='git status'
 alias gd='git diff'
@@ -290,9 +295,9 @@ function calc(){
 
 function jhibernate(){
 	sudo pm-hibernate
-	sleep 2
+	#sleep 2
 	#qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 33 >/dev/null
-	xmodmap ~/.Xmodmap
+	#xmodmap ~/.Xmodmap
 }
 #alias jhibernate='sudo pm-hibernate'
 

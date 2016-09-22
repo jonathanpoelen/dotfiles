@@ -299,7 +299,8 @@ bindkey ' ' magic-space    # also do history expansion on space
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
-bindkey '^[[Z' reverse-menu-complete
+#bindkey '^[[Z' reverse-menu-complete
+bindkey '^[i' reverse-menu-complete
 
 # Make the delete key (or Fn + Delete on the Mac) work instead of outputting a ~
 bindkey '^?' backward-delete-char
