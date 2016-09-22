@@ -4,4 +4,4 @@
 413c415
 <     /"[]"/	':argument-1::compadd "$expl_action[@]" list search show update install remove upgrade full-upgrade edit-sources'
 ---
->     /"[]"/	':argument-1::compadd "$expl_action[@]" list search show update install remove upgrade autoremove dist-upgrade full-upgrade edit-sources'
+>     /"[]"/	':argument-1::compadd "$expl_action[@]" list search show update install remove upgrade autoremove dist-upgrade clean full-upgrade edit-sources'
