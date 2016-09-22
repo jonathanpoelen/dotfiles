@@ -115,6 +115,8 @@ base_color=cyan,gray:normal=gray,default:selected=blue,gray:marked=brightcyan,gr
 xterm=
 color_terminals=
 
+linux=
+
 [Panels]
 show_mini_info=true
 kilobyte_si=false
