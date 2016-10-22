@@ -1,4 +1,4 @@
-using gcc : : : <cxxflags>-fdiagnostics-color=always ;
+using gcc : : ccache g++ : <cxxflags>-fdiagnostics-color=always ;
 using gcc : 6.0 : /usr/lib/gcc-snapshot/bin/g++ : <cxxflags>-fdiagnostics-color=always ;
 using gcc : cache : ccache g++ : <cxxflags>-fdiagnostics-color=always ;
 using gcc : cache6 : ccache /usr/lib/gcc-snapshot/bin/g++ : <cxxflags>-fdiagnostics-color=always ;

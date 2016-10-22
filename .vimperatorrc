@@ -18,7 +18,7 @@ nnoremap <C-A-space> <C-b>
 :nmap <C-[> :tabh back<CR>
 :nmap <C-]> :tabh forward<CR>
 :nmap <C-6> :tabh swap<CR>
-:nmap ? gno4jgndjgnz2gT
+:nmap ? gnogndgnz2gT
 :nmap <C-Y> :set! browser.link.open_newwindow=1<CR>:set! browser.link.open_newwindow.restriction=1<CR>
 
 :nmap <C-j> :js noscriptOverlay.showUI()<CR>
@@ -30,3 +30,8 @@ nnoremap ` :js statusline.setVisibility(statusline.setVisibility.TOGGLE)<CR>
 :js document.getElementById("liberator-status-location").style.width="9999px"
 :js document.getElementById("liberator-status-location").style['border-left']="1px solid green"
 :js document.getElementById("liberator-status-location").style['padding-left']="1em"
+
+:js services.services.autoCompleteSearch.class_="@mozilla.org/autocomplete/search;1?name=unifiedcomplete"
+
+:command -nargs=0 dlpg :execute "!xterm -geometry 2000 -e '/home/jonathan/game/dl-url '\\''" + content.location.href.replace("'", "'\\''") + "'\\'''&"
+:nmap Y :dlpg<CR><ESC>

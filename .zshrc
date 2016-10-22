@@ -156,7 +156,7 @@ bindkey "^[=" _inc_last_arg
 function cmdcoloring {
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-  source $HOME/repo/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source $HOME/game/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
   ZSH_HIGHLIGHT_STYLES+=(
 #     default none

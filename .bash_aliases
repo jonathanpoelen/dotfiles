@@ -2,6 +2,7 @@
 # enable color support of ls and also add handy aliases
 
 export EDITOR=nano
+export LESS=-Rj3
 
 # for gcc and others
 export TMPDIR=/home/jonathan/rawdisk

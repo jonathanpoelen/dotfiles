@@ -47,6 +47,7 @@ var key_move_actions = {
 	"86"/*v*/: function(){ n && --n; },
 	"78"/*n*/: function(){ n && --n; },
 	"188"/*,*/: function(){ n && --n; },
+	"186"/*;*/: function(){ n && --n; },
 	"39"/*→*/: function(){ n !== len && ++n; },
 	"89"/*y*/: function() { add_rotation(-90); },
 	"85"/*u*/: function() { add_rotation(90); },
@@ -171,8 +172,12 @@ window.addEventListener(/*iswebkit ? */"keydown"/* : "keypress"*/, function(e){
 		ctx.start && ctx.start();
 		return false;
 	}
-	else if (e.keyCode === 190 /*.*/ || e.keyCode === 77 /*m*/ || e.keyCode === 66 /*b*/ || e.keyCode === 88/*x*/) {
+	else if (e.keyCode === 190 /*.*/ || e.keyCode === 77 /*m*/ || e.keyCode === 66 /*b*/ || e.keyCode === 88/*x*/ || e.keyCode === 221 /*]*/) {
 		body.scrollTop -= 800;
+		return false;
+	}
+	else if (e.keyCode === 0 /*simple quote*/) {
+		body.scrollTop += body.clientHeight - 10;
 		return false;
 	}
 	return true;
