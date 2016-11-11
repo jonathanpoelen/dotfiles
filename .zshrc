@@ -76,6 +76,7 @@ alias -g N='>/dev/null'
 alias -g T='>~/rawdisk2/l'
 alias -g TT='>~/rawdisk2/ll'
 
+alias -g V='|view -'
 alias -g L='|less'
 alias -g G='|grep'
 alias -g S='|sed '
@@ -87,6 +88,7 @@ alias -g N2='2>/dev/null'
 alias -g T2='2>~/rawdisk2/l'
 alias -g TT2='2>~/rawdisk2/ll'
 
+alias -g V2='|&view -'
 alias -g L2='|&less'
 alias -g G2='|&grep'
 alias -g S2='|&sed '
@@ -95,7 +97,6 @@ alias -g A2='|&awk'
 alias -g W2='|&while read'
 
 alias -g C='--color=always'
-alias -g V='|view -'
 
 alias -g @@='|col'
 alias -g @1='|awk { print $1 }'
@@ -145,7 +146,7 @@ _inc_last_arg() {
   local r=${BUFFER/* }
   [ '}' = "${r[${#r}]}" ] && r=${r/\{*}${${r/*..}:0:-1}
   local n=$((${r//[^0-9]/}+1))
-  [ ! -z "$NUMERIC" ] && n="{$n..$(($n+$NUMERIC))}"
+  [ ! -z "$NUMERIC" ] && n="{$n..$NUMERIC}"
   BUFFER=${BUFFER% *}' '$n
   CURSOR=$#BUFFER
 }
@@ -184,4 +185,14 @@ function cmdcoloring {
     bracket-level-1         'fg=green,bold'
     bracket-level-2         'fg=red,bold'
   )
+}
+
+loadplugins() {
+  source $HOME/game/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+  bindkey '^[k' history-substring-search-up
+  bindkey '^[j' history-substring-search-down
+
+  source $HOME/game/zsh-autosuggestions/zsh-autosuggestions.zsh
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
 }
