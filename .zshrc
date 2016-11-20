@@ -112,7 +112,7 @@ alias -g @9='|awk { print $9 }'
 #zstyle ':completion:*' hosts off
 
 _y () {
-  youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk "$@"
+  youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$@"
 }
 alias y='noglob _y'
 
