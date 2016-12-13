@@ -25,5 +25,12 @@ set incsearch
 
 ":colorscheme koehler
 :colorscheme peachpuff
+:colorscheme elflord
 ":colorscheme slate
 ":colorscheme zellner
+
+" vimdiff
+:highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=black
+:highlight DiffChange term=reverse cterm=bold ctermbg=blue ctermfg=yellow
+:highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
+:highlight DiffText term=reverse cterm=bold ctermbg=black ctermfg=white
