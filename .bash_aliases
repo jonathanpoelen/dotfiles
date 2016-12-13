@@ -245,7 +245,7 @@ alias gca='git commit -v -a'
 alias gc!='git commit --amend'
 alias gca!='git commit --amend -a'
 _gcm() { git commit -v -m "$*" ; }
-_gcmm() { git commit -amend -m "$*" ; }
+_gcmm() { git commit --amend -m "$*" ; }
 _gcam() { git commit -v -a -m "$*" ; }
 _gcamm() { git commit --amend -a -m "$*" ; }
 alias gcm='noglob _gcm'
@@ -262,6 +262,10 @@ alias gd='git diff'
 alias gdc='git diff --word-diff-regex=.'
 alias gdw='gd --word-diff-regex=\\w+'
 alias gdww='git diff --word-diff'
+alias gd0='gd --unified=0'
+alias gdc0='gdc --unified=0'
+alias gdw0='gdw --unified=0'
+alias gdww0='gdww --unified=0'
 alias ga='git add'
 alias gm='git merge'
 alias grh='git reset HEAD'
@@ -273,6 +277,10 @@ alias cgd='GIT_PAGER=cat git diff'
 alias cgdc='GIT_PAGER=cat git diff --word-diff-regex=.'
 alias cgdw='GIT_PAGER=cat git diff --word-diff-regex=\\w+'
 alias cgdww='GIT_PAGER=cat git diff --word-diff'
+alias cgd0='cgd --unified=0'
+alias cgdc0='cgdc --unified=0'
+alias cgdw0='cgdw --unified=0'
+alias cgdww0='cgdww --unified=0'
 
 function git_current_branch () {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || return
@@ -287,6 +295,14 @@ function git_current_repository() {
 alias gpl='git pull origin $(git_current_branch)'
 alias gph='git push origin $(git_current_branch)'
 alias gpp='git pull origin $(git_current_branch) && git push origin $(git_current_branch)'
+
+
+# some more diff aliases
+alias diff=colordiff
+alias yd='colordiff -W $COLUMNS -y'
+cwdiff() { wdiff -n "$@" | colordiff ; }
+cdwdiff() { dwdiff -n "$@" | colordiff ; }
+
 
 function calc(){
 	echo $(($*))
@@ -336,13 +352,14 @@ function extract {
   for f in "$@" ; do
     if [ -f "$f" ] ; then
       case "$f" in
+        *.zip)            unzip "$f"      ;;
+        *.tar)            tar xf "$f"     ;;
+        *.rar|*.cbr)      unrar x "$f"    ;;
         *.tar.bz2|*.tbz2) tar xjf "$f"    ;;
         *.tar.gz|*.tgz)   tar xzf "$f"    ;;
+        *.tar.xz)         tar xJf "$f"    ;;
         *.bz2)            bunzip2 "$f"    ;;
-        *.rar|*.cbr)      unrar x "$f"    ;;
         *.gz)             gunzip "$f"     ;;
-        *.tar)            tar xf "$f"     ;;
-        *.zip)            unzip "$f"      ;;
         *.Z)              uncompress "$f" ;;
         *.7z)             7z x "$f"       ;;
         *)     echo "$0: '$f' cannot be extracted via extract()" >&2 ; return 2;;
