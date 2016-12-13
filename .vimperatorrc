@@ -33,5 +33,5 @@ nnoremap ` :js statusline.setVisibility(statusline.setVisibility.TOGGLE)<CR>
 
 :js services.services.autoCompleteSearch.class_="@mozilla.org/autocomplete/search;1?name=unifiedcomplete"
 
-:command -nargs=0 dlpg :execute "!xterm -geometry 2000 -e '/home/jonathan/game/dl-url '\\''" + content.location.href.replace("'", "'\\''") + "'\\'''&"
+:command -nargs=0 dlpg :execute "!xterm -geometry 222+260+0 -e '/home/jonathan/game/dl-url '\\''" + content.location.href.replace("'", "'\\''") + "'\\'''&"
 :nmap Y :dlpg<CR><ESC>
