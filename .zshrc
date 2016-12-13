@@ -153,6 +153,9 @@ _inc_last_arg() {
 zle -N _inc_last_arg
 bindkey "^[=" _inc_last_arg
 
+#autoload incremental-complete-word
+#zle -N incremental-complete-word
+#bindkey '^Xi' incremental-complete-word
 
 function cmdcoloring {
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
