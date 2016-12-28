@@ -1,13 +1,13 @@
 "echo cycle pause > ~/rawdisk/music-control"
 	Mod4 + space
 
-"echo playlist_next > ~/rawdisk/music-control"
+"echo playlist-next > ~/rawdisk/music-control"
         Mod4 + Right
 
-"echo playlist_next > ~/rawdisk/music-control"
+"echo playlist-next > ~/rawdisk/music-control"
         Mod4 + n
 
-"echo playlist_prev > ~/rawdisk/music-control"
+"echo playlist-prev > ~/rawdisk/music-control"
         Mod4 + Left
 
 "echo seek 5 > ~/rawdisk/music-control"
