@@ -58,7 +58,7 @@ alias hsi='hs -i'
 #   sleep 10; alert
 # alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias g++-6=/usr/lib/gcc-snapshot/bin/g++
+alias g++-7=/usr/lib/gcc-snapshot/bin/g++
 
 alias g++='g++ -fdiagnostics-color=always'
 alias g11='g++ -fdiagnostics-color=always -std=c++11'
@@ -68,7 +68,10 @@ alias g14-6='g++-6 -fdiagnostics-color=always -std=c++14'
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:quote=00;32'
 
-flag='-Wall -Wextra -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2 -Wfloat-equal -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic -Wmissing-include-dirs -Warray-bounds=2'
+flag='-Wall -Wextra -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2'\
+' -Wfloat-equal -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute'\
+' -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic -Wmissing-include-dirs -Warray-bounds=2'\
+' -Wnull-dereference -Wduplicated-cond -Wmisleading-indentation'
 # cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings -Winit-self'
 cxxflag=$flag' -Wold-style-cast -Woverloaded-virtual -Wnon-virtual-dtor -Wzero-as-null-pointer-constant -Wsuggest-override'
 unset flag
