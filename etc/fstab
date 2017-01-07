@@ -1,1 +1,7 @@
-noatime,nodiratime
+#noatime,nodiratime
+
+tmpfs   /tmp    tmpfs   mode=1777       0       0
+tmpfs /home/jonathan/rawdisk2       tmpfs size=2304M 0 0
+tmpfs /home/jonathan/rawdisk        tmpfs size=512M  0 0
+tmpfs /home/jonathan/.ccache        tmpfs size=256M  0 0
+tmpfs /home/jonathan/projects/build tmpfs size=129M  0 0
