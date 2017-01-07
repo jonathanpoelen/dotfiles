@@ -1,0 +1,4 @@
+753c753
+<         "*.(#i)(asf|asx|avi|f4v|flac|flv|m1v|m2p|m2v|m4v|mjpg|mka|mkv|mov|mp3|mp4|mpe|mpeg|mpg|ogg|ogm|ogv|opus|qt|rm|ts|vob|wav|webm|wma|wmv|wv)(-.)" && rc=0
+---
+>         "*.(#i)(asf|asx|avi|f4v|flac|flv|m1v|m2p|m2v|m3u|m4a|m4v|mjpg|mka|mkv|mov|mp3|mp4|mpe|mpeg|mpg|ogg|ogm|ogv|opus|qt|rm|ts|vob|wav|webm|wma|wmv|wv)(-.)" && rc=0
