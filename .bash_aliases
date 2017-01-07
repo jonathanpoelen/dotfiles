@@ -63,8 +63,8 @@ alias g++-7=/usr/lib/gcc-snapshot/bin/g++
 alias g++='g++ -fdiagnostics-color=always'
 alias g11='g++ -fdiagnostics-color=always -std=c++11'
 alias g14='g++ -fdiagnostics-color=always -std=c++14'
-alias g1z='g++-6 -fdiagnostics-color=always -std=c++1z'
-alias g14-6='g++-6 -fdiagnostics-color=always -std=c++14'
+alias g1z='g++-7 -fdiagnostics-color=always -std=c++1z'
+alias g14-7='g++-7 -fdiagnostics-color=always -std=c++14'
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:quote=00;32'
 
