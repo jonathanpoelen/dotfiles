@@ -239,10 +239,8 @@ function acf() {
 # some more git aliases
 alias gsh='git stash'
 alias gst='git status'
-alias gl='git pull'
 alias gpo='git push origin'
 alias glo='git pull origin'
-alias gp='git push'
 alias gc='git commit -v'
 alias gca='git commit -v -a'
 alias gc!='git commit --amend'
@@ -295,9 +293,9 @@ function git_current_repository() {
 }
 
 # these aliases take advantage of the previous function
-alias gpl='git pull origin $(git_current_branch)'
-alias gph='git push origin $(git_current_branch)'
-alias gpp='git pull origin $(git_current_branch) && git push origin $(git_current_branch)'
+alias gl='git pull origin $(git_current_branch)'
+alias gp='git push origin $(git_current_branch)'
+alias glp='git pull origin $(git_current_branch) && git push origin $(git_current_branch)'
 
 
 # some more diff aliases

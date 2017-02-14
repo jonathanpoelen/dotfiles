@@ -79,10 +79,11 @@ alias -g TT='>~/rawdisk2/ll'
 alias -g V='|view -'
 alias -g L='|less'
 alias -g G='|grep'
-alias -g S='|sed '
+alias -g S='|sed'
 alias -g K='|k'
 alias -g A='|awk'
 alias -g W='|while read'
+alias -g X='|xargs -d\\n'
 
 alias -g N2='2>/dev/null'
 alias -g T2='2>~/rawdisk2/l'
@@ -91,23 +92,24 @@ alias -g TT2='2>~/rawdisk2/ll'
 alias -g V2='|&view -'
 alias -g L2='|&less'
 alias -g G2='|&grep'
-alias -g S2='|&sed '
+alias -g S2='|&sed'
 alias -g K2='|&k'
 alias -g A2='|&awk'
 alias -g W2='|&while read'
+alias -g X2='|&xargs -d\\n'
 
 alias -g C='--color=always'
 
 alias -g @@='|col'
-alias -g @1='|awk { print $1 }'
-alias -g @2='|awk { print $2 }'
-alias -g @3='|awk { print $3 }'
-alias -g @4='|awk { print $4 }'
-alias -g @5='|awk { print $5 }'
-alias -g @6='|awk { print $6 }'
-alias -g @7='|awk { print $7 }'
-alias -g @8='|awk { print $8 }'
-alias -g @9='|awk { print $9 }'
+alias -g @1="|awk '{ print \$1 }'"
+alias -g @2="|awk '{ print \$2 }'"
+alias -g @3="|awk '{ print \$3 }'"
+alias -g @4="|awk '{ print \$4 }'"
+alias -g @5="|awk '{ print \$5 }'"
+alias -g @6="|awk '{ print \$6 }'"
+alias -g @7="|awk '{ print \$7 }'"
+alias -g @8="|awk '{ print \$8 }'"
+alias -g @9="|awk '{ print \$9 }'"
 
 #zstyle ':completion:*' hosts off
 
@@ -120,18 +122,36 @@ _dl () {
   local url="$1"
   local fmt="$2"
   local ext="$3"
-  local name="$4"
-  local n="$5"
+  local n="$4"
+  local nstart="${START=01}"
+
+  shift 4
+
+  local i d
+  for i in "$@" ; do
+    d="$(printf $fmt $i)"
+    mkdir -p -- "$d" && cd -- "$d" && { wget --user-agent=Mozilla/5.0 --no-verbose "$url$d"{$nstart..$n}"$ext" -c ; - }
+  done
+}
+alias dl='noglob _dl'
+
+_dl2 () {
+  local url="$1"
+  local fmt="$2"
+  local ext="$3"
+  local n="$4"
+  local nd="$5"
+  local nstart="${START=01}"
 
   shift 5
 
   local i d
-  for i in "$@" ; do 
-    d="$(printf $fmt $name $i)"
-    mkdir -p -- "$d" && cd -- "$d" && { wget --user-agent=Mozilla/5.0 --no-verbose "$url$d"{01..$n}"$ext" -c ; - }
-  done 
+  for i in "$@" ; do
+    d="$(printf $fmt $i $i-$nd)"
+    mkdir -p -- "$d" && cd -- "$d" && { wget --user-agent=Mozilla/5.0 --no-verbose "$url$d"{$nstart..$n}"$ext" -c ; - }
+  done
 }
-alias dl='noglob _dl'
+alias dl2='noglob _dl2'
 
 _accept_and_menu() {
   zle complete-word
@@ -152,6 +172,29 @@ _inc_last_arg() {
 }
 zle -N _inc_last_arg
 bindkey "^[=" _inc_last_arg
+
+_insert_pre_cmd_prefix=
+_insert_pre_cmd_line_init=
+_insert_pre_cmd()
+{
+  if [ ! -z "$_insert_pre_cmd_prefix" ] ; then
+    eval "zle-line-init () { $_insert_pre_cmd_line_init }"
+    _insert_pre_cmd_prefix=
+  fi
+  if [ ! -z "$BUFFER" ] ; then
+    _insert_pre_cmd_prefix=$LBUFFER
+    _insert_pre_cmd_line_init=$functions[zle-line-init]
+    eval "zle-line-init () {
+      $_insert_pre_cmd_line_init
+      if [ -z \"\$BUFFER\" ] ; then
+        BUFFER=\$_insert_pre_cmd_prefix
+        CURSOR=\${#BUFFER}
+      fi
+    }"
+  fi
+}
+zle -N _insert_pre_cmd
+bindkey "^@" _insert_pre_cmd
 
 #autoload incremental-complete-word
 #zle -N incremental-complete-word
@@ -199,3 +242,30 @@ loadplugins() {
   source $HOME/game/zsh-autosuggestions/zsh-autosuggestions.zsh
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
 }
+
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="$PATH:/home/jonathan/.fzf/bin"
+FZF_COMPLETION_TRIGGER='~~'
+source ~/.fzf/shell/completion.zsh
+__fsel() {
+  setopt localoptions pipefail 2> /dev/null
+  find -L . -mindepth 1 \( -path '*/\.*' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \) -prune \
+    -o -type f -print \
+    -o -type d -print \
+    -o -type l -print 2> /dev/null | cut -b3- | \
+  fzf --height 40% -m "$@" | while read item; do
+    echo -n "${(q)item} "
+  done
+  return $?
+}
+
+fzf-file-widget() {
+  LBUFFER="${LBUFFER}$(__fsel)"
+  local ret=$?
+  zle redisplay
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+zle     -N    fzf-file-widget
+bindkey '\ec' fzf-file-widget
+

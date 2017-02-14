@@ -109,3 +109,5 @@ if [ -f "$HOME/bin" ]; then
 	PATH=$PATH:$HOME/bin
 fi
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
