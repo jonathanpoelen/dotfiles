@@ -245,7 +245,7 @@ loadplugins() {
 
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="$PATH:/home/jonathan/.fzf/bin"
-FZF_COMPLETION_TRIGGER='~~'
+FZF_COMPLETION_TRIGGER=','
 source ~/.fzf/shell/completion.zsh
 __fsel() {
   setopt localoptions pipefail 2> /dev/null
@@ -267,5 +267,23 @@ fzf-file-widget() {
   return $ret
 }
 zle     -N    fzf-file-widget
-bindkey '\ec' fzf-file-widget
+bindkey '^[' fzf-file-widget
 
+fzf-history-widget() {
+  local selected num
+  setopt localoptions noglobsubst pipefail 2> /dev/null
+  selected=( $(fc -l 1 |
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS +s --tac -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(q)LBUFFER} +m" fzf) )
+  local ret=$?
+  if [ -n "$selected" ]; then
+    num=$selected[1]
+    if [ -n "$num" ]; then
+      zle vi-fetch-history -n $num
+    fi
+  fi
+  zle redisplay
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}
+zle     -N   fzf-history-widget
+bindkey '^[r' fzf-history-widget
