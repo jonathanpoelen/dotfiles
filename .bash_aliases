@@ -10,19 +10,19 @@ export TMPDIR=/home/jonathan/rawdisk
 export RLWRAP_HOME=/home/jonathan/.rlwrap
 
 if [ -x /usr/bin/dircolors ]; then
-	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-	alias ls='ls --color=auto'
-	alias dir='dir --color=auto'
-	alias vdir='vdir --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias dir='dir --color=auto'
+  alias vdir='vdir --color=auto'
 
-	alias grep='grep --color=auto'
-	alias fgrep='fgrep --color=auto'
-	alias egrep='egrep --color=auto'
-	alias rgrep='rgrep --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+  alias rgrep='rgrep --color=auto'
 
-	#alias wcgrep='wcgrep --color=auto'
+  #alias wcgrep='wcgrep --color=auto'
 
-	GREP_COLOR='1;31'
+  GREP_COLOR='1;31'
 fi
 
 # some more ls aliases
@@ -38,8 +38,8 @@ alias lh='ls -sh'
 # alias sl=ls # often screw this u
 
 function lll() {
-	ls -l "$@" | less
-	return $?
+  ls -l "$@" | less
+  return $?
 }
 
 alias cr='cp -R'
@@ -218,8 +218,8 @@ alias g1='grep -m1'
 # alias verg1='grep -vErm1'
 
 function m() {
-	[ $# -lt 1 ] && echo "Usage: $0 missing directory" >&2 && return 1
-	mkdir -p "$@" && cd -- "$1"
+  [ $# -lt 1 ] && echo "Usage: $0 missing directory" >&2 && return 1
+  mkdir -p "$@" && cd -- "$1"
 }
 
 # alias aptupdate='sudo apt-get update'
@@ -228,14 +228,14 @@ function m() {
 # alias aptinstall='sudo apt-get install'
 # alias aptremove='sudo apt-get remove'
 function acf() {
-	if [ -z "$1" ] ; then
-		echo $0 regex filter >&2
-		return 1
-	elif [ -z "$2" ] ; then
-		apt-cache search "$1" | grep -i "$1"
-	else
-		apt-cache search "$1" | grep -i "$2"
-	fi
+  if [ -z "$1" ] ; then
+    echo $0 regex filter >&2
+    return 1
+  elif [ -z "$2" ] ; then
+    apt-cache search "$1" | grep -i "$1"
+  else
+    apt-cache search "$1" | grep -i "$2"
+  fi
 }
 
 # some more git aliases
@@ -308,16 +308,16 @@ cdwdiff() { dwdiff -n "$@" | colordiff ; }
 
 
 function calc(){
-	echo $(($*))
+  echo $(($*))
 }
 
 #alias brightness='xrandr --output LVDS-0 --brightness'
 
 function jhibernate(){
-	sudo pm-hibernate
-	#sleep 2
-	#qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 33 >/dev/null
-	#xmodmap ~/.Xmodmap
+  sudo pm-hibernate
+  #sleep 2
+  #qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 33 >/dev/null
+  #xmodmap ~/.Xmodmap
 }
 #alias jhibernate='sudo pm-hibernate'
 
@@ -326,13 +326,13 @@ alias isearch='search -i'
 source ~/.bash_aliases_apt
 
 function man(){
-	env \
-	LESS_TERMCAP_md=$(printf "\e[0;31m") \
-	LESS_TERMCAP_se=$(printf "\e[0m") \
-	LESS_TERMCAP_ue=$(printf "\e[0m") \
-	LESS_TERMCAP_us=$(printf "\e[0;32m") \
-	man "$@"
-#   LESS_TERMCAP_so=$(printf "\e[0;40;39m")
+  env \
+  LESS_TERMCAP_md=$(printf "\e[0;31m") \
+  LESS_TERMCAP_se=$(printf "\e[0m") \
+  LESS_TERMCAP_ue=$(printf "\e[0m") \
+  LESS_TERMCAP_us=$(printf "\e[0;32m") \
+  man "$@"
+  # LESS_TERMCAP_so=$(printf "\e[0;40;39m")
 }
 
 # alias qdbus=/usr/lib/x86_64-linux-gnu/qt4/bin/qdbus
