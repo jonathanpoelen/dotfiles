@@ -58,6 +58,8 @@ alias hsi='hs -i'
 #   sleep 10; alert
 # alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+export ASAN_SYMBOLIZER_PATH=/usr/lib/llvm-3.7/bin/llvm-symbolizer
+
 alias g++-7=/usr/lib/gcc-snapshot/bin/g++
 
 alias g++='g++ -fdiagnostics-color=always'
