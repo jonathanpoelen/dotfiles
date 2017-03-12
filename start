@@ -17,3 +17,5 @@ ln -s ~/.vimperatorrc ~/.vimperator ~/.mozilla ff/
 # fix grammalec
 mkdir -p /home/jonathan/rawdisk/home/jonathan/
 ln -s /home/jonathan/rawdisk/ /home/jonathan/rawdisk/home/jonathan/
+
+redshift -l 48.85:2.34 -t 5700:4000 -g 0.8 -m randr &
