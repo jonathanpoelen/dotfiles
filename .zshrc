@@ -1,41 +1,5 @@
-# Path to your oh-my-zsh configuration.
-#ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-#ZSH_THEME='jo_link_noir'
-
-# Example aliases
-# alias zshconfig='mate ~/.zshrc'
-# alias ohmyzsh='mate ~/.oh-my-zsh'
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE='true'
-
-# Comment this out to disable weekly auto-update checks
-DISABLE_AUTO_UPDATE='true'
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS='true'
-
-# Uncomment following line if you want to disable autosetting terminal title.
-DISABLE_AUTO_TITLE='true'
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS='true'
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# plugins=(git svn screen)
-# plugins=()
-# plugins=(screen command-coloring)
-# plugins=(screen zsh-syntax-highlighting)
-
-DISABLE_CORRECTION='true'
 # source $ZSH/oh-my-zsh.sh
+source $HOME/.bash_aliases
 source $HOME/.zsh_profile
 
 # alias showshlvl='PS1="%{$fg_no_bold[yellow]%}[$SHLVL]$PS1"'
@@ -58,23 +22,15 @@ function _extglob {
 alias extglob='noglob _extglob ' # delay globbing until inside
 #ex: extglob echo .(#i)ic*
 
+alias calc='noglob calc'
+
 alias lf='ls *(^/)'
 alias lfh='ls -sh *(^/)'
-
-source $HOME/.bash_aliases
-
-# Same color as ls for completion
-# eval "$(dircolors -b ~/.dircolors)" # writing in .bash_aliases
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-# don't complete the same filenames again
-zstyle ':completion:*:(rm|cp|mv|ls):*' ignore-line other
-
-alias calc='noglob calc'
 
 alias -g N='>/dev/null'
 alias -g T='>~/rawdisk2/l'
 alias -g TT='>~/rawdisk2/ll'
+alias -g ZT='|fzf -m --cycle>~/rawdisk2/l'
 
 alias -g V='|view -'
 alias -g L='|less'
@@ -84,10 +40,12 @@ alias -g K='|k'
 alias -g A='|awk'
 alias -g W='|while read'
 alias -g X='|xargs -d\\n'
+alias -g Z='|fzf -m --cycle'
 
 alias -g N2='2>/dev/null'
 alias -g T2='2>~/rawdisk2/l'
 alias -g TT2='2>~/rawdisk2/ll'
+alias -g ZT2='|fzf -m --cycle 2>~/rawdisk2/l'
 
 alias -g V2='|&view -'
 alias -g L2='|&less'
@@ -97,6 +55,7 @@ alias -g K2='|&k'
 alias -g A2='|&awk'
 alias -g W2='|&while read'
 alias -g X2='|&xargs -d\\n'
+alias -g Z2='|fzf -m --cycle'
 
 alias -g C='--color=always'
 
@@ -118,60 +77,16 @@ _y () {
 }
 alias y='noglob _y'
 
-_dl () {
-  local url="$1"
-  local fmt="$2"
-  local ext="$3"
-  local n="$4"
-  local nstart="${START=01}"
-
-  shift 4
-
-  local i d
-  for i in "$@" ; do
-    d="$(printf $fmt $i)"
-    mkdir -p -- "$d" && cd -- "$d" && { wget --user-agent=Mozilla/5.0 --no-verbose "$url$d"{$nstart..$n}"$ext" -c ; - }
-  done
-}
-alias dl='noglob _dl'
-
-_dl2 () {
-  local url="$1"
-  local fmt="$2"
-  local ext="$3"
-  local n="$4"
-  local nd="$5"
-  local nstart="${START=01}"
-
-  shift 5
-
-  local i d
-  for i in "$@" ; do
-    d="$(printf $fmt $i $i-$nd)"
-    mkdir -p -- "$d" && cd -- "$d" && { wget --user-agent=Mozilla/5.0 --no-verbose "$url$d"{$nstart..$n}"$ext" -c ; - }
-  done
-}
-alias dl2='noglob _dl2'
-
-_accept_and_menu() {
-  zle complete-word
-  zle accept-search
-  zle complete-word
-  zle complete-word
-}
-zle -N _accept_and_menu
-bindkey '^[o' _accept_and_menu
-
-_inc_last_arg() {
-  local r=${BUFFER/* }
-  [ '}' = "${r[${#r}]}" ] && r=${r/\{*}${${r/*..}:0:-1}
-  local n=$((${r//[^0-9]/}+1))
-  [ ! -z "$NUMERIC" ] && n="{$n..$NUMERIC}"
-  BUFFER=${BUFFER% *}' '$n
-  CURSOR=$#BUFFER
-}
-zle -N _inc_last_arg
-bindkey "^[=" _inc_last_arg
+#_inc_last_arg() {
+#  local r=${BUFFER/* }
+#  [ '}' = "${r[${#r}]}" ] && r=${r/\{*}${${r/*..}:0:-1}
+#  local n=$((${r//[^0-9]/}+1))
+#  [ ! -z "$NUMERIC" ] && n="{$n..$NUMERIC}"
+#  BUFFER=${BUFFER% *}' '$n
+#  CURSOR=$#BUFFER
+#}
+#zle -N _inc_last_arg
+#bindkey "^[=" _inc_last_arg
 
 _insert_pre_cmd_prefix=
 _insert_pre_cmd_line_init=

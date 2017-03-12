@@ -1,42 +1,3 @@
-# add a function path
-# fpath=($ZSH/functions $ZSH/completions $fpath)
-
-# Load all of the config files in ~/oh-my-zsh that end in .zsh
-# TIP: Add files you don't want in git to .gitignore
-# for config_file ($ZSH/lib/*.zsh); do
-#   source $config_file
-# done
-
-
-## aliases
-
-# Push and pop directories on directory stack
-# alias pu='pushd'
-# alias po='popd'
-
-# Basic directory operations
-# alias ...='cd ../..'
-# alias -- -='cd -'
-
-# Super user
-# alias _='sudo'
-# alias please='sudo'
-
-#alias g='grep -in'
-
-# Show history
-# if [ "$HIST_STAMPS" = "mm/dd/yyyy" ]
-# then
-#     alias history='fc -fl 1'
-# elif [ "$HIST_STAMPS" = "dd.mm.yyyy" ]
-# then
-#     alias history='fc -El 1'
-# elif [ "$HIST_STAMPS" = "yyyy-mm-dd" ]
-# then
-#     alias history='fc -il 1'
-# else
-#     alias history='fc -l 1'
-# fi
 alias history='fc -l 1'
 
 # alias afind='ack-grep -il'
@@ -54,13 +15,11 @@ WORDCHARS=''
 
 zmodload -i zsh/complist
 
-## case-insensitive (all),partial-word and then substring completion
-# if [ "x$CASE_SENSITIVE" = "xtrue" ]; then
-#   zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-#   unset CASE_SENSITIVE
-# else
-  zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-# fi
+
+# zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[._-]=** r:|=*'
 
 # zstyle ':completion:*' list-colors ''
 
@@ -109,15 +68,12 @@ zstyle ':completion::complete:*' cache-path $ZSH/cache/
 # ... unless we really want to.
 zstyle '*' single-ignored show
 
-# if [ "x$COMPLETION_WAITING_DOTS" = "xtrue" ]; then
-#   expand-or-complete-with-dots() {
-#     echo -n "\e[31m......\e[0m"
-#     zle expand-or-complete
-#     zle redisplay
-#   }
-#   zle -N expand-or-complete-with-dots
-#   bindkey "^I" expand-or-complete-with-dots
-# fi
+# Same color as ls for completion
+# eval "$(dircolors -b ~/.dircolors)" # writing in .bash_aliases
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# don't complete the same filenames again
+zstyle ':completion:*:(rm|cp|mv|ls):*' ignore-line other
 
 
 ## correction
@@ -157,102 +113,11 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 
-# cd () {
-#   if   [[ "x$*" == "x..." ]]; then
-#     cd ../..
-#   elif [[ "x$*" == "x...." ]]; then
-#     cd ../../..
-#   elif [[ "x$*" == "x....." ]]; then
-#     cd ../../../..
-#   elif [[ "x$*" == "x......" ]]; then
-#     cd ../../../../..
-#   elif [ -d ~/.autoenv ]; then
-#     source ~/.autoenv/activate.sh
-#     autoenv_cd "$@"
-#   else
-#     builtin cd "$@"
-#   fi
-# }
-
-#alias md='mkdir -p'
-#alias rd=rmdir
-#alias d='dirs -v | head -10'
-
-
 ## functions
 
 #function zsh_stats() {
 #  history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
 #}
-
-# function take() {
-#   mkdir -p $1
-#   cd $1
-# }
-
-#
-# Get the value of an alias.
-#
-# Arguments:
-#    1. alias - The alias to get its value from
-# STDOUT:
-#    The value of alias $1 (if it has one).
-# Return value:
-#    0 if the alias was found,
-#    1 if it does not exist
-#
-# function alias_value() {
-#     alias "$1" | sed "s/^$1='\(.*\)'$/\1/"
-#     test $(alias "$1")
-# }
-
-#
-# Try to get the value of an alias,
-# otherwise return the input.
-#
-# Arguments:
-#    1. alias - The alias to get its value from
-# STDOUT:
-#    The value of alias $1, or $1 if there is no alias $1.
-# Return value:
-#    Always 0
-#
-# function try_alias_value() {
-#     alias_value "$1" || echo "$1"
-# }
-
-#
-# Set variable "$1" to default value "$2" if "$1" is not yet defined.
-#
-# Arguments:
-#    1. name - The variable to set
-#    2. val  - The default value
-# Return value:
-#    0 if the variable exists, 3 if it was set
-#
-function default() {
-    test `typeset +m "$1"` && return 0
-    typeset -g "$1"="$2"   && return 3
-}
-
-#
-# Set enviroment variable "$1" to default value "$2" if "$1" is not yet defined.
-#
-# Arguments:
-#    1. name - The env variable to set
-#    2. val  - The default value
-# Return value:
-#    0 if the env variable exists, 3 if it was set
-#
-function env_default() {
-    env | grep -q "^$1=" && return 0
-    export "$1=$2"       && return 3
-}
-
-
-## grep
-
-# export GREP_COLOR='1;32'
 
 
 ## history
@@ -299,7 +164,7 @@ bindkey ' ' magic-space    # also do history expansion on space
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
-#bindkey '^[[Z' reverse-menu-complete
+bindkey '^[[Z' reverse-menu-complete
 bindkey '^[i' reverse-menu-complete
 
 # Make the delete key (or Fn + Delete on the Mac) work instead of outputting a ~
@@ -312,6 +177,70 @@ bindkey "\e[3~" delete-char
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\C-x\C-e' edit-command-line
+
+_accept_and_menu() {
+  zle complete-word
+  zle accept-search
+  zle complete-word
+  zle complete-word
+}
+zle -N _accept_and_menu
+bindkey '^[o' _accept_and_menu
+
+# Cycle through history based on characters already typed on the line
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[1;5A' up-line-or-beginning-search
+bindkey '^[[1;5B' down-line-or-beginning-search
+#bindkey "$terminfo[kcuu1]" up-line-or-beginning-search
+#bindkey "$terminfo[kcud1]" down-line-or-beginning-search
+
+# Cycle through globs choices, one at a time.  Bound to '^n' below.
+_cycle-glob ()
+{
+  setopt local_options glob_complete
+  zle menu-complete
+}
+zle -N _cycle-glob
+bindkey '^[e' _cycle-glob
+
+
+_popd()
+{
+  popd > /dev/null
+  zle reset-prompt
+}
+
+_pushd()
+{
+  pushd .. > /dev/null
+  zle reset-prompt
+}
+
+_list-dir()
+{
+  BUFFER+=' *(/)'
+  CURSOR+=5
+  zle _cycle-glob
+}
+
+_list-file()
+{
+  BUFFER+=' *(^/)'
+  CURSOR+=6
+  zle _cycle-glob
+}
+
+zle -N _popd
+zle -N _pushd
+zle -N _list-dir
+zle -N _list-file
+bindkey '^[[1;3B' _popd
+bindkey '^[[1;3A' _pushd
+bindkey '^[[1;3C' _list-dir
+bindkey '^[[1;3D' _list-file
 
 # consider emacs keybindings:
 
@@ -352,109 +281,9 @@ export LESS="-R"
 export LC_CTYPE=$LANG
 
 
-## spectrum
-
-# A script to make using 256 colors in zsh less painful.
-# P.C. Shyamshankar <sykora@lucentbeing.com>
-# Copied from http://github.com/sykora/etc/blob/master/zsh/functions/spectrum/
-
-# typeset -Ag FX FG BG
-#
-# FX=(
-#     reset     "%{[00m%}"
-#     bold      "%{[01m%}" no-bold      "%{[22m%}"
-#     italic    "%{[03m%}" no-italic    "%{[23m%}"
-#     underline "%{[04m%}" no-underline "%{[24m%}"
-#     blink     "%{[05m%}" no-blink     "%{[25m%}"
-#     reverse   "%{[07m%}" no-reverse   "%{[27m%}"
-# )
-#
-# for color in {000..255}; do
-#     FG[$color]="%{[38;5;${color}m%}"
-#     BG[$color]="%{[48;5;${color}m%}"
-# done
-
-# Show all 256 colors with color number
-# function spectrum_ls() {
-#   for code in {000..255}; do
-#     print -P -- "$code: %F{$code}Test%f"
-#   done
-# }
-
-# Show all 256 colors where the background is set to specific color
-# function spectrum_bls() {
-#   for code in {000..255}; do
-#     ((cc = code + 1))
-#     print -P -- "$BG[$code]$code: Test %{$reset_color%}"
-#   done
-# }
-
-
-# termsupport
-
-# #usage: title short_tab_title looooooooooooooooooooooggggggg_windows_title
-# #http://www.faqs.org/docs/Linux-mini/Xterm-Title.html#ss3.1
-# #Fully support screen, iterm, and probably most modern xterm and rxvt
-# #Limited support for Apple Terminal (Terminal can't set window or tab separately)
-# function title {
-#   if [[ "$DISABLE_AUTO_TITLE" == "true" ]] || [[ "$EMACS" == *term* ]]; then
-#     return
-#   fi
-#   if [[ "$TERM" == screen* ]]; then
-#     print -Pn "\ek$1:q\e\\" #set screen hardstatus, usually truncated at 20 chars
-#   elif [[ "$TERM" == xterm* ]] || [[ $TERM == rxvt* ]] || [[ $TERM == ansi ]] || [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
-#     print -Pn "\e]2;$2:q\a" #set window name
-#     print -Pn "\e]1;$1:q\a" #set icon (=tab) name (will override window name on broken terminal)
-#   fi
-# }
-#
-# ZSH_THEME_TERM_TAB_TITLE_IDLE="%15<..<%~%<<" #15 char left truncated PWD
-# ZSH_THEME_TERM_TITLE_IDLE="%n@%m: %~"
-#
-# #Appears when you have the prompt
-# function omz_termsupport_precmd {
-#   title $ZSH_THEME_TERM_TAB_TITLE_IDLE $ZSH_THEME_TERM_TITLE_IDLE
-# }
-#
-# #Appears at the beginning of (and during) of command execution
-# function omz_termsupport_preexec {
-#   emulate -L zsh
-#   setopt extended_glob
-#   local CMD=${1[(wr)^(*=*|sudo|ssh|rake|-*)]} #cmd name only, or if this is sudo or ssh, the next cmd
-#   local LINE="${2:gs/$/\\$}"
-#   LINE="${LINE:gs/%/%%}"
-#   title "$CMD" "%100>...>$LINE%<<"
-# }
-#
-# autoload -U add-zsh-hook
-# add-zsh-hook precmd  omz_termsupport_precmd
-# add-zsh-hook preexec omz_termsupport_preexec
-
-
-
 ## theme-and-apparence
 
-# ls colors
 autoload colors; colors;
-# export LSCOLORS="Gxfxcxdxbxegedabagacad"
-#export LS_COLORS
-
-# # Enable ls colors
-# if [ "$DISABLE_LS_COLORS" != "true" ]
-# then
-#   # Find the option for using colors in ls, depending on the version: Linux or BSD
-#   if [[ "$(uname -s)" == "NetBSD" ]]; then
-#     # On NetBSD, test if "gls" (GNU ls) is installed (this one supports colors);
-#     # otherwise, leave ls as is, because NetBSD's ls doesn't support -G
-#     gls --color -d . &>/dev/null 2>&1 && alias ls='gls --color=tty'
-#   elif [[ "$(uname -s)" == "OpenBSD" ]]; then
-#     # On OpenBSD, test if "colorls" is installed (this one supports colors);
-#     # otherwise, leave ls as is, because OpenBSD's ls doesn't support -G
-#     colorls -G -d . &>/dev/null 2>&1 && alias ls='colorls -G'
-#   else
-#     ls --color -d . &>/dev/null 2>&1 && alias ls='ls --color=tty' || alias ls='ls -G'
-#   fi
-# fi
 
 #setopt no_beep
 setopt auto_cd
@@ -481,42 +310,6 @@ setopt auto_cd
 setopt prompt_subst
 #
 
-
-
-
-
-
-# Set ZSH_CUSTOM to the path where your custom config files
-# and plugins exists, or else we will use the default custom/
-# if [[ -z "$ZSH_CUSTOM" ]]; then
-#     ZSH_CUSTOM="$ZSH/custom"
-# fi
-
-
-# is_plugin() {
-#   local base_dir=$1
-#   local name=$2
-#   test -f $base_dir/plugins/$name/$name.plugin.zsh \
-#     || test -f $base_dir/plugins/$name/_$name
-# }
-# Add all defined plugins to fpath. This must be done
-# before running compinit.
-# for plugin ($plugins); do
-#   if is_plugin $ZSH_CUSTOM $plugin; then
-#     fpath=($ZSH_CUSTOM/plugins/$plugin $fpath)
-#   elif is_plugin $ZSH $plugin; then
-#     fpath=($ZSH/plugins/$plugin $fpath)
-#   fi
-# done
-
-# Figure out the SHORT hostname
-# if [ -n "$commands[scutil]" ]; then
-#   # OS X
-#   SHORT_HOST=$(scutil --get ComputerName)
-# else
-#   SHORT_HOST=${HOST/.*/}
-# fi
-
 # Save the location of the current completion dump file.
 ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
 
@@ -524,20 +317,6 @@ ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
 autoload -U compinit
 compinit -i -d "${ZSH_COMPDUMP}"
 
-# Load all of the plugins that were defined in ~/.zshrc
-# for plugin ($plugins); do
-#   if [ -f $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh ]; then
-#     source $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh
-#   elif [ -f $ZSH/plugins/$plugin/$plugin.plugin.zsh ]; then
-#     source $ZSH/plugins/$plugin/$plugin.plugin.zsh
-#   fi
-# done
-
-# Load all of your custom configurations from custom/
-# for config_file ($ZSH_CUSTOM/*.zsh(N)); do
-#   source $config_file
-# done
-# unset config_file
 
 PROMPT='%{$bg[grey]%}%{$fg[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg_no_bold[green]%}.%{$fg[red]%}?%?%{$fg_no_bold[red]%})$%{$reset_color%} '
 #PROMPT='%{$bg[black]%}%{$fg_bold[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg[green]%}.%{$fg_no_bold[red]%}?%?%{$fg_bold[red]%})$%{$reset_color%} '
