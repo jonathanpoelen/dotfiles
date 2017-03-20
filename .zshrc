@@ -11,9 +11,9 @@ export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/b
 
 function _extglob {
   setopt localoptions extendedglob
-	local command="$1"
-	shift
-	if [ "$command" = nocorrect ] ; then
+  local command="$1"
+  shift
+  if [ "$command" = nocorrect ] ; then
     command="$1"
     shift
   fi
