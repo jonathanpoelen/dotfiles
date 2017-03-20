@@ -71,34 +71,35 @@ alias g14-7='g++-7 -fdiagnostics-color=always -std=c++14'
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:quote=00;32'
 
-flag='-Wall -Wextra -Wswitch-enum -Wlogical-op -Wundef -Wcast-align -Wformat-security -Wunreachable-code -Wformat=2'\
-' -Wfloat-equal -Wpointer-arith -Wconversion -Wmissing-declarations -Wmissing-noreturn -Wmissing-format-attribute'\
-' -Wpacked -Wredundant-decls -Winline -Wdouble-promotion -Wcast-qual -pedantic -Wmissing-include-dirs -Warray-bounds=2'\
-' -Wnull-dereference -Wduplicated-cond -Wmisleading-indentation'
-# cflag=$flag' -Wstrict-prototypes -Wbad-function-cast -Wmissing-prototypes -Wnested-externs -Waggregate-return -Wwrite-strings -Winit-self'
-cxxflag=$flag' -Wold-style-cast -Woverloaded-virtual -Wnon-virtual-dtor -Wzero-as-null-pointer-constant -Wsuggest-override'
-unset flag
-
-# unset cflag
-
+# -Wstrict-overflow=1 # -Wall
+# -Wstrict-overflow=2
+# -Wstrict-overflow=3
+# -Wstrict-overflow=4
+# -Wstrict-overflow=5
+# -Wstrict-default # bad idea
+# -Wmissing-format-attribute
+cxxflag='-Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wdisabled-optimization -Wfloat-equal -Wformat-security -Wformat-signedness -Wformat=2 -Wmissing-declarations -Wmissing-include-dirs -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wpacked -Wredundant-decls -Wundef -Wuninitialized -Wunused-macros -Wvla -Wswitch -Wconversion -Wduplicated-cond -Wnull-dereference -fsized-deallocation -Warray-bounds=2 -Wconditionally-supported -Wnoexcept -Wsized-deallocation -Wstrict-null-sentinel -Wsuggest-override -Wconditionally-supported -Wfloat-conversion -Wopenmp-simd -Wuseless-cast -Wsuggest-attribute=noreturn -Wzero-as-null-pointer-constant -Wlogical-op -Wvector-operation-performance -Wdouble-promotion -Wtrampolines -Winline'
 alias gw++="g++ $cxxflag"
 alias gw11="g11 $cxxflag"
 alias gw14="g14 $cxxflag"
-alias gw1z="g1z $cxxflag -Wmisleading-indentation -Wduplicated-cond"
-alias gw1zz="g1z-7 $cxxflag -Wmisleading-indentation -Wduplicated-cond"
-alias gw14-7="g14-7 $cxxflag -Wmisleading-indentation -Wduplicated-cond"
-
+alias gw1z="g1z $cxxflag -Wmisleading-indentation"
+alias gw1zz="g1z-7 $cxxflag -Wmisleading-indentation"
+alias gw14-7="g14-7 $cxxflag -Wmisleading-indentation"
 unset cxxflag
 
-cxxflag='-Weverything -Wno-shadow -Wno-effc++ -Wno-padded -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes'
+cxxflag='-Weverything -Wno-shadow -Wno-effc++ -Wno-padded -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes -Wno-c++98-compat-pedantic'
 export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer-3.7
 alias cw++="clang++ $cxxflag -fcolor-diagnostics"
-alias cw11="clang++ $cxxflag -fcolor-diagnostics -Wno-c++98-compat-pedantic -std=c++11"
-alias cw14="clang++ $cxxflag -fcolor-diagnostics -Wno-c++98-compat-pedantic -std=c++14"
-alias cw1z="clang++ $cxxflag -fcolor-diagnostics -Wno-c++98-compat-pedantic -std=c++1z"
+alias cw11="clang++ $cxxflag -fcolor-diagnostics -std=c++11"
+alias cw14="clang++ $cxxflag -fcolor-diagnostics -std=c++14"
+alias cw1z="clang++ $cxxflag -fcolor-diagnostics -std=c++1z"
 unset cxxflag
 
-# optimize flags compiler: -O3 -funroll-loops -fpeel-loops -ffast-math -march=native -ffat-lto-objects -flto
+# coverage flags: -fprofile-arcs -ftest-coverage --coverage
+# coverage optimization flags: -fprofile-use or -fprofile-use=path
+# optimization flags: -O3 -funroll-loops -fpeel-loops -ffast-math -march=native -ffat-lto-objects -flto
+# debug flags: -D_GLIBCXX_DEBUG_PEDANTIC -D_GLIBCXX_ASSERTIONS -D_GLIBCXX_DEBUG
+# sanitizer flags: -fsanitize=bounds-strict -fsanitize=bounds-strict -fsanitize=bounds -fsanitize=undefined -fsanitize=leak -fsanitize=address -fno-omit-frame-pointer
 
 
 alias e=kwrite
