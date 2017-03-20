@@ -4,3 +4,7 @@ set prompt >
 set history save on
 #set print pretty on
 
+#https://sourceware.org/gdb/onlinedocs/gdb/Print-Settings.html
+set print raw frame-arguments off
+set print frame-arguments all
+#set print elements 33
