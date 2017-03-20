@@ -1,7 +1,5 @@
 using gcc : : ccache g++ : <cxxflags>-fdiagnostics-color=always ;
-using gcc : 6.0 : /usr/lib/gcc-snapshot/bin/g++ : <cxxflags>-fdiagnostics-color=always ;
-using gcc : cache : ccache g++ : <cxxflags>-fdiagnostics-color=always ;
-using gcc : cache6 : ccache /usr/lib/gcc-snapshot/bin/g++ : <cxxflags>-fdiagnostics-color=always ;
+using gcc : nocache : g++ : <cxxflags>-fdiagnostics-color=always ;
 
-using clang : 3.8 : clang++-3.8 : <cxxflags>-fdiagnostics-color=always ;
-using clang : cache : ccache clang++-3.8 : <cxxflags>-fdiagnostics-color=always ;
+using clang : : ccache clang++-3.9 : <cxxflags>-fdiagnostics-color=always ;
+using clang : nocache : clang++-3.9 : <cxxflags>-fdiagnostics-color=always ;
