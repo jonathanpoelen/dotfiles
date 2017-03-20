@@ -270,7 +270,7 @@ bindkey "^[m" copy-prev-shell-word
 
 ## pager
 export PAGER="less"
-export LESS="-R"
+export LESS="-Rj3"
 
 export LC_CTYPE=$LANG
 
