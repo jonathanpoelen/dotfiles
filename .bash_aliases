@@ -408,5 +408,7 @@ p() { mpv -af scaletempo --really-quiet -fs --speed=1.61 "$@" ; } # auto-complet
 alias mmcal="gcal -H '\e[01;33m:\e[0m:\e[31m:\e[0m' -s1 -q FR -N"
 alias mcal="mmcal .+"
 
+alias bjam='bjam --build-dir=/home/jonathan/projects/build'
+
 vg() { valgrind --suppressions=/home/jonathan/projects/configs/usr/lib/valgrind/dl_init.supp "$@" 2> >(colout -t valgrind) ; }
 alias vgl='vg --leak-check=full --show-leak-kinds=all'
