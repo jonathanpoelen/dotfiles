@@ -179,7 +179,13 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\C-x\C-e' edit-command-line
 
-bindkey '^[o' menu-complete
+_accept_and_menu() {
+  zle menu-selec
+  zle menu-complete
+}
+zle -N _accept_and_menu
+bindkey '^[o' _accept_and_menu
+bindkey '^[k' menu-complete
 
 # Cycle through history based on characters already typed on the line
 autoload -U up-line-or-beginning-search
