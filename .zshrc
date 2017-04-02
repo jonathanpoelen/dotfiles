@@ -115,6 +115,15 @@ bindkey "^@" _insert_pre_cmd
 #zle -N incremental-complete-word
 #bindkey '^Xi' incremental-complete-word
 
+_menu_complete_no_autoselect()
+{
+  unsetopt menu_complete
+  zle complete-word
+  setopt menu_complete
+}
+zle -N _menu_complete_no_autoselect
+bindkey '^[;' _menu_complete_no_autoselect
+
 function cmdcoloring {
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
