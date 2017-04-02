@@ -311,10 +311,11 @@ alias glp='git pull origin $(git_current_branch) && git push origin $(git_curren
 
 
 # some more diff aliases
-alias diff=colordiff
+alias cdiff='idiff --normal'
 alias yd='colordiff -W $COLUMNS -y'
-cwdiff() { wdiff -n "$@" | colordiff ; }
-cdwdiff() { dwdiff -n "$@" | colordiff ; }
+alias nld='/usr/bin/diff --unchanged-line-format="%-4dn %L" --new-line-format="%-4dn%c'\''\033'\''[32m+%l%c'\''\033'\''[0m%c'\''\12'\''" --old-line-format="%-4dn%c'\''\033'\''[31m-%l%c'\''\033'\''[0m%c'\''\12'\''"'
+alias wd='wdiff -w$(echo -e "\e")"[31m[-" -x"-]$(echo -e "\e")[0m" -y$(echo -e "\e")"[32m{+" -z"+}$(echo -e "\e")[0m"'
+alias dwd='wdiff -w$(echo -e "\e")"[31m[-" -x"-]$(echo -e "\e")[0m" -y$(echo -e "\e")"[32m{+" -z"+}$(echo -e "\e")[0m"'
 
 
 function calc(){
