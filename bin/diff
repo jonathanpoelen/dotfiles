@@ -1,0 +1,69 @@
+#!/bin/sh
+
+# Color diff output, for human consumption
+
+# License: LGPLv2
+# Author:
+#    http://www.pixelbeat.org/
+# Notes:
+#    If 2 parameters are passed, then they are passed to
+#    the `diff -Naru` command first. Otherwise the parameters
+#    (or stdin) are assumed to be diff format and are colourised.
+#
+#    VIM can be useful for viewing diffs also:
+#      diff -Naru a b | vim -R -
+#      vim -R a-b.diff
+# Changes:
+#    V0.1, 12 Feb 2008, Initial release
+#    V0.2, 18 Feb 2008, Use tput rather than hardcoding escape sequences.
+#    V0.3, 24 Apr 2008, Support Mac OS X
+#    V0.4, 30 Apr 2008, P@draigBrady.com
+#                         Use $PAGER if set
+#                       Manfred Schwarb <manfred99@gmx.ch>
+#                         Support `diff -c` format fully.
+#                         Pointed out issues with less -EF options.
+#                         Suggested to use the less -S option.
+#    V0.5, 18 Jun 2009, P@draigBrady.com
+#                         Delineate each file level item with highlight.
+#                         Simplify expressions by using '&' in replacement.
+#                         Use 't' after all matches for consistency and speed.
+
+
+# Jonathan NOTE: removal of code unnecessary in my case.
+
+esc="$(echo '\033')"
+
+DEL="$esc[31m"
+ADD="$esc[32m"
+CHG="$esc[1;34m"
+FIL="$esc[3m"
+RST="$esc[0m"
+
+color() {
+sed "
+s/^\*\{3\}.*\*\{4\}/$CHG&$RST/;t
+  s/^-\{3\}.*-\{4\}/$CHG&$RST/;t
+             s/^@.*/$CHG&$RST/;t
+         s/^[0-9].*/$CHG&$RST/;t
+             s/^!.*/$CHG&$RST/;t
+
+             s/^-.*/$DEL&$RST/;t
+             s/^<.*/$DEL&$RST/;t
+
+            s/^\*.*/$ADD&$RST/;t
+            s/^\+.*/$ADD&$RST/;t
+             s/^>.*/$ADD&$RST/;t
+
+       s/^Only in.*/$FIL&$RST/;t
+       s/^Index: .*/$FIL&$RST/;t
+         s/^diff .*/$FIL&$RST/;t
+" "$@"
+}
+
+if [ "$#" -eq "2" ]; then
+    /usr/bin/diff -Naru "$@" | color
+elif [ "$#" -gt "2" ]; then
+    /usr/bin/diff "$@" | color
+else
+    color "$@"
+fi
