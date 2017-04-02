@@ -61,9 +61,18 @@ s/^\*\{3\}.*\*\{4\}/$CHG&$RST/;t
 }
 
 if [ "$#" -eq "2" ]; then
-    /usr/bin/diff -Naru "$@" | color
+  /usr/bin/diff -Naru "$@" | color
 elif [ "$#" -gt "2" ]; then
-    /usr/bin/diff "$@" | color
+  y=0
+  while getopts 'y' optname ; do
+    case "$optname" in
+      y) y=1 break ;;
+      :) break ;;
+    esac
+  done
+  [ $y = 0 ] \
+  && /usr/bin/diff "$@" | color \
+  || /usr/bin/diff "$@" | sed "s/.* |\(\t.*\|$\)/$CHG&$RST/;t;s/.* <\(\t.*\|$\)/$DEL&$RST/;t;s/.* >\(\t.*\|$\)/$ADD&$RST/;t"
 else
-    color "$@"
+  color "$@"
 fi

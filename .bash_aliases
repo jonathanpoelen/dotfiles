@@ -311,10 +311,25 @@ alias glp='git pull origin $(git_current_branch) && git push origin $(git_curren
 
 
 # some more diff aliases
-alias diff=idiff
-alias cdiff='idiff --normal'
+alias diff=colordiff
+alias cdiff='colordiff --normal'
 alias yd='colordiff -W $COLUMNS -y'
-alias nld='/usr/bin/diff --unchanged-line-format="%-4dn %L" --new-line-format="%-4dn%c'\''\033'\''[32m+%l%c'\''\033'\''[0m%c'\''\12'\''" --old-line-format="%-4dn%c'\''\033'\''[31m-%l%c'\''\033'\''[0m%c'\''\12'\''"'
+nd() {
+  /usr/bin/diff \
+  --unchanged-line-format="%-4dn %L" \
+  --new-line-format="%-4dn%c'\033'[32m+%l%c'\033'[0m%c'\12'" \
+  --old-line-format="%-4dn%c'\033'[31m-%l%c'\033'[0m%c'\12'" \
+  "$@"
+}
+ud() {
+  /usr/bin/diff \
+  --unchanged-line-format="" \
+  --new-line-format="%4dn %c'\033'[32m> %l%c'\033'[0m%c'\12'" \
+  --old-line-format="%4dn %c'\033'[31m< %l%c'\033'[0m%c'\12'" \
+  --old-group-format="%c'\033'[34mc%dn%c'\033'[0m%c'\12'%<" \
+  --new-group-format="%c'\033'[34mc%dN%c'\033'[0m%c'\12'%>" \
+  "$@"
+}
 alias wd='wdiff -w$(echo -e "\e")"[31m[-" -x"-]$(echo -e "\e")[0m" -y$(echo -e "\e")"[32m{+" -z"+}$(echo -e "\e")[0m"'
 alias dwd='wdiff -w$(echo -e "\e")"[31m[-" -x"-]$(echo -e "\e")[0m" -y$(echo -e "\e")"[32m{+" -z"+}$(echo -e "\e")[0m"'
 
