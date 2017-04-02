@@ -8,6 +8,7 @@
  * To make a manual change to preferences, you can visit the URL about:config
  */
 
+user_pref("browser.pagethumbnails.capturing_disabled", true);
 user_pref("browser.display.background_color", "#323232");
 user_pref("browser.display.focus_text_color", "#CCCCCC");
 user_pref("browser.display.foreground_color", "#C87838");
