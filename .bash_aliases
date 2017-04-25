@@ -58,8 +58,6 @@ alias hsi='hs -i'
 #   sleep 10; alert
 # alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-export ASAN_SYMBOLIZER_PATH=/usr/lib/llvm-3.7/bin/llvm-symbolizer
-
 alias g++-7=/usr/lib/gcc-snapshot/bin/g++
 
 alias g++='g++ -fdiagnostics-color=always'
@@ -88,7 +86,7 @@ alias gw14-7="g14-7 $cxxflag -Wmisleading-indentation"
 unset cxxflag
 
 cxxflag='-Weverything -Wno-shadow -Wno-effc++ -Wno-padded -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes -Wno-c++98-compat-pedantic'
-export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer-3.7
+export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
 alias cw++="clang++ $cxxflag -fcolor-diagnostics"
 alias cw11="clang++ $cxxflag -fcolor-diagnostics -std=c++11"
 alias cw14="clang++ $cxxflag -fcolor-diagnostics -std=c++14"
@@ -235,9 +233,9 @@ function acf() {
     echo $0 regex filter >&2
     return 1
   elif [ -z "$2" ] ; then
-    apt-cache search "$1" | grep -i "$1"
+    apt-cache search "$1" | grep -i --color=always "$1"
   else
-    apt-cache search "$1" | grep -i "$2"
+    apt-cache search "$1" | grep -i --color=always "$2"
   fi
 }
 
@@ -288,11 +286,11 @@ alias gm='git merge'
 alias grh='git reset HEAD'
 alias grhh='git reset HEAD --hard'
 
-alias glg='git log --stat --pretty=tformat:"%C(yellow)%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" --max-count=4'
+alias glg='git log --stat --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" -n4'
 alias cglg='GIT_PAGER=cat glg'
 #alias glo='GIT_PAGER=cat git log --oneline --max-count=15'
-alias glgg='GIT_PAGER=cat git log --graph --pretty=tformat:"%C(yellow)%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" --max-count=15'
-alias glog='GIT_PAGER=cat git log --oneline --decorate --color --graph'
+alias glgg='GIT_PAGER=cat git log --graph --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" -n20'
+#alias glog='GIT_PAGER=cat git log --oneline --decorate --color --graph -n20'
 
 
 function git_current_branch () {
@@ -382,7 +380,7 @@ function extract {
   for f in "$@" ; do
     if [ -f "$f" ] ; then
       case "$f" in
-        *.zip)            unzip "$f"      ;;
+        *.zip|*.cbz)      unzip "$f"      ;;
         *.tar)            tar xf "$f"     ;;
         *.rar|*.cbr)      unrar x "$f"    ;;
         *.tar.bz2|*.tbz2) tar xjf "$f"    ;;
