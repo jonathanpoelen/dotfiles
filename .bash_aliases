@@ -286,10 +286,9 @@ alias gm='git merge'
 alias grh='git reset HEAD'
 alias grhh='git reset HEAD --hard'
 
-alias glg='git log --stat --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" -n4'
-alias cglg='GIT_PAGER=cat glg'
-#alias glo='GIT_PAGER=cat git log --oneline --max-count=15'
-alias glgg='GIT_PAGER=cat git log --graph --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" -n20'
+alias glgg='git log --stat --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" -n4'
+alias cglg='GIT_PAGER=cat glgg'
+alias glg='GIT_PAGER=cat git log --graph --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" -n20'
 #alias glog='GIT_PAGER=cat git log --oneline --decorate --color --graph -n20'
 
 
@@ -351,13 +350,20 @@ alias isearch='search -i'
 source ~/.bash_aliases_apt
 
 function man(){
+  # mb  Start blinking
+  # md  Start bold mode
+  # me  End all mode like so, us, mb, md and mr
+  # so  Start standout mode
+  # se  End standout mode
+  # us  Start underlining
+  # ue  End underlining 
   env \
-  LESS_TERMCAP_md=$(printf "\e[0;31m") \
-  LESS_TERMCAP_se=$(printf "\e[0m") \
-  LESS_TERMCAP_ue=$(printf "\e[0m") \
-  LESS_TERMCAP_us=$(printf "\e[0;32m") \
+  LESS_TERMCAP_md=$'\e[0;31m' \
+  LESS_TERMCAP_se=$'\e[0m' \
+  LESS_TERMCAP_ue=$'\e[0m' \
+  LESS_TERMCAP_us=$'\e[0;32m' \
   man "$@"
-  # LESS_TERMCAP_so=$(printf "\e[0;40;39m")
+  # LESS_TERMCAP_so=$'\e[7m'
 }
 
 # alias qdbus=/usr/lib/x86_64-linux-gnu/qt4/bin/qdbus
