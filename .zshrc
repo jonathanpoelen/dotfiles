@@ -9,7 +9,7 @@ source $HOME/.zsh_profile
 # Customize to your needs...
 export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 
-function _extglob {
+function _ext-glob {
   setopt localoptions extendedglob
   local command="$1"
   shift
@@ -19,8 +19,21 @@ function _extglob {
   fi
   $==command $==~* # redo globbing on arguments
 }
-alias extglob='noglob _extglob ' # delay globbing until inside
+alias extglob='noglob _ext-glob ' # delay globbing until inside
 #ex: extglob echo .(#i)ic*
+
+function _nocase-glob {
+  setopt localoptions nocaseglob
+  local command="$1"
+  shift  
+  if [ "$command" = nocorrect ] ; then
+    command="$1"
+    shift
+  fi
+  $==command $==~* # redo globbing on arguments
+}
+alias ix='noglob _nocase-glob'
+alias ex=extglob
 
 alias calc='noglob calc'
 
