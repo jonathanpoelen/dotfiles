@@ -1,3 +1,5 @@
+execute pathogen#infect()
+
 filetype plugin on
 filetype plugin indent on
 
@@ -24,7 +26,7 @@ set incsearch
 "set background=dark
 
 ":colorscheme koehler
-:colorscheme peachpuff
+":colorscheme peachpuff
 :colorscheme elflord
 ":colorscheme slate
 ":colorscheme zellner
@@ -36,3 +38,7 @@ set incsearch
 :highlight DiffText term=reverse cterm=bold ctermbg=black ctermfg=white
 
 set rtp+=~/.fzf
+
+:set relativenumber
+:set scrolljump=3
+:set mouse=n " normal mode

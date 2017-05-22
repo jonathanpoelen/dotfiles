@@ -1,0 +1,7 @@
+#ftplugin
+
+- diff
+
+#bundle
+
+- numbertoggle
