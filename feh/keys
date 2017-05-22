@@ -1,4 +1,12 @@
-scroll_down Down
-scroll_up Up
-scroll_up_page Left
-scroll_down_page Right space
+zoom_in 1-Up
+zoom_out 1-Down
+scroll_down
+scroll_up
+next_img Right
+prev_img Left
+
+# in my fork
+scroll_down_page_or_next_img Down space
+scroll_up_page_or_prev_img Up 1-space
+scroll_down_or_next_img C-Down
+scroll_up_or_prev_img C-Up

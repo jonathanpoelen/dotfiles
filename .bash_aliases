@@ -310,7 +310,7 @@ alias glp='git pull origin $(git_current_branch) && git push origin $(git_curren
 # some more diff aliases
 alias diff=colordiff
 alias cdiff='colordiff --normal'
-alias yd='colordiff -W $COLUMNS -y'
+alias yd='colordiff -y -W $COLUMNS'
 nd() {
   /usr/bin/diff \
   --unchanged-line-format="%-4dn %L" \
@@ -423,7 +423,8 @@ alias hin='source-highlight -f esc -n -i'
 alias ihi='source-highlight -f esc -s'
 alias ihin='source-highlight -f esc -n -s'
 alias n=nano
-alias i='feh -Z'
+# my feh fork
+alias i='~/projects/feh/src/feh --begin-top -Z'
 alias x=xpdf
 alias t=tree
 alias td='tree -d'
