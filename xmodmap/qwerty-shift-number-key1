@@ -1,5 +1,5 @@
 keycode  10 = 1 exclam exclam 1 onesuperior exclamdown onesuperior exclamdown 1 exclam onesuperior exclamdown
-keycode  11 = 2 at 2 at twosuperior dead_doubleacute twosuperior
+keycode  11 = 2 at at 2 twosuperior dead_doubleacute twosuperior
 keycode  12 = 3 numbersign numbersign 3 threesuperior dead_macron threesuperior dead_macron 3 numbersign threesuperior dead_macron
 keycode  13 = 4 dollar dollar 4 currency sterling currency sterling 4 dollar currency sterling
 keycode  14 = 5 percent percent 5 EuroSign dead_cedilla EuroSign dead_cedilla 5 percent EuroSign dead_cedilla
