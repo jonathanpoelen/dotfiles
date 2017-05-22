@@ -29,7 +29,7 @@
 #                         Use 't' after all matches for consistency and speed.
 
 
-# Jonathan NOTE: removal of code unnecessary in my case.
+# Jonathan NOTE: removal of code unnecessary in my case and -y support.
 
 esc="$(echo '\033')"
 
@@ -64,10 +64,11 @@ if [ "$#" -eq "2" ]; then
   /usr/bin/diff -Naru "$@" | color
 elif [ "$#" -gt "2" ]; then
   y=0
-  while getopts 'y' optname ; do
+  while getopts ':yW:' optname ; do
     case "$optname" in
       y) y=1 break ;;
-      :) break ;;
+      W) ;;
+      :|*) ;;
     esac
   done
   [ $y = 0 ] \
