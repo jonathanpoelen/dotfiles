@@ -1,0 +1,21 @@
+#!/bin/sh
+
+FIFO=~/rawdisk/icling.$$
+mkfifo $FIFO
+
+echo '#!/bin/zsh
+sh() { vt-kate-syntax-highlighter -t"Breeze Dark" -uscpp }
+tail -f '$FIFO' 2>/dev/null >>(stdbuf -o0 cling | sh) >>(sh)
+' > $FIFO.sh
+chmod u+x $FIFO.sh
+
+nvim -n \
+ --cmd ':inoremap <CR> <ESC>:exe "!echo " . shellescape(getline(getpos(".")[1])) . "> '$FIFO'"<CR>$a<CR>' \
+ --cmd ':inoremap <C-q> <ESC>:q!<CR>:q<CR>' \
+ --cmd 'set termguicolors' \
+ --cmd startinsert \
+ -O .cpp term://$FIFO.sh
+
+rm $FIFO.sh $FIFO
+killall $FIFO.sh 2>/dev/null
+exit 0
