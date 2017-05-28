@@ -27,8 +27,8 @@ usage () {
   echo ' -q           quick backtrace'
   echo ' -s           use source-highlight'
   echo ' -e           catch exception'
-  echo ' -f           used as filter (... | '"$0"' -f)'
-  echo ' -g           a argument for gdb'
+  echo ' -f           use as a filter (... | '"$0"' -f)'
+  echo ' -g           argument to gdb'
 }
 
 filter=bt
@@ -53,8 +53,7 @@ while true ; do
 done
 
 if [ $nogdb -eq 1 ] ; then
-  $filter
-  exit $?
+  exec $filter
 fi
 
 [ -z "$1" ] && usage >&2 && exit 1

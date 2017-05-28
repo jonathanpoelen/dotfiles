@@ -10,6 +10,7 @@ mpv --quiet --shuffle --idle=yes --input-file=/home/jonathan/rawdisk/music-contr
 klipper &
 
 killall plasmashell
+#killall xembedsniproxy
 
 md ff &&
 ln -s ~/.vimperatorrc ~/.vimperator ~/.mozilla ff/
