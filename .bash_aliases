@@ -60,13 +60,6 @@ alias hsi='hs -i'
 
 alias g++-7=/usr/lib/gcc-snapshot/bin/g++
 
-alias g++='g++ -fdiagnostics-color=always'
-alias g11='g++ -fdiagnostics-color=always -std=c++11'
-alias g14='g++ -fdiagnostics-color=always -std=c++14'
-alias g1z='g++ -fdiagnostics-color=always -std=c++1z'
-alias g1z-7='g++-7 -fdiagnostics-color=always -std=c++1z'
-alias g14-7='g++-7 -fdiagnostics-color=always -std=c++14'
-
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:quote=00;32'
 
 # -Wstrict-overflow=1 # -Wall
@@ -76,13 +69,13 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:
 # -Wstrict-overflow=5
 # -Wstrict-default # bad idea
 # -Wmissing-format-attribute
-cxxflag='-Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wdisabled-optimization -Wfloat-equal -Wformat-security -Wformat-signedness -Wformat=2 -Wmissing-declarations -Wmissing-include-dirs -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wpacked -Wredundant-decls -Wundef -Wuninitialized -Wunused-macros -Wvla -Wswitch -Wconversion -Wduplicated-cond -Wnull-dereference -fsized-deallocation -Warray-bounds=2 -Wconditionally-supported -Wnoexcept -Wsized-deallocation -Wstrict-null-sentinel -Wsuggest-override -Wconditionally-supported -Wfloat-conversion -Wopenmp-simd -Wuseless-cast -Wsuggest-attribute=noreturn -Wzero-as-null-pointer-constant -Wlogical-op -Wvector-operation-performance -Wdouble-promotion -Wtrampolines -Winline'
+cxxflag='-Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wdisabled-optimization -Wfloat-equal -Wformat-security -Wformat-signedness -Wformat=2 -Wmissing-declarations -Wmissing-include-dirs -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wpacked -Wredundant-decls -Wundef -Wuninitialized -Wunused-macros -Wvla -Wswitch -Wconversion -Wduplicated-cond -Wnull-dereference -fsized-deallocation -Warray-bounds=2 -Wconditionally-supported -Wnoexcept -Wsized-deallocation -Wstrict-null-sentinel -Wsuggest-override -Wconditionally-supported -Wfloat-conversion -Wopenmp-simd -Wuseless-cast -Wsuggest-attribute=noreturn -Wzero-as-null-pointer-constant -Wlogical-op -Wvector-operation-performance -Wdouble-promotion -Wtrampolines -Winline -Wmisleading-indentation'
 alias gw++="g++ $cxxflag"
-alias gw11="g11 $cxxflag"
-alias gw14="g14 $cxxflag"
-alias gw1z="g1z $cxxflag -Wmisleading-indentation"
-alias gw1zz="g1z-7 $cxxflag -Wmisleading-indentation"
-alias gw14-7="g14-7 $cxxflag -Wmisleading-indentation"
+alias gw11="g++ -fdiagnostics-color=always -std=c++11 $cxxflag"
+alias gw14="g++ -fdiagnostics-color=always -std=c++14 $cxxflag"
+alias gw1z="g++ -fdiagnostics-color=always -std=c++1z $cxxflag"
+alias gw14-7="g++-7 -fdiagnostics-color=always -std=c++14 $cxxflag"
+alias gw1z-7="g++-7 -fdiagnostics-color=always -std=c++1z $cxxflag"
 unset cxxflag
 
 cxxflag='-Weverything -Wno-shadow -Wno-effc++ -Wno-padded -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes -Wno-c++98-compat-pedantic'
@@ -91,6 +84,10 @@ alias cw++="clang++ $cxxflag -fcolor-diagnostics"
 alias cw11="clang++ $cxxflag -fcolor-diagnostics -std=c++11"
 alias cw14="clang++ $cxxflag -fcolor-diagnostics -std=c++14"
 alias cw1z="clang++ $cxxflag -fcolor-diagnostics -std=c++1z"
+alias cw++-4="clang++-4.0 $cxxflag -fcolor-diagnostics"
+alias cw11-4="clang++-4.0 $cxxflag -fcolor-diagnostics -std=c++11"
+alias cw14-4="clang++-4.0 $cxxflag -fcolor-diagnostics -std=c++14"
+alias cw1z-4="clang++-4.0 $cxxflag -fcolor-diagnostics -std=c++1z"
 unset cxxflag
 
 # coverage flags: -fprofile-arcs -ftest-coverage --coverage
@@ -328,7 +325,7 @@ ud() {
   "$@"
 }
 alias wd='wdiff -w$(echo -e "\e")"[31m[-" -x"-]$(echo -e "\e")[0m" -y$(echo -e "\e")"[32m{+" -z"+}$(echo -e "\e")[0m"'
-alias dwd='wdiff -w$(echo -e "\e")"[31m[-" -x"-]$(echo -e "\e")[0m" -y$(echo -e "\e")"[32m{+" -z"+}$(echo -e "\e")[0m"'
+alias dwd='dwdiff -w$(echo -e "\e")"[31m[-" -x"-]$(echo -e "\e")[0m" -y$(echo -e "\e")"[32m{+" -z"+}$(echo -e "\e")[0m"'
 
 
 function calc(){
@@ -341,7 +338,7 @@ function jhibernate(){
   sudo pm-hibernate
   #sleep 2
   #qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 33 >/dev/null
-  #xmodmap ~/.Xmodmap
+  xmodmap ~/.xmodmap.conf
 }
 #alias jhibernate='sudo pm-hibernate'
 
@@ -441,3 +438,7 @@ alias bjam='bjam --build-dir=/home/jonathan/projects/build'
 
 vg() { valgrind --suppressions=/home/jonathan/projects/configs/usr/lib/valgrind/dl_init.supp "$@" 2> >(colout -t valgrind) ; }
 alias vgl='vg --leak-check=full --show-leak-kinds=all'
+
+y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$@" ; }
+
+alias ak=/usr/bin/ag

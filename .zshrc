@@ -2,145 +2,61 @@
 source $HOME/.bash_aliases
 source $HOME/.zsh_profile
 
+# # Apply theming defaults
+# PS1="%n@%m:%~%# "
+#
+# # git theming default: Variables for theming the git info prompt
+# ZSH_THEME_GIT_PROMPT_PREFIX="git:("         # Prefix at the very beginning of the prompt, before the branch name
+# ZSH_THEME_GIT_PROMPT_SUFFIX=")"             # At the very end of the prompt
+# ZSH_THEME_GIT_PROMPT_DIRTY="*"              # Text to display if the branch is dirty
+# ZSH_THEME_GIT_PROMPT_CLEAN=""               # Text to display if the branch is clean
+#
+# Setup the prompt with pretty colors
+setopt prompt_subst
+#
+
+# Save the location of the current completion dump file.
+ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
+
+# Load and run compinit
+autoload -U compinit
+compinit -i -d "${ZSH_COMPDUMP}"
+
+
+PROMPT='%{$bg[grey]%}%{$fg[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg_no_bold[green]%}.%{$fg[red]%}?%?%{$fg_no_bold[red]%})$%{$reset_color%} '
+#PROMPT='%{$bg[black]%}%{$fg_bold[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg[green]%}.%{$fg_no_bold[red]%}?%?%{$fg_bold[red]%})$%{$reset_color%} '
+if [ $SHLVL -gt 1 ]; then
+  PROMPT='%{$fg[yellow]%}[$SHLVL]'"$PROMPT"
+fi
+if [ "$USER" = root ]; then
+  PROMPT='%{$fg_bold[red]%}root%{$fg_no_bold[green]%}@%{$fg[yellow]%}%m%{$fg_bold[magenta]%}:'"$PROMPT"
+fi
+
+# RPROMPT='%{$fg[red]%}%6~$(git_prompt_info)$(svn_prompt_info)%{$reset_color%}'
+# RPROMPT='%{$fg[red]%}%6~%{$reset_color%}'
+PS2='%{$fg[green]%}>%{$reset_color%}'
+
 # alias showshlvl='PS1="%{$fg_no_bold[yellow]%}[$SHLVL]$PS1"'
 
 # alias prompt_highlighted='PS1="%{$bg_bold[white]%}$PS1"'
 
 # Customize to your needs...
-export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
-
-function _ext-glob {
-  setopt localoptions extendedglob
-  local command="$1"
-  shift
-  if [ "$command" = nocorrect ] ; then
-    command="$1"
-    shift
-  fi
-  $==command $==~* # redo globbing on arguments
-}
-alias extglob='noglob _ext-glob ' # delay globbing until inside
-#ex: extglob echo .(#i)ic*
-
-function _nocase-glob {
-  setopt localoptions nocaseglob
-  local command="$1"
-  shift  
-  if [ "$command" = nocorrect ] ; then
-    command="$1"
-    shift
-  fi
-  $==command $==~* # redo globbing on arguments
-}
-alias ix='noglob _nocase-glob'
-alias ex=extglob
-
-alias calc='noglob calc'
-
-alias lf='ls *(^/)'
-alias lfh='ls -sh *(^/)'
-
-alias -g N='>/dev/null'
-alias -g T='>~/rawdisk2/l'
-alias -g TT='>~/rawdisk2/ll'
-alias -g ZT='|fzf -m --cycle>~/rawdisk2/l'
-
-alias -g V='|view -'
-alias -g L='|less'
-alias -g G='|grep'
-alias -g S='|sed'
-alias -g K='|k'
-alias -g A='|awk'
-alias -g W='|while read'
-alias -g X='|xargs -d\\n'
-alias -g Z='|fzf -m --cycle'
-
-alias -g N2='2>/dev/null'
-alias -g T2='2>~/rawdisk2/l'
-alias -g TT2='2>~/rawdisk2/ll'
-alias -g ZT2='|fzf -m --cycle 2>~/rawdisk2/l'
-
-alias -g V2='|&view -'
-alias -g L2='|&less'
-alias -g G2='|&grep'
-alias -g S2='|&sed'
-alias -g K2='|&k'
-alias -g A2='|&awk'
-alias -g W2='|&while read'
-alias -g X2='|&xargs -d\\n'
-alias -g Z2='|fzf -m --cycle'
-
-alias -g C='--color=always'
-
-alias -g @@='|col'
-alias -g @1="|awk '{ print \$1 }'"
-alias -g @2="|awk '{ print \$2 }'"
-alias -g @3="|awk '{ print \$3 }'"
-alias -g @4="|awk '{ print \$4 }'"
-alias -g @5="|awk '{ print \$5 }'"
-alias -g @6="|awk '{ print \$6 }'"
-alias -g @7="|awk '{ print \$7 }'"
-alias -g @8="|awk '{ print \$8 }'"
-alias -g @9="|awk '{ print \$9 }'"
+# export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+export PATH=$HOME/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 
 #zstyle ':completion:*' hosts off
 
-_y () {
-  youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$@"
-}
-alias y='noglob _y'
-
-#_inc_last_arg() {
-#  local r=${BUFFER/* }
-#  [ '}' = "${r[${#r}]}" ] && r=${r/\{*}${${r/*..}:0:-1}
-#  local n=$((${r//[^0-9]/}+1))
-#  [ ! -z "$NUMERIC" ] && n="{$n..$NUMERIC}"
-#  BUFFER=${BUFFER% *}' '$n
-#  CURSOR=$#BUFFER
-#}
-#zle -N _inc_last_arg
-#bindkey "^[=" _inc_last_arg
-
-_insert_pre_cmd_prefix=
-_insert_pre_cmd_line_init=
-_insert_pre_cmd()
-{
-  if [ ! -z "$_insert_pre_cmd_prefix" ] ; then
-    eval "zle-line-init () { $_insert_pre_cmd_line_init }"
-    _insert_pre_cmd_prefix=
-  fi
-  if [ ! -z "$BUFFER" ] ; then
-    _insert_pre_cmd_prefix=$LBUFFER
-    _insert_pre_cmd_line_init=$functions[zle-line-init]
-    eval "zle-line-init () {
-      $_insert_pre_cmd_line_init
-      if [ -z \"\$BUFFER\" ] ; then
-        BUFFER=\$_insert_pre_cmd_prefix
-        CURSOR=\${#BUFFER}
-      fi
-    }"
-  fi
-}
-zle -N _insert_pre_cmd
-bindkey "^@" _insert_pre_cmd
+# copy-prev-arg
+# kill-arg
 
 #autoload incremental-complete-word
 #zle -N incremental-complete-word
 #bindkey '^Xi' incremental-complete-word
 
-_menu_complete_no_autoselect()
-{
-  unsetopt menu_complete
-  zle complete-word
-  setopt menu_complete
-}
-zle -N _menu_complete_no_autoselect
-bindkey '^[;' _menu_complete_no_autoselect
-
 function cmdcoloring {
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-  source $HOME/game/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source ~/game/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
   ZSH_HIGHLIGHT_STYLES+=(
 #     default none
@@ -171,40 +87,56 @@ function cmdcoloring {
 }
 
 loadplugins() {
-  source $HOME/game/zsh-history-substring-search/zsh-history-substring-search.zsh
+  source ~/game/zsh-history-substring-search/zsh-history-substring-search.zsh
 
   bindkey '^[k' history-substring-search-up
   bindkey '^[j' history-substring-search-down
 
-  source $HOME/game/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source ~/game/zsh-autosuggestions/zsh-autosuggestions.zsh
   ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
 }
 
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="$PATH:/home/jonathan/.fzf/bin"
-FZF_COMPLETION_TRIGGER=','
-source ~/.fzf/shell/completion.zsh
+# export PATH="$PATH:/home/jonathan/.fzf/bin"
+PATH+=':/home/jonathan/.fzf/bin'
+#FZF_COMPLETION_TRIGGER=','
+#source ~/.fzf/shell/completion.zsh
 __fsel() {
   setopt localoptions pipefail 2> /dev/null
-  find -L . -mindepth 1 \( -path '*/\.*' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \) -prune \
-    -o -type f -print \
-    -o -type d -print \
-    -o -type l -print 2> /dev/null | cut -b3- | \
-  fzf --height 40% -m "$@" | while read item; do
+  find -L ${2-.} -mindepth 1 \( -path '*/\.*' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \) -prune \
+    -o -type d -print $=1 2> /dev/null | cut -b$([ -z "$2" ] && echo 3 || echo 1)- | \
+  fzf --height 40% --reverse --cycle -m $=3 | while read item; do
     echo -n "${(q)item} "
   done
   return $?
 }
 
-fzf-file-widget() {
-  LBUFFER="${LBUFFER}$(__fsel)"
+_fzf_file_or_directory() {
+  if [ "${LBUFFER[-1]}" = ' ' ] ; then
+    LBUFFER="${LBUFFER}$(__fsel $1)"
+  else
+    local tail=${${(z)LBUFFER}[-1]}
+    if [ "${tail[-1]}" = '/' ] ; then
+      LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel $1 $tail)"
+    else
+      if [ -d "${tail:h}" ] ; then
+        LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel $1 ${tail:h} "-q ${tail:t:q}")"
+      else
+        LBUFFER="${LBUFFER}$(__fsel $1)";
+      fi
+    fi
+  fi
   local ret=$?
   zle redisplay
   typeset -f zle-line-init >/dev/null && zle zle-line-init
   return $ret
 }
+fzf-file-widget () { _fzf_file_or_directory '-o -type f -print -o -type l -print' ; }
+fzf-directory-widget () { _fzf_file_or_directory '' ; }
 zle     -N    fzf-file-widget
-bindkey '^[' fzf-file-widget
+bindkey '^[[' fzf-file-widget
+zle     -N    fzf-directory-widget
+bindkey '^[]' fzf-directory-widget
 
 fzf-history-widget() {
   local selected num
