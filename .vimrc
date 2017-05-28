@@ -37,8 +37,14 @@ set incsearch
 :highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
 :highlight DiffText term=reverse cterm=bold ctermbg=black ctermfg=white
 
-set rtp+=~/.fzf
+" set rtp+=~/.fzf
 
 :set relativenumber
 :set scrolljump=3
 :set mouse=n " normal mode
+
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+call plug#end()
+
