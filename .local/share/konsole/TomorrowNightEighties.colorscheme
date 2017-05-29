@@ -1,6 +1,9 @@
 [Background]
 Color=45,45,45
 
+[BackgroundIntense]
+Color=invalid
+
 [Color0]
 Color=0,0,0
 
@@ -52,5 +55,10 @@ Color=57,57,57
 [Foreground]
 Color=204,204,204
 
+[ForegroundIntense]
+Color=invalid
+
 [General]
 Description=TomorrowNightEighties
+Opacity=1
+Wallpaper=

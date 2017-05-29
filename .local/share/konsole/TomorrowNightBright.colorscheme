@@ -1,82 +1,62 @@
 [Background]
 Color=0,0,0
-Transparency=false
 
 [BackgroundIntense]
 Color=0,0,0
-Transparency=false
 
 [Color0]
 Color=85,85,85
-Transparency=false
 
 [Color0Intense]
 Color=102,102,102
-Transparency=false
 
 [Color1]
 Color=213,78,83
-Transparency=false
 
 [Color1Intense]
 Color=255,51,52
-Transparency=false
 
 [Color2]
 Color=185,202,74
-Transparency=false
 
 [Color2Intense]
 Color=158,196,0
-Transparency=false
 
 [Color3]
 Color=231,140,69
-Transparency=false
 
 [Color3Intense]
 Color=231,197,71
-Transparency=false
 
 [Color4]
 Color=122,166,218
-Transparency=false
 
 [Color4Intense]
 Color=122,166,218
-Transparency=false
 
 [Color5]
 Color=195,151,216
-Transparency=false
 
 [Color5Intense]
 Color=183,119,224
-Transparency=false
 
 [Color6]
 Color=112,192,177
-Transparency=false
 
 [Color6Intense]
 Color=84,206,214
-Transparency=false
 
 [Color7]
 Color=66,66,66
-Transparency=false
 
 [Color7Intense]
 Color=42,42,42
-Transparency=false
 
 [Foreground]
-Color=234,234,234
-Transparency=false
+Color=222,222,222
 
 [ForegroundIntense]
 Color=240,130,176
-Transparency=false
 
 [General]
 Description=TomorrowNightBright
