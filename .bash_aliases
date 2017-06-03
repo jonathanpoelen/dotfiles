@@ -74,8 +74,8 @@ alias gw++="g++ $cxxflag"
 alias gw11="g++ -fdiagnostics-color=always -std=c++11 $cxxflag"
 alias gw14="g++ -fdiagnostics-color=always -std=c++14 $cxxflag"
 alias gw1z="g++ -fdiagnostics-color=always -std=c++1z $cxxflag"
-alias gw14-7="g++-7 -fdiagnostics-color=always -std=c++14 $cxxflag"
-alias gw1z-7="g++-7 -fdiagnostics-color=always -std=c++1z $cxxflag"
+alias gw14-7="g++-7 -fdiagnostics-color=always -std=c++14 $cxxflag -Wshadow=local"
+alias gw1z-7="g++-7 -fdiagnostics-color=always -std=c++1z $cxxflag -Wshadow=local"
 unset cxxflag
 
 cxxflag='-Weverything -Wno-shadow -Wno-effc++ -Wno-padded -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes -Wno-c++98-compat-pedantic'
@@ -95,9 +95,6 @@ unset cxxflag
 # optimization flags: -O3 -funroll-loops -fpeel-loops -ffast-math -march=native -ffat-lto-objects -flto
 # debug flags: -D_GLIBCXX_DEBUG_PEDANTIC -D_GLIBCXX_ASSERTIONS -D_GLIBCXX_DEBUG
 # sanitizer flags: -fsanitize=bounds-strict -fsanitize=bounds-strict -fsanitize=bounds -fsanitize=undefined -fsanitize=leak -fsanitize=address -fno-omit-frame-pointer
-
-
-alias e=kwrite
 
 alias ux='chmod u+x'
 alias wl='wc -l'
@@ -338,7 +335,7 @@ function jhibernate(){
   sudo pm-hibernate
   #sleep 2
   #qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 33 >/dev/null
-  xmodmap ~/.xmodmap.conf
+  xmodmap ~/.Xmodmap
 }
 #alias jhibernate='sudo pm-hibernate'
 
@@ -415,10 +412,11 @@ alias c9='awk { print $9 }'
 col() { awk '{ print $'$1' }' ; }
 k() { awk "{ print $@ }" ; }
 
-alias hi='source-highlight -f esc -i'
-alias hin='source-highlight -f esc -n -i'
-alias ihi='source-highlight -f esc -s'
-alias ihin='source-highlight -f esc -n -s'
+alias hi='vt-kate-syntax-highlighter -t"Breeze Dark"'
+alias ihi='hi -s'
+hin() { hi "$@" | nl -ba ; }
+ihin() { ihi "$@" | nl -ba ; }
+
 alias n=nano
 # my feh fork
 alias i='~/projects/feh/src/feh --begin-top -Z'
@@ -426,6 +424,7 @@ alias x=xpdf
 alias t=tree
 alias td='tree -d'
 alias ta='tree -a'
+alias tl='tree -p'
 alias v=vim
 alias s=sed
 alias a=calc
@@ -442,3 +441,4 @@ alias vgl='vg --leak-check=full --show-leak-kinds=all'
 y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$@" ; }
 
 alias ak=/usr/bin/ag
+alias na='nl -ba'
