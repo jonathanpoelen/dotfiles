@@ -5,3 +5,4 @@ tmpfs /home/jonathan/rawdisk2       tmpfs size=2304M 0 0
 tmpfs /home/jonathan/rawdisk        tmpfs size=512M  0 0
 tmpfs /home/jonathan/.ccache        tmpfs size=256M  0 0
 tmpfs /home/jonathan/projects/build tmpfs size=129M  0 0
+tmpfs /home/jonathan/.local/share/nvim/swap/ tmpfs size=128M 0 0
