@@ -352,15 +352,43 @@ kill-arg()
 {
   local a=()
   a+=(${(z)RBUFFER})
-  RBUFFER=${RBUFFER:$((${#a[1]} +1))}
+  zle set-mark-command
+  CURSOR=$(($CURSOR+${#a[1]}+1))
+  zle kill-region
+}
+
+transpose-arg()
+{
+  local at_end=0
+  if [[ $RBUFFER =~ ^' '*$ ]] ; then
+    at_end=1
+    zle goto-previous-arg
+  fi
+
+  zle goto-previous-arg
+  # kill-arg without kill-region (yank preserved)
+  local a=()
+  a+=(${(z)RBUFFER})
+  local n=$((${#a[1]}+1))
+  local t=${BUFFER:$CURSOR:$n}
+  BUFFER=$LBUFFER${RBUFFER:$n}
+  zle goto-next-arg
+
+  if [ $at_end = 0 ] && [ "${RBUFFER[1]}" = '' ] ; then
+    LBUFFER+=' '$t
+  else
+    LBUFFER+=$t
+  fi
 }
 
 zle -N goto-previous-arg
 zle -N goto-next-arg
 zle -N kill-arg
+zle -N transpose-arg
 bindkey '^[^B' goto-previous-arg
 bindkey '^[^F' goto-next-arg
 bindkey '^[^K' kill-arg
+bindkey '^[^T' transpose-arg
 
 
 #_inc_last_arg() {
