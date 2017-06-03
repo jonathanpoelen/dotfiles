@@ -1,6 +1,7 @@
 #!/bin/sh
 
-FIFO=~/rawdisk/icling.$$
+FIFO=${TMPDIR-/tmp/}/icling.$$
+FILE=${TMPDIR-/tmp/}/$$.cpp
 mkfifo $FIFO
 
 echo '#!/bin/zsh
@@ -10,12 +11,13 @@ tail -f '$FIFO' 2>/dev/null >>(stdbuf -o0 cling | sh) >>(sh)
 chmod u+x $FIFO.sh
 
 nvim -n \
- --cmd ':inoremap <CR> <ESC>:exe "!echo " . shellescape(getline(getpos(".")[1])) . "> '$FIFO'"<CR>$a<CR>' \
- --cmd ':inoremap <C-q> <ESC>:q!<CR>:q<CR>' \
+ --cmd 'inoremap <CR> <ESC>:exe "!echo " . shellescape(getline(getpos(".")[1])) . "> '$FIFO'"<CR>$a<CR>' \
+ --cmd 'inoremap <C-q> <ESC>:qall!<CR>' \
  --cmd 'set termguicolors' \
+ --cmd 'set mouse=a' \
  --cmd startinsert \
- -O .cpp term://$FIFO.sh
+ -O $FILE -O 'term://'$FIFO.sh
 
-rm $FIFO.sh $FIFO
+rm -f -- $FIFO.sh $FIFO $FILE
 killall $FIFO.sh 2>/dev/null
 exit 0
