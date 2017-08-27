@@ -2,7 +2,7 @@
 # enable color support of ls and also add handy aliases
 
 export EDITOR=nano
-export LESS=-Rj3
+export LESS=-iRj3
 
 # for gcc and others
 export TMPDIR=/home/jonathan/rawdisk
@@ -15,10 +15,10 @@ if [ -x /usr/bin/dircolors ]; then
   alias dir='dir --color=auto'
   alias vdir='vdir --color=auto'
 
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
-  alias rgrep='rgrep --color=auto'
+  alias grep='grep --color=auto --exclude-dir=.git'
+  alias fgrep='fgrep --color=auto --exclude-dir=.git'
+  alias egrep='egrep --color=auto --exclude-dir=.git'
+  alias rgrep='rgrep --color=auto --exclude-dir=.git'
 
   #alias wcgrep='wcgrep --color=auto'
 
@@ -34,6 +34,7 @@ alias llr='ls -ClRh'
 alias lla='ls -ClAh'
 alias l1='ls -1'
 alias l.='ls -d .*'
+alias l/='ls -d */'
 alias lh='ls -sh'
 # alias sl=ls # often screw this u
 
@@ -390,6 +391,7 @@ function extract {
         *.gz)             gunzip "$f"     ;;
         *.Z)              uncompress "$f" ;;
         *.7z)             7z x "$f"       ;;
+        *.deb) /usr/bin/ar vx "$f" ;; #&& tar -xzvf data.tar.gz ;;
         *)     echo "$0: '$f' cannot be extracted via extract()" >&2 ; return 2;;
       esac
     else
@@ -397,6 +399,7 @@ function extract {
     fi
   done
 }
+alias er=extract
 
 bak() { cp "$1" "$1"_`date +%H:%M:%S_%d-%m-%Y` ; }
 
@@ -412,7 +415,7 @@ alias c9='awk { print $9 }'
 col() { awk '{ print $'$1' }' ; }
 k() { awk "{ print $@ }" ; }
 
-alias hi='vt-kate-syntax-highlighter -t"Breeze Dark"'
+alias hi='XDG_DATA_DIRS=~/game vt-kate-syntax-highlighter -tMy'
 alias ihi='hi -s'
 hin() { hi "$@" | nl -ba ; }
 ihin() { ihi "$@" | nl -ba ; }
@@ -424,7 +427,8 @@ alias x=xpdf
 alias t=tree
 alias td='tree -d'
 alias ta='tree -a'
-alias tl='tree -p'
+alias tp='tree -p'
+alias ts='tree -sh'
 alias v=vim
 alias s=sed
 alias a=calc

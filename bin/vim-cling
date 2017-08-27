@@ -1,7 +1,7 @@
 #!/bin/sh
 
-FIFO=${TMPDIR-/tmp/}/icling.$$
-FILE=${TMPDIR-/tmp/}/$$.cpp
+FIFO=${TMPDIR-/tmp/}/icling.$$.zsh
+FILE=${TMPDIR-/tmp/}/icling.$$.cpp
 mkfifo $FIFO
 
 echo '#!/bin/zsh

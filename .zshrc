@@ -1,6 +1,4 @@
 # source $ZSH/oh-my-zsh.sh
-source $HOME/.bash_aliases
-source $HOME/.zsh_profile
 
 # # Apply theming defaults
 # PS1="%n@%m:%~%# "
@@ -17,11 +15,14 @@ setopt prompt_subst
 
 # Save the location of the current completion dump file.
 ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
+fpath+=(~/.linuxbrew/completions/zsh/)
 
 # Load and run compinit
 autoload -U compinit
 compinit -i -d "${ZSH_COMPDUMP}"
 
+source $HOME/.bash_aliases
+source $HOME/.zsh_profile
 
 PROMPT='%{$bg[grey]%}%{$fg[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg_no_bold[green]%}.%{$fg[red]%}?%?%{$fg_no_bold[red]%})$%{$reset_color%} '
 #PROMPT='%{$bg[black]%}%{$fg_bold[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg[green]%}.%{$fg_no_bold[red]%}?%?%{$fg_bold[red]%})$%{$reset_color%} '
@@ -41,8 +42,10 @@ PS2='%{$fg[green]%}>%{$reset_color%}'
 # alias prompt_highlighted='PS1="%{$bg_bold[white]%}$PS1"'
 
 # Customize to your needs...
-# export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
-export PATH=$HOME/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+# export PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+export PATH=~/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$HOME/.linuxbrew/bin
+export MANPATH=~/.linuxbrew/share/man:$MANPATH
+export INFOPATH=~/.linuxbrew/share/info:$INFOPATH
 
 #zstyle ':completion:*' hosts off
 
@@ -54,11 +57,13 @@ export PATH=$HOME/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 #bindkey '^Xi' incremental-complete-word
 
 function cmdcoloring {
-  ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+  #ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-  source ~/game/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  #source ~/game/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source ~/game/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
-  ZSH_HIGHLIGHT_STYLES+=(
+  #ZSH_HIGHLIGHT_STYLES+=(
+  FAST_HIGHLIGHT_STYLES+=(
     # default none
     unknown-token           'fg=red,bold'
     reserved-word           'fg=green'
@@ -117,10 +122,10 @@ _fzf_file_or_directory() {
   else
     local tail=${${(z)LBUFFER}[-1]}
     if [ "${tail[-1]}" = '/' ] ; then
-      LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel $1 $tail)"
+      LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel $1 ${~tail})"
     else
       if [ -d "${tail:h}" ] ; then
-        LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel $1 ${tail:h} "-q ${tail:t:q}")"
+        LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel $1 ${~tail:h} "-q ${tail:t:q}")"
       else
         LBUFFER="${LBUFFER}$(__fsel $1)";
       fi

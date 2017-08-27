@@ -32,6 +32,9 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 zstyle ':completion:*:*:killall:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=31=0=34'
 zstyle ':completion:*:*:*:*:processes' command "ps -u$USER -o pid,user,comm -w"
 
+zstyle ':completion:*:extract:*' file-patterns '*(7z|Z|bz2|gz|lzma|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zma|tbz|tbz2|tgz|tlz|txz|zip|deb) *(-/)'
+#compdef "_files -g '(#i)*.(7z|Z|bz2|gz|lzma|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zma|tbz|tbz2|tgz|tlz|txz|zip)(-.)'" extract
+
 # disable named-directories autocompletion
 zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 cdpath=(.)
@@ -144,6 +147,8 @@ alias ix='noglob _nocase-glob'
 alias ex=extglob
 
 alias calc='noglob calc'
+alias wg='noglob wget'
+alias y='noglob y'
 
 alias lf='ls *(^/)'
 alias lfh='ls -sh *(^/)'
@@ -482,3 +487,25 @@ setopt auto_cd
 # else
 #     SCREEN_NO=""
 # fi
+
+smart_sudo () {
+    if [[ -n $1 ]]; then
+        #test if the first parameter is a alias
+        if [[ -n $aliases[$1] ]]; then
+            if [[ $aliases[$1] = 'nocorrect '$1 ]]; then
+                local cmd=${=aliases[$1]/nocorrect /}
+                command sudo ${=cmd} $argv[2,-1]
+            else
+                command sudo ${=aliases[$1]} $argv[2,-1]
+            fi
+        else
+            command sudo $argv
+        fi
+    else
+        #if no parameters were given, then assume we want a root shell
+        command sudo -s
+    fi
+}
+
+alias sudo='nocorrect smart_sudo'
+compdef _sudo smart_sudo

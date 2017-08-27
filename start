@@ -1,4 +1,4 @@
-sudo rmmod intel_powerclamp
+#sudo rmmod intel_powerclamp
 
 #sudo mount -t tmpfs -o size=2304M tmpfs ~/rawdisk2 &&
 #sudo mount -t tmpfs -o size=512M tmpfs ~/rawdisk &&
@@ -9,13 +9,13 @@ mpv --quiet --shuffle --idle=yes --input-file=/home/jonathan/rawdisk/music-contr
 
 klipper &
 
-killall plasmashell
+#killall plasmashell
 #killall xembedsniproxy
 
 md ff &&
 ln -s ~/.vimperatorrc ~/.vimperator ~/.mozilla ff/
 
-# fix grammalec
+# cache in rawdisk
 mkdir -p /home/jonathan/rawdisk/home/jonathan/
 ln -s /home/jonathan/rawdisk/ /home/jonathan/rawdisk/home/jonathan/
 
