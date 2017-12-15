@@ -15,7 +15,7 @@ setopt prompt_subst
 
 # Save the location of the current completion dump file.
 ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-fpath+=(~/.linuxbrew/completions/zsh/)
+fpath+=(~/.zshcompletions)
 
 # Load and run compinit
 autoload -U compinit
@@ -43,9 +43,7 @@ PS2='%{$fg[green]%}>%{$reset_color%}'
 
 # Customize to your needs...
 # export PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
-export PATH=~/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$HOME/.linuxbrew/bin
-export MANPATH=~/.linuxbrew/share/man:$MANPATH
-export INFOPATH=~/.linuxbrew/share/info:$INFOPATH
+export PATH=~/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 
 #zstyle ':completion:*' hosts off
 
@@ -118,16 +116,16 @@ __fsel() {
 
 _fzf_file_or_directory() {
   if [ "${LBUFFER[-1]}" = ' ' ] ; then
-    LBUFFER="${LBUFFER}$(__fsel $1)"
+    LBUFFER="${LBUFFER}$(__fsel "$1")"
   else
     local tail=${${(z)LBUFFER}[-1]}
     if [ "${tail[-1]}" = '/' ] ; then
-      LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel $1 ${~tail})"
+      LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel "$1" ${~tail})"
     else
       if [ -d "${tail:h}" ] ; then
-        LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel $1 ${~tail:h} "-q ${tail:t:q}")"
+        LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel "$1" ${~tail:h} "-q ${tail:t:q}")"
       else
-        LBUFFER="${LBUFFER}$(__fsel $1)";
+        LBUFFER="${LBUFFER}$(__fsel "$1")";
       fi
     fi
   fi
@@ -139,9 +137,9 @@ _fzf_file_or_directory() {
 fzf-file-widget () { _fzf_file_or_directory '-o -type f -print -o -type l -print' ; }
 fzf-directory-widget () { _fzf_file_or_directory '' ; }
 zle     -N    fzf-file-widget
-bindkey '^[[' fzf-file-widget
+bindkey ^\[\' fzf-file-widget
 zle     -N    fzf-directory-widget
-bindkey '^[]' fzf-directory-widget
+bindkey '^[;' fzf-directory-widget
 
 fzf-history-widget() {
   local selected num

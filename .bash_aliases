@@ -70,7 +70,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:
 # -Wstrict-overflow=5
 # -Wstrict-default # bad idea
 # -Wmissing-format-attribute
-cxxflag='-Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wdisabled-optimization -Wfloat-equal -Wformat-security -Wformat-signedness -Wformat=2 -Wmissing-declarations -Wmissing-include-dirs -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wpacked -Wredundant-decls -Wundef -Wuninitialized -Wunused-macros -Wvla -Wswitch -Wconversion -Wduplicated-cond -Wnull-dereference -fsized-deallocation -Warray-bounds=2 -Wconditionally-supported -Wnoexcept -Wsized-deallocation -Wstrict-null-sentinel -Wsuggest-override -Wconditionally-supported -Wfloat-conversion -Wopenmp-simd -Wuseless-cast -Wsuggest-attribute=noreturn -Wzero-as-null-pointer-constant -Wlogical-op -Wvector-operation-performance -Wdouble-promotion -Wtrampolines -Winline -Wmisleading-indentation'
+cxxflag='-Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wdisabled-optimization -Wfloat-equal -Wformat-security -Wformat-signedness -Wformat=2 -Wmissing-declarations -Wmissing-include-dirs -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wpacked -Wredundant-decls -Wundef -Wuninitialized -Wunused-macros -Wvla -Wswitch -Wconversion -Wduplicated-cond -Wnull-dereference -fsized-deallocation -Warray-bounds=2 -Wconditionally-supported -Wnoexcept -Wsized-deallocation -Wstrict-null-sentinel -Wsuggest-override -Wfloat-conversion -Wopenmp-simd -Wuseless-cast -Wsuggest-attribute=noreturn -Wzero-as-null-pointer-constant -Wlogical-op -Wvector-operation-performance -Wdouble-promotion -Wtrampolines -Winline'
 alias gw++="g++ $cxxflag"
 alias gw11="g++ -fdiagnostics-color=always -std=c++11 $cxxflag"
 alias gw14="g++ -fdiagnostics-color=always -std=c++14 $cxxflag"
@@ -95,7 +95,7 @@ unset cxxflag
 # coverage optimization flags: -fprofile-use or -fprofile-use=path
 # optimization flags: -O3 -funroll-loops -fpeel-loops -ffast-math -march=native -ffat-lto-objects -flto
 # debug flags: -D_GLIBCXX_DEBUG_PEDANTIC -D_GLIBCXX_ASSERTIONS -D_GLIBCXX_DEBUG
-# sanitizer flags: -fsanitize=bounds-strict -fsanitize=bounds-strict -fsanitize=bounds -fsanitize=undefined -fsanitize=leak -fsanitize=address -fno-omit-frame-pointer
+# sanitizer flags: -fsanitize=address -fno-omit-frame-pointer-fsanitize=bounds-strict -fsanitize=undefined -fsanitize=bounds -fsanitize=leak
 
 alias ux='chmod u+x'
 alias wl='wc -l'
@@ -301,6 +301,8 @@ alias gl='git pull origin $(git_current_branch)'
 alias gp='git push origin $(git_current_branch)'
 alias glp='git pull origin $(git_current_branch) && git push origin $(git_current_branch)'
 
+alias glr='gl --rebase'
+
 
 # some more diff aliases
 alias diff=colordiff
@@ -322,9 +324,8 @@ ud() {
   --new-group-format="%c'\033'[34mc%dN%c'\033'[0m%c'\12'%>" \
   "$@"
 }
-alias wd='wdiff -w$(echo -e "\e")"[31m[-" -x"-]$(echo -e "\e")[0m" -y$(echo -e "\e")"[32m{+" -z"+}$(echo -e "\e")[0m"'
-alias dwd='dwdiff -w$(echo -e "\e")"[31m[-" -x"-]$(echo -e "\e")[0m" -y$(echo -e "\e")"[32m{+" -z"+}$(echo -e "\e")[0m"'
-
+alias wd='wdiff -w$'\''\e[31m[-'\'' -x$'\''-]\e[0m'\'' -y$'\''\e[32m{+'\'' -z$'\''+}\e[0m'\'
+alias dwd='dwdiff -w$'\''\e[31m[-'\'' -x$'\''-]\e[0m'\'' -y$'\''\e[32m{+'\'' -z$'\''+}\e[0m'\'
 
 function calc(){
   echo $(($*))
@@ -381,16 +382,16 @@ function extract {
   for f in "$@" ; do
     if [ -f "$f" ] ; then
       case "$f" in
-        *.zip|*.cbz)      unzip "$f"      ;;
-        *.tar)            tar xf "$f"     ;;
-        *.rar|*.cbr)      unrar x "$f"    ;;
-        *.tar.bz2|*.tbz2) tar xjf "$f"    ;;
-        *.tar.gz|*.tgz)   tar xzf "$f"    ;;
-        *.tar.xz)         tar xJf "$f"    ;;
-        *.bz2)            bunzip2 "$f"    ;;
-        *.gz)             gunzip "$f"     ;;
-        *.Z)              uncompress "$f" ;;
-        *.7z)             7z x "$f"       ;;
+        *.tar)             tar xf "$f"     ;;
+        *.rar|*.cbr)       unrar x "$f"    ;;
+        *.zip|*.cbz|*.jar) unzip "$f"      ;;
+        *.tar.bz2|*.tbz2)  tar xjf "$f"    ;;
+        *.tar.gz|*.tgz)    tar xzf "$f"    ;;
+        *.tar.xz)          tar xJf "$f"    ;;
+        *.bz2)             bunzip2 "$f"    ;;
+        *.gz)              gunzip "$f"     ;;
+        *.Z)               uncompress "$f" ;;
+        *.7z)              7z x "$f"       ;;
         *.deb) /usr/bin/ar vx "$f" ;; #&& tar -xzvf data.tar.gz ;;
         *)     echo "$0: '$f' cannot be extracted via extract()" >&2 ; return 2;;
       esac
@@ -400,6 +401,17 @@ function extract {
   done
 }
 alias er=extract
+erd()
+{
+  local p="$PWD"
+  cd "$1"
+  shift
+  for f in "$@" ; do
+    extract "$p/$f"
+  done
+  cd "$p"
+}
+alias err='erd ~/Videos'
 
 bak() { cp "$1" "$1"_`date +%H:%M:%S_%d-%m-%Y` ; }
 
@@ -439,7 +451,7 @@ alias mcal="mmcal .+"
 
 alias bjam='bjam --build-dir=/home/jonathan/projects/build'
 
-vg() { valgrind --suppressions=/home/jonathan/projects/configs/usr/lib/valgrind/dl_init.supp "$@" 2> >(colout -t valgrind) ; }
+vg() { valgrind --suppressions=/home/jonathan/projects/dotfiles/usr/lib/valgrind/dl_init.supp "$@" 2> >(colout -t valgrind) ; }
 alias vgl='vg --leak-check=full --show-leak-kinds=all'
 
 y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$@" ; }

@@ -32,7 +32,7 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 zstyle ':completion:*:*:killall:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=31=0=34'
 zstyle ':completion:*:*:*:*:processes' command "ps -u$USER -o pid,user,comm -w"
 
-zstyle ':completion:*:extract:*' file-patterns '*(7z|Z|bz2|gz|lzma|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zma|tbz|tbz2|tgz|tlz|txz|zip|deb) *(-/)'
+zstyle ':completion:*:extract:*' file-patterns '*(7z|Z|bz2|gz|lzma|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zma|tbz|tbz2|tgz|tlz|txz|zip|deb|cbr|cbz|jar) *(-/)'
 #compdef "_files -g '(#i)*.(7z|Z|bz2|gz|lzma|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zma|tbz|tbz2|tgz|tlz|txz|zip)(-.)'" extract
 
 # disable named-directories autocompletion
@@ -489,23 +489,95 @@ setopt auto_cd
 # fi
 
 smart_sudo () {
-    if [[ -n $1 ]]; then
-        #test if the first parameter is a alias
-        if [[ -n $aliases[$1] ]]; then
-            if [[ $aliases[$1] = 'nocorrect '$1 ]]; then
-                local cmd=${=aliases[$1]/nocorrect /}
-                command sudo ${=cmd} $argv[2,-1]
-            else
-                command sudo ${=aliases[$1]} $argv[2,-1]
-            fi
-        else
-            command sudo $argv
-        fi
+  if [[ -n $1 ]]; then
+    if [[ $1 == \-* ]]; then
+      command sudo $@
     else
-        #if no parameters were given, then assume we want a root shell
-        command sudo -s
+      local prevwhat what prefix='' exargs=() i g=
+
+      while [ 1 ]; do
+        case $1 in
+          nocorrect) prefix+=$1' '; shift;;
+          noglob) prefix+=$1' '; g=1; shift;;
+          ex|extglob) prefix+='noglob _ext-glob '; g=1; shift;;
+          ix) prefix+='noglob _nocase-glob '; g=1; shift;;
+          *) break;;
+        esac
+      done
+
+      while [ 1 ]; do
+        # what=$(builtin whence $1)
+        what=$aliases[$1]
+        [[ $prevwhat == $what ]] && break
+        [[ $1 == $what ]] && break
+        [[ -z $what ]] && break
+        i=1;
+        while [ 1 ]; do
+          case ${what[(w)$i]} in
+            nocorrect) prefix+=${what[(w)$i]}' '; ++i;;
+            noglob) prefix+=${what[(w)$i]}' '; g=1; ++i;;
+            ex|extglob) prefix+='noglob _ext-glob '; g=1; ++i;;
+            ix) prefix+='noglob _nocase-glob '; g=1; ++i;;
+            *) break;;
+          esac
+        done
+
+        1=${what[(w)$i]}
+        exargs=(${what[(w)$(($i+1)),-1]} $exargs)
+        prevwhat=$what
+      done
+      
+      if [[ -z $g ]]; then
+        $=prefix command sudo $1 ${==~exargs} ${==~@[2,-1]}
+      else
+        $=prefix command sudo $1 $exargs ${@[2,-1]}
+      fi
     fi
+  else
+    #if no parameters were given, then assume we want a root shell
+    command sudo -s
+  fi
 }
 
-alias sudo='nocorrect smart_sudo'
+alias sudo='nocorrect noglob smart_sudo'
 compdef _sudo smart_sudo
+
+sudo-command-line() {
+  [[ -z $BUFFER ]] && zle up-history
+  if [[ $BUFFER == sudo\ * ]] || [[ $BUFFER == \ sudo\ * ]]; then
+     LBUFFER="${LBUFFER:5}"
+  #elif [[ $BUFFER == $EDITOR\ * ]]; then
+  #    LBUFFER="sudoedit ${LBUFFER#$EDITOR }"
+  #elif [[ $BUFFER == sudoedit\ * ]]; then
+  #    LBUFFER="$EDITOR ${LBUFFER#sudoedit }"
+  elif [[ $BUFFER == \ * ]]; then
+     LBUFFER=" sudo$LBUFFER"
+  else
+     LBUFFER="sudo $LBUFFER"
+  fi
+}
+zle -N sudo-command-line
+bindkey "\e\e" sudo-command-line
+
+space-command-line() {
+  [[ -z $BUFFER ]] && zle up-history
+  if [[ $BUFFER != \ * ]]; then
+     LBUFFER=" $LBUFFER"    
+  fi
+  zle accept-line
+}
+zle -N space-command-line
+bindkey "^[j" space-command-line
+
+alias clipcopy='xclip -selection clipboard'
+
+copybuffer () {
+  echo -n $BUFFER | clipcopy
+}
+zle -N copybuffer
+#bindkey "^[o" copybuffer
+
+b() { LD_PRELOAD=$HOME/lib/qt5noblink.so kate ~/projects/blog/content/post/"$@" }
+bb() { LD_PRELOAD=$HOME/lib/qt5noblink.so kdevelop ~/projects/blog/content/post/"$@" }
+_blog_file_completion () { local a=(~/projects/blog/content/post/*(om)) ; reply=(${a:t}) }
+compctl -K _blog_file_completion -M 'r:|[_[:lower:]]=** r:|=*' b bb
