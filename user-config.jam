@@ -1,5 +1,5 @@
 using gcc : : ccache g++ : <cxxflags>-fdiagnostics-color=always ;
 using gcc : nocache : g++ : <cxxflags>-fdiagnostics-color=always ;
 
-using clang : : ccache clang++-3.9 : <cxxflags>-fdiagnostics-color=always ;
-using clang : nocache : clang++-3.9 : <cxxflags>-fdiagnostics-color=always ;
+using clang : : ccache clang++ : <cxxflags>-fdiagnostics-color=always ;
+using clang : nocache : clang++ : <cxxflags>-fdiagnostics-color=always ;
