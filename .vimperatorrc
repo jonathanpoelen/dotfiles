@@ -1,5 +1,6 @@
 :set editor=kate
 :set autocomplete=false
+" source ~/.vimperator/colors/liberator.css
 :colorscheme seaweed
 
 nnoremap j      8j
