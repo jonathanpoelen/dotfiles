@@ -155,28 +155,38 @@ var ctx = normal_ctx;
 
 var a;
 window.addEventListener(/*iswebkit ? */"keydown"/* : "keypress"*/, function(e){
-	if ((e.keyCode === 0 || e.keyCode === 32) && body.clientHeight + /*(iswebkit ? */body.scrollTop/* : e.pageY)*/ >= body.scrollHeight - 20 && n !== len){
+	if ((e.keyCode === 0 /*simple quote*/ || (e.keyCode === 32 && !e.altKey)) && body.clientHeight + /*(iswebkit ? */body.scrollTop/* : e.pageY)*/ >= body.scrollHeight - 20 && n !== len){
 		e.preventDefault();
 		ctx.next();
 		//window.location.search = "?n="+n;
 		return false;
 	}
 	else if ((a = key_move_actions[e.keyCode])) {
+		e.preventDefault();
 		a();
 		ctx.move();
 		return false;
 	}
 	else if ((a = key_contexts[e.keyCode])) {
+		e.preventDefault();
 		ctx.stop && ctx.stop();
 		ctx = a;
 		ctx.start && ctx.start();
 		return false;
 	}
-	else if (e.keyCode === 190 /*.*/ || e.keyCode === 77 /*m*/ || e.keyCode === 66 /*b*/ || e.keyCode === 88/*x*/ || e.keyCode === 221 /*]*/) {
-		body.scrollTop -= 800;
+	else if ((e.keyCode === 32 && e.altKey) || e.keyCode === 190 /*.*/ || e.keyCode === 220 /*\*/ || e.keyCode === 77 /*m*/ || e.keyCode === 66 /*b*/ || e.keyCode === 88/*x*/ || e.keyCode === 221 /*]*/) {
+		if (body.scrollTop === 0) {
+			n && --n;
+			ctx.move();
+		}
+		else {
+			e.preventDefault();
+			body.scrollTop -= 800;
+		}
 		return false;
 	}
 	else if (e.keyCode === 0 /*simple quote*/) {
+		e.preventDefault();
 		body.scrollTop += body.clientHeight - 10;
 		return false;
 	}
