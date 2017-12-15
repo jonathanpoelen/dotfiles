@@ -76,7 +76,8 @@ set incsearch
 
 ":colorscheme koehler
 ":colorscheme peachpuff
-:colorscheme elflord
+":colorscheme elflord
+":colorscheme mustang
 ":colorscheme slate
 ":colorscheme zellner
 
@@ -90,3 +91,8 @@ set incsearch
 :set scrolljump=3
 :set mouse=n " normal mode
 
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
