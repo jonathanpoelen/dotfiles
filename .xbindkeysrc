@@ -29,15 +29,21 @@
 	XF86AudioRaiseVolume
 
 "amixer set Master 3-"
+	Control + F11
+
+"amixer set Master 3+"
+	Control + F12
+
+"amixer set Master 3-"
 	XF86AudioLowerVolume
 
 "pid=$(xdotool getactivewindow getwindowpid %@) && (read x x s x < /proc/"$pid"/stat ; [ "$s" = 'T' ] && kill -CONT $pid || kill -STOP $pid)"
 	Mod4 + s
 
-"xmodmap ~/projects/configs/xmodmap/qwerty-shift-number-key$([ -f ~/rawdisk/.num-k ] && { rm ~/rawdisk/.num-k && echo 1 ; } || { :>~/rawdisk/.num-k && echo 0 ; })"
+"xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key$([ -f ~/rawdisk/.num-k ] && { rm ~/rawdisk/.num-k && echo 1 ; } || { :>~/rawdisk/.num-k && echo 0 ; })"
 	Num_Lock
 
-"xmodmap ~/projects/configs/xmodmap/qwerty-shift-number-key$([ -f ~/rawdisk/.num-k ] && { rm ~/rawdisk/.num-k && echo 1 ; } || { :>~/rawdisk/.num-k && echo 0 ; })"
+"xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key$([ -f ~/rawdisk/.num-k ] && { rm ~/rawdisk/.num-k && echo 1 ; } || { :>~/rawdisk/.num-k && echo 0 ; })"
 	Control + F10
 
 #"xvkbd -xsendevent -text '\[Prior]'"
