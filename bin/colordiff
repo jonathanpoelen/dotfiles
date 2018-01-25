@@ -72,8 +72,8 @@ elif [ "$#" -gt "2" ]; then
     esac
   done
   [ $y = 0 ] \
-  && /usr/bin/diff "$@" | color \
-  || /usr/bin/diff "$@" | sed "s/.* |\(\t.*\|$\)/$CHG&$RST/;t;s/.* <\(\t.*\|$\)/$DEL&$RST/;t;s/.* >\(\t.*\|$\)/$ADD&$RST/;t"
+  && /usr/bin/diff -a "$@" | color \
+  || /usr/bin/diff -a "$@" | sed "s/.* |\(\t.*\|$\)/$CHG&$RST/;t;s/.* <\(\t.*\|$\)/$DEL&$RST/;t;s/.* >\(\t.*\|$\)/$ADD&$RST/;t"
 else
   color "$@"
 fi
