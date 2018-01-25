@@ -76,7 +76,7 @@ set incsearch
 
 ":colorscheme koehler
 ":colorscheme peachpuff
-":colorscheme elflord
+:colorscheme elflord
 ":colorscheme mustang
 ":colorscheme slate
 ":colorscheme zellner
@@ -96,3 +96,10 @@ set incsearch
 :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
+
+" grammalecte
+":imap <C-g> <ESC>:lne<CR>a
+":nmap <C-g> :lne<CR>a
+":let g:grammalecte_cli_py='~/game/Grammalecte-fr-v0.6.1/grammalecte-cli.py'
+":let g:grammalecte_win_height=-1
+":let g:gammalecte_disable_rules='apostrophe_typographique typo_tiret_début_ligne typo_espace_manquant_après2 typo_guillemets_typographiques_doubles_fermants nbsp_avant_deux_points typo_guillemets_typographiques_doubles_ouvrants nbsp_avant_double_ponctuation'
