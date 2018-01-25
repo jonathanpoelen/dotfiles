@@ -299,7 +299,7 @@ function git_current_repository() {
 # these aliases take advantage of the previous function
 alias gl='git pull origin $(git_current_branch)'
 alias gp='git push origin $(git_current_branch)'
-alias glp='git pull origin $(git_current_branch) && git push origin $(git_current_branch)'
+# alias glp='git pull origin $(git_current_branch) && git push origin $(git_current_branch)'
 
 alias glr='gl --rebase'
 
