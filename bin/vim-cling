@@ -7,13 +7,24 @@ CLING=${TMPDIR-/tmp/}/icling.$$.zsh
 
 mkfifo $FIFO
 
-color="\x1b[48;2;44;44;44m"
+# setopt localoptions pipefail
+set -o pipefail
+
+color='\\x1b[48;2;44;44;44m'
 echo '#!/bin/zsh
 sh() { XDG_DATA_DIRS=~/game vt-kate-syntax-highlighter -t"My" -uscpp }
 tail -f '$FIFO' 2>/dev/null >>(
-  stdbuf -o0 cling -std=c++14' $@ '| sed -uE "/^\s*((if|switch|catch|:[^:])[ (]|(class|struct)([: ]|$)|[;:{}()\[\\]$)/ba;s/[a-zA-Z0-9]$/&;/;:a" | sh
+  stdbuf -o0 cling -std=c++14' $@ ' |& while [ 1 ] ; do
+    # ";;" -> exit 8
+    sed -uE "/^\\(const char \\[3\\]\\) \\";;\\"/Q8;/^\s*((if|switch|catch|:[^:])[ (]|(class|struct)([: ]|$)|[;:{}()\[\\\\]$)/ba;s/[a-zA-Z0-9]$/&;/;:a" | sh
+    [[ ${pipestatus[1]} != 8 ]] && break || echo "\nreset output color"
+  done
 ) >>(
-  sh | sed "s/^/'$color'>> /;s/\x1b\[0m/'&$color'/;s/\$/\x1b[0m/"
+  while [ 1 ] ; do
+    # ;; -> exit 9
+    sh | sed "/^\\x1b[^m]\\+m;;/Q9;s/^/'$color'>> /;s/\\x1b\\[0m/&'$color'/;s/\\$/\\x1b[0m/"
+    [[ ${pipestatus[2]} != 9 ]] && break || echo "\nreset input color"
+  done
 )
 ' > $CLING
 chmod u+x $CLING
@@ -28,8 +39,8 @@ chmod u+x $CLING
   tmux -S $SOCK send-keys \ nvim\ -n\
   \ --cmd\ \''command SendCLing exe "!echo " . substitute(shellescape(getline(getpos(".")[1])), "\\([#%]\\)", {m -> "\\" . m[1]}, "g") . "> '"$qfifo"'"'\'\
   \ --cmd\ \''inoremap <CR> <ESC>:SendCLing<CR>$a<CR>'\'\
-  \ --cmd\ \''inoremap @ <ESC>:SendCLing<CR><CR>i'\'\
-  \ --cmd\ \''inoremap ^ <ESC>:SendCLing<CR><CR>ji'\'\
+  \ --cmd\ \''inoremap @ <ESC>:SendCLing<CR><CR>a'\'\
+  \ --cmd\ \''inoremap <C-@> <ESC>:SendCLing<CR><CR>ja'\'\
   \ --cmd\ \''inoremap <C-q> <ESC>:qall!<CR>'\'\
   \ --cmd\ startinsert\
   \ ${(q)${(q)FILE}}\
