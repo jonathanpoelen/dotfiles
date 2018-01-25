@@ -272,7 +272,7 @@ bindkey '\C-x\C-e' edit-command-line
 #zle -N _accept_and_menu
 #bindkey '^[o' _accept_and_menu
 bindkey '^[o' menu-select
-bindkey '^[k' menu-complete
+# bindkey '^[o' menu-complete
 
 # Cycle through history based on characters already typed on the line
 autoload -U up-line-or-beginning-search
@@ -300,7 +300,7 @@ _menu_complete_no_autoselect()
   setopt menu_complete
 }
 zle -N _menu_complete_no_autoselect
-bindkey '^[;' _menu_complete_no_autoselect
+bindkey '^[k' _menu_complete_no_autoselect
 
 
 _popd()
@@ -550,7 +550,7 @@ smart_sudo () {
 alias sudo='nocorrect noglob smart_sudo'
 compdef _sudo smart_sudo
 
-sudo-command-line() {
+insert-sudo-and-accept() {
   [[ -z $BUFFER ]] && zle up-history
   if [[ $BUFFER == sudo\ * ]] || [[ $BUFFER == \ sudo\ * ]]; then
      LBUFFER="${LBUFFER:5}"
@@ -564,18 +564,18 @@ sudo-command-line() {
      LBUFFER="sudo $LBUFFER"
   fi
 }
-zle -N sudo-command-line
-bindkey "\e\e" sudo-command-line
+zle -N insert-sudo-and-accept
+bindkey "\e\e" insert-sudo-and-accept
 
-space-command-line() {
+insert-space-and-accept() {
   [[ -z $BUFFER ]] && zle up-history
   if [[ $BUFFER != \ * ]]; then
      LBUFFER=" $LBUFFER"    
   fi
   zle accept-line
 }
-zle -N space-command-line
-bindkey "^[j" space-command-line
+zle -N insert-space-and-accept
+bindkey "^[j" insert-space-and-accept
 
 alias clipcopy='xclip -selection clipboard'
 
