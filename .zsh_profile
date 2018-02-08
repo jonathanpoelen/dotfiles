@@ -516,7 +516,7 @@ smart_sudo () {
           case ${what[(w)$i]} in
             nocorrect) nocorrect=1; ((++i)) ;;
             noglob) prefix+=${what[(w)$i]}' '; g=1; ((++i));;
-            ex|extglob) prefix+='noglob _ext-glob '; g=1; ++i));;
+            ex|extglob) prefix+='noglob _ext-glob '; g=1; ((++i));;
             ix) prefix+='noglob _nocase-glob '; g=1; ((++i));;
             *) break;;
           esac
