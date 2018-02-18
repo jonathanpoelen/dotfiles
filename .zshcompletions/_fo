@@ -1,0 +1,5 @@
+#compdef fo
+
+_arguments -s \
+  '(-):command: _command_names -e' \
+  '*::args: _normal'

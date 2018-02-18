@@ -187,17 +187,18 @@ alias -g X2='|&xargs -d\\n'
 alias -g Z2='|fzf -m --cycle'
 
 alias -g C='--color=always'
+alias -g ZF='|fo'
 
-alias -g @@='|col'
+#alias -g @@='|col'
 alias -g @1="|awk '{ print \$1 }'"
 alias -g @2="|awk '{ print \$2 }'"
 alias -g @3="|awk '{ print \$3 }'"
-alias -g @4="|awk '{ print \$4 }'"
-alias -g @5="|awk '{ print \$5 }'"
-alias -g @6="|awk '{ print \$6 }'"
-alias -g @7="|awk '{ print \$7 }'"
-alias -g @8="|awk '{ print \$8 }'"
-alias -g @9="|awk '{ print \$9 }'"
+#alias -g @4="|awk '{ print \$4 }'"
+#alias -g @5="|awk '{ print \$5 }'"
+#alias -g @6="|awk '{ print \$6 }'"
+#alias -g @7="|awk '{ print \$7 }'"
+#alias -g @8="|awk '{ print \$8 }'"
+#alias -g @9="|awk '{ print \$9 }'"
 
 
 ## functions
@@ -206,6 +207,17 @@ alias -g @9="|awk '{ print \$9 }'"
 #  history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
 #}
 
+function fo {
+  local fs=()
+  fzf --height 40% --cycle --reverse --no-sort -m -n3..,1 -d: --ansi --tiebreak=index | while read l; do fs+=($l); done
+  eval "$@" ${(q)fs/:*/}
+}
+
+function gfo {
+  local cmd=$1
+  shift
+  g -nH --color=always "$@" |fo $cmd
+}
 
 ## history
 
