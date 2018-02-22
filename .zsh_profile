@@ -169,7 +169,7 @@ alias -g K='|k'
 alias -g A='|awk'
 alias -g W='|while read'
 alias -g X='|xargs -d\\n'
-alias -g Z='|fzf -m --cycle'
+alias -g Z='|fzf --height 40% --cycle --reverse --no-sort -m --ansi --tiebreak=index'
 
 alias -g N2='2>/dev/null'
 alias -g T2='2>~/rawdisk2/l'
@@ -464,6 +464,54 @@ bindkey '^@' set-mark-command
 #bindkey -s '^[[Z' '\t'
 #
 
+-jln-pick ()
+{
+  autoload -U read-from-minibuffer
+  read-from-minibuffer 'command: '
+  [ -z "$REPLY" ] && return
+
+  local buf=$(eval "$REPLY" Z)
+  [ -z "$buf" ] && return
+
+  if [ -z "$1" ]; then
+    buf=(${(q)${(f)buf}})
+    LBUFFER+="${(j: :)buf}"
+    zle redisplay 
+    return   
+  fi
+
+  local -a view=()
+  local -i len n
+  local l
+  n=0
+  while read -A a ; do
+    [[ $n > 4 ]] && break
+    ((++n))
+    len=$#a;
+    for (( i=1 ; i <= $len ; ++i)); do
+      [ -z "${view[$i]}" ] && view[$i]="\e[32m$i\e[0m: "
+      view[$i]+="${(q)a[$i]}  "
+    done
+  done <<<"$buf"
+ 
+  local ns=$(echo ${(j:\n:)view} Z | sed 's/:.*//' )
+  buf=(${(f)buf})
+  ns=(${(f)ns})
+  len=$#buf
+  for (( i=1 ; i <= $len ; ++i )); do
+    view=(${(z)buf[$i]})
+    for n in $ns ; do
+      LBUFFER+="${view[$n]} "
+    done
+  done
+  zle redisplay
+}
+_jln-pick-line () { -jln-pick }
+_jln-pick-line-col () { -jln-pick 1 }
+zle -N _jln-pick-line
+zle -N _jln-pick-line-col
+bindkey '^[|' _jln-pick-line
+bindkey '^[&' _jln-pick-line-col
 
 ## misc
 
