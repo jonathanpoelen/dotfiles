@@ -101,7 +101,7 @@ loadplugins() {
 
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # export PATH="$PATH:/home/jonathan/.fzf/bin"
-PATH+=':/home/jonathan/.fzf/bin'
+#PATH+=':/home/jonathan/.fzf/bin'
 #FZF_COMPLETION_TRIGGER=','
 #source ~/.fzf/shell/completion.zsh
 __fsel() {
