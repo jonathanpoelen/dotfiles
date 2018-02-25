@@ -169,7 +169,7 @@ alias -g K='|k'
 alias -g A='|awk'
 alias -g W='|while read'
 alias -g X='|xargs -d\\n'
-alias -g Z='|fzf --height 40% --cycle --reverse --no-sort -m --ansi --tiebreak=index'
+alias -g Z='|fzf --height 40% --cycle --reverse --no-sort -m --ansi --tiebreak=index --no-sort'
 
 alias -g N2='2>/dev/null'
 alias -g T2='2>~/rawdisk2/l'
@@ -184,7 +184,7 @@ alias -g K2='|&k'
 alias -g A2='|&awk'
 alias -g W2='|&while read'
 alias -g X2='|&xargs -d\\n'
-alias -g Z2='|fzf -m --cycle'
+alias -g Z2='|&fzf -m --cycle --reverse --no-sort -m --ansi --tiebreak=index --no-sort'
 
 alias -g C='--color=always'
 alias -g ZF='|fo'
@@ -350,6 +350,7 @@ bindkey '^[[1;3A' _pushd
 bindkey '^[[1;3C' _list-dir
 bindkey '^[[1;3D' _list-file
 
+# see split-shell-arguments and replace-argument
 
 goto-previous-arg()
 {
@@ -367,35 +368,34 @@ goto-next-arg()
 
 kill-arg()
 {
-  local a=()
-  a+=(${(z)RBUFFER})
-  zle set-mark-command
-  CURSOR=$(($CURSOR+${#a[1]}+1))
-  zle kill-region
+  local reply REPLY REPLY2 n=2
+  autoload -U split-shell-arguments
+  split-shell-arguments
+  [ $(($REPLY % 2)) -eq 1 ] && n=3
+  RBUFFER="${(j::)reply[$(($REPLY+$n)),-1]}"
 }
 
 transpose-arg()
 {
-  local at_end=0
-  if [[ $RBUFFER =~ ^' '*$ ]] ; then
-    at_end=1
-    zle goto-previous-arg
-  fi
-
-  zle goto-previous-arg
-  # kill-arg without kill-region (yank preserved)
-  local a=()
-  a+=(${(z)RBUFFER})
-  local n=$((${#a[1]}+1))
-  local t=${BUFFER:$CURSOR:$n}
-  BUFFER=$LBUFFER${RBUFFER:$n}
-  zle goto-next-arg
-
-  if [ $at_end = 0 ] && [ "${RBUFFER[1]}" = '' ] ; then
-    LBUFFER+=' '$t
+  local reply REPLY REPLY2 tmp e=0
+  autoload -U split-shell-arguments
+  split-shell-arguments
+  if [ $REPLY -eq 1 ]; then
+    e=$((${#reply[1]}+${#reply[2]}))
+    REPLY=4
+  elif [ $REPLY -eq 2 ]; then
+    e=${#reply[2]}
+    REPLY=4
+  elif [ $(($REPLY % 2)) -eq 1 ]; then
+    [ ${#reply} -eq $REPLY ] && REPLY=$(($REPLY-1)) || REPLY=$(($REPLY+1))
   else
-    LBUFFER+=$t
+    e=$((-${#reply[$(($REPLY-1))]}))
   fi
+  tmp=${reply[$REPLY]}
+  reply[$REPLY]=${reply[$(($REPLY-2))]}
+  reply[$(($REPLY-2))]=$tmp
+  BUFFER="${(j::)reply}"
+  CURSOR=$(($CURSOR-$REPLY2+${#reply[$(($REPLY-2))]}+${#reply[$((REPLY-1))]}+${#reply[$((REPLY+1))]}+$e+1))
 }
 
 zle -N goto-previous-arg
@@ -407,7 +407,6 @@ bindkey '^[^F' goto-next-arg
 bindkey '^[^K' kill-arg
 bindkey '^[^T' transpose-arg
 
-
 #_inc_last_arg() {
 #  local r=${BUFFER/* }
 #  [ '}' = "${r[${#r}]}" ] && r=${r/\{*}${${r/*..}:0:-1}
@@ -418,6 +417,8 @@ bindkey '^[^T' transpose-arg
 #}
 #zle -N _inc_last_arg
 #bindkey "^[=" _inc_last_arg
+# autoload -U incarg
+# zle -N incarg
 
 #precmd_functions[n]=function
 _insert_pre_cmd_prefix=
@@ -464,7 +465,7 @@ bindkey '^@' set-mark-command
 #bindkey -s '^[[Z' '\t'
 #
 
--jln-pick ()
+_jln-pick ()
 {
   autoload -U read-from-minibuffer
   read-from-minibuffer 'command: '
@@ -473,11 +474,18 @@ bindkey '^@' set-mark-command
   local buf=$(eval "$REPLY" Z)
   [ -z "$buf" ] && return
 
-  if [ -z "$1" ]; then
+  if [ "$1" = 2 ]; then
+    # sed '1,3!d' <<<$buf
+    echo output: ${buf/$'\n'*}
+    read-from-minibuffer 'filter: '
+    buf=$(echo "$buf" | eval $REPLY)
+  fi
+
+  if [ ! -z $1 ]; then
     buf=(${(q)${(f)buf}})
     LBUFFER+="${(j: :)buf}"
-    zle redisplay 
-    return   
+    zle redisplay
+    return
   fi
 
   local -a view=()
@@ -501,17 +509,19 @@ bindkey '^@' set-mark-command
   for (( i=1 ; i <= $len ; ++i )); do
     view=(${(z)buf[$i]})
     for n in $ns ; do
-      LBUFFER+="${view[$n]} "
+      LBUFFER+="${(q)view[$n]} "
     done
   done
   zle redisplay
 }
-_jln-pick-line () { -jln-pick }
-_jln-pick-line-col () { -jln-pick 1 }
+_jln-pick-line () { _jln-pick 1 }
+_jln-pick-line-col () { _jln-pick 2 }
+zle -N _jln-pick
 zle -N _jln-pick-line
 zle -N _jln-pick-line-col
+bindkey '^[&' _jln-pick
 bindkey '^[|' _jln-pick-line
-bindkey '^[&' _jln-pick-line-col
+bindkey '^[ç' _jln-pick-line-col
 
 ## misc
 
@@ -649,3 +659,4 @@ b() { LD_PRELOAD=$HOME/lib/qt5noblink.so kate ~/projects/blog/content/post/"$@" 
 bb() { LD_PRELOAD=$HOME/lib/qt5noblink.so kdevelop ~/projects/blog/content/post/"$@" }
 _blog_file_completion () { local a=(~/projects/blog/content/post/*(om)) ; reply=(${a:t}) }
 compctl -K _blog_file_completion -M 'r:|[_[:lower:]]=** r:|=*' b bb
+
