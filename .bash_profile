@@ -1,1 +1,5 @@
-# set globstar
+#
+# ~/.bash_profile
+#
+
+#[[ -f ~/.bashrc ]] && . ~/.bashrc

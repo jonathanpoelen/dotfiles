@@ -1,62 +1,153 @@
-/*button:hover{
-  color: #000 !important;
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+/* https://github.com/cmcaine/tridactyl/blob/master/src/static/userChrome-minimal.css */
+/* Tridactyl minimal CSS
+ *
+ * Contributors: aplaice, Oliver Blanthorn, Colin Caine
+ *
+ * Move this file to %appdata%/Mozilla/Firefox/[your-profile]/chrome/userChrome.css 
+ * Currently, it reduces the amount of padding around the UI, removes the tab bar
+ * and autohides the navigation bar. If you want to drag the window around press
+ * "alt" and then use the menu bar to move it, but you're better off pressing 
+ * the Windows key + an arrow key to move the window where you want it.
+ *
+ * If you're not on Windows, you can find your profile folder on
+ * about:support 
+ *
+ * Borrowed from https://www.reddit.com/r/FirefoxCSS/comments/73359a/my_firefox_57_setup/?utm_content=title&utm_medium=browse&utm_source=reddit&utm_name=FirefoxCSS
+ *
+ * This file is a work in progress.
+ *
+ * Any information on where to find documentation on valid properties we can edit here would be appreciated.
+ *
+ */
+
+
+/* auto-hide the tab and navigation bar in a similar way to fullscreen mode */
+
+/* User config */
+#navigator-toolbox {
+    /* The height of the area at the top of the screen that causes the nav-bar to be shown
+    If zero, you can still focus with <C-l> or F6.
+     */
+    --tridactyl-auto-show-zone: 0px;
+}
+
+/* Hide grey container box */
+:root:not([customizing]) #navigator-toolbox:not(:hover):not(:focus-within) { 
+    max-height: 0;
+    min-height: calc(0px); /* I have no idea why just using 0 or 0px does not work... */
+}
+
+/* Auto hide tab bar */
+:root:not([customizing]) #navigator-toolbox:not(:hover):not(:focus-within) #TabsToolbar {
+    visibility: collapse;
+}
+
+/* Auto hide nav bar */
+:root:not([customizing]) #navigator-toolbox:not(:hover):not(:focus-within) #nav-bar {
+    max-height: 0;
+    min-height: 0!important;
+    /* Use margin-bottom to allow trigger zones that are larger than the nav-bar */
+    margin-bottom: calc(-1 * var(--tridactyl-auto-show-zone));
+    opacity: 0;
+} 
+
+/* Avoid transparent background for menubar if nav-toolbox not focussed */
+#navigator-toolbox:not(:hover):not(:focus-within) #toolbar-menubar > * {
+    /* Colour matches the grey background of the default firefox theme. Can't see what variable it uses */
+    background-color: rgb(232, 232, 231);
+}
+
+
+/* Make top bar more compact */
+
+/* Make nav-bar thinner */
+#nav-bar{
+    padding-top: 1px !important;
+    padding-bottom: 0 !important;
+}
+
+/* We need more padding when maximised (maybe just on Windows?) */
+##main-window[sizemode="maximized"] #nav-bar{
+#    padding-top: 7px !important;
+#}
+
+/* Hide URL notifications that aren't particularly useful and cover up the command line
+ * TODO: move it above the command line / bring functionality into status line like Vimperator */
+/* statuspanel[type="overLink"]{display: none !important;} */
+
+/* Partial removal of black bottom 1px line shown in fullscreen mode */
+#navigator-toolbox::after { display: none !important; }
+
+/* Kill tab bar */
+/* #TabsToolbar { visibility: collapse; } */
+
+/* Remove window decorations (Close, Minimize, Fullscreen) */
+#titlebar { display: none !important; }
+#TabsToolbar .titlebar-placeholder { display: none !important; }
+
+/* end Tridactyl minimal CSS */
+
+
+.statuspanel-label {
+  margin-right: 0px !important;
+  padding-right: 5px !important;
+}
+/* statuspanel[type="overLink"] */
+statuspanel {
+  right: 0px !important;
+}
+
+/* Remove the delay and transition */
+statuspanel[type=overLink], statuspanel[inactive][previoustype=overLink]
+{
+  transition: none !important;
+}
+
+#TabsToolbar {
+  -moz-box-ordinal-group: 3 !important;
+  padding-top: 0 !important;
+}
+
+#TabsToolbar, #navigator-toolbox {
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+/* Tabs don't move when dragging. */
+#TabsToolbar[movingtab] {
+  padding-bottom: -0px !important;
+}
+#TabsToolbar[movingtab] > .tabbrowser-tabs {
+  padding-bottom: -0px !important;
+  margin-bottom: -0px !important;
+}
+#TabsToolbar[movingtab] + #nav-bar {
+  margin-top: -0px !important;
+  pointer-events: none;
+}
+
+
+/* tab close - always visible*/
+#TabsToolbar #tabbrowser-tabs .tabbrowser-tab:not([pinned]) .tab-close-button {
+  visibility: visible !important;
+  display: block !important;
+}
+#TabsToolbar #tabbrowser-tabs .tabbrowser-tab:not([pinned])[faviconized="true"] .tab-close-button {
+  visibility: collapse !important;
+  display: none !important;
+}
+
+/* tab very compact */
+#TabsToolbar #tabbrowser-tabs .tabbrowser-tab .tab-content
+{
+  padding: 0px 0px 0px 2px !important;
+  margin: 0px !important;
+}
+/*#TabsToolbar > .tabbrowser-tabs, .tabbrowser-tab {
+  padding-bottom: 0px !important;
+  margin-bottom: 0px !important;
 }*/
 
-/* Shrink tab titles by 10% */
-.tabbrowser-tabs .tab-text {
-/*   font-size: .8em; */
-  text-shadow:none !important;
-}
-
-.tabbrowser-tabs {
-  height: 10px !important;
-}
-/*.tabbrowser-tab:not([selected="true"]):not(:hover),
-.tabs-newtab-button:not(:hover){
-  background-image: -moz-linear-gradient(bottom, rgba(10%,10%,10%,.4) 1px, transparent 1px), -moz-linear-gradient(hsla(0,0%,100%,.3) 1px, hsla(0,0%,35%,.2) 80%, hsla(0,0%,60%,.2)),
-  -moz-linear-gradient(-moz-dialog, -moz-dialog) !important;
-}*/
-tab/*:not([selected="true"])*/ {
-/*   background-color: #555; */
-  background-image: none !important;
-  border-top: none !important;
-  border-bottom: none !important;
-/*   border-right: 1px !important; */
-/*   border-left: 1px !important; */
-}
-tab:hover {
-  background-color: #333 !important;
-  color: #7a7 !important;
-/*   background-image: none !important; */
-}
-
-/*#urlbar, #toolbar-menubar, #search-bar, #nav-bar, .link, a {
-  color: orange !important;
-  background: cyan !important;
-  padding:0;
-}*/
-
-#toolbar-menubar, #nav-bar {
-/*   color: orange !important; */
-  height: 28px !important;
-}
-
-/*
-#urlbar :not(dropmarker) {
-  color: green !important;
-  background: blue !important;
-}*/
-
-/* blink { text-decoration: none ! important; } */
-
-/* The following 3 lines were to forbid navigation bar history and bookmark to display in blue caracters*/
-.ac-url-text {
-  color: orange !important;
-}
-/*.autocomplete-richlistitem[selected="true"] .ac-url-text {
-  color: darkorange !important;
-  background-color: Highlight !important;
-}
-.autocomplete-richlistitem {
-  border-bottom: 1px solid ThreeDShadow !important;
-}*/
+/* https://github.com/Aris-t2/CustomCSSforFx/tree/master/classic */

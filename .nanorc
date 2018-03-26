@@ -1,64 +1,23 @@
 #-------- General Options ----------
 
 #set autoindent
-#set nowrap
+set nowrap
 set matchbrackets "(<[{)>]}"
 #set mouse
+set smarthome
+set softwrap
+set tabsize 4
+set trimblanks
+set historylog
 
 ## Key bindings.
 ## See nanorc(5) for more details on this.
 bind ^L mark main
 
-
-#------- Syntax Highlight ------------
-
-## Nanorc files
-#include "~/.nanosyntax/nanorc.nanorc"
-
-## C/C++
-include "~/.nanosyntax/c.nanorc"
-
-## HTML
-#include "~/.nanosyntax/html.nanorc"
-
-## Patch files
-#include "~/.nanosyntax/patch.nanorc"
-
-## Manpages
-#include "~/.nanosyntax/man.nanorc"
-
-## Groff
-#include "~/.nanosyntax/groff.nanorc"
-
-## Perl
-#include "~/.nanosyntax/perl.nanorc"
-
-## Python
-#include "~/.nanosyntax/python.nanorc"
-
-## Java
-#include "~/.nanosyntax/java.nanorc"
-
-
-## Bourne shell scripts
-#include "~/.nanosyntax/sh.nanorc"
-
-#------- Syntax Highlight Pack --------------
-
-## Etc stuff
-#include "~/.nanosyntax/etc-stuff.nanorc"
-
-## Passwd
-#include "~/.nanosyntax/passwd.nanorc"
-
-## CSS
-#include "~/.nanosyntax/css.nanorc"
-
-## php
-#include "~/.nanosyntax/php.nanorc"
-
-## xml
-#include "~/.nanosyntax/xml.nanorc"
-
-## makefile
-#include "~/.nanosyntax/makefile.nanorc"
+#include /usr/share/nano/*.nanorc
+include /usr/share/nano/c.nanorc
+include /usr/share/nano/sh.nanorc
+include /usr/share/nano/javascript.nanorc
+include /usr/share/nano/json.nanorc
+include /usr/share/nano/xml.nanorc
+include /usr/share/nano/html.nanorc

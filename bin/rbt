@@ -1,0 +1,5 @@
+#!/bin/sh
+
+exe="$1"
+shift
+bt "$exe" -- "$@"

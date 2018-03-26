@@ -21,3 +21,6 @@
 	upstream = cyan
 [push]
 	default = simple
+#[pager]
+#	branch = false
+

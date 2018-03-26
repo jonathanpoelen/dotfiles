@@ -1,3 +1,5 @@
+[[ $- != *i* ]] && return
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -90,13 +92,8 @@ esac
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-if [ -f ~/.bash_profile ]; then
-    . ~/.bash_profile
-fi
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases
+# [ -f ~/.bash_profile ] && . ~/.bash_profile
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -109,5 +106,4 @@ if [ -f "$HOME/bin" ]; then
 	PATH=$PATH:$HOME/bin
 fi
 
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.fzf.bash ] && . ~/.fzf.bash

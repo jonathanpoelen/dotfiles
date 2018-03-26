@@ -43,6 +43,9 @@ function lll() {
   return $?
 }
 
+alias cp='cp -i'
+alias df='df -h'
+alias free='free -h'
 alias cr='cp -R'
 
 alias c='cat'
@@ -218,22 +221,6 @@ function m() {
   mkdir -p "$@" && cd -- "$1"
 }
 
-# alias aptupdate='sudo apt-get update'
-# alias aptupgrade='sudo apt-get upgrade'
-# alias aptsearch='apt-cache search'
-# alias aptinstall='sudo apt-get install'
-# alias aptremove='sudo apt-get remove'
-function acf() {
-  if [ -z "$1" ] ; then
-    echo $0 regex filter >&2
-    return 1
-  elif [ -z "$2" ] ; then
-    apt-cache search "$1" | grep -i --color=always "$1"
-  else
-    apt-cache search "$1" | grep -i --color=always "$2"
-  fi
-}
-
 # some more git aliases
 alias gsh='git stash'
 alias gst='git status'
@@ -283,8 +270,8 @@ alias grhh='git reset HEAD --hard'
 
 alias glgg='git log --stat --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" -n4'
 alias cglg='GIT_PAGER=cat glgg'
-alias glg='GIT_PAGER=cat git log --graph --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" -n20'
-#alias glog='GIT_PAGER=cat git log --oneline --decorate --color --graph -n20'
+alias glg='GIT_PAGER=cat git log --graph --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" -n10'
+#alias glog='GIT_PAGER=cat git log --oneline --decorate --color --graph -n10'
 
 
 function git_current_branch () {
@@ -343,8 +330,6 @@ function jhibernate(){
 
 alias isearch='search -i'
 
-source ~/.bash_aliases_apt
-
 function man(){
   # mb  Start blinking
   # md  Start bold mode
@@ -378,7 +363,7 @@ function swap {
   mv /tmp/swap-$$.tmp "$2"
 }
 
-function extract {
+function er {
   for f in "$@" ; do
     if [ -f "$f" ] ; then
       case "$f" in
@@ -400,14 +385,13 @@ function extract {
     fi
   done
 }
-alias er=extract
 erd()
 {
   local p="$PWD"
   cd "$1"
   shift
   for f in "$@" ; do
-    extract "$p/$f"
+    er "$p/$f"
   done
   cd "$p"
 }
@@ -415,15 +399,15 @@ alias err='erd ~/Videos'
 
 bak() { cp "$1" "$1"_`date +%H:%M:%S_%d-%m-%Y` ; }
 
-alias c1='awk { print $1 }'
-alias c2='awk { print $2 }'
-alias c3='awk { print $3 }'
-alias c4='awk { print $4 }'
-alias c5='awk { print $5 }'
-alias c6='awk { print $6 }'
-alias c7='awk { print $7 }'
-alias c8='awk { print $8 }'
-alias c9='awk { print $9 }'
+alias c1='awk '\''{ print $1 }'\'
+alias c2='awk '\''{ print $2 }'\'
+alias c3='awk '\''{ print $3 }'\'
+alias c4='awk '\''{ print $4 }'\'
+alias c5='awk '\''{ print $5 }'\'
+alias c6='awk '\''{ print $6 }'\'
+alias c7='awk '\''{ print $7 }'\'
+alias c8='awk '\''{ print $8 }'\'
+alias c9='awk '\''{ print $9 }'\'
 col() { awk '{ print $'$1' }' ; }
 k() { awk "{ print $@ }" ; }
 
@@ -433,6 +417,7 @@ hin() { hi "$@" | nl -ba ; }
 ihin() { ihi "$@" | nl -ba ; }
 
 alias n=nano
+alias nn='nano -$'
 # my feh fork
 alias i='~/projects/feh/src/feh --begin-top -Z'
 alias x=xpdf

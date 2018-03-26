@@ -1,0 +1,83 @@
+"^[[D": forward-char
+"^[[C": forward-char
+"\C-xq": "\eb\"\ef\""
+"\eOc": forward-word
+"\eOd": backward-word
+"\er": revert-line # to its original state
+set show-all-if-ambiguous on
+set completion-ignore-case on
+
+# https://github.com/deterenkelt/dotfiles/blob/master/.inputrc
+
+# Quick dirty little note from /etc/inputrc:
+#  To get the key sequence for binding, you can abuse bash.
+#  While running bash, hit CTRL+V, and then type the key sequence.
+#  So, typing 'ALT + left arrow' in Konsole gets you back:
+#    ^[[1;3D
+#  Keeping in mind that the escape sequence \e is printed as ^[,
+#    the readline entry to make this skip back a word will then be:
+#   "\e[1;3D": backward-word
+# "\C-q": "quoted-insert" – press C-q to paste ‘quoted insert’
+
+## If you don’t like control echo of special characters,
+##    e.g. ^C on the screen
+#set echo-control-characters off
+
+## (C-x C-r) re-read ~/.inputrc
+"\C-x\C-r": re-read-init-file
+
+"\C-d": end-of-line
+
+## Moving
+"\eh": beginning-of-line
+"\e\'": end-of-line
+"\el": forward-char
+"\ej": backward-char
+"\e\"": forward-word
+"\eH": backward-word
+
+## Editing
+# as ‘delete’ key does
+#"\e[3~": delete-char
+# and this is as ‘backspace’
+"\e;": backward-delete-char
+"\e:": backward-kill-word
+"\er": revert-line  # to its original state
+"\C-[1;2P": unix-line-discard  # C-u works, but it’s placed inconveniently far.
+## Prepend pasted filename with ‘imgur’ command and run it.
+"\C-i": complete
+#"\C-y": "\C-aimgur \C-e\C-m"
+## Insert the tab character
+"\C-T": tab-insert
+#upcase-word
+#downcase-word
+"\ez": undo
+"\eZ": revert-line
+
+# Emacs-like copypaste
+"\e- ": set-mark
+"\C-x ": exchange-point-and-mark
+"\C-j": copy-region-as-kill
+"\C-k": kill-region
+"\C-y": yank
+
+"\C-l": clear-screen
+"\C-r": previous-history
+"\C-v": next-history
+#"\eu": beginning-of-history
+#"\em": end-of-history
+"\C-f": reverse-search-history
+#forward-search-history
+## non-incremetal- ???
+#history-search-forward
+## and -backward
+"\ee": shell-expand-line  # expand aliases
+# history-expand-line
+## ↓ M-TAB
+#dynamic-complete-history
+
+# execute line and load the comand from history for editing ???
+# "\C-q": operate-and-get-next
+
+# call $VISUAL, $EDITOR or ‘emacs’ and execute the result as a shell command
+"\C-e": edit-and-execute-command

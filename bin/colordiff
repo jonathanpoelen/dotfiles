@@ -31,7 +31,7 @@
 
 # Jonathan NOTE: removal of code unnecessary in my case and -y support.
 
-esc="$(echo '\033')"
+esc=$'\x1b'
 
 DEL="$esc[31m"
 ADD="$esc[32m"

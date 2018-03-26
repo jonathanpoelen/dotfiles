@@ -25,6 +25,17 @@ alias acsn='apt-cache search --names-only'
 #alias aps='aptitude search'
 #alias as="aptitude -F \"* %p -> %d \n(%v/%V)\" --no-gui --disable-columns search" # search package
 
+function acf() {
+  if [ -z "$1" ] ; then
+    echo $0 regex filter >&2
+    return 1
+  elif [ -z "$2" ] ; then
+    apt-cache search "$1" | grep -i --color=always "$1"
+  else
+    apt-cache search "$1" | grep -i --color=always "$2"
+  fi
+}
+
 # apt-file
 alias afs='apt-file search'
 alias afl='apt-file list'
