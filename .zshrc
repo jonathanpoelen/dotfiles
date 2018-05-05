@@ -42,7 +42,7 @@ PS2='%{$fg[green]%}>%{$reset_color%}'
 
 # Customize to your needs...
 # export PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
-export PATH=~/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+export PATH=~/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/bin/vendor_perl
 
 #zstyle ':completion:*' hosts off
 
@@ -419,14 +419,14 @@ bindkey '^[[6~' down-line-or-history
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
 
-bindkey '^[[H' beginning-of-line
+# bindkey '^[[H' beginning-of-line
 # bindkey '^[[1~' beginning-of-line
 # bindkey '^[OH' beginning-of-line
-# bindkey "^[[7~" beginning-of-line
-bindkey '^[[F'  end-of-line
+bindkey "^[[7~" beginning-of-line
+# bindkey '^[[F'  end-of-line
 # bindkey '^[[4~' end-of-line
 # bindkey '^[OF' end-of-line
-# bindkey "^[[8~" end-of-line
+bindkey "^[[8~" end-of-line
 bindkey ' ' magic-space    # also do history expansion on space
 
 bindkey '^[[1;5C' forward-word
@@ -830,3 +830,5 @@ b() { LD_PRELOAD=$HOME/lib/qt5noblink.so kate ~/projects/blog/content/post/"$@" 
 bb() { LD_PRELOAD=$HOME/lib/qt5noblink.so kdevelop ~/projects/blog/content/post/"$@" }
 _blog_file_completion () { local a=(~/projects/blog/content/post/*(om)) ; reply=(${a:t}) }
 compctl -K _blog_file_completion -M 'r:|[_[:lower:]]=** r:|=*' b bb
+
+rand() REPLY=$RANDOM

@@ -1,5 +1,5 @@
-zoom_in 1-Up
-zoom_out 1-Down
+zoom_in 1-p
+zoom_out 1-o
 scroll_down
 scroll_up
 next_img Right

@@ -240,12 +240,23 @@ URxvt.cutchars: "`\"'&()*,;<=>?@[]^{|}:"
 Rxvt.perl-ext: new-window,clipboard
 Rxvt.keysym.Control-Shift-N: perl:new-window
 
+URxvt*termName: rxvt-unicode
+
 ! keyboard remapping
 URxvt.keysym.C-Right: string:\033[1;5C
 URxvt.keysym.C-Left: string:\033[1;5D
-URxvt.keysym.Home: string:\033[H
-URxvt.keysym.End: string:\033[F
+URxvt.keysym.Home: string:\033[7~
+URxvt.keysym.End: string:\033[8~
 
+! Commands
+URxvt.keysym.C-A-k: command:\033c
+! URxvt.keysym.C-A-k: string:echo -ne '\\033c'\n
+!! scroll line by line
+URxvt.keysym.A-Up: command:\033]720;1\007
+URxvt.keysym.A-Down: command:\033]721;1\007
+!! scroll to top/bottom
+URxvt.keysym.A-Home: command:\033]720;99999\007
+URxvt.keysym.A-End: command:\033]721;99999\007
 
 !My TomorrowNightBright
 

@@ -45,6 +45,7 @@ function lll() {
 
 alias cp='cp -i'
 alias df='df -h'
+alias du='du -h'
 alias free='free -h'
 alias cr='cp -R'
 
@@ -73,13 +74,11 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:
 # -Wstrict-overflow=5
 # -Wstrict-default # bad idea
 # -Wmissing-format-attribute
-cxxflag='-Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wdisabled-optimization -Wfloat-equal -Wformat-security -Wformat-signedness -Wformat=2 -Wmissing-declarations -Wmissing-include-dirs -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wpacked -Wredundant-decls -Wundef -Wuninitialized -Wunused-macros -Wvla -Wswitch -Wconversion -Wduplicated-cond -Wnull-dereference -fsized-deallocation -Warray-bounds=2 -Wconditionally-supported -Wnoexcept -Wsized-deallocation -Wstrict-null-sentinel -Wsuggest-override -Wfloat-conversion -Wopenmp-simd -Wuseless-cast -Wsuggest-attribute=noreturn -Wzero-as-null-pointer-constant -Wlogical-op -Wvector-operation-performance -Wdouble-promotion -Wtrampolines -Winline'
+cxxflag='-Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wdisabled-optimization -Wfloat-equal -Wformat-security -Wformat-signedness -Wformat=2 -Wmissing-declarations -Wmissing-include-dirs -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wpacked -Wredundant-decls -Wundef -Wuninitialized -Wunused-macros -Wvla -Wswitch -Wconversion -Wduplicated-cond -Wnull-dereference -fsized-deallocation -Warray-bounds=2 -Wconditionally-supported -Wnoexcept -Wsized-deallocation -Wstrict-null-sentinel -Wsuggest-override -Wfloat-conversion -Wopenmp-simd -Wuseless-cast -Wsuggest-attribute=noreturn -Wzero-as-null-pointer-constant -Wlogical-op -Wvector-operation-performance -Wdouble-promotion -Wtrampolines -Winline -Wshadow=local'
 alias gw++="g++ $cxxflag"
 alias gw11="g++ -fdiagnostics-color=always -std=c++11 $cxxflag"
 alias gw14="g++ -fdiagnostics-color=always -std=c++14 $cxxflag"
-alias gw1z="g++ -fdiagnostics-color=always -std=c++1z $cxxflag"
-alias gw14-7="g++-7 -fdiagnostics-color=always -std=c++14 $cxxflag -Wshadow=local"
-alias gw1z-7="g++-7 -fdiagnostics-color=always -std=c++1z $cxxflag -Wshadow=local"
+alias gw17="g++ -fdiagnostics-color=always -std=c++17 $cxxflag"
 unset cxxflag
 
 cxxflag='-Weverything -Wno-shadow -Wno-effc++ -Wno-padded -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes -Wno-c++98-compat-pedantic'
@@ -87,11 +86,7 @@ export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
 alias cw++="clang++ $cxxflag -fcolor-diagnostics"
 alias cw11="clang++ $cxxflag -fcolor-diagnostics -std=c++11"
 alias cw14="clang++ $cxxflag -fcolor-diagnostics -std=c++14"
-alias cw1z="clang++ $cxxflag -fcolor-diagnostics -std=c++1z"
-alias cw++-4="clang++-4.0 $cxxflag -fcolor-diagnostics"
-alias cw11-4="clang++-4.0 $cxxflag -fcolor-diagnostics -std=c++11"
-alias cw14-4="clang++-4.0 $cxxflag -fcolor-diagnostics -std=c++14"
-alias cw1z-4="clang++-4.0 $cxxflag -fcolor-diagnostics -std=c++1z"
+alias cw17="clang++ $cxxflag -fcolor-diagnostics -std=c++17"
 unset cxxflag
 
 # coverage flags: -fprofile-arcs -ftest-coverage --coverage
@@ -443,3 +438,5 @@ y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-ou
 
 alias ak=/usr/bin/ag
 alias na='nl -ba'
+
+source ~/.bash_aliases_yaourt

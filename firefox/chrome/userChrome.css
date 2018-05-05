@@ -105,10 +105,11 @@ statuspanel[type=overLink], statuspanel[inactive][previoustype=overLink]
   transition: none !important;
 }
 
-#TabsToolbar {
+/* tabs bottom urlbare */
+/*#TabsToolbar {
   -moz-box-ordinal-group: 3 !important;
   padding-top: 0 !important;
-}
+}*/
 
 #TabsToolbar, #navigator-toolbox {
   padding: 0px !important;

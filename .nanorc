@@ -21,3 +21,4 @@ include /usr/share/nano/javascript.nanorc
 include /usr/share/nano/json.nanorc
 include /usr/share/nano/xml.nanorc
 include /usr/share/nano/html.nanorc
+include /usr/share/nano/css.nanorc

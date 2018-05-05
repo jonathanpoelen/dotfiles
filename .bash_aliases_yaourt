@@ -1,0 +1,39 @@
+# https://wiki.archlinux.fr/Pacman
+# https://wiki.archlinux.org/index.php/Pacman/Rosetta
+
+alias acs='yaourt -Ss' # search
+
+alias ag='yaourt -Su' # upgrade
+alias ad='yaourt -Sy' # update / refresh info
+alias adg='yaourt -Syu' # update and upgrade
+alias adga='yaourt -Syua' # update then upgrade + AUR
+
+alias ai='yaourt' # install
+alias ar='yaourt -R' # removes
+alias ap='yaourt -Rs' # + dependancies
+alias ap='yaourt -Rsn' # + config
+# alias di='yaourt -U' # installs local package file
+
+alias aci='pacman -Qi' # info
+# alias aci='pacman -Si' # info without suggestion
+
+# alias afl='pacman -Fl'
+alias afl='pkgfile -l' # list file
+# alias afs='pacman -Fo'
+# alias afs='pacman -Fs'
+alias afs='pkgfile -sr' # search with regex
+
+# /var/cache/pacman/pkg/
+# alias aac='pacman -Sc' # empty the cache
+alias aac='paccache -r' # ... except the last three latest versions
+alias aacc='paccache -ruk0' # + uninstalled
+
+#alias 'pacman -Qc' # changelog
+
+# alias deborphan='pacman -Qm' # List packages that are installed but are not available in any installation source (anymore).
+# alias 'deborphan -anp1'='pacman -Qt' # List packages not required by any other package
+
+# if pacman fails
+# Mount fs
+# pacman -r /path/to/rootfs -Syyu
+# pacman -r /path/to/rootfs -S paquet
