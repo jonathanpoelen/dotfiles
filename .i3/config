@@ -27,7 +27,7 @@ font xft:URWGothic-Book 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec terminal
+bindsym $mod+Return exec terminal -cd ~/rawdisk2
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -77,11 +77,11 @@ bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 # Control player
 bindsym $mod+space exec --no-startup-id "echo cycle pause > ~/rawdisk/music-control"
 bindsym $mod+n exec --no-startup-id "echo playlist-next > ~/rawdisk/music-control"
-bindsym $mod+Alt+Right exec --no-startup-id "echo playlist-next > ~/rawdisk/music-control"
-bindsym $mod+Alt+Left exec --no-startup-id "echo playlist-prev > ~/rawdisk/music-control"
-bindsym $mod+Alt+Up exec --no-startup-id "echo seek 5 > ~/rawdisk/music-control"
-bindsym $mod+Alt+Down exec --no-startup-id "echo seek -5 > ~/rawdisk/music-control"
-bindsym $mod+Alt+l exec --no-startup-id "echo cycle loop-file > ~/rawdisk/music-control"
+bindsym $mod+Mod1+Right exec --no-startup-id "echo playlist-next > ~/rawdisk/music-control"
+bindsym $mod+Mod1+Left exec --no-startup-id "echo playlist-prev > ~/rawdisk/music-control"
+bindsym $mod+Mod1+Up exec --no-startup-id "echo seek 5 > ~/rawdisk/music-control"
+bindsym $mod+Mod1+Down exec --no-startup-id "echo seek -5 > ~/rawdisk/music-control"
+bindsym $mod+Mod1+l exec --no-startup-id "echo cycle loop-file > ~/rawdisk/music-control"
 bindsym $mod+u exec --no-startup-id "~/game/track_passed"
 # Sound 2
 bindsym Ctrl+F11 exec --no-startup-id amixer -q set Master 3-
