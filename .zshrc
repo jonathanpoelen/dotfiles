@@ -46,9 +46,6 @@ export PATH=~/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/bin/vendor_perl
 
 #zstyle ':completion:*' hosts off
 
-# copy-prev-arg
-# kill-arg
-
 #autoload incremental-complete-word
 #zle -N incremental-complete-word
 #bindkey '^Xi' incremental-complete-word
@@ -167,6 +164,12 @@ alias history='fc -l 1'
 # alias afind='ack-grep -il'
 
 
+## navigation
+
+bindkey '^X^B' vi-find-prev-char
+bindkey '^X^[' vi-match-bracket
+
+
 ## completion
 
 setopt menu_complete   # autoselect the first completion entry
@@ -174,6 +177,9 @@ unsetopt flowcontrol
 setopt auto_menu         # show completion menu on succesive tab press
 setopt complete_in_word
 setopt always_to_end
+
+bindkey '^[,' insert-last-word
+bindkey '^[.' _history-complete-older
 
 WORDCHARS=''
 
@@ -308,7 +314,7 @@ function _nocase-glob {
 alias ix='noglob _nocase-glob'
 alias ex=extglob
 
-alias calc='noglob calc'
+alias a='noglob a'
 alias wg='noglob wget'
 alias y='noglob y'
 
@@ -543,6 +549,7 @@ kill-arg()
   autoload -U split-shell-arguments
   split-shell-arguments
   [ $(($REPLY % 2)) -eq 1 ] && n=3
+  [ ! -z "$NUMERIC" ] && n=$(($n+$NUMERIC*2-2))
   RBUFFER="${(j::)reply[$(($REPLY+$n)),-1]}"
 }
 
@@ -590,6 +597,15 @@ bindkey '^[^T' transpose-arg
 #bindkey "^[=" _inc_last_arg
 # autoload -U incarg
 # zle -N incarg
+
+function kill-prev-char-region()
+{
+  zle set-mark-command
+  zle vi-find-prev-char
+  zle kill-region
+}
+zle -N kill-prev-char-region
+bindkey '^X^K' kill-prev-char-region
 
 #precmd_functions[n]=function
 _insert_pre_cmd_prefix=

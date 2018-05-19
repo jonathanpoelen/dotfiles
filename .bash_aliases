@@ -16,7 +16,7 @@ if [ -x /usr/bin/dircolors ]; then
   alias vdir='vdir --color=auto'
 
   alias grep='grep --color=auto --exclude-dir=.git'
-  alias fgrep='fgrep --color=auto --exclude-dir=.git'
+  #alias fgrep='fgrep --color=auto --exclude-dir=.git'
   alias egrep='egrep --color=auto --exclude-dir=.git'
   alias rgrep='rgrep --color=auto --exclude-dir=.git'
 
@@ -63,7 +63,7 @@ alias hsi='hs -i'
 #   sleep 10; alert
 # alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias g++-7=/usr/lib/gcc-snapshot/bin/g++
+# alias g++-7=/usr/lib/gcc-snapshot/bin/g++
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:quote=00;32'
 
@@ -175,7 +175,6 @@ alias po='popd'
 # alias igrep='grep -i'
 # alias rigrep='grep -ir'
 alias g='grep'
-alias rg='grep -r'
 alias eg='grep -E'
 # alias ig='grep -i'
 # alias rig='grep -ir'
@@ -210,6 +209,9 @@ alias g1='grep -m1'
 # alias erg1='grep -Erm1'
 # alias veg1='grep -vErm1'
 # alias verg1='grep -vErm1'
+
+# altermative grep: ripgrep
+alias rg='rg --no-heading'
 
 function m() {
   [ $# -lt 1 ] && echo "Usage: $0 missing directory" >&2 && return 1
@@ -309,7 +311,7 @@ ud() {
 alias wd='wdiff -w$'\''\e[31m[-'\'' -x$'\''-]\e[0m'\'' -y$'\''\e[32m{+'\'' -z$'\''+}\e[0m'\'
 alias dwd='dwdiff -w$'\''\e[31m[-'\'' -x$'\''-]\e[0m'\'' -y$'\''\e[32m{+'\'' -z$'\''+}\e[0m'\'
 
-function calc(){
+function a(){
   echo $(($*))
 }
 
@@ -423,7 +425,6 @@ alias tp='tree -p'
 alias ts='tree -sh'
 alias v=vim
 alias s=sed
-alias a=calc
 p() { mpv -af scaletempo --really-quiet -fs --speed=1.61 "$@" ; } # auto-complete only for files
 
 alias mmcal="gcal -H '\e[01;33m:\e[0m:\e[31m:\e[0m' -s1 -q FR -N"
