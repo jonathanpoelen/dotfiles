@@ -16,6 +16,7 @@ bind ^L mark main
 
 #include /usr/share/nano/*.nanorc
 include /usr/share/nano/c.nanorc
+include /usr/share/nano/python.nanorc
 include /usr/share/nano/sh.nanorc
 include /usr/share/nano/javascript.nanorc
 include /usr/share/nano/json.nanorc
