@@ -16,9 +16,6 @@ if [ -x /usr/bin/dircolors ]; then
   alias vdir='vdir --color=auto'
 
   alias grep='grep --color=auto --exclude-dir=.git'
-  #alias fgrep='fgrep --color=auto --exclude-dir=.git'
-  alias egrep='egrep --color=auto --exclude-dir=.git'
-  alias rgrep='rgrep --color=auto --exclude-dir=.git'
 
   #alias wcgrep='wcgrep --color=auto'
 
@@ -128,6 +125,7 @@ alias '...'='cd ../..'
 alias '....'='cd ../../..'
 alias '.....'='cd ../../../..'
 alias -- -='cd -'
+alias -- _='cd -'
 
 alias md='mkdir -p'
 alias rd=rmdir
@@ -176,6 +174,7 @@ alias po='popd'
 # alias rigrep='grep -ir'
 alias g='grep'
 alias eg='grep -E'
+alias rg='grep -R'
 # alias ig='grep -i'
 # alias rig='grep -ir'
 # alias reg='grep -Er'
@@ -211,7 +210,9 @@ alias g1='grep -m1'
 # alias verg1='grep -vErm1'
 
 # altermative grep: ripgrep
-alias rg='rg --no-heading'
+# alias ripgrep=/usrb/bin/rg
+alias rig=/usrb/bin/rg
+alias arg='/usrb/bin/rg --no-heading'
 
 function m() {
   [ $# -lt 1 ] && echo "Usage: $0 missing directory" >&2 && return 1
@@ -439,5 +440,26 @@ y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-ou
 
 alias ak=/usr/bin/ag
 alias na='nl -ba'
+
+defl() {
+  sdcv "$@" | sed '
+    /^[0-9]/!b
+    s/^/\x1b[;35;1m/;s/$/\x1b[0m/;n
+    :a
+    /^[0-9]/!bb
+    s/^/\x1b[;33;1m/;s/$/\x1b[0m/;b
+    :b;n;ba
+  ' |$PAGER -F
+}
+
+def() {
+  local s1=$(sdcv "$@")
+  local s2=$(awk '/^[0-9]/{
+    if (and(i,1)) print "\033[35;1m" $0
+    else     print "\033[33;1m" $0
+    ++i
+  }'<<<"$s1")
+  [ -z "$s2" ] && echo "$s1" || echo "$s2"
+}
 
 source ~/.bash_aliases_yaourt
