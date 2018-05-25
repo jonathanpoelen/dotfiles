@@ -43,6 +43,7 @@ PS2='%{$fg[green]%}>%{$reset_color%}'
 # Customize to your needs...
 # export PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 export PATH=~/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/bin/vendor_perl
+READNULLCMD=less # pager for `<file`
 
 #zstyle ':completion:*' hosts off
 
