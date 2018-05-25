@@ -1,2 +1,2 @@
 #/bin/sh
-exec ccache /usr/bin/clang++-3.9 "$@"
+exec ccache /usr/bin/clang++ "$@"
