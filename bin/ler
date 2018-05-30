@@ -1,0 +1,19 @@
+#!/bin/zsh
+
+set -e
+
+zmodload zsh/system
+
+if [ $# -lt 1 ]; then
+  echo $0 file.rar '[wait seconds]'
+fi
+
+t=${2:-4}
+f=$(unrar lb $1)
+o=r_$f
+mkfifo $f
+exec 5>$o
+while sysread -s 1048576 -o 5 ; do sleep $t ; done < $f &
+unrar -o+ e $1
+rm -- $f
+mv $o $f

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+u="$(sed '/^GET/s/^........//;s/.........\$//;q')"
+u="${u//\'/\'\\\'\'}"
+notify-send "dl: $u"
+i3-msg "workspace 8; exec terminal -e ~/game/dl-url '$u'; workspace 8"
+sleep 2

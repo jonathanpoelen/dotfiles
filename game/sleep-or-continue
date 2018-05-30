@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+pid=$(xdotool getactivewindow getwindowpid %@)
+read x x s x < /proc/$pid/stat
+read name < /proc/$pid/cmdline || :
+case "$name" in
+  ''|urxvt*) exit 0 ;;
+  *) [ "$s" = 'T' ] && kill -CONT $pid || kill -STOP $pid
+esac

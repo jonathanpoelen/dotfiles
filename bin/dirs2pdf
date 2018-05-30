@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for dd in "$@" ; do
+  name=`basename "$dd"`
+  for d in "$dd"/* ; do
+    chap=`basename "$d"`
+    pdf="$name-$chap".pdf
+    echo "$pdf"
+    img2pdf --output "$pdf" "$d"/*
+  done
+done

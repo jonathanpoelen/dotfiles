@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+pid=$(pgrep firefox)
+[ $? -ne 0 ] && exit 1
+read x x s x < /proc/$pid/stat
+[ "$s" = 'T' ] && t=CONT || t=STOP
+killall -$t firefox Web\ Content
