@@ -174,7 +174,7 @@ alias po='popd'
 # alias rigrep='grep -ir'
 alias g='grep'
 alias eg='grep -E'
-alias rg='grep -R'
+# alias rg='grep -R'
 # alias ig='grep -i'
 # alias rig='grep -ir'
 # alias reg='grep -Er'
@@ -210,9 +210,9 @@ alias g1='grep -m1'
 # alias verg1='grep -vErm1'
 
 # altermative grep: ripgrep
-# alias ripgrep=/usrb/bin/rg
-alias rig=/usrb/bin/rg
-alias arg='/usrb/bin/rg --no-heading'
+# alias ripgrep=/usr/bin/rg
+alias rig=/usr/bin/rg
+alias rg='/usr/bin/rg --no-heading'
 
 function m() {
   [ $# -lt 1 ] && echo "Usage: $0 missing directory" >&2 && return 1
