@@ -1,18 +1,21 @@
 [user]
 	name = 
 	email = 
+	logallrefupdates = true
 [core]
 	#pager = cat
 	whitespace = -trailing-space
-	askpass = /home/jonathan/bin/git-ksshaskpass
-[alias]
-	st = status
-	ci = commit
-	lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
-	dw = diff --word-diff
-	oops = commit --amend --no-edit
+	#askpass = /home/jonathan/bin/git-ksshaskpass
+#[alias]
+#	st = status
+#	ci = commit
+#	lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
+#	dw = diff --word-diff
+#	oops = commit --amend --no-edit
 [diff]
 	mnemonicPrefix = true
+	# colorMoved = no default plain zebra dimmed_zebra
+	colorMoved = plain
 	#wordRegex = .
 [color]
 	diff = auto
@@ -21,6 +24,9 @@
 	upstream = cyan
 [push]
 	default = simple
+[pull]
+    # preserve, true, false
+   	rebase=preserve
 #[pager]
 #	branch = false
-
+#	status = less -FX

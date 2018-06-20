@@ -1,5 +1,7 @@
 #noatime,nodiratime
 
+# rw,noatime,commit=600,errors=remount-ro,data=ordered
+
 tmpfs   /tmp    tmpfs   mode=1777       0       0
 tmpfs /home/jonathan/rawdisk2       tmpfs size=2304M 0 0
 tmpfs /home/jonathan/rawdisk        tmpfs size=512M  0 0

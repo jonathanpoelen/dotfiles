@@ -19,7 +19,7 @@ MIME type
 =========
 
 ```bash
-find mime -exec xdg-mime install {} \;
+find mime -type f -exec xdg-mime install {} \;
 #update-mime-database ~/.local/usr/share/mime
 ```
 

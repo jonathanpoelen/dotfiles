@@ -9,7 +9,10 @@ if [ $# -lt 1 ]; then
 fi
 
 t=${2:-4}
-f=$(unrar lb $1)
+pwd
+ls $1
+f=$(unrar lb $1 ||:)
+echo $f $o $1
 o=r_$f
 mkfifo $f
 exec 5>$o
