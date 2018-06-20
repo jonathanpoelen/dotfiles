@@ -42,7 +42,7 @@ PS2='%{$fg[green]%}>%{$reset_color%}'
 
 # Customize to your needs...
 # export PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
-export PATH=~/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/bin/vendor_perl
+export PATH=~/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:~/.local/bin:/usr/bin/vendor_perl
 READNULLCMD=less # pager for `<file`
 
 #zstyle ':completion:*' hosts off
@@ -410,6 +410,14 @@ setopt share_history # share command history data
 
 
 ## key-bindings
+
+# menuselect navigation
+bindkey -M menuselect -s 'á' '^[[A^[[A^[[A^[[A^[[A' # AltGr+A  top *5
+bindkey -M menuselect -s 'ð' '^[[B^[[B^[[B^[[B^[[B' # AltGr+D  bottom *5
+bindkey -M menuselect -s 'å' '^[[A'                 # AltGr+W  top
+bindkey -M menuselect -s 'ß' '^[[B'                 # AltGr+S  bottom
+bindkey -M menuselect -s 'æ' '^[[D'                 # AltGr+Z  left
+bindkey -M menuselect -s '©' '^[[C'                 # AltGr+C  tight
 
 # should this be in keybindings?
 bindkey -M menuselect '^o' accept-and-infer-next-history
