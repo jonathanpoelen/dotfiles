@@ -89,18 +89,20 @@
 
 /* end Tridactyl minimal CSS */
 
-
-.statuspanel-label {
+panel[type="arrow"] {
+  transition: none !important;
+}
+#statuspanel-label {
   margin-right: 0px !important;
   padding-right: 5px !important;
 }
 /* statuspanel[type="overLink"] */
-statuspanel {
+#statuspanel {
   right: 0px !important;
 }
 
 /* Remove the delay and transition */
-statuspanel[type=overLink], statuspanel[inactive][previoustype=overLink]
+#statuspanel[type=overLink], #statuspanel[inactive][previoustype=overLink]
 {
   transition: none !important;
 }
