@@ -6,6 +6,7 @@ zmodload zsh/system
 
 if [ $# -lt 1 ]; then
   echo $0 file.rar '[wait seconds]'
+  exit
 fi
 
 t=${2:-4}
