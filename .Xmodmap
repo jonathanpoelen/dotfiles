@@ -3,7 +3,7 @@
 !! Menu becomes Mode_switch
 !keycode 135 = Mode_switch NoSymbol Mode_switch
 
-! clear Lock
+clear Lock
 ! keycode 66 = Escape
 ! keycode 9 = Caps_Lock
 remove lock = Caps_Lock
@@ -11,3 +11,6 @@ keycode 9 = Caps_Lock
 ! keycode 66 = Escape
 keycode 66 = Escape NoSymbol Menu NoSymbol Escape Escape
 add lock = Caps_Lock
+
+! compose on Pause/Attn
+keycode 127 = Multi_key
