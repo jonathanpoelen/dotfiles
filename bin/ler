@@ -5,11 +5,12 @@ set -e
 zmodload zsh/system
 
 if [ $# -lt 1 ]; then
-  echo $0 file.rar '[wait seconds]'
+  echo $0 file.rar '[wait seconds=4] [preload (megabits)=5]'
   exit
 fi
 
 t=${2:-4}
+prefetch=${3:-5}
 pwd
 ls $1
 f=$(unrar lb $1 ||:)
@@ -17,7 +18,10 @@ echo $f $o $1
 o=r_$f
 mkfifo $f
 exec 5>$o
-while sysread -s 1048576 -o 5 ; do sleep $t ; done < $f &
+{
+  while [ $prefetch -ne 0 ] ; do sysread -s 1048576 -o 5 ; prefetch=$(($prefetch-1)) ; done
+  while sysread -s 1048576 -o 5 ; do sleep $t ; done
+} < $f &
 unrar -o+ e $1
 rm -- $f
 mv $o $f
