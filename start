@@ -20,6 +20,7 @@ socat tcp-l:10411,reuseaddr,fork,crlf system:'echo -e "\"HTTP/1.0 204 OK\n\""; ~
 
 cd ~/rawdisk2
 
+sleep .3
 xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key0
 :>~/rawdisk/.num-k
 xmodmap ~/.Xmodmap
