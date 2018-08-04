@@ -40,7 +40,7 @@ function lll() {
   return $?
 }
 
-alias mp='mp -i'
+alias mv='mv -i'
 alias cp='cp -i'
 alias df='df -h'
 alias du='du -h'
