@@ -7,8 +7,8 @@
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
-sysmodmap=/etc/X11/xinit/.Xmodmap
-sysmodmapextra=$HOME/projects/dotfiles/xmodmap/qwerty-shift-number-key0
+#sysmodmap=/etc/X11/xinit/.Xmodmap
+#sysmodmapextra=$HOME/projects/dotfiles/xmodmap/qwerty-shift-number-key0
 
 DEFAULT_SESSION='i3 --shmlog-size 0'
 
@@ -19,10 +19,10 @@ DEFAULT_SESSION='i3 --shmlog-size 0'
 #[ -f "$userresources" ] && 
 xrdb -merge "$userresources"
 #[ -f "$usermodmap" ] && 
-xmodmap "$usermodmap"
+#xmodmap "$usermodmap"
 #[ -f "$usermodmapextra" ] && 
-xmodmap "$usermodmapextra"
-:>~/rawdisk/.num-k
+#xmodmap "$usermodmapextra"
+#3:>~/rawdisk/.num-k
 
 # start some nice programs
 
