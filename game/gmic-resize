@@ -1,0 +1,6 @@
+#!/bin/sh
+f=/tmp/gmic-resize-cmd-$$.sh
+echo 'gmic "$@" -repeat \$\!,k -if "{w#\$k>900}" -resize\[\$k\] "{900},{h#\$k/(w#\$k/900.)}" -fi -o\[\$k\] jpg:\{\$k,n\},35 -done -q ; exit 0' > "$f"
+chmod u+x "$f"
+find "$@" -type f -print0 | xargs -0 -n100 "$f"
+rm "$f"

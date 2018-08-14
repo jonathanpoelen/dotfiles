@@ -30,8 +30,8 @@ alias lr='ls -R'
 alias llr='ls -ClRh'
 alias lla='ls -ClAh'
 alias l1='ls -1'
-alias l.='ls -d .*'
-alias l/='ls -d */'
+alias l.='ls -d -- .*'
+alias l/='ls -d -- */'
 alias lh='ls -sh'
 # alias sl=ls # often screw this u
 
