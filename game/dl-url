@@ -67,8 +67,9 @@ $0 '${1//\'/\'\\\'\'}'" > ~/rawdisk/uptobox
     ;;
 
   https://www.youtube.com/* | http://www.youtube.com/*)
-    ~/bin/youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$1"
+    ~/.local/bin/youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$1"
     notify "youtube: $1"
+    sleep 5
     ;;
 
   http://www.japscan.cc/* | https://www.japscan.cc/*)
