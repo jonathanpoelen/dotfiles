@@ -622,23 +622,26 @@ _insert_pre_cmd_line_init=
 prefix-cmd-widget()
 {
   if [ ! -z "$_insert_pre_cmd_prefix" ] ; then
-    eval "zle-line-init () { $_insert_pre_cmd_line_init }"
+    [ -z "$_insert_pre_cmd_line_init" ] &&
+      functions[zle-line-init]= ||
+      eval "zle-line-init () { $_insert_pre_cmd_line_init }"
     _insert_pre_cmd_prefix=
   fi
   if [ ! -z "$BUFFER" ] ; then
-    _insert_pre_cmd_prefix=$LBUFFER
+    _insert_pre_cmd_prefix=$BUFFER
     _insert_pre_cmd_line_init=$functions[zle-line-init]
+    [ -z "$_insert_pre_cmd_line_init" ] && zle -N zle-line-init
     eval "zle-line-init () {
       $_insert_pre_cmd_line_init
       if [ -z \"\$BUFFER\" ] ; then
         BUFFER=\$_insert_pre_cmd_prefix
-        CURSOR=\${#BUFFER}
+        CURSOR=$CURSOR
       fi
     }"
   fi
 }
 zle -N prefix-cmd-widget
-bindkey '^[^@' prefix-cmd-widget
+bindkey '^[²' prefix-cmd-widget
 
 bindkey '^@' set-mark-command
 
