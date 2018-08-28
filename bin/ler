@@ -19,7 +19,7 @@ o=r_$f
 mkfifo $f
 exec 5>$o
 {
-  while [ $prefetch -ne 0 ] ; do sysread -s 1048576 -o 5 ; prefetch=$(($prefetch-1)) ; done
+  while [ $prefetch -ne 0 ] ; do sysread -s 1048576 -o 5 ; ((--$prefetch)) ; done
   while sysread -s 1048576 -o 5 ; do sleep $t ; done
 } < $f &
 unrar -o+ e $1
