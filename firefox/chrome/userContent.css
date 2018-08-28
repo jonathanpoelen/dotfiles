@@ -65,6 +65,10 @@ hbox#detail-desc-container, vbox#detail-summary, rows#detail-rows {
 
 /* General */
 
+html {
+  font-feature-settings: "liga" 0;
+}
+
 /*html{
   background-color:#1c1c1c;
   color:#c3c3c3;
