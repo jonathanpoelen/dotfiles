@@ -36,7 +36,7 @@ alias lh='ls -sh'
 # alias sl=ls # often screw this u
 
 function lll() {
-  ls -l "$@" | less
+  ls -l --color=always "$@" | less
   return $?
 }
 
