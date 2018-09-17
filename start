@@ -24,3 +24,5 @@ sleep .3
 xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key0
 :>~/rawdisk/.num-k
 xmodmap ~/.Xmodmap
+
+# source ~/projects/dotfiles/start && HOME=~/rawdisk/ff firefox & i3-msg 'move scratchpad'
