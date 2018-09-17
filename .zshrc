@@ -641,7 +641,7 @@ prefix-cmd-widget()
   fi
 }
 zle -N prefix-cmd-widget
-bindkey '^[²' prefix-cmd-widget
+bindkey '^[^@' prefix-cmd-widget
 
 bindkey '^@' set-mark-command
 
