@@ -1,27 +1,15 @@
-#!/bin/zsh
+#!/bin/bash
 
 set -e
 
-zmodload zsh/system
-
 if [ $# -lt 1 ]; then
-  echo $0 file.rar '[wait seconds=4] [preload (megabits)=5]'
-  exit
+  echo "$0" file.rar '[wait_seconde=10]' >&2
+  exit 1
 fi
 
-t=${2:-4}
-prefetch=${3:-5}
-pwd
-ls $1
-f=$(unrar lb $1 ||:)
-echo $f $o $1
-o=r_$f
-mkfifo $f
-exec 5>$o
-{
-  while [ $prefetch -ne 0 ] ; do sysread -s 1048576 -o 5 ; ((--$prefetch)) ; done
-  while sysread -s 1048576 -o 5 ; do sleep $t ; done
-} < $f &
-unrar -o+ e $1
-rm -- $f
-mv $o $f
+f=$(unrar lb "$1" ||:)
+o=r_"$f"
+
+~/game/pipable "$1" "$f" "$o" "${2:-10}" &
+
+unrar -o+ e "$1" ||:
