@@ -310,8 +310,9 @@ ud() {
   --new-group-format="%c'\033'[34mc%dN%c'\033'[0m%c'\12'%>" \
   "$@"
 }
-alias wd='wdiff -w$'\''\e[31m[-'\'' -x$'\''-]\e[0m'\'' -y$'\''\e[32m{+'\'' -z$'\''+}\e[0m'\'
-alias dwd='dwdiff -w$'\''\e[31m[-'\'' -x$'\''-]\e[0m'\'' -y$'\''\e[32m{+'\'' -z$'\''+}\e[0m'\'
+#alias wd='wdiff -w$'\''\e[31m[-'\'' -x$'\''-]\e[0m'\'' -y$'\''\e[32m{+'\'' -z$'\''+}\e[0m'\'
+#dwd
+alias wd='dwdiff -w$'\''\e[31m[-'\'' -x$'\''-]\e[0m'\'' -y$'\''\e[32m{+'\'' -z$'\''+}\e[0m'\'
 
 function a(){
   echo $(($*))
@@ -418,7 +419,7 @@ ihin() { ihi "$@" | nl -ba ; }
 alias n=nano
 alias nn='nano -$'
 # my feh fork
-alias i='~/projects/feh/src/feh --begin-top -Z'
+alias i='~/projects/feh/src/feh --begin-top -Z --fontpath '$HOME/projects/feh/share/fonts
 alias x=xpdf
 alias t=tree
 alias td='tree -d'

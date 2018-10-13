@@ -458,6 +458,8 @@ bindkey '^[[3~'  delete-char
 # bindkey '^[3;5~' delete-char
 # bindkey '\e[3~'  delete-char
 
+bindkey '^[-' redo # replace neg-argument
+
 # Edit the current command line in $EDITOR
 autoload -U edit-command-line
 zle -N edit-command-line

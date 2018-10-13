@@ -9,8 +9,9 @@ alias adg='yaourt -Syu' # update and upgrade
 alias adga='yaourt -Syua' # update then upgrade + AUR
 
 alias ai='yaourt' # install
+alias ain='yaourt -S' # install exactly
 alias ar='yaourt -R' # removes
-alias ap='yaourt -Rs' # + dependancies
+#alias ap='yaourt -Rs' # + dependancies
 alias ap='yaourt -Rsn' # + config
 # alias di='yaourt -U' # installs local package file
 
