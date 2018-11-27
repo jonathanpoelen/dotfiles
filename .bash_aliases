@@ -72,9 +72,8 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:
 # -Wstrict-overflow=5
 # -Wstrict-default # bad idea
 # -Wmissing-format-attribute
-cxxflag='-Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wdisabled-optimization -Wfloat-equal -Wformat-security -Wformat-signedness -Wformat=2 -Wmissing-declarations -Wmissing-include-dirs -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wpacked -Wredundant-decls -Wundef -Wuninitialized -Wunused-macros -Wvla -Wswitch -Wconversion -Wduplicated-cond -Wnull-dereference -fsized-deallocation -Warray-bounds=2 -Wconditionally-supported -Wnoexcept -Wsized-deallocation -Wstrict-null-sentinel -Wsuggest-override -Wfloat-conversion -Wopenmp-simd -Wuseless-cast -Wsuggest-attribute=noreturn -Wzero-as-null-pointer-constant -Wlogical-op -Wvector-operation-performance -Wdouble-promotion -Wtrampolines -Winline -Wshadow=local -Wclass-memaccess'
+cxxflag='-Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wdisabled-optimization -Wfloat-equal -Wformat-security -Wformat-signedness -Wformat=2 -Wmissing-declarations -Wmissing-include-dirs -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wpacked -Wredundant-decls -Wundef -Wuninitialized -Wunused-macros -Wvla -Wswitch -Wconversion -Wduplicated-cond -Wnull-dereference -fsized-deallocation -Warray-bounds=2 -Wconditionally-supported -Wnoexcept -Wsized-deallocation -Wstrict-null-sentinel -Wsuggest-override -Wfloat-conversion -Wopenmp-simd -Wuseless-cast -Wsuggest-attribute=noreturn -Wzero-as-null-pointer-constant -Wlogical-op -Wvector-operation-performance -Wdouble-promotion -Wtrampolines -Winline -Wshadow=local -Wclass-memaccess -Wduplicated-branches'
 alias gw++="g++ $cxxflag"
-alias gw11="g++ -fdiagnostics-color=always -std=c++11 $cxxflag"
 alias gw14="g++ -fdiagnostics-color=always -std=c++14 $cxxflag"
 alias gw17="g++ -fdiagnostics-color=always -std=c++17 $cxxflag"
 unset cxxflag
@@ -82,7 +81,6 @@ unset cxxflag
 cxxflag='-Weverything -Wno-shadow -Wno-effc++ -Wno-padded -Wno-c++98-compat -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-disabled-macro-expansion -Wno-documentation-unknown-command -Wno-documentation -Wno-missing-prototypes -Wno-c++98-compat-pedantic'
 export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
 alias cw++="clang++ $cxxflag -fcolor-diagnostics"
-alias cw11="clang++ $cxxflag -fcolor-diagnostics -std=c++11"
 alias cw14="clang++ $cxxflag -fcolor-diagnostics -std=c++14"
 alias cw17="clang++ $cxxflag -fcolor-diagnostics -std=c++17"
 unset cxxflag
@@ -413,8 +411,8 @@ k() { awk "{ print $@ }" ; }
 
 alias hi='XDG_DATA_DIRS=~/game vt-kate-syntax-highlighter -tMy'
 alias ihi='hi -s'
-hin() { hi "$@" | nl -ba ; }
-ihin() { ihi "$@" | nl -ba ; }
+hin() { hi "$@" | cat -n ; }
+ihin() { ihi "$@" | cat -n ; }
 
 alias n=nano
 alias nn='nano -$'
@@ -441,7 +439,7 @@ alias vgl='vg --leak-check=full --show-leak-kinds=all'
 y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$@" ; }
 
 alias ak=/usr/bin/ag
-alias na='nl -ba'
+alias na='cat -n'
 
 defl() {
   sdcv "$@" | sed '

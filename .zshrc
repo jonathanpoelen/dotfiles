@@ -88,7 +88,7 @@ READNULLCMD=less # pager for `<file`
 #}
 
 #loadplugins() {
-  source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+  source ~/game/zsh-history-substring-search/zsh-history-substring-search.zsh
 
   bindkey '^[K' history-substring-search-up
   bindkey '^[J' history-substring-search-down
@@ -797,7 +797,7 @@ smart_sudo () {
         [[ $i < ${(w)#what} ]] && exargs=(${what[(w)$(($i+1)),-1]} $exargs)
         prevwhat=$what
       done
-      
+
       if [[ -z $g ]]; then
         if [[ -z $nocorrect ]]; then
           $=prefix command sudo $1 ${==~exargs} ${==~@[2,-1]}
@@ -841,7 +841,7 @@ bindkey "\e\e" insert-sudo-and-accept
 insert-space-and-accept() {
   [[ -z $BUFFER ]] && zle up-history
   if [[ $BUFFER != \ * ]]; then
-     LBUFFER=" $LBUFFER"    
+     LBUFFER=" $LBUFFER"
   fi
   zle accept-line
 }
@@ -856,9 +856,9 @@ copybuffer () {
 zle -N copybuffer
 #bindkey "^[o" copybuffer
 
-b() { LD_PRELOAD=$HOME/lib/qt5noblink.so kate ~/projects/blog/content/post/"$@" }
-bb() { LD_PRELOAD=$HOME/lib/qt5noblink.so kdevelop ~/projects/blog/content/post/"$@" }
-_blog_file_completion () { local a=(~/projects/blog/content/post/*(om)) ; reply=(${a:t}) }
-compctl -K _blog_file_completion -M 'r:|[_[:lower:]]=** r:|=*' b bb
+# b() { LD_PRELOAD=$HOME/lib/qt5noblink.so kate ~/projects/blog/content/post/"$@" }
+# bb() { LD_PRELOAD=$HOME/lib/qt5noblink.so kdevelop ~/projects/blog/content/post/"$@" }
+# _blog_file_completion () { local a=(~/projects/blog/content/post/*(om)) ; reply=(${a:t}) }
+# compctl -K _blog_file_completion -M 'r:|[_[:lower:]]=** r:|=*' b bb
 
 rand() REPLY=$RANDOM

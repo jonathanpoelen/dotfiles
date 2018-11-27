@@ -49,6 +49,11 @@ $0 '${1//\'/\'\\\'\'}'" > ~/rawdisk/1fichier
     ;;
 
   https://uptobox.com/* | http://uptobox.com/*)
+    # if illimited
+    # wget "$(wget -O- "$1" | sed '/big-button-green-flat/!d;{s/^<a href="//;s/".*$//;q}')"
+    # notify "uptobox: $1"
+    # exit
+
     d=
     cookie=.$$.cookie
     while [ 1 ]; do
