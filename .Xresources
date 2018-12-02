@@ -52,7 +52,7 @@ Xft.lcdfilter: lcddefault
 !*color7:                          #E0E0E0
 !*color15:                         #E8E8E8
 
-Xcursor.theme: xcursor-breeze
+Xcursor.theme: -h
 Xcursor.size:                     0
 
 !XTerm*background:                 #272827
@@ -236,8 +236,8 @@ URxvt.lineSpace: -1
 URxvt.scrollTtyOutput: false
 URxvt.scrollTtyKeypress: true
 URxvt.scrollWithBuffer: true
-! URxvt.cutchars: "`\"'&()*,;<=>?@[]^{|}:"
-URxvt.cutchars: "`\"'&()*;<>?^|:"
+! URxvt.cutchars: '`\'&()*,;<=>?@[]^{|}:'
+URxvt.cutchars: '`\'&()*;<>?^|:'
 
 Rxvt.perl-ext: new-window,clipboard
 Rxvt.keysym.Control-Shift-N: perl:new-window

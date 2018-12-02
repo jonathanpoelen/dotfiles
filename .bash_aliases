@@ -291,7 +291,8 @@ alias glr='gl --rebase'
 # some more diff aliases
 alias diff=colordiff
 alias cdiff='colordiff --normal'
-alias yd='colordiff -y -W $COLUMNS'
+#alias yd='colordiff -y -W $COLUMNS'
+alias yd=icdiff
 nd() {
   /usr/bin/diff \
   --unchanged-line-format="%-4dn %L" \
@@ -318,12 +319,12 @@ function a(){
 
 #alias brightness='xrandr --output LVDS-0 --brightness'
 
-function jhibernate(){
-  sudo pm-hibernate
-  #sleep 2
-  #qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 33 >/dev/null
-  xmodmap ~/.Xmodmap
-}
+#function jhibernate(){
+#  sudo pm-hibernate
+#  #sleep 2
+#  #qdbus org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement/Actions/BrightnessControl org.kde.Solid.PowerManagement.Actions.BrightnessControl.setBrightness 33 >/dev/null
+#  xmodmap ~/.Xmodmap
+#}
 #alias jhibernate='sudo pm-hibernate'
 
 alias isearch='search -i'

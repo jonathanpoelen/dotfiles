@@ -20,12 +20,6 @@
 ./.bash_aliases_yaourt
 ./.less
 ./.dircolors
-./game/track_passed
-./game/sleep-or-continue-firefox
-./game/gmic-deshuffle
-./game/sleep-or-continue
-./game/i3-dl
-./game/dl-y
 ./.bash_profile
 ./.dmenurc
 ./.bash_aliases_apt
@@ -45,8 +39,8 @@
 ./bin/search
 ./bin/mpv-dump
 ./bin/ccache-g++
-./bin/qxslt
 ./bin/mv-ext
 ./.toprc
 ./.colordiffrc
 ./.mostrc
+./.lldbinit
