@@ -18,7 +18,7 @@ md ff ff/.cache && ln -s ~/.mozilla ~/.config ff/
 # HOME=~/rawdisk/ff firefox&
 
 redshift -l 48.85:2.34 -t 5700:4000 -g 0.85 -m randr &
-socat tcp-l:10411,reuseaddr,fork,crlf system:'echo -e "\"HTTP/1.0 204 OK\n\""; ~/game/i3-dl' &
+socat tcp-l:10411,reuseaddr,fork,crlf system:'echo -e "\"HTTP/1.0 204 OK\n\""; ~/projects/dotfiles/game/i3-dl' &
 
 cd ~/rawdisk2
 
