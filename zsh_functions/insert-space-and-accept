@@ -1,0 +1,7 @@
+insert-space-and-accept() {
+  [[ -z $BUFFER ]] && zle up-history
+  if [[ $BUFFER != \ * ]]; then
+     LBUFFER=" $LBUFFER"
+  fi
+  zle accept-line
+}

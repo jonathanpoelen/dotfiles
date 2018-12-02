@@ -1,0 +1,14 @@
+insert-sudo-and-accept() {
+  [[ -z $BUFFER ]] && zle up-history
+  if [[ $BUFFER == sudo\ * ]] || [[ $BUFFER == \ sudo\ * ]]; then
+     LBUFFER="${LBUFFER:5}"
+  #elif [[ $BUFFER == $EDITOR\ * ]]; then
+  #    LBUFFER="sudoedit ${LBUFFER#$EDITOR }"
+  #elif [[ $BUFFER == sudoedit\ * ]]; then
+  #    LBUFFER="$EDITOR ${LBUFFER#sudoedit }"
+  elif [[ $BUFFER == \ * ]]; then
+     LBUFFER=" sudo$LBUFFER"
+  else
+     LBUFFER="sudo $LBUFFER"
+  fi
+}

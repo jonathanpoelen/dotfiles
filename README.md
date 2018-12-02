@@ -31,6 +31,17 @@ sudo find mime -exec xdg-mime install {} \;
 ```
 
 
+Zsh precompiled
+===============
+
+```zsh
+zsh -c 'zcompile ~/.zshrc'
+zsh -c 'zcompile ~/projects/dotfiles/zsh_functions/*' && mv ~/projects/dotfiles/zsh_functions/*zwc ~/projects/dotfiles/zsh_functions.zwc
+zsh -c 'zcompile ~/.zshcompletions/*' && mv ~/.zshcompletions/*zwc ~/.zshcompletions.zwc
+zsh -c 'zcompile "${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"'
+```
+
+
 Less binding
 ============
 
@@ -48,3 +59,11 @@ KDE bold fonts does not work
 ============================
 
 Remove the `Regular` value in `grep ^Font $HOME/.config/k*`.
+
+
+Check hard links
+================
+
+```bash
+zg -vc '=2*' stat -c='%h %n' $(c hardlinks)
+```

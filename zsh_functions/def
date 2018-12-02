@@ -1,0 +1,9 @@
+def() {
+  local s1=$(sdcv "$@")
+  local s2=$(awk '/^[0-9]/{
+    if (and(i,1)) print "\033[35;1m" $0
+    else     print "\033[33;1m" $0
+    ++i
+  }'<<<"$s1")
+  [ -z "$s2" ] && echo "$s1" || echo "$s2"
+}

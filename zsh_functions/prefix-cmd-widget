@@ -1,0 +1,25 @@
+#precmd_functions[n]=function
+_insert_pre_cmd_prefix=
+_insert_pre_cmd_line_init=
+
+prefix-cmd-widget()
+{
+  if [ ! -z "$_insert_pre_cmd_prefix" ] ; then
+    [ -z "$_insert_pre_cmd_line_init" ] &&
+      functions[zle-line-init]= ||
+      eval "zle-line-init () { $_insert_pre_cmd_line_init }"
+    _insert_pre_cmd_prefix=
+  fi
+  if [ ! -z "$BUFFER" ] ; then
+    _insert_pre_cmd_prefix=$BUFFER
+    _insert_pre_cmd_line_init=$functions[zle-line-init]
+    [ -z "$_insert_pre_cmd_line_init" ] && zle -N zle-line-init
+    eval "zle-line-init () {
+      $_insert_pre_cmd_line_init
+      if [ -z \"\$BUFFER\" ] ; then
+        BUFFER=\$_insert_pre_cmd_prefix
+        CURSOR=$CURSOR
+      fi
+    }"
+  fi
+}

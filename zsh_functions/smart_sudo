@@ -1,0 +1,58 @@
+smart_sudo () {
+  if [[ -n $1 ]]; then
+    if [[ $1 == \-* ]]; then
+      command sudo $@
+    else
+      local prevwhat what prefix='' exargs=() i nocorrect= g=
+
+      while [ 1 ]; do
+        case $1 in
+          nocorrect) nocorrect=1; shift;;
+          noglob) prefix+=$1' '; g=1; shift;;
+          ex|extglob) prefix+='noglob _ext-glob '; g=1; shift;;
+          ix) prefix+='noglob _nocase-glob '; g=1; shift;;
+          *) break;;
+        esac
+      done
+
+      while [ 1 ]; do
+        # what=$(builtin whence $1)
+        what=$aliases[$1]
+        [[ $prevwhat == $what ]] && break
+        [[ $1 == $what ]] && break
+        [[ -z $what ]] && break
+        i=1;
+        while [ 1 ]; do
+          case ${what[(w)$i]} in
+            nocorrect) nocorrect=1; ((++i)) ;;
+            noglob) prefix+=${what[(w)$i]}' '; g=1; ((++i));;
+            ex|extglob) prefix+='noglob _ext-glob '; g=1; ((++i));;
+            ix) prefix+='noglob _nocase-glob '; g=1; ((++i));;
+            *) break;;
+          esac
+        done
+
+        1=${what[(w)$i]}
+        [[ $i < ${(w)#what} ]] && exargs=(${what[(w)$(($i+1)),-1]} $exargs)
+        prevwhat=$what
+      done
+
+      if [[ -z $g ]]; then
+        if [[ -z $nocorrect ]]; then
+          $=prefix command sudo $1 ${==~exargs} ${==~@[2,-1]}
+        else
+          nocorrect $=prefix command sudo $1 ${==~exargs} ${==~@[2,-1]}
+        fi
+      else
+        if [[ -z $nocorrect ]]; then
+          $=prefix command sudo $1 $exargs ${@[2,-1]}
+        else
+          nocorrect $=prefix command sudo $1 $exargs ${@[2,-1]}
+        fi
+      fi
+    fi
+  else
+    #if no parameters were given, then assume we want a root shell
+    command sudo -s
+  fi
+}

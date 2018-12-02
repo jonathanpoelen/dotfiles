@@ -1,0 +1,6 @@
+goto-next-arg()
+{
+  local a=()
+  a+=(${(z)RBUFFER})
+  CURSOR=$(($CURSOR+${#${a[1]}}+1))
+}

@@ -1,0 +1,9 @@
+kill-arg()
+{
+  local reply REPLY REPLY2 n=2
+  autoload -U split-shell-arguments
+  split-shell-arguments
+  [ $(($REPLY % 2)) -eq 1 ] && n=3
+  [ ! -z "$NUMERIC" ] && n=$(($n+$NUMERIC*2-2))
+  RBUFFER="${(j::)reply[$(($REPLY+$n)),-1]}"
+}

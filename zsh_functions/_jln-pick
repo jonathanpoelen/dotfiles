@@ -1,0 +1,47 @@
+_jln-pick ()
+{
+  autoload -U read-from-minibuffer
+  read-from-minibuffer 'command: '
+  [ -z "$REPLY" ] && return
+
+  local buf=$(eval "$REPLY" Z)
+  [ -z "$buf" ] && return
+
+  if [ "$1" = 2 ]; then
+    echo output: ${buf/$'\n'*}
+    read-from-minibuffer 'filter: '
+    buf=$(echo "$buf" | eval $REPLY)
+  fi
+
+  if [ ! -z $1 ]; then
+    buf=(${(q)${(f)buf}})
+    LBUFFER+="${(j: :)buf}"
+    zle redisplay
+    return
+  fi
+
+  local -a view=()
+  local -i len n
+  local l
+  n=0
+  while read -A a ; do
+    [[ $n > 4 ]] && break
+    ((++n))
+    len=$#a;
+    for (( i=1 ; i <= $len ; ++i)); do
+      [ -z "${view[$i]}" ] && view[$i]="\e[32m$i\e[0m: "
+      view[$i]+="${(q)a[$i]}  "
+    done
+  done <<<"$buf"
+
+  local ns=(${${(f)"$(echo ${(F)view} Z)"}/:*})
+  buf=(${(f)buf})
+  len=$#buf
+  for (( i=1 ; i <= $len ; ++i )); do
+    view=(${(z)buf[$i]})
+    for n in $ns ; do
+      LBUFFER+="${(q)view[$n]} "
+    done
+  done
+  zle redisplay
+}

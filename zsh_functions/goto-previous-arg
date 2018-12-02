@@ -1,0 +1,6 @@
+goto-previous-arg()
+{
+  local a=()
+  a+=(${(z)LBUFFER})
+  CURSOR=$(($CURSOR-${#${a[-1]}}-1))
+}

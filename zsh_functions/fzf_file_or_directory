@@ -1,0 +1,30 @@
+__fsel() {
+  setopt localoptions pipefail 2> /dev/null
+  find -L ${2-.} -mindepth 1 \( -path '*/\.*' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \) -prune \
+    -o -type d -print $=1 2> /dev/null | cut -b$([ -z "$2" ] && echo 3 || echo 1)- | \
+  fzf --height 40% --reverse --cycle -m $=3 | while read item; do
+    echo -n "${(q)item} "
+  done
+  return $?
+}
+
+_fzf_file_or_directory() {
+  if [ "${LBUFFER[-1]}" = ' ' ] ; then
+    LBUFFER="${LBUFFER}$(__fsel "$1")"
+  else
+    local tail=${${(z)LBUFFER}[-1]}
+    if [ "${tail[-1]}" = '/' ] ; then
+      LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel "$1" ${~tail})"
+    else
+      if [ -d "${tail:h}" ] ; then
+        LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel "$1" ${~tail:h} "-q ${tail:t:q}")"
+      else
+        LBUFFER="${LBUFFER}$(__fsel "$1")";
+      fi
+    fi
+  fi
+  local ret=$?
+  zle redisplay
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
+}

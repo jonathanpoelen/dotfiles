@@ -1,0 +1,10 @@
+_nocase-glob() {
+  setopt localoptions nocaseglob
+  local command="$1"
+  shift
+  if [ "$command" = nocorrect ] ; then
+    command="$1"
+    shift
+  fi
+  $==command $==~* # redo globbing on arguments
+}

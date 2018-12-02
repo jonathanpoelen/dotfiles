@@ -1,0 +1,22 @@
+transpose-arg()
+{
+  local reply REPLY REPLY2 tmp e=0
+  autoload -U split-shell-arguments
+  split-shell-arguments
+  if [ $REPLY -eq 1 ]; then
+    e=$((${#reply[1]}+${#reply[2]}))
+    REPLY=4
+  elif [ $REPLY -eq 2 ]; then
+    e=${#reply[2]}
+    REPLY=4
+  elif [ $(($REPLY % 2)) -eq 1 ]; then
+    [ ${#reply} -eq $REPLY ] && REPLY=$(($REPLY-1)) || REPLY=$(($REPLY+1))
+  else
+    e=$((-${#reply[$(($REPLY-1))]}))
+  fi
+  tmp=${reply[$REPLY]}
+  reply[$REPLY]=${reply[$(($REPLY-2))]}
+  reply[$(($REPLY-2))]=$tmp
+  BUFFER="${(j::)reply}"
+  CURSOR=$(($CURSOR-$REPLY2+${#reply[$(($REPLY-2))]}+${#reply[$((REPLY-1))]}+${#reply[$((REPLY+1))]}+$e+1))
+}

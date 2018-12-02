@@ -1,0 +1,5 @@
+swap() {
+  mv "$1" /tmp/swap-$$.tmp && \
+  mv "$2" "$1" && \
+  mv /tmp/swap-$$.tmp "$2"
+}
