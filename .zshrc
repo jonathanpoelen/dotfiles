@@ -53,39 +53,9 @@ READNULLCMD=less # pager for `<file`
 #function cmdcoloring {
   #ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
+  # fast-theme ~/projects/dotfiles/.fzs/jln.ini
+  # FAST_THEME_NAME=jln
   source ~/game/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-
-  FAST_THEME_NAME=q-jmnemonic
-
-  #FAST_HIGHLIGHT_STYLES=(
-  #  global-alias            'fg=black,bg=blue'
-  #  path-to-dir             'fg=blue,underline'
-  #  variable                'fg=blue,bold'
-  #  redirection             'bg=255'
-  #  unknown-token           'fg=red,bold'
-  #  alias                   'fg=cyan,bold'
-  #  builtin                 'fg=cyan,bold'
-  #  function                'fg=cyan'
-  #  command                 'fg=cyan,bold'
-  #  hashed-command          'fg=red'
-  #  precommand              'fg=cyan'
-  #  commandseparator        'fg=blue'
-  #  # path                    'fg=32'
-  #  path                    'fg=173'
-  #  globbing                'fg=170,bold'
-  #  history-expansion       'fg=blue'
-  #  single-hyphen-option    'fg=yellow'
-  #  double-hyphen-option    'fg=red'
-  #  back-quoted-argument    'fg=green'
-  #  single-quoted-argument  'fg=yellow,bold'
-  #  double-quoted-argument  'fg=magenta'
-  #  dollar-double-quoted-argument 'fg=cyan'
-  #  back-double-quoted-argument   'fg=cyan'
-  #  assign                  'fg=cyan'
-  #  #bracket-error           'fg=cyan,bold'
-  #  #bracket-level-1         'fg=green,bold'
-  #  #bracket-level-2         'fg=red,bold'
-  #)
 #}
 
 #loadplugins() {
@@ -235,7 +205,7 @@ alias free='free -h'
 alias cr='cp -R'
 
 # alias c='cat'
-c() { echo "$(<$1)" }
+c() { echo -E "$(<$1)" }
 
 alias j='jobs'
 
