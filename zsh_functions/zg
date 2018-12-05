@@ -1,9 +1,9 @@
 #!/bin/zsh
 zg() {
   local e='echo ' m='(M)' j='(F)' n=@ d=f p=eval C=
-  typeset -i M=1 t=0 x=0 v=0 a=0
+  typeset -i M=1 t=0 X=0 v=0 a=0 x=1
 
-  while getopts p:e:d:j:C:MvVacsnxhrR opt ; do
+  while getopts p:e:d:j:C:MvVacsnxXhrR opt ; do
     case $opt in
       (e) e=$OPTARG' ' ;;
       (r) e='reply=(' ; j= ;;
@@ -17,11 +17,12 @@ zg() {
       (a) a=1 ;;
       (c) t=1 ;;
       (s) t=2 ;;
-      (x) x=1 ;;
+      (X) X=1 ;;
+      (x) x=0 ;;
       (n) n= ;;
       (p) p=$OPTARG ;;
       (h|\?) echo 'zsh grep
-zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [-MvVavsnxh] [--] pattern [{ files | expression | command ... }]
+zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [-MXVvavsnxh] [--] pattern [{ files | expression | command ... }]
  -e: execute command
  -r saved array in the parameter `reply`
  -R saved string in the parameter `REPLY`
@@ -35,7 +36,8 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
  -c: files as a command
  -s: files as a expression
  -n: ignore empty line
- -x: colorizes the first occurrence only
+ -X: colorizes the first occurrence only
+ -x: select only those matches that exactly match the whole line
  -p: set expression evaluator, default is `eval`'
         [ $opt = h ] ; return $?
         ;;
@@ -49,21 +51,23 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     [ $v -eq 1 ] && m='${'$m
   elif [ $a -eq 1 ]; then
     C=${@[$OPTIND]}
-    [ $C[1] != '*' ]
-    typeset -i starpre=$?
-    [ $C[$#C] != '*' ]
-    typeset -i starsuf=$?
+    if [ $x -eq 0 ]; then
+      [ $C[1] != '*' ]
+      typeset -i starpre=$?
+      [ $C[$#C] != '*' ]
+      typeset -i starsuf=$?
 
-    if [ $(($starpre+$starsuf)) -eq 2 ]; then
-      C=${C[2,-2]}
-    elif [ $starsuf -eq 1 ]; then
-      C=${C[1,-2]}
-      x=2
-    elif [ $starpre -eq 1 ]; then
-      C=${C[2,$]}
-      x=3
-    else
-      x=1
+      if [ $(($starpre+$starsuf)) -eq 2 ]; then
+        C=${C[2,-2]}
+      elif [ $starsuf -eq 1 ]; then
+        C=${C[1,-2]}
+        X=2
+      elif [ $starpre -eq 1 ]; then
+        C=${C[2,$]}
+        X=3
+      else
+        X=1
+      fi
     fi
   fi
 
@@ -72,7 +76,7 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
   e+='${'$j'${'$m'${'${n:+\($n\)}
 
   if [ $M -gt 0 ]; then
-    m='}:#'${@[$OPTIND]}'}'
+    [ $x -eq 1 ] && m='}:#*'${@[$OPTIND]}'*}' || m='}:#'${@[$OPTIND]}'}'
   else
     m='}}'
     ((OPTIND-=1))
@@ -80,11 +84,11 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
 
   if [ ! -z $C ]; then
     setopt localoptions extendedglob
-    if [ $x -eq 3 ]; then
+    if [ $X -eq 3 ]; then
       C+='(#e)'
-    elif [ $x -eq 2 ]; then
+    elif [ $X -eq 2 ]; then
       C='(#s)'$C
-    elif [ $x -eq 0 ]; then
+    elif [ $X -eq 0 ]; then
       m+=/
     fi
 
