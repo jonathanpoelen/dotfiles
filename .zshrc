@@ -1,4 +1,4 @@
-setopt prompt_subst
+setopt prompt_subst nobeep
 
 export EDITOR=nano
 export LESS=-iRj3
