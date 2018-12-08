@@ -28,7 +28,7 @@ set completion-ignore-case on
 ## (C-x C-r) re-read ~/.inputrc
 "\C-x\C-r": re-read-init-file
 
-"\C-d": end-of-line
+"\C-e": end-of-line
 
 ## Moving
 "\eh": beginning-of-line
@@ -82,4 +82,4 @@ set completion-ignore-case on
 # "\C-q": operate-and-get-next
 
 # call $VISUAL, $EDITOR or ‘emacs’ and execute the result as a shell command
-"\C-e": edit-and-execute-command
+# "\C-e": edit-and-execute-command
