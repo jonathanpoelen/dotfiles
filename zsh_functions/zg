@@ -77,7 +77,7 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
 
   if [ $M -gt 0 ]; then
     if [ $x -eq 1 ]; then
-      m+='}:#'
+      m='}:#'
       [[ ${@[$OPTIND]} = ([^^*$|]*) ]] && m+='*'
       m+=${@[$OPTIND]}
       [[ ${@[$OPTIND]} = (*[^^*$|]) ]] && m+='*'
