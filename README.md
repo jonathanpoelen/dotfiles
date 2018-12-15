@@ -46,10 +46,11 @@ Less binding
 ============
 
 ```bash
-lesskey -o ~/.less -
+lesskey -o ~/.less -<<EOF
 #command
-\e[F goto-end
-\e[H goto-line
+\e[7~ goto-line
+\e[8~ goto-end
+EOF
 ```
 
 https://wiki.archlinux.org/index.php/Home_and_End_keys_not_working

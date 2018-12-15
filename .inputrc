@@ -1,4 +1,5 @@
 #set editing-mode vi
+set bell-style none
 
 "^[[D": forward-char
 "^[[C": forward-char
@@ -29,6 +30,8 @@ set completion-ignore-case on
 "\C-x\C-r": re-read-init-file
 
 "\C-e": end-of-line
+"^[[7~": beginning-of-document
+"^[[8~": end-of-document
 
 ## Moving
 "\eh": beginning-of-line
