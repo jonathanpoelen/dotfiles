@@ -66,5 +66,7 @@ Check hard links
 ================
 
 ```bash
-zg -vc '=2*' stat -c='%h %n' $(c hardlinks)
+a=($( zg -vc '=2*' stat -c='%h %n' $(c hardlinks) @@ 2 )) &&
+rm -- $=a &&
+ln -P -- ${a/(#m)^/$HOME/$MATCH} .
 ```

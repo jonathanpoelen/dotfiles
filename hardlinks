@@ -1,3 +1,4 @@
+./.urxvt/ext/new-window
 ./.inputrc
 ./.nanorc
 ./.gdbinit
@@ -9,6 +10,7 @@
 ./.tigrc
 ./.xinitrc
 ./.wgetrc
+./.i3/config
 ./.config/i3status/config
 ./.config/mpv/input.conf
 ./.config/dunst/dunstrc
