@@ -1,0 +1,17 @@
+#!/bin/zsh
+
+device_id=${"$(xinput)"/(#b)*HID*id=([0-9]##)*/${match}}
+
+if [ ! -z $match ]; then
+  echo 'Unknown HID device' >&2
+  exit 1
+fi
+
+XBK_DIR=$0:h
+xkbcomp -I$XBK_DIR/hid/ -i $device_id -synch - $DISPLAY <<<'xkb_keymap {
+    xkb_keycodes  { include "evdev" };
+    xkb_types     { include "complete"  };
+    xkb_compat    { include "complete"  };
+    xkb_symbols   { include "custom(ctrl)"    };
+};
+'

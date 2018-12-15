@@ -1,0 +1,4 @@
+xkb_symbols "ctrl" {
+    key <AB05> { [ Control_L ] };
+    modifier_map Control { <AB05> };
+};
