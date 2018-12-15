@@ -16,11 +16,11 @@ DEFAULT_SESSION='i3 --shmlog-size 0'
 
 [ -f $sysresources ] && xrdb -merge $sysresources
 [ -f $sysmodmap ] && xmodmap $sysmodmap
-#[ -f "$userresources" ] && 
+#[ -f "$userresources" ] &&
 xrdb -merge "$userresources"
-#[ -f "$usermodmap" ] && 
+#[ -f "$usermodmap" ] &&
 #xmodmap "$usermodmap"
-#[ -f "$usermodmapextra" ] && 
+#[ -f "$usermodmapextra" ] &&
 #xmodmap "$usermodmapextra"
 #3:>~/rawdisk/.num-k
 
