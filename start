@@ -8,6 +8,9 @@
 
 set -e
 
+#disable beep
+xset b off
+
 cd ~/rawdisk && mkfifo music-control &&
 
 #mpv --quiet --shuffle --idle=yes --input-file=/home/jonathan/rawdisk/music-control  --no-video --playlist ~/mocplaylist.m3u --no-input-terminal &
