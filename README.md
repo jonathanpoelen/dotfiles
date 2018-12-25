@@ -65,8 +65,21 @@ Remove the `Regular` value in `grep ^Font $HOME/.config/k*`.
 Check hard links
 ================
 
-```bash
-a=($( zg -vc '=2*' stat -c='%h %n' $(c hardlinks) @@ 2 )) &&
+Update repo
+
+```zsh
+a=($( stat -c='%h %n' $(c hardlinks) | sed '/^=2/d;s/^[^ ]\+ //' )) &&
 rm -- $=a &&
+setopt extendedglob &&
 ln -P -- ${a/(#m)^/$HOME/$MATCH} .
+```
+
+Update HOME
+
+```zsh
+a=($( stat -c='%h %n' $(c hardlinks) | sed '/^=2/d;s/^[^ ]\+ //' )) &&
+for f in $a ; do
+  rm -- ~/$f
+  ln -P -- $f ~/$f
+done
 ```
