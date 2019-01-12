@@ -31,3 +31,6 @@ xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key0
 xmodmap ~/.Xmodmap
 
 # source ~/projects/dotfiles/start && HOME=~/rawdisk/ff firefox & i3-msg 'move scratchpad'
+
+# dnsmask...
+sudo systemctl restart NetworkManager.service
