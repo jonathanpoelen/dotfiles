@@ -1,25 +1,25 @@
 #!/bin/zsh
 zg() {
-  local e='echo ' m='(M)' j='(F)' n=@ d=f p=eval C=
-  typeset -i M=1 t=0 X=0 v=0 a=0 x=1
+  local e='echo ' m='(M)' j='(F)' d=@f p=eval C=
+  typeset -i M=1 t=0 X=0 v=0 a=0 x=1 n=0
 
   while getopts p:e:d:j:C:MvVacsnxXhrR opt ; do
     case $opt in
       (e) e=$OPTARG' ' ;;
       (r) e='reply=(' ; j= ;;
       (R) e='REPLY=' ;;
-      (d) d=$OPTARG ;;
+      (d) d=$OPTARG ; n=0 ;;
       (j) j=${OPTARG:+\($OPTARG\)} ;;
       (C) C=$OPTARG ; ((M-=1)) ;;
       (M) ((M+=1)) ;;
       (v) m= ;;
-      (V) v= ;;
+      (V) v=1 ;;
       (a) a=1 ;;
       (c) t=1 ;;
       (s) t=2 ;;
       (X) X=1 ;;
       (x) x=0 ;;
-      (n) n= ;;
+      (n) n=1 ;;
       (p) p=$OPTARG ;;
       (h|\?) echo 'zsh grep
 zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [-MXVvavsnxh] [--] pattern [{ files | expression | command ... }]
@@ -35,7 +35,7 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
  -V: invert color match
  -c: files as a command
  -s: files as a expression
- -n: ignore empty line
+ -n: keep empty line (alias for -d @s:\n:)
  -X: colorizes the first occurrence only
  -x: select only those matches that exactly match the whole line
  -p: set expression evaluator, default is `eval`'
@@ -45,7 +45,12 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     esac
   done
 
-  [ $M -le 0 ] && m=
+  if [ $M -le 0 ]; then
+    m=
+    [ $n -eq 1 ] && d='@s:\n:'
+  else
+    n=0
+  fi
 
   if [ ! -z $C ]; then
     [ $v -eq 1 ] && m='${'$m
@@ -71,9 +76,8 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     fi
   fi
 
-  n+=$d
-  d=$e[$#e]
-  e+='${'$j'${'$m'${'${n:+\($n\)}
+  local eb=$e[$#e]
+  e+='${'$j'${'$m'${'${d:+\($d\)}
 
   if [ $M -gt 0 ]; then
     if [ $x -eq 1 ]; then
@@ -85,6 +89,7 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     else
       m='}:#'${@[$OPTIND]}'}'
     fi
+    m=${m//(#m)[\'\"\/\\]/\\$MATCH}
   else
     m='}}'
     ((OPTIND-=1))
@@ -101,13 +106,13 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     fi
 
     if [ $v -eq 1 ]; then
-      m=+'/(#m)'$C'/\\e[0m${MATCH}\\e[${GREP_COLOR}m}/(#m)*/\\e[${GREP_COLOR}m${MATCH}\\e[0m'
+      m+='/(#m)'$C'/\\e[0m${MATCH}\\e[${GREP_COLOR}m}/(#m)*/\\e[${GREP_COLOR}m${MATCH}\\e[0m'
     else
       m+='/(#m)'$C'/\\e[${GREP_COLOR}m${MATCH}\\e[0m'
     fi
   fi
 
-  [ $d = '(' ] && m+='})' || m+='}'
+  [ $eb = '(' ] && m+='})' || m+='}'
 
   shift $OPTIND
 
