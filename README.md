@@ -68,18 +68,19 @@ Check hard links
 Update repo
 
 ```zsh
-a=($( stat -c='%h %n' $(c hardlinks) | sed '/^=2/d;s/^[^ ]\+ //' )) &&
+a=($( stat -c='%h %n' $(cat hardlinks) | sed '/^=1 /!d;s/^...//;t;d' )) &&
 rm -- $=a &&
-setopt extendedglob &&
-ln -P -- ${a/(#m)^/$HOME/$MATCH} .
+for f in $a ; do
+  ln -P -- ~/$f $f
+done
 ```
 
 Update HOME
 
 ```zsh
-a=($( stat -c='%h %n' $(c hardlinks) | sed '/^=2/d;s/^[^ ]\+ //' )) &&
+a=($( stat -c='%h %n' $(cat hardlinks) | sed '/^=1 /!d;s/^...//;t;d' )) &&
+rm -- $=a &&
 for f in $a ; do
-  rm -- ~/$f
   ln -P -- $f ~/$f
 done
 ```
