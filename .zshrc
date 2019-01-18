@@ -409,7 +409,7 @@ function man(){
 # alias qdbus=/usr/lib/x86_64-linux-gnu/qt4/bin/qdbus
 
 mem() { ps h -C"$*" -o fname,rss }
-psg() { ps aux | grep "$1" }
+psg() { ps aux | zg -a "$@" }
 
 swap() {
   mv "$1" /tmp/swap-$$.tmp && \
@@ -566,7 +566,7 @@ alias -g ZT='|fzf -m --cycle>~/rawdisk2/l'
 alias -g V='|view -'
 alias -g L='|less'
 alias -g G='|grep'
-alias -g F='|(){zg -C "$@"}'
+alias -g F='|zg -a'
 alias -g S='|sed'
 alias -g K='|k'
 alias -g A='|awk'
