@@ -12,24 +12,22 @@
 namespace
 {
 
-#define RETURN_IF(x) if (-1 == (x)) return -1;
+#define RETURN_IF(x) if (-1 == (x)) { return -1; }
 
 ssize_t write_all(int fd, char* buf, size_t count)
 {
-  ssize_t wsize;
   char const* pbuf = buf;
   for (;;) {
-    wsize = write(fd, pbuf, count);
-    if (wsize == -1 || size_t(wsize) == count) {
-      break;
+    ssize_t wsize = write(fd, pbuf, count);
+    if (size_t(wsize) == count || wsize <= 0) {
+      return wsize ? wsize : (count ? -1 : 0);
     }
     count -= size_t(wsize);
     pbuf += wsize;
   }
-  return wsize;
 }
 
-off_t filesize(char const* filename)
+long long filesize(char const* filename)
 {
   struct stat statbuf;
   RETURN_IF(stat(filename, &statbuf));
@@ -46,22 +44,27 @@ ssize_t read_write(int in, int out, char* buf, size_t count)
 
 int tee(int in, int out, char const* filename, unsigned wait_seconds)
 {
-  off_t fsize = filesize(filename);
-  char buf[64*1024];
+  long long fsize = filesize(filename);
+  RETURN_IF(fsize);
+
+  constexpr size_t bufmaxsize = 64*1024;
+  char buf[bufmaxsize];
   long long total = 0;
 
   for (;;) {
-    ssize_t count = fsize - total;
-    if (count > ssize_t(sizeof(buf))) {
+    if (ssize_t count = fsize - total; count > ssize_t(bufmaxsize)) {
       do {
-        ssize_t rsize = read_write(in, out, buf, sizeof(buf));
+        ssize_t rsize = read_write(in, out, buf, bufmaxsize);
+        printf("%zd/%zu\n", rsize, bufmaxsize);
+        if (rsize == 0) {
+          rsize = -1;
+        }
         RETURN_IF(rsize);
         count -= rsize;
         total += rsize;
-      } while (count > ssize_t(sizeof(buf)));
+      } while (count > ssize_t(bufmaxsize));
     }
     else {
-      sleep(1u);
       count = read_write(in, out, buf, size_t(count));
       RETURN_IF(count);
       total += count;
@@ -76,17 +79,24 @@ int tee(int in, int out, char const* filename, unsigned wait_seconds)
       fsize = filesize(filename);
       RETURN_IF(fsize);
       if (fsize == total) {
-        return 0;
+        break;
       }
+    }
+
+    if (fsize < total) {
+      fprintf(stderr, "%s: filesize < number of bytes written: %lld < %lld\n",
+              filename, fsize, total);
+      return -2;
     }
   }
 
+  fprintf(stdout, "total: %lld\n", total);
   return 0;
 }
 
 int usage(char const* progname, int errcode)
 {
-  fprintf(stderr, "%s filename pipename outfilename [wait_seconds]\n", progname);
+  fprintf(stderr, "%s filename pipename outfilename [wait_seconds=10]\n", progname);
   return errcode;
 }
 
@@ -109,6 +119,7 @@ int main(int ac, char** av)
   int wait_seconds = (ac <= 3) ? 10 : atoi(av[4]);
 
   if (wait_seconds <= 0) {
+    fprintf(stderr, "%s: wait_seconds cannot be negative\n", av[0]);
     return usage(av[0], 2);
   }
 
@@ -121,7 +132,8 @@ int main(int ac, char** av)
   int outfd = open(outfilename, O_CREAT|O_WRONLY, 0644);
   RETURN_ERR(outfilename, outfd);
 
-  if (-1 == tee(pipefd, outfd, filename, wait_seconds)) {
+  int r = tee(pipefd, outfd, filename, wait_seconds);
+  if (-1 == r) {
     print_errno(av[0]);
   }
 
@@ -131,6 +143,5 @@ int main(int ac, char** av)
   remove(pipename);
   rename(outfilename, pipename);
 
-  return 0;
+  return -r;
 }
-

@@ -9,7 +9,13 @@ fi
 
 f=$(unrar lb "$1" ||:)
 o=r_"$f"
+fout="${TMPDIR:-/tmp}/ler.$$"
 
-~/game/pipable "$1" "$f" "$o" "${2:-10}" &
+~/game/pipable "$1" "$f" "$o" "${2:-10}" |& tee "$fout" &
 
 unrar -o+ e "$1" ||:
+
+fg 2>/dev/null ||:
+
+cat "$fout"
+rm "$fout"
