@@ -3,6 +3,8 @@ zg() {
   local e='echo ' m='(M)' j='(F)' d=@f p=eval C=
   typeset -i M=1 t=0 X=0 v=0 a=0 x=1 n=0
 
+  setopt localoptions extendedglob
+
   while getopts p:e:d:j:C:MvVacsnxXhrR opt ; do
     case $opt in
       (e) e=$OPTARG' ' ;;
@@ -52,27 +54,19 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     n=0
   fi
 
-  if [ ! -z $C ]; then
+  local pat=${@[$OPTIND]//(#m)[\/\'\"\\]/\\$MATCH}
+
+  if [[ -n $C ]]; then
     [ $v -eq 1 ] && m='${'$m
   elif [ $a -eq 1 ]; then
-    C=${@[$OPTIND]}
+    C=$pat
     if [ $x -eq 0 ]; then
-      [ $C[1] != '*' ]
-      local -i starpre=$?
-      [ $C[$#C] != '*' ]
-      local -i starsuf=$?
-
-      if [ $(($starpre+$starsuf)) -eq 2 ]; then
-        C=${C[2,-2]}
-      elif [ $starsuf -eq 1 ]; then
-        C=${C[1,-2]}
-        X=2
-      elif [ $starpre -eq 1 ]; then
-        C=${C[2,$]}
-        X=3
-      else
-        X=1
-      fi
+      case "$C[1]x$C[$#C]" in
+        (?x?) X=1 ;;
+        ('*x*') C=${C[2,-2]} ;;
+        (?'x*') C=${C[1,-2]} ; X=2 ;;
+        ('*x'?) C=${C[2,$]} ; X=3 ;;
+      esac
     fi
   fi
 
@@ -82,21 +76,19 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
   if [ $M -gt 0 ]; then
     if [ $x -eq 1 ]; then
       m='}:#'
-      [[ ${@[$OPTIND]} = ([^^*$|]*) ]] && m+='*'
-      m+=${@[$OPTIND]}
-      [[ ${@[$OPTIND]} = (*[^^*$|]) ]] && m+='*'
+      [ ${pat[1]} != '*' ] && m+='*'
+      m+=$pat
+      [ ${pat[${#pat}]} != '*' ] && m+='*'
       m+='}'
     else
-      m='}:#'${@[$OPTIND]}'}'
+      m='}:#'$pat'}'
     fi
-    m=${m//(#m)[\'\"\/\\]/\\$MATCH}
   else
     m='}}'
     ((OPTIND-=1))
   fi
 
-  if [ ! -z $C ]; then
-    setopt localoptions extendedglob
+  if [[ -n $C ]]; then
     if [ $X -eq 3 ]; then
       C+='(#e)'
     elif [ $X -eq 2 ]; then
