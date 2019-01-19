@@ -432,7 +432,8 @@ ihin() { ihi "$@" | cat -n ; }
 alias n=nano
 alias nn='nano -$'
 # my feh fork
-alias i='~/projects/feh/src/feh --begin-top -Z --fontpath '$HOME/projects/feh/share/fonts
+# alias i='~/projects/feh/src/feh --begin-top -Z --fontpath '$HOME/projects/feh/share/fonts
+alias i=imv
 alias x=xpdf
 alias t=tree
 alias td='tree -d'
