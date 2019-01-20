@@ -56,16 +56,21 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
 
   local pat=${@[$OPTIND]//(#m)[\/\'\"\\]/\\$MATCH}
 
+  if [[ -z $pat ]]; then
+    echo $0: Missing pattern >&2
+    return 2
+  fi
+
   if [[ -n $C ]]; then
     [ $v -eq 1 ] && m='${'$m
   elif [ $a -eq 1 ]; then
     C=$pat
     if [ $x -eq 0 ]; then
-      case "$C[1]x$C[$#C]" in
-        (?x?) X=1 ;;
-        ('*x*') C=${C[2,-2]} ;;
-        (?'x*') C=${C[1,-2]} ; X=2 ;;
-        ('*x'?) C=${C[2,$]} ; X=3 ;;
+      case $C[1]$C[$#C] in
+        ('**') C=${C[2,-2]} ;;
+        (?'*') C=${C[1,-2]} ; X=2 ;;
+        ('*'?) C=${C[2,$]} ; X=3 ;;
+        (??) X=1 ;;
       esac
     fi
   fi
@@ -76,9 +81,9 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
   if [ $M -gt 0 ]; then
     if [ $x -eq 1 ]; then
       m='}:#'
-      [ ${pat[1]} != '*' ] && m+='*'
+      [[ ${pat[1]} != '*' ]] && m+='*'
       m+=$pat
-      [ ${pat[${#pat}]} != '*' ] && m+='*'
+      [[ ${pat[${#pat}]} != '*' ]] && m+='*'
       m+='}'
     else
       m='}:#'$pat'}'
@@ -104,7 +109,7 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     fi
   fi
 
-  [ $eb = '(' ] && m+='})' || m+='}'
+  [[ $eb = '(' ]] && m+='})' || m+='}'
 
   shift $OPTIND
 
