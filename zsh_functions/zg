@@ -1,27 +1,32 @@
 #!/bin/zsh
 zg() {
-  local e='echo ' m='(M)' j='(F)' d=@f p=eval C=
-  typeset -i M=1 t=0 X=0 v=0 a=0 x=1 n=0
+  local e='echo ' m='(M)' j='(F)' d=f p=eval C=
+  typeset -i M=1 t=0 X=0 v=0 a=0 x=1
 
   setopt localoptions extendedglob
 
-  while getopts p:e:d:j:C:MvVacsnxXhrR opt ; do
+  while getopts p:e:d:j:C:MvVacznxXhrR opt ; do
     case $opt in
       (e) e=$OPTARG' ' ;;
       (r) e='reply=(' ; j= ;;
       (R) e='REPLY=' ;;
       (d) d=$OPTARG ; n=0 ;;
       (j) j=${OPTARG:+\($OPTARG\)} ;;
-      (C) C=$OPTARG ; ((M-=1)) ;;
+      (C) C=${OPTARG//(#m)[\/\'\"\\]/\\$MATCH} ;
+          if [[ -z $C ]]; then
+            echo $0: Missing color pattern >&2
+            return 2
+          fi
+          ((M-=1)) ;;
       (M) ((M+=1)) ;;
       (v) m= ;;
       (V) v=1 ;;
       (a) a=1 ;;
       (c) t=1 ;;
-      (s) t=2 ;;
+      (z) t=2 ;;
       (X) X=1 ;;
       (x) x=0 ;;
-      (n) n=1 ;;
+      (n) d+='@' ;;
       (p) p=$OPTARG ;;
       (h|\?) echo 'zsh grep
 zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [-MXVvavsnxh] [--] pattern [{ files | expression | command ... }]
@@ -36,8 +41,8 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
  -v: invert match
  -V: invert color match
  -c: files as a command
- -s: files as a expression
- -n: keep empty line (alias for -d @s:\n:)
+ -z: files as a expression
+ -n: keep empty line (alias for -d f@)
  -X: colorizes the first occurrence only
  -x: select only those matches that exactly match the whole line
  -p: set expression evaluator, default is `eval`'
@@ -49,14 +54,13 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
 
   if [ $M -le 0 ]; then
     m=
-    [ $n -eq 1 ] && d='@s:\n:'
   else
     n=0
   fi
 
   local pat=${@[$OPTIND]//(#m)[\/\'\"\\]/\\$MATCH}
 
-  if [[ -z $pat ]]; then
+  if [[ -z $pat ]] && [[ -z $C ]]; then
     echo $0: Missing pattern >&2
     return 2
   fi
@@ -115,11 +119,11 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
 
   if [ $# -eq 0 ]; then
     $p $e'"$(</dev/stdin)"'$m
-  elif [ $t = 0 ]; then
+  elif [ $t -eq 0 ]; then
     $p $e'"$(<'${(j:<:)${(q)@}}')"'$m
-  elif [ $t = 1 ]; then
+  elif [ $t -eq 1 ]; then
     $p $e'"$('${(q)@}')"'$m
   else
-    $p $e'@'$m
+    $p $e$@$m
   fi
 }
