@@ -1,0 +1,39 @@
+#!/usr/bin/zsh
+
+zs()
+{
+  local prefix='' suffix='' prefixcmd=f cmd= e='eval echo'
+  local -i i=1 toto=$#@
+
+  setopt localoptions extendedglob
+
+  for ((i=1; $i<=$toto; i+=2)) {
+    case $@[$i] in
+      (s) prefix=$prefix'${'; suffix+=/${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}/$@[$(($i+2))]'}' ; i+=1 ;;
+      (gs) prefix=$prefix'${'; suffix+=//${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}/$@[$(($i+2))]'}' ; i+=1 ;;
+      (d) prefix=$prefix'${'; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}'}' ;;
+      (g) prefix=$prefix'${(M)'; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}'}' ;;
+      (f) cmd+='<'$@[$(($i+1))]';' ;;
+      (p) e=$@[$(($i+1))] ;;
+      (c) cmd+=${(q)@[$(($i+1))]}';' ;;
+      (z) cmd+=${@[$(($i+1))]}';' ;;
+      (t) prefixcmd='' ;;
+      (n) prefixcmd='@f' ;;
+      (h|-h) echo "$0: [{sdg} pattern] [p progname] [c cmd] [z expr] [tn] [[f] file] ...
+- s: replace
+- gs: global replace
+- d: delete
+- g: keep
+- p: evaluator
+- c: command
+- z: zsh expression
+- f: read file
+- t: read plain file
+- n: read by line with empty line
+"; return 1 ;;
+      (*) cmd+='<'$@[$i]';' ; i+=-1 ;;
+    esac
+  }
+
+  $=e "\${${prefixcmd:+(F)}$prefix\${${prefixcmd:+($prefixcmd)}\"\$(${cmd:-</dev/stdin})\"}$suffix}"
+}

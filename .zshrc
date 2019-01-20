@@ -177,7 +177,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:(rm|cp|mv|ls):*' ignore-line other
 
 
-autoload zg
+autoload zg zs
 
 # some more ls aliases
 alias ll='ls -lh'
@@ -210,8 +210,8 @@ c() { echo -E "$(<$1)" }
 alias j='jobs'
 
 alias h='history'
-hs() { history | zg $1 }
-hsi() { history | zg "(#i)$1" }
+hs() { zg -ac "$*" history }
+hsi() { zg -ac "(#i)$*" history }
 
 # alias g++-7=/usr/lib/gcc-snapshot/bin/g++
 
@@ -409,7 +409,7 @@ function man(){
 # alias qdbus=/usr/lib/x86_64-linux-gnu/qt4/bin/qdbus
 
 mem() { ps h -C"$*" -o fname,rss }
-psg() { ps aux | zg -a "$@" }
+psg() { zg -ac "$*" ps aux }
 
 swap() {
   mv "$1" /tmp/swap-$$.tmp && \
