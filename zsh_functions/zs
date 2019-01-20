@@ -1,5 +1,8 @@
 #!/usr/bin/zsh
 
+typeset -A _zs_assoc_s=(ns '(S)' gns '(S)' nsg '(S)')
+typeset -A _zs_assoc_r=(gs / sg / gns / nsg /)
+
 zs()
 {
   local prefix='' suffix='' prefixcmd=f cmd= e='eval echo'
@@ -9,8 +12,11 @@ zs()
 
   for ((i=1; $i<=$toto; i+=2)) {
     case $@[$i] in
-      (s) prefix=$prefix'${'; suffix+=/${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}/$@[$(($i+2))]'}' ; i+=1 ;;
-      (gs|sg) prefix=$prefix'${'; suffix+=//${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}/$@[$(($i+2))]'}' ; i+=1 ;;
+      (s|gs|sg|ns|gns|nsg)
+        prefix=$prefix'${'$_zs_assoc_s[$@[$i]]
+        suffix+=$_zs_assoc_r[$@[$i]]/${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}/$@[$(($i+2))]'}'
+        i+=1 ;;
+      (i) prefix=${prefix[1,-2]}'I:'$@[$(($i+1))]':)' ;;
       (d) prefix=$prefix'${'; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}'}' ;;
       (g) prefix=$prefix'${(M)'; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}'}' ;;
       (f) cmd+='<'${(q)@[$(($i+1))]}';' ;;
@@ -19,9 +25,12 @@ zs()
       (z) cmd+=${@[$(($i+1))]}';' ;;
       (t) prefixcmd='' ;;
       (n) prefixcmd='@f' ;;
-      (h|-h) echo "$0: [{s|d|g|gs} pattern] [p progname] [c cmd] [z expr] [t|n] [[f] file] ...
+      (h|-h) echo "$0: [{s|gs|ns|gns|d|g} pattern] [i nth] [p progname] [c cmd] [z expr] [t|n] [[f] file] ...
 - s: replace
 - gs: global replace
+- ns: replace non-greedy
+- gns: global replace non-greedy
+- i: exprth match, only with ns and gns
 - d: delete
 - g: keep
 - p: evaluator
