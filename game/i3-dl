@@ -3,5 +3,5 @@
 u="$(sed '/^GET/s/^........//;s/.........\$//;q')"
 u="${u//\'/\'\\\'\'}"
 notify-send "dl: $u"
-i3-msg "workspace 8; exec terminal -e ~/projects/dotfiles/game/dl-url '$u'; workspace 8"
+i3-msg "workspace 8; exec terminal -e ~/projects/private-game/dl-url '$u'; workspace 8"
 sleep 2
