@@ -1,5 +1,5 @@
 #!/bin/sh
-f=/tmp/gmic-intensify-cmd-$$.sh
+f="${TMPDIR:-/tmp}"/gmic-intensify-cmd-$$.sh
 echo 'gmic "$@" -normalize_local 1,1 -ow -q ; exit 0' > "$f"
 chmod u+x "$f"
 find "$@" -type f -print0 | xargs -0 -n100 "$f"

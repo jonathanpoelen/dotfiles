@@ -1,18 +1,22 @@
 #!/bin/zsh
+
+xx=(0 {1..5}'*int(w#$k/5)')
+yy=(0 {1..5}'*int(h#$k/5)')
+
 gmic_args=''
-for ((y=0;y<5;++y)) {
-  for ((x=0;x<5;++x))
-    gmic_args+=" --crop'[\$k]' '{$x*int(w#\$k/5)},{$y*int(h#\$k/5)},{$(($x+1))*int(w#\$k/5)},{$(($y+1))*int(h#\$k/5)-1}'"
+for ((y=1;y<=5;++y)) {
+  for ((x=1;x<=5;++x))
+    gmic_args+=" --crop'[\$k]' '{$xx[$x]},{$yy[$y]},{$xx[$(($x+1))]},{$yy[$(($y+1))]-1}'"
 }
 
 for ((y=4;y>=0;--y)) {
-  x=0 ; for i in 3 1 5 2 4 ; do
-    gmic_args+=" -image'[\$k]' '[-$(($i+$y*5))],{$x*int(w#\$k/5)},{$y*int(h#\$k/5)}'"
-    x+=1
+  x=1 ; for i in 3 1 5 2 4 ; do
+    gmic_args+=" -image'[\$k]' '[-$(($i+$y*5))],{$xx[$x]},{$yy[$(($y+1))]}'"
+    ((++x))
   done
 }
 
-f=/tmp/gmic-restore-cmd-$$.sh
+f="${TMPDIR:-/tmp}"/gmic-restore-cmd-$$.sh
 echo 'gmic "$@" -repeat \$\!,k '$gmic_args" -ow'[\$k]' -rm'[-25--1]' -done -q ; exit 0" > "$f"
 chmod u+x "$f"
 find "$@" -type f -print0 | xargs -0 -n100 "$f"
