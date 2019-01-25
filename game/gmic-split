@@ -1,6 +1,0 @@
-#!/bin/sh
-f="${TMPDIR:-/tmp}"/gmic-split-cmd-$$.sh
-echo 'gmic "$@" -repeat \$\!,k -if \{w\#\$k\>h\#\$k\} -split_tiles\[\$k\] 2,1 -o\[\{\$k+1\}\] \{\$k,f\}/\{\$k,b\}_a.\{\$k,x\} -ow\[\$k\] -rm\[\$k\] -fi -done -q ; exit 0' > "$f"
-chmod u+x "$f"
-find "$@" -type f -print0 | xargs -0 -n100 "$f"
-rm "$f"

@@ -1,0 +1,18 @@
+#!/bin/zsh
+gmic "$@" 'j={$!-1}' \
+  -repeat '$!,k' \
+    'f={$j,n}' \
+    -split_tiles'[$j]' -100,1 \
+    -repeat '{($!-$j)/2-1},i' \
+      -move'[{$i*2+$j+1}]' '{$i*2+$j}' \
+    -done \
+    -append'[$j-{$!-1}]' x \
+    -split_tiles'[$j]' 1,-100 \
+    -repeat '{($!-$j)/2-1},i' \
+      -move'[{$i*2+$j+1}]' '{$i*2+$j}' \
+    -done \
+    -append'[$j-{$!-1}]' y \
+    -o'[$j]' '$f' \
+    -rm'[$j]' \
+    'j-=1' \
+  -done

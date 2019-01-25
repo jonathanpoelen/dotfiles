@@ -1,0 +1,8 @@
+#!/bin/zsh
+gmic "$@" \
+  -repeat '$!,k' \
+    -if '{w#$k>900}' \
+      -resize'[$k]' '{900},{h#$k/(w#$k/900.)}' \
+    -fi \
+    -o'[$k]' 'jpg:{$k,n},40' \
+  -done -q

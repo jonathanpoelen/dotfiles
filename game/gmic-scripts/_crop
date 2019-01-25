@@ -1,0 +1,2 @@
+#!/bin/zsh
+gmic "$@" autocrop'[0-100%]' ow'[0-100%]' -q

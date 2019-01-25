@@ -1,0 +1,19 @@
+#!/bin/zsh
+
+setopt extendedglob
+
+cd $0:h
+
+gen () {
+  echo "#!/bin/zsh
+_script_run(){ ${${(S)${(S)1//(
+|(#s))\#*
+/;}//\\
+/ }//  ##/ } }
+${(S)$(<launcher)/(#s)*shift
+}
+"
+}
+
+gen "$(<_split<_crop<_resize)" > ../gmic-prepare
+for f in intensify restore ; gen "$(<_$f)" > ../gmic-$f

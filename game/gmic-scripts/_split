@@ -1,0 +1,10 @@
+#!/bin/zsh
+gmic "$@" \
+  -repeat '$!,k' \
+    -if '{w#$k>h#$k}' \
+      -split_tiles'[$k]' 2,1 \
+      -o'[{$k+1}]' '{$k,f}/{$k,b}_a.{$k,x}' \
+      -ow'[$k]' \
+      -rm'[$k]' \
+    -fi \
+  -done -q

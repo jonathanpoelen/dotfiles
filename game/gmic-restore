@@ -1,23 +1,13 @@
 #!/bin/zsh
+_script_run(){ ;gmic "$@" 'j={$!-1}' -repeat '$!,k' 'f={$j,n}' -split_tiles'[$j]' -100,1 -repeat '{($!-$j)/2-1},i' -move'[{$i*2+$j+1}]' '{$i*2+$j}' -done -append'[$j-{$!-1}]' x -split_tiles'[$j]' 1,-100 -repeat '{($!-$j)/2-1},i' -move'[{$i*2+$j+1}]' '{$i*2+$j}' -done -append'[$j-{$!-1}]' y -o'[$j]' '$f' -rm'[$j]' 'j-=1' -done }
 
-xx=(0 {1..5}'*int(w#$k/5)')
-yy=(0 {1..5}'*int(h#$k/5)')
-
-gmic_args=''
-for ((y=1;y<=5;++y)) {
-  for ((x=1;x<=5;++x))
-    gmic_args+=" --crop'[\$k]' '{$xx[$x]},{$yy[$y]},{$xx[$(($x+1))]},{$yy[$(($y+1))]-1}'"
+files=()
+for f in $@ ; {
+  [[ $f[1] == / ]] && p= || p=./
+  [ -d $f ] && files+=($p$f/**/*(^/)) || files+=($p$f)
 }
 
-for ((y=4;y>=0;--y)) {
-  x=1 ; for i in 3 1 5 2 4 ; do
-    gmic_args+=" -image'[\$k]' '[-$(($i+$y*5))],{$xx[$x]},{$yy[$(($y+1))]}'"
-    ((++x))
-  done
+for ((i=1; i <= $#files; i+=100)) {
+  _script_run $files[$i,$(($i+99))]
 }
 
-f="${TMPDIR:-/tmp}"/gmic-restore-cmd-$$.sh
-echo 'gmic "$@" -repeat \$\!,k '$gmic_args" -ow'[\$k]' -rm'[-25--1]' -done -q ; exit 0" > "$f"
-chmod u+x "$f"
-find "$@" -type f -print0 | xargs -0 -n100 "$f"
-rm "$f"

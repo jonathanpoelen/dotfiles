@@ -1,5 +1,9 @@
 #!/bin/zsh
-_script_run(){ ;gmic "$@" -normalize_local 1,1 -ow -q }
+
+eval "_script_run () {
+  $(<$1)
+}"
+shift
 
 files=()
 for f in $@ ; {
@@ -10,4 +14,3 @@ for f in $@ ; {
 for ((i=1; i <= $#files; i+=100)) {
   _script_run $files[$i,$(($i+99))]
 }
-
