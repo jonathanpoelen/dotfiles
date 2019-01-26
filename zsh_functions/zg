@@ -1,6 +1,6 @@
 #!/bin/zsh
 zg() {
-  local e='echo ' m='(M)' j='(F)' d=f p=eval C=
+  local e='echo ' m='(M)' j='(F)' d=f p=eval C= n=
   typeset -i M=1 t=0 X=0 v=0 a=0 x=1
 
   setopt localoptions extendedglob
@@ -10,7 +10,7 @@ zg() {
       (e) e=$OPTARG' ' ;;
       (r) e='reply=(' ; j= ;;
       (R) e='REPLY=' ;;
-      (d) d=$OPTARG ; n=0 ;;
+      (d) d=$OPTARG ;;
       (j) j=${OPTARG:+\($OPTARG\)} ;;
       (C) C=${OPTARG//(#m)[\/\'\"\\]/\\$MATCH} ;
           if [[ -z $C ]]; then
@@ -26,7 +26,7 @@ zg() {
       (z) t=2 ;;
       (X) X=1 ;;
       (x) x=0 ;;
-      (n) d+='@' ;;
+      (n) n=\" ;;
       (p) p=$OPTARG ;;
       (h|\?) echo 'zsh grep
 zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [-MXVvavsnxh] [--] pattern [{ files | expression | command ... }]
@@ -42,7 +42,7 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
  -V: invert color match
  -c: files as a command
  -z: files as a expression
- -n: keep empty line (alias for -d f@)
+ -n: keep empty lines
  -X: colorizes the first occurrence only
  -x: select only those matches that exactly match the whole line
  -p: set expression evaluator, default is `eval`'
@@ -54,14 +54,17 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
 
   if [ $M -le 0 ]; then
     m=
-  else
-    n=0
+  fi
+
+  if [[ -n $n ]]; then
+    m="(@$m[2])"
+    d+=@
   fi
 
   local pat=${@[$OPTIND]//(#m)[\/\'\"\\]/\\$MATCH}
 
   if [[ -z $pat ]] && [[ -z $C ]]; then
-    echo $0: Missing pattern >&2
+    echo $0: Missing or empty pattern >&2
     return 2
   fi
 
@@ -80,7 +83,7 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
   fi
 
   local eb=$e[$#e]
-  e+='${'$j'${'$m'${'${d:+\($d\)}
+  e+='${'$j$n'${'$m'${'${d:+\($d\)}
 
   if [ $M -gt 0 ]; then
     if [ $x -eq 1 ]; then
@@ -113,7 +116,7 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     fi
   fi
 
-  [[ $eb = '(' ]] && m+='})' || m+='}'
+  [[ $eb = '(' ]] && m+=$n'})' || m+=$n'}'
 
   shift $OPTIND
 
