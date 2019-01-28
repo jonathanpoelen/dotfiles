@@ -1,5 +1,23 @@
 #!/bin/zsh
-_script_run(){ ;gmic "$@" -repeat '$!,k' -if '{w#$k>h#$k}' -split_tiles'[$k]' 2,1 -o'[{$k+1}]' '{$k,f}/{$k,b}_a.{$k,x}' -ow'[$k]' -rm'[$k]' -fi -done -q;gmic "$@" autocrop'[0-100%]' ow'[0-100%]' -q;gmic "$@" -repeat '$!,k' -if '{w#$k>900}' -resize'[$k]' '{900},{h#$k/(w#$k/900.)}' -fi -o'[$k]' 'jpg:{$k,n},40' -done -q }
+_script_run(){
+  gmic "$@" \
+  dk=0 \
+  -repeat '$!,k' \
+    -if '{w#$dk>h#$dk}' \
+      -split_tiles'[$dk]' 2,1 \
+      -name'[{$dk+1}]' '{$dk,f}/{$dk,b}_a.{$dk,x}' \
+      dk+=1 \
+    -fi \
+    dk+=1 \
+  -done \
+  -autocrop'[0-100%]' \
+  -repeat '$dk,k' \
+    -if '{w#$k>900}' \
+      -resize'[$k]' '{900},{h#$k/(w#$k/900.)}' \
+    -fi \
+    -o'[$k]' 'jpg:{$k,n},40' \
+  -done -q
+}
 
 files=()
 for f in $@ ; {
@@ -10,4 +28,3 @@ for f in $@ ; {
 for ((i=1; i <= $#files; i+=100)) {
   _script_run $files[$i,$(($i+99))]
 }
-
