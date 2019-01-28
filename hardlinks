@@ -2,7 +2,6 @@
 ./.inputrc
 ./.nanorc
 ./.gdbinit
-./.vimperatorrc
 ./.Xmodmap
 ./.bash_aliases
 ./.zshrc
