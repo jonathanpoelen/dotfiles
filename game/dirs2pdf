@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+set -e
+
+[ $# -eq 0 ] && dirs=(*(/)) || dirs=($@)
+
+for d in $dirs ; {
+  t=$d:t.pdf
+  echo $t
+  img2pdf --output $t $d/*/*
+}

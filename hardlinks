@@ -31,7 +31,6 @@
 ./bin/bt
 ./bin/ccache-clang++
 ./bin/rbt
-./bin/dirs2pdf
 ./bin/vim-cling
 ./bin/colordiff
 ./bin/ler
