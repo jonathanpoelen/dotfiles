@@ -1,6 +1,12 @@
 #!/bin/zsh
-_script_run(){
-  gmic "$@" \
+files=()
+for f in $@ ; {
+  [[ $f[1] == / ]] && p= || p=./
+  [ -d $f ] && files+=($p$f/**/*(^/)) || files+=($p$f)
+}
+
+for ((i=1; i <= $#files; i+=100)) {
+  gmic $files[$i,$(($i+99))] \
   dk=0 \
   -repeat '$!,k' \
     -if '{w#$dk>h#$dk}' \
@@ -17,14 +23,4 @@ _script_run(){
     -fi \
     -o'[$k]' 'jpg:{$k,n},40' \
   -done -q
-}
-
-files=()
-for f in $@ ; {
-  [[ $f[1] == / ]] && p= || p=./
-  [ -d $f ] && files+=($p$f/**/*(^/)) || files+=($p$f)
-}
-
-for ((i=1; i <= $#files; i+=100)) {
-  _script_run $files[$i,$(($i+99))]
 }

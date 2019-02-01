@@ -1,6 +1,4 @@
 #!/bin/zsh
-_script_run(){ ;gmic "$@" -normalize_local 1,1 -ow -q }
-
 files=()
 for f in $@ ; {
   [[ $f[1] == / ]] && p= || p=./
@@ -8,6 +6,6 @@ for f in $@ ; {
 }
 
 for ((i=1; i <= $#files; i+=100)) {
-  _script_run $files[$i,$(($i+99))]
+  gmic $files[$i,$(($i+99))] -normalize_local 0.3,0,7 -ow -q
 }
 
