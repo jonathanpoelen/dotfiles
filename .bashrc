@@ -95,12 +95,13 @@ esac
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 # [ -f ~/.bash_profile ] && . ~/.bash_profile
 
+# required bash-completion packet
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
+# if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+#     . /etc/bash_completion
+# fi
 
 if [ -f "$HOME/bin" ]; then
 	PATH=$PATH:$HOME/bin
