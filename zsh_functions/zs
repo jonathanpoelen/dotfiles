@@ -5,7 +5,7 @@ typeset -A _zs_assoc_r=(gs / sg / gns / gsn / sgn / sng / ngs / nsg /)
 
 zs()
 {
-  local prefix='' suffix='' prefixcmd=@f cmd= e='eval echo' out= j=@ tmp=
+  local prefix='' suffix='' prefixcmd=@f cmd= e= out= j=@ tmp=
   local -i i=1 toto=$#@
 
   setopt localoptions extendedglob
@@ -50,6 +50,14 @@ zs()
       (*) cmd+='<'${(q)@[$i]}';' ; i+=-1 ;;
     esac
   }
+
+  if [[ -z $e ]]; then
+    if [[ -z $out ]]; then
+      e='eval echo'
+    else
+      e=eval
+    fi
+  fi
 
   $=e ${out:+'(){>'$out'<<<$1} '}"\${${prefixcmd:+(F)}${j:+\"}$prefix\${${prefixcmd:+($prefixcmd)}\"\$(${cmd:-</dev/stdin})\"}$suffix${j:+\"}}"
 }
