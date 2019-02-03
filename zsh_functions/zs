@@ -1,31 +1,35 @@
 #!/usr/bin/zsh
 
-typeset -A _zs_assoc_s=(ns '(S)' gns '(S)' nsg '(S)')
-typeset -A _zs_assoc_r=(gs / sg / gns / nsg /)
+typeset -A _zs_assoc_s=(ns 'S' gns 'S' gsn 'S' sgn 'S' sng 'S' ngs 'S' nsg 'S')
+typeset -A _zs_assoc_r=(gs / sg / gns / gsn / sgn / sng / ngs / nsg /)
 
 zs()
 {
-  local prefix='' suffix='' prefixcmd=f cmd= e='eval echo'
+  local prefix='' suffix='' prefixcmd=@f cmd= e='eval echo' out= j=@ tmp=
   local -i i=1 toto=$#@
 
   setopt localoptions extendedglob
 
   for ((i=1; $i<=$toto; i+=2)) {
     case $@[$i] in
-      (s|gs|sg|ns|gns|nsg)
-        prefix=$prefix'${'$_zs_assoc_s[$@[$i]]
+      (s|gs|sg|ns|gns|gsn|sgn|sng|ngs|nsg)
+        tmp=$_zs_assoc_s[$@[$i]]$j
+        prefix=$prefix'${'${tmp:+\($tmp\)}
         suffix+=$_zs_assoc_r[$@[$i]]/${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}/$@[$(($i+2))]'}'
         i+=1 ;;
       (i) prefix=${prefix[1,-2]}'I:'$@[$(($i+1))]':)' ;;
-      (d) prefix=$prefix'${'; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}'}' ;;
-      (g) prefix=$prefix'${(M)'; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}'}' ;;
+      (d) prefix=$prefix'${'${j:+($j)}; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}'}' ;;
+      (g) prefix=$prefix'${(M'$j')'; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}'}' ;;
+      (o) out=${(q)@[$(($i+1))]} ;;
+      (u) out=${(q)@[$(($i+1))]} ; cmd+='<'$out';' ;;
       (f) cmd+='<'${(q)@[$(($i+1))]}';' ;;
-      (p) e=$@[$(($i+1))] ;;
       (c) cmd+=${(q)@[$(($i+1))]}';' ;;
       (z) cmd+=${@[$(($i+1))]}';' ;;
       (t) prefixcmd='' ;;
       (n) prefixcmd='@f' ;;
-      (h|-h) echo "$0: [{s|gs|ns|gns|d|g} pattern] [i nth] [p progname] [c cmd] [z expr] [t|n] [[f] file] ...
+      (p) e=$@[$(($i+1))] ;;
+      (e) j= ;;
+      (h|-h) echo "$0: [{s|gs|ns|gns|d|g} pattern [i nth]] [p progname] [c cmd] [z expr] [e|t|n] [[{f|u}] file] [o file] ...
 - s: replace
 - gs: global replace
 - ns: replace non-greedy
@@ -37,12 +41,15 @@ zs()
 - c: command
 - z: zsh expression
 - f: read file
+- u: read and write file (only last file)
+- e: remove empty line
 - t: read plain file
 - n: read by line with empty line
+- o: output file
 "; return 1 ;;
       (*) cmd+='<'${(q)@[$i]}';' ; i+=-1 ;;
     esac
   }
 
-  $=e "\${${prefixcmd:+(F)}$prefix\${${prefixcmd:+($prefixcmd)}\"\$(${cmd:-</dev/stdin})\"}$suffix}"
+  $=e ${out:+'(){>'$out'<<<$1} '}"\${${prefixcmd:+(F)}${j:+\"}$prefix\${${prefixcmd:+($prefixcmd)}\"\$(${cmd:-</dev/stdin})\"}$suffix${j:+\"}}"
 }
