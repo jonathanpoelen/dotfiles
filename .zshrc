@@ -327,7 +327,7 @@ alias pu='pushd'
 alias po='popd'
 
 # some more grep aliases
-alias g='grep'
+alias g='zg -a'
 alias eg='grep -E'
 alias gf='grep -l'
 alias gf1='grep -lm1'
