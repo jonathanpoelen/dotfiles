@@ -84,8 +84,8 @@
 /* #TabsToolbar { visibility: collapse; } */
 
 /* Remove window decorations (Close, Minimize, Fullscreen) */
-#titlebar { display: none !important; }
-#TabsToolbar .titlebar-placeholder { display: none !important; }
+/*#titlebar { display: none !important; }
+#TabsToolbar .titlebar-placeholder { display: none !important; }*/
 
 /* end Tridactyl minimal CSS */
 
