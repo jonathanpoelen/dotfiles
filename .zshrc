@@ -411,8 +411,8 @@ alias glr='gl --rebase'
 # some more diff aliases
 alias diff=colordiff
 alias cdiff='colordiff --normal'
-#alias yd='colordiff -y -W $COLUMNS'
-alias yd=icdiff
+alias yd='colordiff -y -W $COLUMNS'
+alias ydc=icdiff
 nd() {
   /usr/bin/diff \
   --unchanged-line-format='%-4dn %L' \
