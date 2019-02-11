@@ -11,11 +11,12 @@ set -e
 #disable beep
 xset b off
 
-cd ~/rawdisk && mkfifo music-control &&
+cd ~/rawdisk
 
+mkfifo music-control
 #mpv --quiet --shuffle --idle=yes --input-file=/home/jonathan/rawdisk/music-control  --no-video --playlist ~/mocplaylist.m3u --no-input-terminal &
 
-md ff/.cache && ln -s ~/.mozilla ~/.config ff/ || function firefox { echo Error in the Firefox configuration }
+md ff/.cache && ln -s ~/.mozilla ~/.config ff/ || function firefox { echo "\e[31merror: Create ~/rawdisk/ff\e[0m" }
 #md ff && ln -s ~/.mozilla ~/.config ff/
 #md ff/.cache && ln -s ~/.cache/* ff/.cache && rm ff/.cache/mozilla 2>/dev/null
 # HOME=~/rawdisk/ff firefox&
