@@ -64,7 +64,7 @@ export RLWRAP_HOME=/home/jonathan/.rlwrap
 '5;167;1:*.pi=38;5;126:*.properties=38;5;197;1:*.torrent=38;5;58:*.gp3=38;5;114:*.gp4=38;5;115:*.tg=38;5;99:*.gbr=38;5;2:*.ger=38;'\
 '5;2:*.pcb=38;5;28:*.sch=38;5;34:*.cnc=38;5;37:*.xln=38;5;37:*.pcap=38;5;29:*.cap=38;5;29:*.dmp=38;5;29:*.service=38;5;81:*@.service=38;'\
 '5;45:*.socket=38;5;75:*.device=38;5;24:*.mount=38;5;115:*.automount=38;5;114:*.swap=38;5;113:*.target=38;5;73:*.path=38;5;'\
-'116:*.timer=38;5;111:*.snapshot=38;5;139:'
+'116:*.timer=38;5;111:*.snapshot=38;5;139:*.ninja=38;5;160:*.build=38;5;186'
   alias ls='ls --color=auto'
   alias grep='grep --color=auto --exclude-dir=.git'
   GREP_COLOR='1;31'

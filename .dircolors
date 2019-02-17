@@ -173,6 +173,8 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 # Build stuff
 *README               38;5;220;1
 *Makefile             38;5;160
+*.ninja               38;5;160
+*.build               38;5;186
 *MANIFEST             38;5;243
 *pm_to_blib           38;5;240
 .1                    38;5;160;1
