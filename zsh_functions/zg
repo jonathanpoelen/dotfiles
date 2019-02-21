@@ -1,6 +1,10 @@
 #!/bin/zsh
+__zg_return() {
+  [ -z $1 ] && return 1
+  echo $1
+}
 zg() {
-  local e='echo ' m='(M)' j='(F)' d=f p=eval C= n=
+  local e='__zg_return ' m='(M)' j='(F)' d=f p=eval C= n=
   typeset -i M=1 t=0 X=0 v=0 a=0 x=1
 
   setopt localoptions extendedglob
