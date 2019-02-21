@@ -327,7 +327,8 @@ alias pu='pushd'
 alias po='popd'
 
 # some more grep aliases
-alias g='zg -a'
+alias f='zg -a'
+alias g=grep
 alias eg='grep -E'
 alias gf='grep -l'
 alias gf1='grep -lm1'
@@ -640,6 +641,7 @@ alias -g ZT2='|fzf -m --cycle 2>~/rawdisk2/l'
 alias -g V2='|&view -'
 alias -g L2='|&less'
 alias -g G2='|&grep'
+alias -g F2='|&zg -a'
 alias -g S2='|&sed'
 alias -g K2='|&k'
 alias -g A2='|&awk'
