@@ -73,7 +73,7 @@ export RLWRAP_HOME=/home/jonathan/.rlwrap
 
 # Save the location of the current completion dump file.
 ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-fpath+=(~/projects/dotfiles/zsh_functions ~/.zshcompletions)
+fpath+=(~/projects/dotfiles/zsh_functions.zwc ~/.zshcompletions.zwc)
 
 # Load and run compinit
 autoload -U compinit
@@ -233,7 +233,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:(rm|cp|mv|ls):*' ignore-line other
 
 
-autoload zg zs
+autoload -U zg zs
 
 # some more ls aliases
 alias ll='ls -lh'
@@ -299,7 +299,7 @@ unset cxxflag
 # debug flags: -D_GLIBCXX_DEBUG_PEDANTIC -D_GLIBCXX_ASSERTIONS -D_GLIBCXX_DEBUG
 # sanitizer flags: -fsanitize=address -fno-omit-frame-pointer-fsanitize=bounds-strict -fsanitize=undefined -fsanitize=bounds -fsanitize=leak
 
-alias ux='chmod u+x'
+alias ux='chmod +x'
 alias wl='wc -l'
 
 lv() { _ext-glob ls *~"$@" }
@@ -906,7 +906,7 @@ bindkey "^[m" copy-prev-shell-word
 export PAGER="less"
 export LESS="-iRj3"
 
-export LC_CTYPE=$LANG
+# export LC_CTYPE=$LANG
 
 
 ## theme-and-apparence
