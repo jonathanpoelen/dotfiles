@@ -70,3 +70,5 @@ zs()
 
   $=e ${out:+'(){>'$out'<<<$1} '}"\${${prefixcmd:+$pf}${j:+\"}$prefix\${${prefixcmd:+($prefixcmd)}\"\$(${cmd:-</dev/stdin})\"}$suffix${j:+\"}}"
 }
+
+zs "$@"

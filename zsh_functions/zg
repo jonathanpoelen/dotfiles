@@ -1,10 +1,11 @@
 #!/bin/zsh
-__zg_return() {
+_zg_return() {
   [ -z $1 ] && return 1
   echo $1
 }
+
 zg() {
-  local e='__zg_return ' m='(M)' j='(F)' d=f p=eval C= n=
+  local e='_zg_return ' m='(M)' j='(F)' d=f p=eval C= n=
   typeset -i M=1 t=0 X=0 v=0 a=0 x=1
 
   setopt localoptions extendedglob
@@ -134,3 +135,5 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     $p $e$@$m
   fi
 }
+
+zg "$@"
