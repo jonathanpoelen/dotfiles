@@ -4,6 +4,7 @@
 	logallrefupdates = true
 [core]
 	#pager = cat
+	pager = perl -I/usr/share/git/diff-highlight /home/jonathan/game/diff-so-fancy | less
 	whitespace = -trailing-space
 	#askpass = /home/jonathan/bin/git-ksshaskpass
 #[alias]
