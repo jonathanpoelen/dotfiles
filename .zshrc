@@ -328,6 +328,7 @@ alias po='popd'
 
 # some more grep aliases
 alias f='zg -a'
+alias fx='zg -xa'
 alias g=grep
 alias eg='grep -E'
 alias gf='grep -l'
