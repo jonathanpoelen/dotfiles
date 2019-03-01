@@ -28,3 +28,5 @@ _fzf_file_or_directory() {
   typeset -f zle-line-init >/dev/null && zle zle-line-init
   return $ret
 }
+
+_fzf_file_or_directory "$@"
