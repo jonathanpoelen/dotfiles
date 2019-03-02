@@ -1,4 +1,4 @@
-goto-previous-arg()
+_goto-previous-arg()
 {
   local a=()
   a+=(${(z)LBUFFER})

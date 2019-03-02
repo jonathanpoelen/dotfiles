@@ -133,16 +133,16 @@ READNULLCMD=less # pager for `<file`
 #source ~/.fzf/shell/completion.zsh
 
 autoload _fzf_file_or_directory
-fzf-file-widget () { _fzf_file_or_directory '-o -type f -print -o -type l -print' ; }
-fzf-directory-widget () { _fzf_file_or_directory '' ; }
-zle     -N    fzf-file-widget
-bindkey ^\[\' fzf-file-widget
-zle     -N    fzf-directory-widget
-bindkey '^[;' fzf-directory-widget
+_fzf-file-widget () { _fzf-file-or-directory '-o -type f -print -o -type l -print' }
+_fzf-directory-widget () { _fzf-file-or-directory '' }
+zle     -N    _fzf-file-widget
+bindkey ^\[\' _fzf-file-widget
+zle     -N    _fzf-directory-widget
+bindkey '^[;' _fzf-directory-widget
 
-autoload fzf-history-widget
-zle     -N   fzf-history-widget
-bindkey '^[r' fzf-history-widget
+autoload _fzf-history-widget
+zle     -N   _fzf-history-widget
+bindkey '^[r' _fzf-history-widget
 
 alias history='fc -l 1'
 
@@ -824,15 +824,15 @@ bindkey '^[[1;3D' _list-file
 
 # see split-shell-arguments and replace-argument
 
-autoload goto-previous-arg goto-next-arg kill-arg transpose-arg
-zle -N goto-previous-arg
-zle -N goto-next-arg
-zle -N kill-arg
-zle -N transpose-arg
-bindkey '^[^B' goto-previous-arg
-bindkey '^[^F' goto-next-arg
-bindkey '^[^K' kill-arg
-bindkey '^[^T' transpose-arg
+autoload _goto-previous-arg _goto-next-arg _kill-arg _transpose-arg
+zle -N _goto-previous-arg
+zle -N _goto-next-arg
+zle -N _kill-arg
+zle -N _transpose-arg
+bindkey '^[^B' _goto-previous-arg
+bindkey '^[^F' _goto-next-arg
+bindkey '^[^K' _kill-arg
+bindkey '^[^T' _transpose-arg
 
 #_inc_last_arg() {
 #  local r=${BUFFER/* }
@@ -856,9 +856,9 @@ function kill-prev-char-region()
 zle -N kill-prev-char-region
 bindkey '^X^K' kill-prev-char-region
 
-autoload prefix-cmd-widget
-zle -N prefix-cmd-widget
-bindkey '^[^@' prefix-cmd-widget
+autoload _prefix-cmd-widget
+zle -N _prefix-cmd-widget
+bindkey '^[^@' _prefix-cmd-widget
 
 bindkey '^@' set-mark-command
 
@@ -926,17 +926,17 @@ setopt auto_cd
 #     SCREEN_NO=""
 # fi
 
-autoload smart_sudo
+autoload _smart-sudo
 alias sudo='nocorrect noglob smart_sudo'
-compdef _sudo smart_sudo
+compdef _sudo _smart-sudo
 
-autoload insert-sudo-and-accept
-zle -N insert-sudo-and-accept
-bindkey "\e\e" insert-sudo-and-accept
+autoload _insert-sudo-and-accept
+zle -N _insert-sudo-and-accept
+bindkey "\e\e" _insert-sudo-and-accept
 
-autoload insert-space-and-accept
-zle -N insert-space-and-accept
-bindkey "^[j" insert-space-and-accept
+autoload _insert-space-and-accept
+zle -N _insert-space-and-accept
+bindkey "^[j" _insert-space-and-accept
 
 alias clipcopy='xclip -selection clipboard'
 

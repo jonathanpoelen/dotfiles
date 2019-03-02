@@ -1,4 +1,4 @@
-transpose-arg()
+_transpose-arg()
 {
   local reply REPLY REPLY2 tmp e=0
   autoload -U split-shell-arguments

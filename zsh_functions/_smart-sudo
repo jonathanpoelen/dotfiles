@@ -1,4 +1,4 @@
-smart_sudo () {
+_smart-sudo () {
   if [[ -n $1 ]]; then
     if [[ $1 == \-* ]]; then
       command sudo $@

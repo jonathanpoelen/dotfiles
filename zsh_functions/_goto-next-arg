@@ -1,4 +1,4 @@
-goto-next-arg()
+_goto-next-arg()
 {
   local a=()
   a+=(${(z)RBUFFER})

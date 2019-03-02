@@ -1,4 +1,4 @@
-insert-sudo-and-accept() {
+_insert-sudo-and-accept() {
   [[ -z $BUFFER ]] && zle up-history
   if [[ $BUFFER == sudo\ * ]] || [[ $BUFFER == \ sudo\ * ]]; then
      LBUFFER="${LBUFFER:5}"

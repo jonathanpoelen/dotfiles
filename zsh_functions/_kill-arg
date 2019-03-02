@@ -1,4 +1,4 @@
-kill-arg()
+_kill-arg()
 {
   local reply REPLY REPLY2 n=2
   autoload -U split-shell-arguments

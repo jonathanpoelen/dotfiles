@@ -8,7 +8,7 @@ __fsel() {
   return $?
 }
 
-_fzf_file_or_directory() {
+_fzf-file-or-directory() {
   if [ "${LBUFFER[-1]}" = ' ' ] ; then
     LBUFFER="${LBUFFER}$(__fsel "$1")"
   else
