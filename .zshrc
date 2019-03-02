@@ -924,7 +924,7 @@ setopt auto_cd
 # fi
 
 autoload -U _smart-sudo
-alias sudo='nocorrect noglob smart_sudo'
+alias sudo='nocorrect noglob _smart-sudo'
 compdef _sudo _smart-sudo
 
 autoload -U _insert-sudo-and-accept _insert-space-and-accept _insert-command
