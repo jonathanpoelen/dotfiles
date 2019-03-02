@@ -602,10 +602,8 @@ alias 5='cd -5'
 
 ## aliases
 
-autoload _ext-glob
+autoload _ext-glob _nocase-glob
 alias ex='noglob _ext-glob ' # delay globbing until inside (ex echo .(#i)ic*)
-
-autoload _nocase-glob
 alias ix='noglob _nocase-glob'
 
 alias a='noglob a'
@@ -759,8 +757,7 @@ bindkey '^[o' menu-select
 # bindkey '^[o' menu-complete
 
 # Cycle through history based on characters already typed on the line
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
+autoload -U up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey '^[[1;5A' up-line-or-beginning-search
@@ -824,7 +821,7 @@ bindkey '^[[1;3D' _list-file
 
 # see split-shell-arguments and replace-argument
 
-autoload _goto-previous-arg _goto-next-arg _kill-arg _transpose-arg
+autoload -U _goto-previous-arg _goto-next-arg _kill-arg _transpose-arg
 zle -N _goto-previous-arg
 zle -N _goto-next-arg
 zle -N _kill-arg
@@ -856,7 +853,7 @@ function kill-prev-char-region()
 zle -N kill-prev-char-region
 bindkey '^X^K' kill-prev-char-region
 
-autoload _prefix-cmd-widget
+autoload -U _prefix-cmd-widget
 zle -N _prefix-cmd-widget
 bindkey '^[^@' _prefix-cmd-widget
 
@@ -881,7 +878,7 @@ bindkey '^@' set-mark-command
 #bindkey -s '^[[Z' '\t'
 #
 
-autoload _jln-pick
+autoload -U _jln-pick
 _jln-pick-line () { _jln-pick 1 }
 _jln-pick-line-col () { _jln-pick 2 }
 zle -N _jln-pick
@@ -926,17 +923,21 @@ setopt auto_cd
 #     SCREEN_NO=""
 # fi
 
-autoload _smart-sudo
+autoload -U _smart-sudo
 alias sudo='nocorrect noglob smart_sudo'
 compdef _sudo _smart-sudo
 
-autoload _insert-sudo-and-accept
+autoload -U _insert-sudo-and-accept _insert-space-and-accept _insert-command
 zle -N _insert-sudo-and-accept
-bindkey "\e\e" _insert-sudo-and-accept
-
-autoload _insert-space-and-accept
 zle -N _insert-space-and-accept
-bindkey "^[j" _insert-space-and-accept
+zle -N _insert-command
+bindkey '\e\e' _insert-sudo-and-accept
+bindkey '^[j' _insert-space-and-accept
+bindkey '^[#' _insert-command
+
+_insert_cb() { LBUFFER+=${(q)$(xclip -out)} }
+zle -N _insert_cb
+bindkey '^[V' _insert_cb # previously quoted-insert
 
 alias clipcopy='xclip -selection clipboard'
 

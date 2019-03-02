@@ -1,0 +1,7 @@
+_insert-command() {
+  local REPLY
+  autoload -U read-from-minibuffer
+  read-from-minibuffer 'command: '
+  [ -z "$REPLY" ] && return
+  LBUFFER+="$REPLY"
+}
