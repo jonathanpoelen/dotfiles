@@ -1,5 +1,7 @@
 _jln-pick ()
 {
+  local REPLY buf
+
   autoload -U read-from-minibuffer
   read-from-minibuffer 'command: '
   [ -z "$REPLY" ] && return
@@ -20,9 +22,9 @@ _jln-pick ()
     return
   fi
 
-  local -a view=()
+  local -a view=() a
   local -i len n
-  local l
+  local l ns
   n=0
   while read -A a ; do
     [[ $n > 4 ]] && break
@@ -34,7 +36,7 @@ _jln-pick ()
     done
   done <<<"$buf"
 
-  local ns=(${${(f)"$(echo ${(F)view} Z)"}/:*})
+  ns=(${${(f)"$(echo ${(F)view} Z)"}/:*})
   buf=(${(f)buf})
   len=$#buf
   for (( i=1 ; i <= $len ; ++i )); do
