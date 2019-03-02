@@ -1,7 +1,0 @@
-410a411,412
->     /$'autoremove\0'/ \| \
->     /$'dist-upgrade\0'/ \| \
-413c415
-<     /"[]"/	':argument-1::compadd "$expl_action[@]" list search show update install remove upgrade full-upgrade edit-sources'
----
->     /"[]"/	':argument-1::compadd "$expl_action[@]" list search show update install remove upgrade autoremove dist-upgrade clean full-upgrade edit-sources'
