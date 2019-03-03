@@ -17,7 +17,7 @@ zg() {
       (R) e='REPLY=' ;;
       (d) d=$OPTARG ;;
       (j) j=${OPTARG:+\($OPTARG\)} ;;
-      (C) C=${OPTARG//(#m)[\/\'\"\\]/\\$MATCH} ;
+      (C) C=${OPTARG//(#m)[[\/\'\"\\]/\\$MATCH} ;
           if [[ -z $C ]]; then
             echo $0: Missing color pattern >&2
             return 2
@@ -66,7 +66,7 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     d+=@
   fi
 
-  local pat=${@[$OPTIND]//(#m)[\/\'\"\\]/\\$MATCH}
+  local pat=${@[$OPTIND]//(#m)[[\/\'\"\\]/\\$MATCH}
 
   if [[ -z $pat ]] && [[ -z $C ]]; then
     echo $0: Missing or empty pattern >&2

@@ -15,11 +15,11 @@ zs()
       (s|gs|sg|ns|gns|gsn|sgn|sng|ngs|nsg)
         tmp=$_zs_assoc_s[$@[$i]]$j
         prefix=$prefix'${'${tmp:+\($tmp\)}
-        suffix+=$_zs_assoc_r[$@[$i]]/${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}/$@[$(($i+2))]'}'
+        suffix+=$_zs_assoc_r[$@[$i]]/${@[$(($i+1))]//(#m)[[\/\'\"\\]/\\$MATCH}/$@[$(($i+2))]'}'
         i+=1 ;;
       (i) prefix=${prefix[1,-2]}'I:'$@[$(($i+1))]':)' ;;
-      (d) prefix=$prefix'${'${j:+($j)}; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}'}' ;;
-      (g) prefix=$prefix'${(M'$j')'; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}'}' ;;
+      (d) prefix=$prefix'${'${j:+($j)}; suffix+=':#'${@[$(($i+1))]//(#m)[[\/\'\"\\]/\\$MATCH}'}' ;;
+      (g) prefix=$prefix'${(M'$j')'; suffix+=':#'${@[$(($i+1))]//(#m)[[\/\'\"\\]/\\$MATCH}'}' ;;
       (-o) out=${(q)@[$(($i+1))]} ;;
       (-u) out=${(q)@[$(($i+1))]} ; cmd+='<'$out';' ;;
       (f) cmd+='<'${(q)@[$(($i+1))]}';' ;;
