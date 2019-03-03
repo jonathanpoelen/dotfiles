@@ -29,4 +29,4 @@ _fzf-file-or-directory() {
   return $ret
 }
 
-_fzf_file_or_directory "$@"
+_fzf-file-or-directory "$@"
