@@ -132,17 +132,19 @@ READNULLCMD=less # pager for `<file`
 #FZF_COMPLETION_TRIGGER=','
 #source ~/.fzf/shell/completion.zsh
 
-autoload _fzf_file_or_directory
+export FZF_DEFAULT_OPTS='--height 45% --cycle --reverse -m --ansi --tiebreak=index --no-sort --bind=ctrl-k:kill-line,alt-a:toggle-all,ctrl-a:select-all'
+
+autoload _fzf-file-or-directory _fzf-history-widget _fzf-zcomp-list
 _fzf-file-widget () { _fzf-file-or-directory '-o -type f -print -o -type l -print' }
 _fzf-directory-widget () { _fzf-file-or-directory '' }
-zle     -N    _fzf-file-widget
+zle -N _fzf-file-widget
+zle -N _fzf-directory-widget
+zle -N _fzf-history-widget
+zle -N _fzf-zcomp-list
 bindkey ^\[\' _fzf-file-widget
-zle     -N    _fzf-directory-widget
 bindkey '^[;' _fzf-directory-widget
-
-autoload _fzf-history-widget
-zle     -N   _fzf-history-widget
 bindkey '^[r' _fzf-history-widget
+bindkey '¿' _fzf-zcomp-list
 
 alias history='fc -l 1'
 
@@ -232,6 +234,9 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # don't complete the same filenames again
 zstyle ':completion:*:(rm|cp|mv|ls):*' ignore-line other
 
+zle -C complete-file complete-word _generic
+zstyle ':completion:complete-file::::' completer _files
+bindkey '^Xf' complete-file
 
 autoload -U zg zs
 
@@ -619,7 +624,7 @@ alias lfh='ls -sh *(^/)'
 alias -g N='>/dev/null'
 alias -g T='>~/rawdisk2/l'
 alias -g TT='>~/rawdisk2/ll'
-alias -g ZT='|fzf -m --cycle>~/rawdisk2/l'
+alias -g ZT='|fzf>~/rawdisk2/l'
 
 alias -g V='|view -'
 alias -g L='|less'
@@ -630,12 +635,12 @@ alias -g K='|k'
 alias -g A='|awk'
 alias -g W='|while read'
 alias -g X='|xargs -d\\n'
-alias -g Z='|fzf --height 40% --cycle --reverse --no-sort -m --ansi --tiebreak=index --no-sort'
+alias -g Z='|fzf'
 
 alias -g N2='2>/dev/null'
 alias -g T2='2>~/rawdisk2/l'
 alias -g TT2='2>~/rawdisk2/ll'
-alias -g ZT2='|fzf -m --cycle 2>~/rawdisk2/l'
+alias -g ZT2='|fzf 2>~/rawdisk2/l'
 
 alias -g V2='|&view -'
 alias -g L2='|&less'
@@ -646,7 +651,7 @@ alias -g K2='|&k'
 alias -g A2='|&awk'
 alias -g W2='|&while read'
 alias -g X2='|&xargs -d\\n'
-alias -g Z2='|&fzf -m --cycle --reverse --no-sort -m --ansi --tiebreak=index --no-sort'
+alias -g Z2='|&fzf'
 
 alias -g C='--color=always'
 alias -g ZF='|fo'
@@ -662,7 +667,7 @@ alias -g @@='|col /dev/stdin'
 #}
 
 function fo {
-  local r=(${(f)"$(fzf --height 40% --cycle --reverse --no-sort -m -n3..,1 -d: --ansi --tiebreak=index)"})
+  local r=(${(f)"$(fzf -n3..,1 -d:)"})
   "$@" ${(uq)${r/:*/}}
 }
 

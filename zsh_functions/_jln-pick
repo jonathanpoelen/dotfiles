@@ -6,7 +6,7 @@ _jln-pick ()
   read-from-minibuffer 'command: '
   [ -z "$REPLY" ] && return
 
-  local buf=$(eval "$REPLY" Z)
+  local buf=$(eval "$REPLY" | fzf)
   [ -z "$buf" ] && return
 
   if [ "$1" = 2 ]; then
@@ -36,7 +36,7 @@ _jln-pick ()
     done
   done <<<"$buf"
 
-  ns=(${${(f)"$(echo ${(F)view} Z)"}/:*})
+  ns=(${${(f)"$(echo ${(F)view} | fzf)"}/:*})
   buf=(${(f)buf})
   len=$#buf
   for (( i=1 ; i <= $len ; ++i )); do
