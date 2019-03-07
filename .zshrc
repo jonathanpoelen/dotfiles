@@ -701,12 +701,11 @@ setopt share_history # share command history data
 # menuselect navigation
 bindkey -M menuselect -s 'á' '^[[A^[[A^[[A^[[A^[[A' # AltGr+A  top *5
 bindkey -M menuselect -s 'ð' '^[[B^[[B^[[B^[[B^[[B' # AltGr+D  bottom *5
-bindkey -M menuselect -s 'å' '^[[A'                 # AltGr+W  top
-bindkey -M menuselect -s 'ß' '^[[B'                 # AltGr+S  bottom
-bindkey -M menuselect -s 'æ' '^[[D'                 # AltGr+Z  left
-bindkey -M menuselect -s '©' '^[[C'                 # AltGr+C  tight
+bindkey -M menuselect    'å' up-line-or-history     # AltGr+W  top
+bindkey -M menuselect    'ß' down-line-or-history   # AltGr+S  bottom
+bindkey -M menuselect    'ä' backward-char          # AltGr+Z  left
+bindkey -M menuselect    'é' forward-char           # AltGr+C  right
 
-# should this be in keybindings?
 bindkey -M menuselect '^o' accept-and-infer-next-history
 
 bindkey -e
