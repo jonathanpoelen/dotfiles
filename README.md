@@ -18,10 +18,12 @@ Zsh precompiled
 ===============
 
 ```zsh
-zsh -c 'zcompile ~/.zshrc'
-zsh -c 'zcompile ~/projects/dotfiles/zsh_functions/*' && mv ~/projects/dotfiles/zsh_functions/*zwc ~/projects/dotfiles/zsh_functions.zwc
-zsh -c 'zcompile ~/.zshcompletions/*' && mv ~/.zshcompletions/*zwc ~/.zshcompletions.zwc
-zsh -c 'zcompile "${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"'
+zsh -c "autoload zrecompile
+zrecompile -p \
+  -R ~/.zshrc -- \
+  -M ${ZSH_COMPDUMP:-~/.zcompdump} -- \
+  ~/.zshcompletions.zwc ~/.zshcompletions/_* -- \
+  ~/projects/dotfiles/zsh_functions.zwc ~/projects/dotfiles/zsh_functions/*"
 ```
 
 
