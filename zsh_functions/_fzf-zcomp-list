@@ -58,11 +58,38 @@ zstyle '':completion:*'' insert-tab false
 # no list separator, this saves some stripping later on
 zstyle '':completion:*'' list-separator ''''
 # Use caching so that commands like apt and dpkg complete are useable
-# zstyle ':completion::*' use-cache 1
-# zstyle ':completion::*' cache-path ~/rawdisk/zsh_cache/
+# zstyle '':completion::*'' use-cache 1
+# zstyle '':completion::*'' cache-path ~/rawdisk/zsh_cache/
 
 # we use zparseopts
 zmodload zsh/zutil
+
+# wrap compctl -K function
+typeset -A fn
+local fname newfname
+for cmd in ${(f)"$(compctl)"} ; do
+  set -- ${(Q)${(z)cmd}}
+  zparseopts -E K:=fn
+  if [[ -n $fn ]] ; then
+    fname=$fn[-K]
+    newfname=$fname-$$-zcl
+    eval "$newfname() { $fname && { echo \${(j:\r\n:)reply}\"\\x0\" } }"
+    compctl $@[2,-1] -K $newfname $@[1]
+  fi
+done
+
+# override compctl -K function
+compctl () {
+  typeset -A fn
+  zparseopts -E K:=fn
+  if [[ -n $fn ]] ; then
+    local newfname=$fname-$$-zcl
+    eval "$newfname() { $fn[-K] && { echo \${(j:\r\n:)reply}\"\\x0\" } }"
+    builtin compctl "$@[1,-2]" -K $newfname "$@[-1]"
+  else
+    builtin compctl "$@"
+  fi
+}
 
 # override compadd (this our hook)
 compadd () {
@@ -154,7 +181,7 @@ _zcomp_list()
   zpty -wn zcl $'\25'"$*"$'\t'
   zpty -r zcl line
   while zpty -r zcl line ; do
-    [[ $line == $'\x00\x0d\x0a' ]] && break
+    [[ $line == $'\x00\r\n' ]] && break
     reply+=($line[1,-3])
   done
   reply=(${(u)reply})
