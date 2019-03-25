@@ -52,6 +52,17 @@ int tee(int in, int out, char const* filename, unsigned wait_seconds)
   long long total = 0;
 
   for (;;) {
+    if (fsize == total) {
+      sleep(10);
+      fsize = filesize(filename);
+      RETURN_IF(fsize);
+      if (fsize == total) {
+        while (read_write(in, out, buf, bufmaxsize) > 0)
+          ;
+        break;
+      }
+    }
+
     if (ssize_t count = fsize - total; count > ssize_t(bufmaxsize)) {
       do {
         ssize_t rsize = read_write(in, out, buf, bufmaxsize);
@@ -70,18 +81,9 @@ int tee(int in, int out, char const* filename, unsigned wait_seconds)
       total += count;
     }
 
-    sleep(wait_seconds);
     fsize = filesize(filename);
     RETURN_IF(fsize);
-
-    if (fsize == total) {
-      sleep(10);
-      fsize = filesize(filename);
-      RETURN_IF(fsize);
-      if (fsize == total) {
-        break;
-      }
-    }
+    sleep(wait_seconds);
 
     if (fsize < total) {
       fprintf(stderr, "%s: filesize < number of bytes written: %lld < %lld\n",

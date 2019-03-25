@@ -14,19 +14,6 @@ sudo find mime -exec xdg-mime install {} \;
 ```
 
 
-Zsh precompiled
-===============
-
-```zsh
-zsh -c "autoload zrecompile
-zrecompile -p \
-  -R ~/.zshrc -- \
-  -M ${ZSH_COMPDUMP:-~/.zcompdump} -- \
-  ~/.zshcompletions.zwc ~/.zshcompletions/_* -- \
-  ~/projects/dotfiles/zsh_functions.zwc ~/projects/dotfiles/zsh_functions/*"
-```
-
-
 Less binding
 ============
 
@@ -68,4 +55,17 @@ rm -- $=a &&
 for f in $a ; do
   ln -P -- $f ~/$f
 done
+```
+
+
+Zsh precompiled
+===============
+
+```zsh
+zsh -c "autoload zrecompile
+zrecompile -p \
+  -R ~/.zshrc -- \
+  -M ${ZSH_COMPDUMP:-~/.zcompdump} -- \
+  ~/.zshcompletions.zwc ~/.zshcompletions/_* -- \
+  ~/projects/dotfiles/zsh_functions.zwc ~/projects/dotfiles/zsh_functions/*"
 ```
