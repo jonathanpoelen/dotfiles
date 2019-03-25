@@ -1,7 +1,7 @@
 #!/bin/zsh
 _zg_return() {
   [ -z $1 ] && return 1
-  echo $1
+  echo -E $1
 }
 
 zg() {
@@ -66,7 +66,7 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     d+=@
   fi
 
-  local pat=${@[$OPTIND]//(#m)[[\/\'\"\\]/\\$MATCH}
+  local pat=${@[$OPTIND]//(#m)[\/\'\"\\]/\\$MATCH}
 
   if [[ -z $pat ]] && [[ -z $C ]]; then
     echo $0: Missing or empty pattern >&2
@@ -115,9 +115,9 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     fi
 
     if [ $v -eq 1 ]; then
-      m+='/(#m)'$C'/\\e[0m${MATCH}\\e[${GREP_COLOR}m}/(#m)*/\\e[${GREP_COLOR}m${MATCH}\\e[0m'
+      m+='/(#m)'$C'/\e[0m${MATCH}\\e[${GREP_COLOR}m}/(#m)*/\e[${GREP_COLOR}m${MATCH}\e[0m'
     else
-      m+='/(#m)'$C'/\\e[${GREP_COLOR}m${MATCH}\\e[0m'
+      m+='/(#m)'$C'/\e[${GREP_COLOR}m${MATCH}\e[0m'
     fi
   fi
 
