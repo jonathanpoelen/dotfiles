@@ -285,7 +285,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:
 # -Wstrict-overflow=5
 # -Wstrict-default # bad idea
 # -Wmissing-format-attribute
-cxxflag='-Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wdisabled-optimization -Wfloat-equal -Wformat-security -Wformat-signedness -Wformat=2 -Wmissing-declarations -Wmissing-include-dirs -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wpacked -Wredundant-decls -Wundef -Wuninitialized -Wunused-macros -Wvla -Wswitch -Wconversion -Wduplicated-cond -Wnull-dereference -fsized-deallocation -Warray-bounds=2 -Wconditionally-supported -Wnoexcept -Wsized-deallocation -Wstrict-null-sentinel -Wsuggest-override -Wfloat-conversion -Wopenmp-simd -Wuseless-cast -Wsuggest-attribute=noreturn -Wzero-as-null-pointer-constant -Wlogical-op -Wvector-operation-performance -Wdouble-promotion -Wtrampolines -Winline -Wshadow=local -Wclass-memaccess -Wduplicated-branches'
+cxxflag='-Wall -Wextra -pedantic -Waligned-new -Walloca -Walloc-zero -Warray-bounds=2 -Wcast-align -Wcast-align=strict -Wcast-qual -Wclass-memaccess -Wconditionally-supported -Wconversion -Wdisabled-optimization -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wfloat-conversion -Wfloat-equal -Wformat=2 -Wformat-overflow -Wformat-security -Wformat-signedness -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnon-virtual-dtor -Wno-shadow -Wnull-dereference -Wold-style-cast -Woverloaded-virtual -Wpacked -Wredundant-decls -Wstrict-null-sentinel -Wsuggest-attribute=noreturn -Wsuggest-override -Wtrampolines -Wundef -Wunused-macros -Wuseless-cast -Wvector-operation-performance -Wzero-as-null-pointer-constant'
 alias gw++="g++ $cxxflag"
 alias gw14="g++ -fdiagnostics-color=always -std=c++14 $cxxflag"
 alias gw17="g++ -fdiagnostics-color=always -std=c++17 $cxxflag"
@@ -476,9 +476,9 @@ mem() { ps h -C"$*" -o fname,rss }
 psg() { zg -ac "$*" ps aux }
 
 swap() {
-  mv "$1" /tmp/swap-$$.tmp && \
+  mv "$1" "$1.swap-$$.tmp" && \
   mv "$2" "$1" && \
-  mv /tmp/swap-$$.tmp "$2"
+  mv "$1.swap-$$.tmp" "$2"
 }
 
 autoload er erd
@@ -506,7 +506,8 @@ alias tp='tree -p'
 alias ts='tree -sh'
 alias v=vim
 alias s=sed
-p() { mpv -af scaletempo --really-quiet -fs --speed=1.61 "$@" ; } # auto-complete only for files
+alias mpv='mpv --no-resume-playback'
+p() { mpv --no-resume-playback -af scaletempo --really-quiet -fs --speed=1.61 "$@" ; } # auto-complete only for files
 
 alias mmcal="gcal -H '\e[01;33m:\e[0m:\e[31m:\e[0m' -s1 -q FR -N"
 alias mcal="mmcal .+"
