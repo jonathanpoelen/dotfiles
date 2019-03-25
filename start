@@ -14,12 +14,15 @@ xset b off
 cd ~/rawdisk
 
 mkfifo music-control
-#mpv --quiet --shuffle --idle=yes --input-file=/home/jonathan/rawdisk/music-control  --no-video --playlist ~/mocplaylist.m3u --no-input-terminal &
+#mpv --no-resume-playback --quiet --shuffle --idle=yes --input-file=/home/jonathan/rawdisk/music-control  --no-video ~/mocplaylist.m3u --no-input-terminal --demuxer-lavf-buffersize=262144 &
+# --audio-channels=mono
 
-md ff/.cache && ln -s ~/.mozilla ~/.config ff/ || function firefox { echo "\e[31merror: Create ~/rawdisk/ff\e[0m" }
-#md ff && ln -s ~/.mozilla ~/.config ff/
-#md ff/.cache && ln -s ~/.cache/* ff/.cache && rm ff/.cache/mozilla 2>/dev/null
-# HOME=~/rawdisk/ff firefox&
+md ff/.mozilla/firefox &&
+ln -s ~/.cache ~/.config ff/ &&
+ln -s ~/.mozilla/systemextensionsdev ~/.mozilla/extensions/ ff/.mozilla/ &&
+ln -s ~/.mozilla/firefox/{Crash\ Reports,Pending\ Pings,profiles.ini} ff/.mozilla/firefox ||
+function firefox { echo "\e[31merror: Create ~/rawdisk/ff\e[0m" }
+# ~/projects/dotfiles/game/rfirefox default&
 
 redshift -l 48.85:2.34 -t 5700:4000 -g 0.85 -m randr &
 socat tcp-l:10411,reuseaddr,fork,crlf system:'echo -e "\"HTTP/1.0 204 OK\n\""; ~/projects/dotfiles/game/i3-dl' &
@@ -31,4 +34,4 @@ xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key0
 :>~/rawdisk/.num-k
 xmodmap ~/.Xmodmap
 
-# source ~/projects/dotfiles/start && HOME=~/rawdisk/ff firefox & i3-msg 'move scratchpad'
+# source ~/projects/dotfiles/start && ~/projects/dotfiles/game/rfirefox & i3-msg 'move scratchpad'

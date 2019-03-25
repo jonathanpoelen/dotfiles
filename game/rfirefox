@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+set -e
+
+profile=${1:-default}
+
+cd ~/rawdisk/ff/.mozilla/firefox
+dl=(*.$profile(N))
+if [ -z $dl ] || [ ! -d $dl ] ; then
+  cp -R --preserve=all ~/.mozilla/firefox/*.$profile .
+  dl=(*.$profile)
+fi
+
+d=$dl[1]
+f=list.$d.l
+~/game/sync_tmp_dir -r $d $f &&
+HOME=~/rawdisk/ff firefox -P $profile
+~/game/sync_tmp_dir -u $d $f ~/.mozilla/firefox/
