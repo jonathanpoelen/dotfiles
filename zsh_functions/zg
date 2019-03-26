@@ -24,7 +24,7 @@ zg() {
           fi
           ((M-=1)) ;;
       (M) ((M+=1)) ;;
-      (v) m= ;;
+      (v) m= ; v=2 ;;
       (V) v=1 ;;
       (a) a=1 ;;
       (c) t=1 ;;
@@ -66,7 +66,7 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     d+=@
   fi
 
-  local pat=${@[$OPTIND]//(#m)[\/\'\"\\]/\\$MATCH}
+  local pat=${@[$OPTIND]//(#m)[\/\'\"]/\\$MATCH}
 
   if [[ -z $pat ]] && [[ -z $C ]]; then
     echo $0: Missing or empty pattern >&2
@@ -114,10 +114,10 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
       m+=/
     fi
 
-    if [ $v -eq 1 ]; then
-      m+='/(#m)'$C'/\e[0m${MATCH}\\e[${GREP_COLOR}m}/(#m)*/\e[${GREP_COLOR}m${MATCH}\e[0m'
-    else
-      m+='/(#m)'$C'/\e[${GREP_COLOR}m${MATCH}\e[0m'
+    if [ $v -eq 0 ]; then
+      m+="/(#m)$C/$'\x1b'[${GREP_COLOR}m\${MATCH}$'\x1b'[0m"
+    elif [ $v -eq 1 ]; then
+      m+="/(#m)$C/$'\x1b'[0m\${MATCH}$'\x1b'[${GREP_COLOR}m}/(#m)*/$'\x1b'[${GREP_COLOR}m\${MATCH}$'\x1b'[0m"
     fi
   fi
 
@@ -126,13 +126,13 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
   shift $OPTIND
 
   if [ $# -eq 0 ]; then
-    $p $e'"$(</dev/stdin)"'$m
+    $=p $e'"$(</dev/stdin)"'$m
   elif [ $t -eq 0 ]; then
-    $p $e'"$(<'${(j:<:)${(q)@}}')"'$m
+    $=p $e'"$(<'${(j:<:)${(q)@}}')"'$m
   elif [ $t -eq 1 ]; then
-    $p $e'"$('${(q)@}')"'$m
+    $=p $e'"$('${(q)@}')"'$m
   else
-    $p $e$@$m
+    $=p $e$@$m
   fi
 }
 
