@@ -1,4 +1,4 @@
-// cw17 test.cpp -stdlib=libc++ -lc++fs -DNDEBUG -O3 -flto -fuse-ld=gold -Wl,--gc-sections -Wl,--strip-all
+// cw17 sync_tmp_dir.cpp -stdlib=libc++ -lc++fs -DNDEBUG -O3 -flto -fuse-ld=gold -Wl,--gc-sections -Wl,--strip-all
 #include <filesystem>
 #include <vector>
 #include <algorithm>
@@ -155,30 +155,61 @@ int main(int ac, char** av)
     std::cout.sync_with_stdio(false);
 
     // propagate removed files
+
     std::set_difference(
       begin(previous_files), end(previous_files),
       begin(current_files), end(current_files),
       output_iterator{[&](auto& f){
         auto p = original_path/f.path;
-        std::cout << "remove: " << p << "\n";
+        std::cout << "\x1b[37mremove:\x1b[0m " << p << "\n";
         std::error_code ec;
         fs::remove(p, ec);
         if (ec)
         {
           fs::remove_all(p, ec);
+          if (ec)
+          {
+            std::cout << "\x1b[1;31merror:\x1b[0m " << ec.message() << "\n";
+          }
         }
       }},
       by_path
     );
 
-    // removed files not updated
+    // copy updated files
+
+    // {dir/file, dir} -> {dir, dir/file}
+    std::reverse(begin(current_files), end(current_files));
     for (auto&& f : current_files)
     {
       if (f.t >= previous_time)
       {
-        std::cout << "copy: " << f.path << "\n";
-        fs::copy(f.path, original_path/f.path, fs::copy_options::overwrite_existing);
+        std::cout << "\x1b[33mcopy:\x1b[0m " << f.path << "\n";
+        auto newpath = original_path/f.path;
+        std::error_code ec;
+        fs::copy_file(f.path, newpath, fs::copy_options::overwrite_existing, ec);
+        if (ec)
+        {
+          std::error_code ec2;
+          if (fs::is_directory(f.path) && !fs::exists(newpath, ec2))
+          {
+            fs::create_directory(newpath, ec);
+          }
+
+          if (ec)
+          {
+            std::cout << "\x1b[1;31merror:\x1b[0m " << ec.message() << "\n";
+          }
+        }
       }
+    }
+
+    std::ofstream out{backup_file};
+    out.exceptions(std::ios::failbit | std::ios::badbit);
+    out << to_time_t(fs::file_time_type::clock::now()) << '\n';
+    for (auto const& f : current_files)
+    {
+      out << f << '\n';
     }
   }
   else
