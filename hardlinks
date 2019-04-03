@@ -32,7 +32,6 @@
 ./bin/rbt
 ./bin/vim-cling
 ./bin/colordiff
-./bin/ler
 ./bin/ijoin
 ./bin/sedml
 ./bin/htmlviewer
