@@ -946,9 +946,7 @@ bindkey '^[V' _insert_cb # previously quoted-insert
 
 alias clipcopy='xclip -selection clipboard'
 
-copybuffer () {
-  echo -n $BUFFER | clipcopy
-}
+copybuffer () { echo -En $BUFFER | clipcopy }
 zle -N copybuffer
 #bindkey "^[o" copybuffer
 
