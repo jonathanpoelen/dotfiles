@@ -184,22 +184,22 @@ int main(int ac, char** av)
     {
       if (f.t >= previous_time)
       {
-        std::cout << "\x1b[33mcopy:\x1b[0m " << f.path << "\n";
         auto newpath = original_path/f.path;
         std::error_code ec;
-        fs::copy_file(f.path, newpath, fs::copy_options::overwrite_existing, ec);
+        if (fs::is_directory(f.path))
+        {
+          std::cout << "\x1b[33mcreate directory:\x1b[0m " << f.path << "\n";
+          fs::create_directory(newpath, ec);
+        }
+        else
+        {
+          std::cout << "\x1b[33mcopy:\x1b[0m " << f.path << "\n";
+          fs::copy_file(f.path, newpath, fs::copy_options::overwrite_existing, ec);
+        }
+
         if (ec)
         {
-          std::error_code ec2;
-          if (fs::is_directory(f.path) && !fs::exists(newpath, ec2))
-          {
-            fs::create_directory(newpath, ec);
-          }
-
-          if (ec)
-          {
-            std::cout << "\x1b[1;31merror:\x1b[0m " << ec.message() << "\n";
-          }
+          std::cout << "\x1b[1;31merror:\x1b[0m " << ec.message() << "\n";
         }
       }
     }
