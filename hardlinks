@@ -44,3 +44,4 @@
 ./.mostrc
 ./.lldbinit
 ./.fzs/jln.ini
+./user-config.jam
