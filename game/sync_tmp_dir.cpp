@@ -188,8 +188,11 @@ int main(int ac, char** av)
         std::error_code ec;
         if (fs::is_directory(f.path))
         {
-          std::cout << "\x1b[33mcreate directory:\x1b[0m " << f.path << "\n";
-          fs::create_directory(newpath, ec);
+          if (!fs::is_directory(newpath))
+          {
+            std::cout << "\x1b[33mcreate directory:\x1b[0m " << f.path << "\n";
+            fs::create_directory(newpath, ec);
+          }
         }
         else
         {
