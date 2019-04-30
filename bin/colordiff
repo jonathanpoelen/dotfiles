@@ -62,6 +62,7 @@ s/^\*\{3\}.*\*\{4\}/$CHG&$RST/;t
 
 if [ "$#" -eq "2" ]; then
   /usr/bin/diff -Naru "$@" | color
+  exit ${PIPESTATUS[0]}
 elif [ "$#" -gt "2" ]; then
   y=0
   while getopts ':yW:' optname ; do
@@ -71,9 +72,12 @@ elif [ "$#" -gt "2" ]; then
       :|*) ;;
     esac
   done
-  [ $y = 0 ] \
-  && /usr/bin/diff -a "$@" | color \
-  || /usr/bin/diff -a "$@" | sed "s/.* |\(\t.*\|$\)/$CHG&$RST/;t;s/.* <\(\t.*\|$\)/$DEL&$RST/;t;s/.* >\(\t.*\|$\)/$ADD&$RST/;t"
+  if [ $y = 0 ]; then
+    /usr/bin/diff -a "$@" | color
+  else
+    /usr/bin/diff -a "$@" | sed "s/.* |\(\t.*\|$\)/$CHG&$RST/;t;s/.* <\(\t.*\|$\)/$DEL&$RST/;t;s/.* >\(\t.*\|$\)/$ADD&$RST/;t"
+  fi
+  exit ${PIPESTATUS[0]}
 else
   color "$@"
 fi
