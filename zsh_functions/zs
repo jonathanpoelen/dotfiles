@@ -14,25 +14,24 @@ zs()
     case $@[$i] in
       (s|gs|sg|ns|gns|gsn|sgn|sng|ngs|nsg)
         tmp=$_zs_assoc_s[$@[$i]]$j
-        prefix=$prefix'${'${tmp:+\($tmp\)}
+        prefix+='${'${tmp:+\($tmp\)}
         suffix+=$_zs_assoc_r[$@[$i]]/${@[$(($i+1))]//(#m)[\/\'\"\\]/\\$MATCH}/$@[$(($i+2))]'}'
         i+=1 ;;
       (i) prefix=${prefix[1,-2]}'I:'$@[$(($i+1))]':)' ;;
-      (d) prefix=$prefix'${'${j:+($j)}; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"]/\\$MATCH}'}' ;;
-      (g) prefix=$prefix'${(M'$j')'; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"]/\\$MATCH}'}' ;;
+      (d) prefix+='${'${j:+($j)}; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"]/\\$MATCH}'}' ;;
+      (g) prefix+='${(M'$j')'; suffix+=':#'${@[$(($i+1))]//(#m)[\/\'\"]/\\$MATCH}'}' ;;
       (-o) out=${(q)@[$(($i+1))]} ;;
       (-u) out=${(q)@[$(($i+1))]} ; cmd+='<'$out';' ;;
       (f) cmd+='<'${(q)@[$(($i+1))]}';' ;;
       ('--') for ((i+=1; $i<=$toto; ++i)) cmd+='<'${(q)@[$i]}';' ;;
-      (c) cmd+=${(q)@[$(($i+1))]}';' ;;
       (z) cmd+=${@[$(($i+1))]}';' ;;
-      (p) pf='('${@[$(($i+1))]}')' ;;
-      (t) prefixcmd='' ;;
-      (n) prefixcmd='@f' ;;
+      (p) prefix='${('${@[$(($i+1))]}')'$prefix ; suffix+='}' ;;
+      (t) prefixcmd='' ; i+=-1 ;;
+      (n) prefixcmd='@f' ; i+=-1 ;;
       (P) e=$@[$(($i+1))] ;;
-      (e) j= ;;
-      (-I) iout=0 ;;
-      (-h) echo "$0: [{s|gs|ns|gns|d|g} pattern replacement [i nth]] [P progname] [c cmd] [z expr] [e|t|n|-I] [p paramexpansion] [{-o|-u} file] [[f] file] ... | -- file ...
+      (e) j= ; i+=-1 ;;
+      (-I) iout=0 ; i+=-1 ;;
+      (-h) echo "$0: [{s|gs|ns|gns|d|g} pattern replacement [i nth]] [P progname] [z expr] [e|t|n|-I] [p paramexpansion] [{-o|-u} file] [[f] file] ... | -- file ...
 - s: replace
 - gs: global replace
 - ns: replace non-greedy
@@ -41,7 +40,6 @@ zs()
 - d: delete
 - g: keep
 - P: evaluator
-- c: command
 - z: zsh expression
 - p: parameter expansion flags
 - f: read file
