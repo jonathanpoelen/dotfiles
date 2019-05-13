@@ -24,5 +24,4 @@ _prefix-cmd-widget()
   fi
 }
 
-prefix-cmd-widget
-
+_prefix-cmd-widget
