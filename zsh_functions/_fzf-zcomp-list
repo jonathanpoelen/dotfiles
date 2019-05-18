@@ -202,7 +202,7 @@ _fzf-zcomp-list()
   [[ $RBUFFER[-1] != ' ' ]] && e+=${#${(z)RBUFFER}[0]}
   _zcomp_list $BUFFER[1,$e]
   [[ -z $reply ]] && { zle redisplay ; return }
-  local r=${(j: :)${(f)"$(echo ${(F)reply} | fzf)"}/ ##—— *}
+  local r=${(j: :)${(f)"$(fzf<<<${(F)reply})"}/ ##—— *}
   [[ -z $r ]] && { zle redisplay ; return }
   [[ $r[-1] != '=' ]] && r+=' '
   (( ++s ))
