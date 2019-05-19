@@ -322,7 +322,6 @@ alias -- _='cd -'
 
 alias md='mkdir -p'
 alias rd=rmdir
-zhead() { echo ${(F)${(f)"$(<$2)"}[1,$1]} }
 alias d='echo ${(F)${(f)"$(dirs -v)"}[1,10]}'
 
 alias tmp='cd ~/rawdisk2'

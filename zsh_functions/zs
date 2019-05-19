@@ -30,6 +30,13 @@ zs()
       (n) prefixcmd='@f' ; i+=-1 ;;
       (P) e=$@[$(($i+1))] ;;
       (e) j= ; i+=-1 ;;
+      (r) tmp=$@[$(($i+1))]; case $tmp in
+        (',') prefix+='"${'; suffix+='[1,'$(($LINES/2))']}"' ;;
+        ('_') prefix+='"${'; suffix+='[-'$(($LINES/2))',-1]}"' ;;
+        (','*) prefix+='"${'; suffix+='[1'$tmp']}"' ;;
+        (*',') prefix+='"${'; suffix+='['$tmp'-1]}"' ;;
+        (*) prefix+='"${'; suffix+='['$tmp']}"' ;;
+      esac ;;
       (-I) iout=0 ; i+=-1 ;;
       (-h) echo "$0: [{s|gs|ns|gns|d|g} pattern replacement [i nth]] [P progname] [z expr] [e|t|n|-I] [p paramexpansion] [{-o|-u} file] [[f] file] ... | -- file ...
 - s: replace
@@ -42,6 +49,7 @@ zs()
 - P: evaluator
 - z: zsh expression
 - p: parameter expansion flags
+- r: array selection 'r -1', 'r ,5', 'r -6,'
 - f: read file
 - -u: read and write file (only last file)
 - e: remove empty line
