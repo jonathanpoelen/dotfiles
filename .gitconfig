@@ -3,6 +3,7 @@
 	email = 
 	logallrefupdates = true
 [core]
+#  editor = nano  
 	#pager = cat
 	pager = perl -I/usr/share/git/diff-highlight /home/jonathan/game/diff-so-fancy | less
 	whitespace = -trailing-space
@@ -14,15 +15,25 @@
 #	dw = diff --word-diff
 #	oops = commit --amend --no-edit
 [diff]
+  noprefix = true
+  suppressBlankEmpty = true
+  indentHeuristic = true
+  #wordRegex = .
 	mnemonicPrefix = true
 	# colorMoved = no default plain zebra dimmed_zebra
 	colorMoved = plain
 	#wordRegex = .
 [color]
+  status = true  
 	diff = auto
 	ui = auto
 [color "branch"]
 	upstream = cyan
+[color "diff-highlight"]
+  oldnormal = red
+  oldhighlight = red
+  newnormal = green
+  newnighlight = green
 [push]
 	default = simple
 [pull]
@@ -31,3 +42,7 @@
 #[pager]
 #	branch = false
 #	status = less -FX
+#  branch = cat
+
+[branch]
+	autoSetupMerge=true
