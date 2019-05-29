@@ -45,4 +45,4 @@
 #  branch = cat
 
 [branch]
-	autoSetupMerge=true
+	autoSetupMerge=always
