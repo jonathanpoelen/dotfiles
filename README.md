@@ -37,7 +37,7 @@ Remove the `Regular` value in `grep ^Font $HOME/.config/k*`.
 Check hard links
 ================
 
-Update repo
+/!\\ Update repo
 
 ```zsh
 a=($( stat -c='%h %n' $(cat hardlinks) | sed '/^=1 /!d;s/^...//;t;d' )) &&
@@ -47,13 +47,12 @@ for f in $a ; do
 done
 ```
 
-Update HOME
+/!\\ Update `$HOME`
 
 ```zsh
 a=($( stat -c='%h %n' $(cat hardlinks) | sed '/^=1 /!d;s/^...//;t;d' )) &&
-rm -- $=a &&
 for f in $a ; do
-  ln -P -- $f ~/$f
+  rm -- ~/$f && ln -P -- $f ~/$f
 done
 ```
 
