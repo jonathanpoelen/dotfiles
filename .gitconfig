@@ -1,48 +1,59 @@
 [user]
-	name = 
-	email = 
-	logallrefupdates = true
+  name = 
+  email = 
+  logallrefupdates = true
+
 [core]
-#  editor = nano  
-	#pager = cat
-	pager = perl -I/usr/share/git/diff-highlight /home/jonathan/game/diff-so-fancy | less
-	whitespace = -trailing-space
-	#askpass = /home/jonathan/bin/git-ksshaskpass
+  #editor = nano  
+  #pager = cat
+  pager = perl -I/usr/share/git/diff-highlight /home/jonathan/game/diff-so-fancy | less
+  whitespace = -trailing-space
+  #askpass = /home/jonathan/bin/git-ksshaskpass
+
 #[alias]
-#	st = status
-#	ci = commit
-#	lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
-#	dw = diff --word-diff
-#	oops = commit --amend --no-edit
+#  st = status
+#  ci = commit
+#  lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
+#  dw = diff --word-diff
+#  oops = commit --amend --no-edit
+
 [diff]
   noprefix = true
   suppressBlankEmpty = true
   indentHeuristic = true
   #wordRegex = .
-	mnemonicPrefix = true
-	# colorMoved = no default plain zebra dimmed_zebra
-	colorMoved = plain
-	#wordRegex = .
+  mnemonicPrefix = true
+  # colorMoved = no default plain zebra dimmed_zebra
+  colorMoved = plain
+
 [color]
   status = true  
-	diff = auto
-	ui = auto
+  diff = auto
+  ui = auto
 [color "branch"]
-	upstream = cyan
+  upstream = cyan
 [color "diff-highlight"]
   oldnormal = red
   oldhighlight = red
   newnormal = green
   newnighlight = green
+
 [push]
-	default = simple
+  default = simple
+
 [pull]
-    # preserve, true, false
-   	rebase=preserve
+  # merges, interactive, true, false
+  rebase = merges
+
 #[pager]
-#	branch = false
-#	status = less -FX
+#  branch = false
+#  status = less -FX
 #  branch = cat
 
 [branch]
-	autoSetupMerge=always
+  autoSetupMerge=always
+
+[url "git://anongit.kde.org/"]
+  insteadOf = kde:
+[url "git@git.kde.org:"]
+  pushInsteadOf = kde:
