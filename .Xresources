@@ -228,8 +228,8 @@ URxvt*saveLines:                  5000
 ! -xos4-terminus-bold-r-normal--28-280-72-72-c-140-iso10646-1
 ! -xos4-terminus-bold-r-normal--32-320-72-72-c-160-iso10646-1
 
-URxvt.font: xft:Monospace:size=10
-!URxvt.font: xft:Firacode:size=12
+!URxvt.font: xft:Monospace:size=11
+URxvt.font: xft:Firacode:size=11
 URxvt.letterSpace: -1
 URxvt.lineSpace: -1
 *cursorBlink: false
