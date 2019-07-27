@@ -7,13 +7,27 @@ profile=${1:-default}
 cd ~/rawdisk/ff/.mozilla/firefox
 dl=(*.$profile(N))
 if [ -z $dl ] || [ ! -d $dl ] ; then
-  cp -R --preserve=all ~/.mozilla/firefox/*.$profile .
-  dl=(*.$profile)
+  zip=(~/.mozilla/firefox/*.$profile.zip(N))
+  if [ -z $zip ] ; then
+    dl=(~/.mozilla/firefox/*.$profile)
+    d=$dl[1]
+    cp -R --preserve=all $d .
+    d=$d:t
+  else
+    zip=$zip[1]
+    cp $zip .
+    zip=${zip:t}
+    unzip $zip
+    d=${zip:0:-4}
+  fi
+else
+  d=$dl[1]
 fi
 
-d=$dl[1]
-f=list.$d.l
-~/game/sync_tmp_dir -r $d $f &&
+# f=list.$d.l
+# ~/game/sync_tmp_dir -r $d $f &&
 HOME=~/rawdisk/ff firefox -P $profile
-cp $f $f.old
-~/game/sync_tmp_dir -u $d $f ~/.mozilla/firefox/ >&1 >~/rawdisk/rfirefox.sync.$$
+# cp $f $f.old
+# ~/game/sync_tmp_dir -u $d $f ~/.mozilla/firefox/ >&1 >~/rawdisk/rfirefox.sync.$$
+zip -1 -r $d.zip $d
+cp $d.zip ~/.mozilla/firefox/
