@@ -30,5 +30,6 @@ HOME=~/rawdisk/ff firefox -P $profile
 # cp $f $f.old
 # ~/game/sync_tmp_dir -u $d $f ~/.mozilla/firefox/ >&1 >~/rawdisk/rfirefox.sync.$$
 for f in $d/**/*.sqlite ; do sqlite3 "$f" 'VACUUM;'; done
+rm $d.zip ||:
 zip -1 -r $d.zip $d
 cp $d.zip ~/.mozilla/firefox/
