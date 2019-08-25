@@ -487,7 +487,7 @@ bak() { cp "$1" "$1"_`date +%H:%M:%S_%d-%m-%Y` ; }
 
 k() { awk "{ print $@ }" ; }
 
-alias hi='XDG_DATA_DIRS=~/game vt-kate-syntax-highlighter -tMy\ Breeze\ Dark'
+alias hi='XDG_DATA_DIRS=~/game vt-kate-syntax-highlighter -tMy\ Breeze\ Dark -c'
 alias ihi='hi -s'
 hin() { hi "$@" | cat -n ; }
 ihin() { ihi "$@" | cat -n ; }
@@ -673,7 +673,7 @@ fo() {
 
 gfo() { g -nH --color=always "$@[2,$]" |fo $1 }
 
-ler() { ~/game/wating_for_reading $1 unrar x $1 }
+ler() { ~/game/waiting_for_reading $1 unrar x $1 }
 
 
 ## history
