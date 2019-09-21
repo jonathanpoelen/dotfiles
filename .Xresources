@@ -237,7 +237,7 @@ URxvt.scrollTtyOutput: false
 URxvt.scrollTtyKeypress: true
 URxvt.scrollWithBuffer: true
 ! URxvt.cutchars: '`\'&()*,;<=>?@[]^{|}:'
-URxvt.cutchars: '`\'&()*;<>?^|:'
+URxvt.cutchars: '`\'"&()*;<>?^|:'
 
 Rxvt.perl-ext: new-window,clipboard
 Rxvt.keysym.Control-Shift-N: perl:new-window
