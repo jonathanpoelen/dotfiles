@@ -88,7 +88,9 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
   fi
 
   local eb=$e[$#e]
-  e+='${'$j$n'${'$m'${'${d:+\($d\)}
+  local jn=$j$n
+  [[ -n $jn ]] && e+='${'$jn
+  e+='${'$m'${'${d:+\($d\)}
 
   if [ $M -gt 0 ]; then
     if [ $x -eq 1 ]; then
@@ -121,7 +123,8 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     fi
   fi
 
-  [[ $eb = '(' ]] && m+=$n'})' || m+=$n'}'
+  [[ -n $jn ]] && n+='}'
+  [[ $eb = '(' ]] && m+=$n')' || m+=$n
 
   shift $OPTIND
 
