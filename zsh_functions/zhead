@@ -1,0 +1,13 @@
+zhead()
+{
+  local l=( "${(f@)$(<${2:-/dev/stdin})}" )
+  declare -i n=$#l
+  if (( $n != 0 )); then
+    declare -i i=$1
+    if (( $i < 0 )); then
+      echo -E ${(F)${l[$(( $i < -$n ? 1 : $i )),-1]}}
+    elif (( $i <= $n )); then
+      echo -E ${(F)${l[1,$i]}}
+    fi
+  fi
+}

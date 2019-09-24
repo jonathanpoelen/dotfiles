@@ -238,7 +238,7 @@ zle -C complete-file complete-word _generic
 zstyle ':completion:complete-file::::' completer _files
 bindkey '^Xf' complete-file
 
-autoload -U zg zs
+autoload -U zg zs zhead
 
 # some more ls aliases
 alias ll='ls -lh'
