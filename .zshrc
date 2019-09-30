@@ -238,7 +238,8 @@ zle -C complete-file complete-word _generic
 zstyle ':completion:complete-file::::' completer _files
 bindkey '^Xf' complete-file
 
-autoload -U zg zs zhead
+autoload -U zg zs zhead weather er erd defl def
+alias err='erd ~/Videos'
 
 # some more ls aliases
 alias ll='ls -lh'
@@ -480,9 +481,6 @@ swap() {
   mv "$1.swap-$$.tmp" "$2"
 }
 
-autoload er erd
-alias err='erd ~/Videos'
-
 bak() { cp "$1" "$1"_`date +%H:%M:%S_%d-%m-%Y` ; }
 
 k() { awk "{ print $@ }" ; }
@@ -520,8 +518,6 @@ y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-ou
 
 alias ak=/usr/bin/ag
 alias na='cat -n'
-
-autoload defl def
 
 ## yaourt / pacman
 
