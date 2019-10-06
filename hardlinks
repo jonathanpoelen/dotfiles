@@ -27,6 +27,7 @@
 ./.bashrc
 ./firefox/chrome/userChrome.css
 ./firefox/chrome/userContent.css
+./bin/v2a
 ./bin/bt
 ./bin/ccache-clang++
 ./bin/rbt
