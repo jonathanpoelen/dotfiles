@@ -1,7 +1,6 @@
 #!/bin/zsh
 set -e
 
-typeset -i force=0
 typeset -i inplace=0
 if [[ $1 = -i ]]; then
   inplace=1
@@ -18,7 +17,7 @@ fi
 
 input=$1
 if [ $inplace -eq 0 ]; then
-  if [[ $2 = '' ]]; then
+  if [[ -z $2 ]]; then
     output=${1:r}.mp4
   elif [[ -d $2 ]]; then
     output=$2/${1:t:r}
