@@ -7,41 +7,49 @@ _smart-sudo () {
 
       while [ 1 ]; do
         case $1 in
-          nocorrect) nocorrect=1; shift;;
-          noglob) prefix+=$1' '; g=1; shift;;
-          ex|extglob) prefix+='noglob _ext-glob '; g=1; shift;;
-          ix) prefix+='noglob _nocase-glob '; g=1; shift;;
+          nocorrect) nocorrect=1 ;;
+          noglob) prefix+='noglob '; g=1 ;;
+          ex|extglob) prefix+='noglob _ext-glob '; g=1 ;;
+          ix) prefix+='noglob _nocase-glob '; g=1 ;;
           *) break;;
         esac
+        shift
       done
 
       while [ 1 ]; do
         # what=$(builtin whence $1)
         what=$aliases[$1]
-        [[ $prevwhat == $what ]] && break
-        [[ $1 == $what ]] && break
-        [[ -z $what ]] && break
-        i=1;
+
+        if [[ $prevwhat == $what ]] ||
+           [[ $1 == $what ]] ||
+           [[ -z $what ]] ;
+        then
+           break
+        fi
+
+        i=1
+        local z=(${(z)what})
         while [ 1 ]; do
-          case ${what[(w)$i]} in
-            nocorrect) nocorrect=1; ((++i)) ;;
-            noglob) prefix+=${what[(w)$i]}' '; g=1; ((++i));;
-            ex|extglob) prefix+='noglob _ext-glob '; g=1; ((++i));;
-            ix) prefix+='noglob _nocase-glob '; g=1; ((++i));;
+          case ${z[$i]} in
+            nocorrect) nocorrect=1 ;;
+            noglob) prefix+=${z[$i]}' '; g=1 ;;
+            ex|extglob) prefix+='noglob _ext-glob '; g=1 ;;
+            ix) prefix+='noglob _nocase-glob '; g=1 ;;
             *) break;;
           esac
+          ((++i))
         done
 
-        1=${what[(w)$i]}
-        [[ $i < ${(w)#what} ]] && exargs=(${what[(w)$(($i+1)),-1]} $exargs)
+        1=${z[$i]}
+        [[ $i < $#z ]] && exargs=(${z[$(($i+1)),-1]} $exargs)
         prevwhat=$what
       done
 
       if [[ -z $g ]]; then
         if [[ -z $nocorrect ]]; then
-          $=prefix command sudo $1 ${==~exargs} ${==~@[2,-1]}
+          $=prefix command sudo $1 "${==~exargs[@]}" "${==~@[2,-1]}"
         else
-          nocorrect $=prefix command sudo $1 ${==~exargs} ${==~@[2,-1]}
+          nocorrect $=prefix command sudo $1 "${==~exargs[@]}" "${==~@[2,-1]}"
         fi
       else
         if [[ -z $nocorrect ]]; then
