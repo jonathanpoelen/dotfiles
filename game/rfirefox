@@ -24,12 +24,22 @@ else
   d=$dl[1]
 fi
 
+#{
+#  sleep 30
+#  mv ~/rawdisk2/STG-backups/* ~/STG-backups/
+#  rmdir ~/rawdisk2/STG-backups
+#}&
+
 # f=list.$d.l
 # ~/game/sync_tmp_dir -r $d $f &&
 HOME=~/rawdisk/ff firefox -P $profile
 # cp $f $f.old
 # ~/game/sync_tmp_dir -u $d $f ~/.mozilla/firefox/ >&1 >~/rawdisk/rfirefox.sync.$$
 for f in $d/**/*.sqlite ; do sqlite3 "$f" 'VACUUM;'; done
-rm $d.zip ||:
+mv $d.zip.old $d.zip.old.old ||:
+mv $d.zip $d.zip.old ||:
 zip -1 -r $d.zip $d
 cp $d.zip ~/.mozilla/firefox/
+
+mv ~/rawdisk2/STG-backups/* ~/STG-backups/
+rmdir ~/rawdisk2/STG-backups
