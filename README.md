@@ -34,6 +34,13 @@ KDE bold fonts does not work
 Remove the `Regular` value in `grep ^Font $HOME/.config/k*`.
 
 
+Ninja
+=====
+
+```sh
+NINJA_STATUS=$'\x1b[32m[%f/%t] \x1b[0m' CLICOLOR_FORCE= ninja .....
+```
+
 Check hard links
 ================
 
