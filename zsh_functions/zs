@@ -1,7 +1,7 @@
 #!/usr/bin/zsh
 
-typeset -A _zs_assoc_s=(ns 'S' gns 'S' gsn 'S' sgn 'S' sng 'S' ngs 'S' nsg 'S')
-typeset -A _zs_assoc_r=(gs / sg / gns / gsn / sgn / sng / ngs / nsg /)
+typeset -gA _zs_assoc_s=(ns 'S' gns 'S' gsn 'S' sgn 'S' sng 'S' ngs 'S' nsg 'S')
+typeset -gA _zs_assoc_r=(gs / sg / gns / gsn / sgn / sng / ngs / nsg /)
 
 zs()
 {
