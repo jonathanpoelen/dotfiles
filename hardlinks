@@ -28,6 +28,7 @@
 ./firefox/chrome/userChrome.css
 ./firefox/chrome/userContent.css
 ./bin/v2a
+./bin/kdevelop
 ./bin/bt
 ./bin/ccache-clang++
 ./bin/rbt
