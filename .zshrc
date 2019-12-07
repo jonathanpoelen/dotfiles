@@ -799,26 +799,32 @@ _pushd()
 
 _list-dir()
 {
-  BUFFER+=' *(/)'
-  CURSOR+=5
+  LBUFFER+='*(/)'
   zle _cycle-glob
 }
 
 _list-file()
 {
-  BUFFER+=' *(^/)'
-  CURSOR+=6
+  LBUFFER+='*(^/)'
   zle _cycle-glob
+}
+
+_previous-dir()
+{
+  cd $OLDPWD
+  zle reset-prompt
 }
 
 zle -N _popd
 zle -N _pushd
 zle -N _list-dir
 zle -N _list-file
-bindkey '^[[1;3B' _popd
-bindkey '^[[1;3A' _pushd
-bindkey '^[[1;3C' _list-dir
-bindkey '^[[1;3D' _list-file
+zle -N _previous-dir
+bindkey 'ß' _popd
+bindkey 'å' _pushd
+bindkey 'ð' _list-dir
+bindkey 'á' _list-file
+bindkey 'ä' _previous-dir
 
 # see split-shell-arguments and replace-argument
 
