@@ -1,0 +1,2 @@
+# for f in /dev/bus/usb/*/* ; do udevadm info -a -n $f ; done | less
+ATTRS{idProduct}=="2107", ATTRS{idVendor}=="413d", ACTION=="add", MODE="666"
