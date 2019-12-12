@@ -92,6 +92,7 @@ bindsym $mod+F9 exec --no-startup-id "~/projects/dotfiles/game/sleep-or-continue
 # switch number line / symbol line
 bindsym Num_Lock exec --no-startup-id "xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key$([ -f ~/rawdisk/.num-k ] && { rm ~/rawdisk/.num-k && echo 1 ; } || { :>~/rawdisk/.num-k && echo 0 ; })"
 bindsym Ctrl+F10 exec --no-startup-id "xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key$([ -f ~/rawdisk/.num-k ] && { rm ~/rawdisk/.num-k && echo 1 ; } || { :>~/rawdisk/.num-k && echo 0 ; })"
+bindsym Ctrl+F8 exec --no-startup-id "[ -f ~/rawdisk/.footswitch ] && { ~/game/footswitch -1m shift -2m win -3m ctrl ; rm ~/rawdisk/.footswitch ; } || { ~/game/footswitch -1k / -2k Left -3k \\\\ ; :>~/rawdisk/.footswitch ; }"
 
 # focus_follows_mouse no
 
