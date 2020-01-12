@@ -1,93 +1,6 @@
-@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
-
-/* https://github.com/cmcaine/tridactyl/blob/master/src/static/userChrome-minimal.css */
-/* Tridactyl minimal CSS
- *
- * Contributors: aplaice, Oliver Blanthorn, Colin Caine
- *
- * Move this file to %appdata%/Mozilla/Firefox/[your-profile]/chrome/userChrome.css 
- * Currently, it reduces the amount of padding around the UI, removes the tab bar
- * and autohides the navigation bar. If you want to drag the window around press
- * "alt" and then use the menu bar to move it, but you're better off pressing 
- * the Windows key + an arrow key to move the window where you want it.
- *
- * If you're not on Windows, you can find your profile folder on
- * about:support 
- *
- * Borrowed from https://www.reddit.com/r/FirefoxCSS/comments/73359a/my_firefox_57_setup/?utm_content=title&utm_medium=browse&utm_source=reddit&utm_name=FirefoxCSS
- *
- * This file is a work in progress.
- *
- * Any information on where to find documentation on valid properties we can edit here would be appreciated.
- *
- */
-
-
-/* auto-hide the tab and navigation bar in a similar way to fullscreen mode */
-
-/* User config */
-#navigator-toolbox {
-    /* The height of the area at the top of the screen that causes the nav-bar to be shown
-    If zero, you can still focus with <C-l> or F6.
-     */
-    --tridactyl-auto-show-zone: 0px;
-}
-
-/* Hide grey container box */
-:root:not([customizing]) #navigator-toolbox:not(:hover):not(:focus-within) { 
-    max-height: 0;
-    min-height: calc(0px); /* I have no idea why just using 0 or 0px does not work... */
-}
-
-/* Auto hide tab bar */
-:root:not([customizing]) #navigator-toolbox:not(:hover):not(:focus-within) #TabsToolbar {
-    visibility: collapse;
-}
-
-/* Auto hide nav bar */
-:root:not([customizing]) #navigator-toolbox:not(:hover):not(:focus-within) #nav-bar {
-    max-height: 0;
-    min-height: 0!important;
-    /* Use margin-bottom to allow trigger zones that are larger than the nav-bar */
-    margin-bottom: calc(-1 * var(--tridactyl-auto-show-zone));
-    opacity: 0;
-} 
-
-/* Avoid transparent background for menubar if nav-toolbox not focussed */
-#navigator-toolbox:not(:hover):not(:focus-within) #toolbar-menubar > * {
-    /* Colour matches the grey background of the default firefox theme. Can't see what variable it uses */
-    background-color: rgb(232, 232, 231);
-}
-
-
-/* Make top bar more compact */
-
-/* Make nav-bar thinner */
-#nav-bar{
-    padding-top: 1px !important;
-    padding-bottom: 0 !important;
-}
-
-/* We need more padding when maximised (maybe just on Windows?) */
-##main-window[sizemode="maximized"] #nav-bar{
-#    padding-top: 7px !important;
-#}
-
-/* Hide URL notifications that aren't particularly useful and cover up the command line
- * TODO: move it above the command line / bring functionality into status line like Vimperator */
-/* statuspanel[type="overLink"]{display: none !important;} */
-
-/* Partial removal of black bottom 1px line shown in fullscreen mode */
-#navigator-toolbox::after { display: none !important; }
-
-/* Kill tab bar */
-/* #TabsToolbar { visibility: collapse; } */
-
-/* Remove window decorations (Close, Minimize, Fullscreen) */
-/*#titlebar { display: none !important; }
-#TabsToolbar .titlebar-placeholder { display: none !important; }*/
-
-/* end Tridactyl minimal CSS */
+/*
+  url OSD on the right
+*/
 
 panel[type="arrow"] {
   transition: none !important;
@@ -102,55 +15,71 @@ panel[type="arrow"] {
 }
 
 /* Remove the delay and transition */
-#statuspanel[type=overLink], #statuspanel[inactive][previoustype=overLink]
+#statuspanel[type=overLink],
+#statuspanel[inactive][previoustype=overLink]
 {
   transition: none !important;
 }
 
-/* tabs bottom urlbare */
-/*#TabsToolbar {
-  -moz-box-ordinal-group: 3 !important;
-  padding-top: 0 !important;
-}*/
-
-#TabsToolbar, #navigator-toolbox {
-  padding: 0px !important;
-  margin: 0px !important;
-}
-
-/* Tabs don't move when dragging. */
-#TabsToolbar[movingtab] {
-  padding-bottom: -0px !important;
-}
-#TabsToolbar[movingtab] > .tabbrowser-tabs {
-  padding-bottom: -0px !important;
-  margin-bottom: -0px !important;
-}
-#TabsToolbar[movingtab] + #nav-bar {
-  margin-top: -0px !important;
-  pointer-events: none;
-}
 
 
-/* tab close - always visible*/
-#TabsToolbar #tabbrowser-tabs .tabbrowser-tab:not([pinned]) .tab-close-button {
+/*
+  tab close - always visible
+*/
+
+#tabbrowser-tabs .tabbrowser-tab:not([pinned]) .tab-close-button {
   visibility: visible !important;
   display: block !important;
 }
-#TabsToolbar #tabbrowser-tabs .tabbrowser-tab:not([pinned])[faviconized="true"] .tab-close-button {
+#tabbrowser-tabs .tabbrowser-tab:not([pinned])[faviconized="true"] .tab-close-button {
   visibility: collapse !important;
   display: none !important;
 }
 
-/* tab very compact */
-#TabsToolbar #tabbrowser-tabs .tabbrowser-tab .tab-content
-{
-  padding: 0px 0px 0px 2px !important;
-  margin: 0px !important;
-}
-/*#TabsToolbar > .tabbrowser-tabs, .tabbrowser-tab {
-  padding-bottom: 0px !important;
-  margin-bottom: 0px !important;
-}*/
 
-/* https://github.com/Aris-t2/CustomCSSforFx/tree/master/classic */
+
+/*
+  auto-hide tabs and toolbar
+  https://github.com/MrOtherGuy/firefox-csshacks/blob/master/chrome/autohide_toolbox.css
+*/
+
+#navigator-toolbox{
+  position: fixed !important;
+  display: block;
+  /*background-color: var(--lwt-accent-color,black) !important;*/
+  transform-origin: top;
+  line-height: 0;
+  z-index: 1;
+  -moz-appearance: none !important;
+}
+
+#navigator-toolbox > *{
+  width: 100vw;
+  line-height: normal
+}
+
+#navigator-toolbox:not(:focus-within):not(:hover)
+/*TODO deactivate the flashing of bars when opening a tab with Tridactyl
+:has() isn't yet supported...
+https://developer.mozilla.org/en-US/docs/Web/CSS/:has
+#navigator-toolbox:has(>#nav-bar:hover)
+or
+#navigator-toolbox:has(#nav-bar:hover)
+*/
+{
+  transform: rotateX(86deg);
+  opacity: 0;
+}
+
+/*:root[sizemode="maximized"] #navigator-toolbox:not(:focus-within):not(:hover){ transform: rotateX(89.5deg) }*/
+
+:root[customizing] #navigator-toolbox{
+	position: relative !important;
+	transform: none !important;
+	opacity: 1 !important;
+}
+
+#nav-bar {
+  margin-bottom: -11px !important;
+  padding-bottom: 12px !important;
+}
