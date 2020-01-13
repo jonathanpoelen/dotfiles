@@ -7,6 +7,7 @@ for f in $@ ; {
 
 for ((i=1; i <= $#files; i+=100)) {
   gmic $files[$i,$(($i+99))] \
+  -adjust_colors'[0-100%]' -10,20\
   dk=0 \
   -repeat '$!,k' \
     -if '{w#$dk>h#$dk}' \
