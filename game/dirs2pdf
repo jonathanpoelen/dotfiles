@@ -7,6 +7,6 @@ set -e
 for d in $dirs ; {
   t=$d:t.pdf
   echo $t
-  a=($d/*/*(N))
+  a=($d/*/*(NL+0))
   img2pdf --output $t ${(on)a}
 }
