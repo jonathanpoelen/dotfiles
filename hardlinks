@@ -39,6 +39,7 @@
 ./bin/htmlviewer
 ./bin/search
 ./bin/mpv-dump
+./bin/mpv-music
 ./bin/ccache-g++
 ./bin/mv-ext
 ./.toprc
