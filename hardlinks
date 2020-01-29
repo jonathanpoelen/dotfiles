@@ -30,6 +30,7 @@
 ./bin/v2a
 ./bin/kdevelop
 ./bin/bt
+./bin/luvit
 ./bin/ccache-clang++
 ./bin/rbt
 ./bin/vim-cling

@@ -1,0 +1,16 @@
+#!/bin/zsh
+
+# fix for file redirection: `luvit file.lua <a >b`
+# => abort
+
+if [ ! -t 0 ]; then
+  if [ ! -t 1 ]; then
+     {<&0} | ~/game/luvit "$@" | {>&1}
+  else
+     {<&0} | ~/game/luvit "$@"
+  fi
+elif [ ! -t 1 ]; then
+  ~/game/luvit "$@" | {>&1}
+else
+  ~/game/luvit "$@"
+fi
