@@ -1,5 +1,5 @@
 #!/bin/zsh
 
-{ sleep 1; tail -f /home/jonathan/rawdisk/music-control | socat - /home/jonathan/rawdisk/music-control.sck }&
+{ sleep 2; tail -f /home/jonathan/rawdisk/music-control | socat -u - /home/jonathan/rawdisk/music-control.sck }&
 mpv --no-resume-playback --quiet --shuffle --idle=yes --input-ipc-server=/home/jonathan/rawdisk/music-control.sck --no-video ~/mocplaylist.m3u --no-input-terminal --demuxer-lavf-buffersize=262144
 # --audio-channels=mono
