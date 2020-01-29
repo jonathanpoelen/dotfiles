@@ -28,7 +28,7 @@ function firefox { echo "\e[31merror: Create ~/rawdisk/ff\e[0m" }
 
 # :bind Y composite get_current_url | js -p 'localhost:10411/'+JS_ARG | open_quiet
 socat tcp-l:10411,reuseaddr,fork,crlf system:'echo -e HTTP/1.0 204 OK\\\\n; ~/projects/dotfiles/game/i3-dl' &
-socat tcp-l:11977,reuseaddr,fork,crlf system:'echo -e HTTP/1.0 200\\\\nContent-Type\: text/html\\\\n;echo $(<~/projects/private-game/redirection.html)' &
+# socat tcp-l:11977,reuseaddr,fork,crlf system:'echo -e HTTP/1.0 200\\\\nContent-Type\: text/html\\\\n;echo $(<~/projects/private-game/redirection.html)' &
 
 cd ~/rawdisk2
 
