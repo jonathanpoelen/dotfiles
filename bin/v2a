@@ -36,7 +36,7 @@ else
 fi
 
 if [ $inplace -eq 1 ]; then
-  output=.$$.mp4
+  output=$input.$RANDOM-$$.mp4
   ffmpeg -i $input -vn $output $@
   mv $output $input
 else
