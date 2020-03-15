@@ -379,6 +379,7 @@ alias gm='git merge'
 alias grh='git reset HEAD'
 alias grhh='git reset HEAD --hard'
 
+alias glp='git log -p --'
 alias glgg='git log --stat --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" -n4'
 alias cglg='GIT_PAGER=cat glgg'
 alias glg='GIT_PAGER=cat git log --graph --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" -n10'
