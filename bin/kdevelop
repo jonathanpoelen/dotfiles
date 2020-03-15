@@ -9,4 +9,4 @@ for f in $@ ; do
   fi
 done
 
-/usr/sbin/kdevelop $=files
+/usr/sbin/kdevelop $files[@]
