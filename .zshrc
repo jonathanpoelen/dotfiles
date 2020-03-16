@@ -525,10 +525,9 @@ alias ap='yaourt -Rsn' # + config
 alias aci='pacman -Qi' # info
 # alias aci='pacman -Si' # info without suggestion
 
-# alias afl='pacman -Fl'
-alias afl='pkgfile -l' # list file
-# alias afs='pacman -Fo'
-# alias afs='pacman -Fs'
+alias afl='pacman -Ql'
+alias afll='pkgfile -l' # list file
+alias afss='pacman -Qo' # search file
 alias afs='pkgfile -sr' # search with regex
 
 # /var/cache/pacman/pkg/
