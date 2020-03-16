@@ -520,10 +520,11 @@ alias ain='yaourt -S' # install exactly
 alias ar='yaourt -R' # removes
 #alias ap='yaourt -Rs' # + dependancies
 alias ap='yaourt -Rsn' # + config
+apurge() { sudo pacman -Rns $(pacman -Qtdq) }
 # alias di='yaourt -U' # installs local package file
 
 alias aci='pacman -Qi' # info
-# alias aci='pacman -Si' # info without suggestion
+alias acii='pacman -Si'
 
 alias afl='pacman -Ql'
 alias afll='pkgfile -l' # list file
