@@ -42,5 +42,5 @@ mv $FIREFOX/$d.7z.old $FIREFOX/$d.7z.old.old ||:
 mv $FIREFOX/$d.7z $FIREFOX/$d.7z.old ||:
 mv $d.7z $FIREFOX/
 
-7zr a ~/STG-backups/stg-backups.7z ~/rawdisk2/STG-backups/*
-rm -r ~/rawdisk2/STG-backups
+7zr a ~/STG-backups/stg-backups.7z ~/rawdisk2/STG-backups-FF-*/*
+rm -r ~/rawdisk2/STG-backups-FF-*
