@@ -75,13 +75,13 @@ bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 # Control player
-bindsym $mod+space exec --no-startup-id "echo cycle pause > ~/rawdisk/music-control"
-bindsym $mod+n exec --no-startup-id "echo playlist-next > ~/rawdisk/music-control"
-bindsym $mod+Mod1+Right exec --no-startup-id "echo playlist-next > ~/rawdisk/music-control"
-bindsym $mod+Mod1+Left exec --no-startup-id "echo playlist-prev > ~/rawdisk/music-control"
-bindsym $mod+Mod1+Up exec --no-startup-id "echo seek 5 > ~/rawdisk/music-control"
-bindsym $mod+Mod1+Down exec --no-startup-id "echo seek -5 > ~/rawdisk/music-control"
-bindsym $mod+Mod1+l exec --no-startup-id "echo cycle loop-file > ~/rawdisk/music-control"
+bindsym $mod+space exec --no-startup-id "echo cycle pause > ~/rawdisk/music-control.pipe"
+bindsym $mod+n exec --no-startup-id "echo playlist-next > ~/rawdisk/music-control.pipe"
+bindsym $mod+Mod1+Right exec --no-startup-id "echo playlist-next > ~/rawdisk/music-control.pipe"
+bindsym $mod+Mod1+Left exec --no-startup-id "echo playlist-prev > ~/rawdisk/music-control.pipe"
+bindsym $mod+Mod1+Up exec --no-startup-id "echo seek 5 > ~/rawdisk/music-control.pipe"
+bindsym $mod+Mod1+Down exec --no-startup-id "echo seek -5 > ~/rawdisk/music-control.pipe"
+bindsym $mod+Mod1+l exec --no-startup-id "echo cycle loop-file > ~/rawdisk/music-control.pipe"
 bindsym $mod+u exec --no-startup-id "~/projects/dotfiles/game/track_passed"
 # Sound 2
 bindsym Ctrl+F11 exec --no-startup-id amixer -q set Master 3-

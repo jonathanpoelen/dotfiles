@@ -1,5 +1,14 @@
-#!/bin/zsh
+#!/bin/env zsh
 
-{ sleep 2; tail -f /home/jonathan/rawdisk/music-control | socat -u - /home/jonathan/rawdisk/music-control.sck }&
-mpv --no-resume-playback --quiet --shuffle --idle=yes --input-ipc-server=/home/jonathan/rawdisk/music-control.sck --no-video ~/mocplaylist.m3u --no-input-terminal --demuxer-lavf-buffersize=262144
+set -e
+SCK=~/rawdisk/music-control.sck
+PIPE=~/rawdisk/music-control.pipe
+
+{
+  mkfifo $PIPE ||:
+  sleep 3
+  tail -f $PIPE | socat - $SCK
+}&
+
+mpv --no-resume-playback --quiet --shuffle --idle=yes --input-ipc-server=$SCK --no-video --no-input-terminal --demuxer-lavf-buffersize=262144 "$@"
 # --audio-channels=mono

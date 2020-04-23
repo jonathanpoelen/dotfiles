@@ -13,10 +13,6 @@ xset b off
 
 cd ~/rawdisk
 
-mkfifo music-control
-#mpv --no-resume-playback --quiet --shuffle --idle=yes --input-ipc-server=/home/jonathan/rawdisk/music-control  --no-video ~/mocplaylist.m3u --no-input-terminal --demuxer-lavf-buffersize=262144 &
-# --audio-channels=mono
-
 md ff/.mozilla/firefox &&
 ln -s ~/.cache ~/.config ff/ &&
 ln -s ~/.mozilla/systemextensionsdev ~/.mozilla/extensions/ ff/.mozilla/ &&
