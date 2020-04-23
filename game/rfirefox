@@ -33,7 +33,7 @@ fi
 
 # f=list.$d.l
 # ~/game/sync_tmp_dir -r $d $f &&
-HOME=~/rawdisk/ff firefox -P $profile
+HOME=~/rawdisk/ff firefox -P $profile $@[2,-1]
 # cp $f $f.old
 # ~/game/sync_tmp_dir -u $d $f ~/.mozilla/firefox/ >&1 >~/rawdisk/rfirefox.sync.$$
 [[ $(($RANDOM % 10)) == 1 ]] && for f in $d/**/*.sqlite ; do sqlite3 "$f" 'VACUUM;'; done ||:
