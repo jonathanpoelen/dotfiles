@@ -2,4 +2,4 @@
 
 read pid o <<<"${(M)${(f)"$(ps h -o pid,command -C mpv)"}:#*music-control*}" &&
 >> ~/track_passed.txt <<<${(M)${(f)"$(readlink /proc/$pid/fd/*)"}:#(/home/jonathan/Music|/home/jonathan/Desktop)*} &&
-echo playlist_next > ~/rawdisk/music-control
+echo playlist-next > ~/rawdisk/music-control.pipe
