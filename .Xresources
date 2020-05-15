@@ -249,6 +249,10 @@ URxvt.keysym.C-Right: string:\033[1;5C
 URxvt.keysym.C-Left: string:\033[1;5D
 URxvt.keysym.Home: string:\033[7~
 URxvt.keysym.End: string:\033[8~
+URxvt.keysym.F1: string:\033OP
+URxvt.keysym.F2: string:\033OQ
+URxvt.keysym.F3: string:\033OR
+URxvt.keysym.F4: string:\033OS
 
 ! Commands
 URxvt.keysym.C-A-K: command:\033c
