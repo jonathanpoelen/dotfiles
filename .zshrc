@@ -129,8 +129,6 @@ bindkey '^[;' _fzf-directory-widget
 bindkey '^[r' _fzf-history-widget
 bindkey '¿' _fzf-zcomp-list
 
-alias history='fc -l 1'
-
 # alias afind='ack-grep -il'
 
 
