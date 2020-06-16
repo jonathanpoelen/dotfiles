@@ -507,43 +507,43 @@ y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-ou
 alias ak=/usr/bin/ag
 alias na='cat -n'
 
-## yaourt / pacman
+## yay / pacman
 
 # https://wiki.archlinux.fr/Pacman
 # https://wiki.archlinux.org/index.php/Pacman/Rosetta
 
-alias acs='yaourt -Ss' # search
+alias acs='yay -Ss' # search
 
-alias ag='yaourt -Su' # upgrade
-alias ad='yaourt -Sy' # update / refresh info
-alias adg='yaourt -Syu' # update and upgrade
-alias adga='yaourt -Syua' # update then upgrade + AUR
+alias ag='yay -Su' # upgrade
+alias ad='yay -Sy' # update / refresh info
+alias adg='yay' # update and upgrade
+alias adga='yay -Syua' # update and upgrade AUR
 
-alias ai='yaourt' # install
-alias ain='yaourt -S' # install exactly
-alias ar='yaourt -R' # removes
-#alias ap='yaourt -Rs' # + dependancies
-alias ap='yaourt -Rsn' # + config
-apurge() { sudo pacman -Rns $(pacman -Qtdq) }
-# alias di='yaourt -U' # installs local package file
+alias ai='yay' # install
+alias ain='yay -S' # install exactly
+alias ar='yay -R' # removes
+#alias ap='yay -Rs' # + dependancies
+alias ap='yay -Rsn' # + config
+apurge() { sudo yay -Rns $(yay -Qtdq) }
+# alias di='yay -U' # installs local package file
 
-alias aci='pacman -Qi' # info
-alias acii='pacman -Si'
+alias aci='yay -Qi' # info
+alias acii='yay -Si'
 
-alias afl='pacman -Ql'
+alias afl='yay -Ql'
 alias afll='pkgfile -l' # list file
-alias afss='pacman -Qo' # search file
+alias afss='yay -Qo' # search file
 alias afs='pkgfile -sr' # search with regex
 
 # /var/cache/pacman/pkg/
-# alias aac='pacman -Sc' # empty the cache
+# alias aac='yay -Sc' # empty the cache
 alias aac='paccache -r' # ... except the last three latest versions
 alias aacc='paccache -ruk0' # + uninstalled
 
-#alias 'pacman -Qc' # changelog
+#alias 'yay -Qc' # changelog
 
-# alias deborphan='pacman -Qm' # List packages that are installed but are not available in any installation source (anymore).
-# alias 'deborphan -anp1'='pacman -Qt' # List packages not required by any other package
+# alias deborphan='yay -Qm' # List packages that are installed but are not available in any installation source (anymore).
+# alias 'deborphan -anp1'='yay -Qt' # List packages not required by any other package
 
 # if pacman fails
 # Mount fs
