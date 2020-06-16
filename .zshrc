@@ -158,13 +158,23 @@ zmodload -i zsh/complist
 # zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[_[:lower:]]=** r:|[_[:upper:]]=** r:|=*'
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[._-]=* r:|[_[:lower:]]=** r:|[_[:upper:]]=** r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{[:lower:]_-}={[:upper:]-_}' 'r:|[.,_-]=* r:|[_[:lower:]]=** r:|[_[:upper:]]=** r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*:(argument-rest|files):*' matcher-list 'm:{[:lower:]_-}={[:upper:]-_} r:|[.,_-]=* r:|[_[:lower:]]=** r:|=* l:|=*'
 
-# zstyle ':completion:*' list-colors ''
 
 zstyle ':completion:*:*:*:*:*' menu select
+
+zstyle ':completion:*:options' list-colors '=^(#b)*(-- *)=35'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=31=0=34'
 zstyle ':completion:*:*:killall:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=31=0=34'
+# Same color as ls for completion
+# eval "$(dircolors -b ~/.dircolors)" # load LS_COLORS
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# complete manual by their section
+zstyle ':completion:*:manuals'    separate-sections true
+zstyle ':completion:*:manuals.*'  insert-sections   true
+
 zstyle ':completion:*:*:*:*:processes' command "ps -u$USER -o pid,user,comm -w"
 
 zstyle ':completion:*:er:*' file-patterns '*(7z|Z|bz2|gz|lzma|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zma|tbz|tbz2|tgz|tlz|txz|zip|deb|cbr|cbz|jar) *(-/)'
@@ -207,10 +217,6 @@ zstyle ':completion::*' cache-path ~/rawdisk/zsh_cache/
 
 # ... unless we really want to.
 zstyle '*' single-ignored show
-
-# Same color as ls for completion
-# eval "$(dircolors -b ~/.dircolors)" # writing in .bash_aliases
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # don't complete the same filenames again
 zstyle ':completion:*:(rm|cp|mv|ls):*' ignore-line other
