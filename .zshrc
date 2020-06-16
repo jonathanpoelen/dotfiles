@@ -2,8 +2,8 @@ setopt prompt_subst nobeep
 
 export EDITOR=nano
 export LESS=-iRj3
-export TMPDIR=/home/jonathan/rawdisk
-export RLWRAP_HOME=/home/jonathan/.rlwrap
+export TMPDIR=~/rawdisk
+export RLWRAP_HOME=~/.rlwrap
 
 [ $TERM = rxvt-unicode ] && TERM=xterm-256color
 
@@ -56,7 +56,7 @@ export RLWRAP_HOME=/home/jonathan/.rlwrap
 
 # Save the location of the current completion dump file.
 ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-fpath+=(~/projects/dotfiles/zsh_functions.zwc ~/.zshcompletions.zwc)
+fpath+=(~/projects/dotfiles/zsh_functions.zwc ~/.zshcompletions)
 
 # Load and run compinit
 autoload -U compinit
@@ -110,8 +110,8 @@ READNULLCMD=less # pager for `<file`
 #}
 
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# export PATH="$PATH:/home/jonathan/.fzf/bin"
-#PATH+=':/home/jonathan/.fzf/bin'
+# export PATH="$PATH:$HOME/.fzf/bin"
+#PATH+=':/$HOME/.fzf/bin'
 #FZF_COMPLETION_TRIGGER=','
 #source ~/.fzf/shell/completion.zsh
 
@@ -252,6 +252,7 @@ alias df='df -h'
 alias du='du -h'
 alias free='free -h'
 alias cr='cp -R'
+alias bat='bat --theme=TwoDark'
 
 # alias c='cat'
 c() { echo -E "$(<$1)" }
@@ -329,7 +330,7 @@ alias g1='grep -m1'
 
 # altermative grep: ripgrep
 # alias ripgrep=/usr/bin/rg
-alias rg='/usr/bin/rg --no-heading'
+alias rg='/usr/bin/rg --no-ignore-vcs --no-heading'
 
 function m() {
   [ $# -lt 1 ] && echo "Usage: $0 missing directory" >&2 && return 1
@@ -497,9 +498,9 @@ p() { mpv --no-resume-playback -af scaletempo --really-quiet -fs --speed=1.61 "$
 alias mmcal="gcal -H '\e[01;33m:\e[0m:\e[31m:\e[0m' -s1 -q FR -N"
 alias mcal="mmcal .+"
 
-alias bjam='bjam --build-dir=/home/jonathan/projects/build'
+alias bjam='bjam --build-dir='$HOME'/projects/build'
 
-vg() { valgrind --suppressions=/home/jonathan/projects/dotfiles/usr/lib/valgrind/dl_init.supp "$@" 2> >(colout -t valgrind) ; }
+vg() { valgrind --suppressions=$HOME/projects/dotfiles/usr/lib/valgrind/dl_init.supp "$@" 2> >(colout -t valgrind) ; }
 alias vgl='vg --leak-check=full --show-leak-kinds=all'
 
 y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$@" ; }
@@ -803,16 +804,27 @@ _previous-dir()
   zle reset-prompt
 }
 
+_rationalise-dot() {
+  if [[ $LBUFFER = *.. ]] {
+    LBUFFER+=/..
+  } else {
+    LBUFFER+=.
+  }
+}
+
 zle -N _popd
 zle -N _pushd
 zle -N _list-dir
 zle -N _list-file
 zle -N _previous-dir
+zle -N _rationalise-dot
 bindkey 'ß' _popd
 bindkey 'å' _pushd
 bindkey 'ð' _list-dir
 bindkey 'á' _list-file
 bindkey 'ä' _previous-dir
+bindkey "." _rationalise-dot
+
 
 # see split-shell-arguments and replace-argument
 
