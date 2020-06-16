@@ -26,8 +26,10 @@ if [ $inplace -eq 0 ]; then
   fi
 
   if [[ $input -ef $output ]]; then
-    echo -n "Edit file in-place? [y/n] "
-    read -q || exit 2
+    if [[ $FORCE_INPLACE -ne 1 ]] ; then
+      echo -n "Edit file in-place? [y/n] "
+      read -q || exit 2
+    fi
     inplace=1
   fi
   [ $# -eq 1 ] && shift || shift 2
@@ -37,11 +39,11 @@ fi
 
 if [ $inplace -eq 1 ]; then
   output=$input.$RANDOM-$$.mp4
-  ffmpeg -i $input -vn $output $@
+  ffmpeg -i $input $@ -vn $output
   mv $output $input
 else
   # -vn disable video recording
-  ffmpeg -i $input -vn $output $@
+  ffmpeg -i $input $@ -vn $output
 fi
 
 # -af 'volume=+10dB'
