@@ -6,7 +6,7 @@ _bat() {
   local ret=1
 
   local context curcontext="$curcontext" state line
-  _arguments \
+  _arguments -s -S : \
     "${_arguments_options[@]}" \
     {-l+,--language=}'[Set the language for syntax highlighting]' \
     {*-H+,*--highlight-line=}'[Highlight the given line]' \
@@ -37,6 +37,7 @@ _bat() {
     '--cache-dir[Show bat'\''s cache directory]' \
     {-h,--help}'[Print this help message]' \
     {-V,--version}'[Show version information]' \
+    '*: :_files' \
     && ret=0
 }
 
