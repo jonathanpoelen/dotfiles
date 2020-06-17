@@ -71,8 +71,6 @@ or
   opacity: 0;
 }
 
-/*:root[sizemode="maximized"] #navigator-toolbox:not(:focus-within):not(:hover){ transform: rotateX(89.5deg) }*/
-
 :root[customizing] #navigator-toolbox{
 	position: relative !important;
 	transform: none !important;
@@ -83,6 +81,11 @@ or
   margin-bottom: -11px !important;
   padding-bottom: 12px !important;
 }
+
+:root[sizemode="fullscreen"]{ margin-top: 0px !important; }
+
+/* Don't apply transform before window has been fully created */
+:root:not([sessionrestored]) #navigator-toolbox{ transform:none !important }
 
 /*
 browser.urlbar.update1 = false
