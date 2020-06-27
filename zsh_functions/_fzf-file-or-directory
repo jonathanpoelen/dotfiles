@@ -9,14 +9,14 @@ __fsel() {
 }
 
 _fzf-file-or-directory() {
-  if [ "${LBUFFER[-1]}" = ' ' ] ; then
+  if [[ "${LBUFFER[-1]}" = ' ' ]] ; then
     LBUFFER="${LBUFFER}$(__fsel "$1")"
   else
     local tail=${${(z)LBUFFER}[-1]}
-    if [ "${tail[-1]}" = '/' ] ; then
+    if [[ "${tail[-1]}" = '/' ]] ; then
       LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel "$1" ${~tail})"
     else
-      if [ -d "${tail:h}" ] ; then
+      if [[ -d "${tail:h}" ]] ; then
         LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel "$1" ${~tail:h} "-q ${tail:t:q}")"
       else
         LBUFFER="${LBUFFER}$(__fsel "$1")";

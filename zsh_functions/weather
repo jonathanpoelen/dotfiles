@@ -1,6 +1,6 @@
 weather()
 {
   local f=${TMPDIR:-/tmp}/.weather
-  [ -f $f ] || curl v2.wttr.in/paris -so$f
+  [[ -f $f ]] || curl v2.wttr.in/paris -so$f
   echo -E "$(<$f)"
 }

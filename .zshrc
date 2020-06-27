@@ -7,7 +7,7 @@ export RLWRAP_HOME=~/.rlwrap
 
 [ $TERM = rxvt-unicode ] && TERM=xterm-256color
 
-#if [ -x /usr/bin/dircolors ]; then
+#if [[ -x /usr/bin/dircolors ]]; then
   # test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
   export LS_COLORS='bd=38;5;68:ca=38;5;17:cd=38;5;113;1:di=38;5;68;4:do=38;5;127:ex=38;5;166;1:'\
 'pi=38;5;126:fi=38;5;252:ln=target:mh=38;5;220;1:or=48;5;160;38;5;232;1:ow=38;5;220;1:'\
@@ -64,10 +64,10 @@ compinit -i -d "${ZSH_COMPDUMP}"
 
 PROMPT='%{$bg[grey]%}%{$fg[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg_no_bold[green]%}.%{$fg[red]%}?%?%{$fg_no_bold[red]%})$%{$reset_color%} '
 #PROMPT='%{$bg[black]%}%{$fg_bold[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg[green]%}.%{$fg_no_bold[red]%}?%?%{$fg_bold[red]%})$%{$reset_color%} '
-if [ $SHLVL -gt 3 ]; then
+if [[ $SHLVL -gt 3 ]]; then
   PROMPT='%{$fg[yellow]%}[$(($SHLVL-3))]'"$PROMPT"
 fi
-if [ "$USER" = root ]; then
+if [[ "$USER" = root ]]; then
   PROMPT='%{$fg_bold[red]%}root%{$fg_no_bold[green]%}@%{$fg[yellow]%}%m%{$fg_bold[magenta]%}:'"$PROMPT"
 fi
 
@@ -164,7 +164,10 @@ zstyle ':completion:*:(argument-rest|files):*' matcher-list 'm:{[:lower:]_-}={[:
 
 zstyle ':completion:*:*:*:*:*' menu select
 
-zstyle ':completion:*:options' list-colors '=^(#b)*(-- *)=35'
+zstyle ':completion:*' format $'\e''[37mCompleting '$'\e''[31m%d'$'\e''[0m'
+
+# zstyle ':completion:*:options' list-colors '=^(#b)*(-- *)=35'
+# zstyle ':completion:*:options' list-colors '=(#b)(*)-- (*)=36=0=34'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=31=0=34'
 zstyle ':completion:*:*:killall:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=31=0=34'
 # Same color as ls for completion
@@ -185,10 +188,10 @@ zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-dir
 cdpath=(.)
 
 # use /etc/hosts and known_hosts for hostname completion
-# [ -r /etc/ssh/ssh_known_hosts ] && _global_ssh_hosts=(${${${${(f)"$(</etc/ssh/ssh_known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _global_ssh_hosts=()
-# [ -r ~/.ssh/known_hosts ] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
-# [ -r ~/.ssh/config ] && _ssh_config=($(cat ~/.ssh/config | sed -ne 's/Host[=\t ]//p')) || _ssh_config=()
-# [ -r /etc/hosts ] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
+# [[ -r /etc/ssh/ssh_known_hosts ]] && _global_ssh_hosts=(${${${${(f)"$(</etc/ssh/ssh_known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _global_ssh_hosts=()
+# [[ -r ~/.ssh/known_hosts ]] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+# [[ -r ~/.ssh/config ]] && _ssh_config=($(cat ~/.ssh/config | sed -ne 's/Host[=\t ]//p')) || _ssh_config=()
+# [[ -r /etc/hosts ]] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
 # hosts=(
 #   "$_ssh_config[@]"
 #   "$_global_ssh_hosts[@]"
@@ -333,7 +336,7 @@ alias g1='grep -m1'
 alias rg='/usr/bin/rg --no-ignore-vcs --no-heading'
 
 function m() {
-  [ $# -lt 1 ] && echo "Usage: $0 missing directory" >&2 && return 1
+  [[ $# -lt 1 ]] && echo "Usage: $0 missing directory" >&2 && return 1
   mkdir -p "$@" && cd -- "$1"
 }
 
@@ -664,7 +667,7 @@ ler() { ~/game/waiting_for_reading $1 unrar x $1 }
 ## history
 
 ## Command history configuration
-# if [ -z $HISTFILE ]; then
+# if [[ -z $HISTFILE ]]; then
     HISTFILE=$HOME/.zhistory
 # fi
 HISTSIZE=10000
@@ -840,9 +843,9 @@ bindkey '^[^T' _transpose-arg
 
 #_inc_last_arg() {
 #  local r=${BUFFER/* }
-#  [ '}' = "${r[${#r}]}" ] && r=${r/\{*}${${r/*..}:0:-1}
+#  [[ '}' = "${r[${#r}]}" ]] && r=${r/\{*}${${r/*..}:0:-1}
 #  local n=$((${r//[^0-9]/}+1))
-#  [ ! -z "$NUMERIC" ] && n="{$n..$NUMERIC}"
+#  [[ -n $NUMERIC ]] && n="{$n..$NUMERIC}"
 #  BUFFER=${BUFFER% *}' '$n
 #  CURSOR=$#BUFFER
 #}
@@ -931,7 +934,7 @@ setopt auto_cd
 # fi
 
 autoload -U _smart-sudo
-alias sudo='nocorrect noglob _smart-sudo'
+alias sudo=_smart-sudo
 compdef _sudo _smart-sudo
 
 autoload -U _insert-sudo-and-accept _insert-space-and-accept _insert-command

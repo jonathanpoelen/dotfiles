@@ -1,6 +1,6 @@
 er() {
   for f in "$@" ; do
-    if [ -f "$f" ] ; then
+    if [[ -f $f ]] ; then
       case "$f" in
         *.tar)             tar xf "$f"     ;;
         *.rar|*.cbr)       unrar x "$f"    ;;

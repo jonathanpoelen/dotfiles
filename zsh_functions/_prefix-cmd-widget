@@ -4,19 +4,19 @@ _insert_pre_cmd_line_init=
 
 _prefix-cmd-widget()
 {
-  if [ ! -z "$_insert_pre_cmd_prefix" ] ; then
-    [ -z "$_insert_pre_cmd_line_init" ] &&
+  if [[ -n $_insert_pre_cmd_prefix ]] ; then
+    [[ -z "$_insert_pre_cmd_line_init" ]] &&
       functions[zle-line-init]= ||
       eval "zle-line-init () { $_insert_pre_cmd_line_init }"
     _insert_pre_cmd_prefix=
   fi
-  if [ ! -z "$BUFFER" ] ; then
+  if [[ -n "$BUFFER" ]] ; then
     _insert_pre_cmd_prefix=$BUFFER
     _insert_pre_cmd_line_init=$functions[zle-line-init]
-    [ -z "$_insert_pre_cmd_line_init" ] && zle -N zle-line-init
+    [[ -z "$_insert_pre_cmd_line_init" ]] && zle -N zle-line-init
     eval "zle-line-init () {
       $_insert_pre_cmd_line_init
-      if [ -z \"\$BUFFER\" ] ; then
+      if [[ -z \$BUFFER ]] ; then
         BUFFER=\$_insert_pre_cmd_prefix
         CURSOR=$CURSOR
       fi

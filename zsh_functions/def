@@ -5,5 +5,5 @@ def() {
     else     print "\033[33;1m" $0
     ++i
   }'<<<"$s1")
-  [ -z "$s2" ] && echo "$s1" || echo "$s2"
+  [[ -z $s2 ]] && echo "$s1" || echo "$s2"
 }
