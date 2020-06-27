@@ -3,61 +3,39 @@ _smart-sudo () {
     if [[ $1 == \-* ]]; then
       command sudo $@
     else
-      local prevwhat what prefix='' exargs=() i nocorrect= g=
+      local -A kprefixes
+      local -a result=($@[1]) tmp
+      local -i i=1
+      local prevcmd
 
-      while [ 1 ]; do
-        case $1 in
-          nocorrect) nocorrect=1 ;;
-          noglob) prefix+='noglob '; g=1 ;;
-          ex|extglob) prefix+='noglob _ext-glob '; g=1 ;;
-          ix) prefix+='noglob _nocase-glob '; g=1 ;;
-          *) break;;
-        esac
-        shift
-      done
-
-      while [ 1 ]; do
-        # what=$(builtin whence $1)
-        what=$aliases[$1]
-
-        if [[ $prevwhat == $what ]] ||
-           [[ $1 == $what ]] ||
-           [[ -z $what ]] ;
-        then
-           break
-        fi
-
-        i=1
-        local z=(${(z)what})
-        while [ 1 ]; do
-          case ${z[$i]} in
-            nocorrect) nocorrect=1 ;;
-            noglob) prefix+=${z[$i]}' '; g=1 ;;
-            ex|extglob) prefix+='noglob _ext-glob '; g=1 ;;
-            ix) prefix+='noglob _nocase-glob '; g=1 ;;
-            *) break;;
+      while ; do
+        while ; do
+          case $result[$i] in
+            nocorrect | noglob | ex | ix) kprefixes[$result[$i]]='' ;;
+            *) break ;;
           esac
           ((++i))
         done
 
-        1=${z[$i]}
-        [[ $i < $#z ]] && exargs=(${z[$(($i+1)),-1]} $exargs)
-        prevwhat=$what
+        tmp=(${(z)aliases[$result[$i]]})
+
+        if [[ $#tmp == 0 ]] || [[ $tmp[1] == $result[$i] ]]; then
+          break
+        fi
+
+        if [[ $tmp[1] == $prevcmd ]]; then
+          ((--i))
+          result[1,$i]=()
+          break
+        fi
+
+        prevcmd=$result[1]
+        result[1,$i]=($tmp)
+        i=1
       done
 
-      if [[ -z $g ]]; then
-        if [[ -z $nocorrect ]]; then
-          $=prefix command sudo $1 "${==~exargs[@]}" "${==~@[2,-1]}"
-        else
-          nocorrect $=prefix command sudo $1 "${==~exargs[@]}" "${==~@[2,-1]}"
-        fi
-      else
-        if [[ -z $nocorrect ]]; then
-          $=prefix command sudo $1 $exargs ${@[2,-1]}
-        else
-          nocorrect $=prefix command sudo $1 $exargs ${@[2,-1]}
-        fi
-      fi
+      tmp=(${(k)kprefixes} command sudo)
+      $=tmp ${==~result} "${@[2,-1]}"
     fi
   else
     #if no parameters were given, then assume we want a root shell
