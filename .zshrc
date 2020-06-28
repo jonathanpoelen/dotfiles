@@ -117,17 +117,19 @@ READNULLCMD=less # pager for `<file`
 
 export FZF_DEFAULT_OPTS='--height 45% --cycle --reverse -m --ansi --tiebreak=index --no-sort --bind=ctrl-k:kill-line,alt-a:toggle-all,ctrl-a:select-all'
 
-autoload _fzf-file-or-directory _fzf-history-widget _fzf-zcomp-list
+autoload _fzf-file-or-directory _fzf-history-widget _fzf-zcomp-list _fzf-file-size
 _fzf-file-widget () { _fzf-file-or-directory '-o -type f -print -o -type l -print' }
 _fzf-directory-widget () { _fzf-file-or-directory '' }
 zle -N _fzf-file-widget
 zle -N _fzf-directory-widget
 zle -N _fzf-history-widget
 zle -N _fzf-zcomp-list
+zle -N _fzf-file-size
 bindkey ^\[\' _fzf-file-widget
 bindkey '^[;' _fzf-directory-widget
 bindkey '^[r' _fzf-history-widget
 bindkey '¿' _fzf-zcomp-list
+bindkey 'ö' _fzf-file-size
 
 # alias afind='ack-grep -il'
 
