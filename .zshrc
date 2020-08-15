@@ -809,26 +809,26 @@ _previous-dir()
   zle reset-prompt
 }
 
-_rationalise-dot() {
-  if [[ $LBUFFER = *.. ]] {
-    LBUFFER+=/..
-  } else {
-    LBUFFER+=.
-  }
-}
+#_rationalise-dot() {
+#  if [[ $LBUFFER = *.. ]] {
+#    LBUFFER+=/..
+#  } else {
+#    LBUFFER+=.
+#  }
+#}
 
 zle -N _popd
 zle -N _pushd
 zle -N _list-dir
 zle -N _list-file
 zle -N _previous-dir
-zle -N _rationalise-dot
+#zle -N _rationalise-dot
 bindkey 'ß' _popd
 bindkey 'å' _pushd
 bindkey 'ð' _list-dir
 bindkey 'á' _list-file
 bindkey 'ä' _previous-dir
-bindkey "." _rationalise-dot
+#bindkey "." _rationalise-dot
 
 
 # see split-shell-arguments and replace-argument
