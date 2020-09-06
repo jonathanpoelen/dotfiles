@@ -6,4 +6,4 @@ perf record --call-graph dwarf -o"$TMP/perf.data" "$@"
 perf script -i"$TMP/perf.data" |
   "$FLAMEGRAPH"/stackcollapse-perf.pl |
   "$FLAMEGRAPH"/flamegraph.pl > "$SVG"
-echo "$SVG"
+echo "$SVG" >&2
