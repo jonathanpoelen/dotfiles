@@ -4,6 +4,7 @@ export EDITOR=nano
 export LESS=-iRj3
 export TMPDIR=~/rawdisk
 export RLWRAP_HOME=~/.rlwrap
+export CMAKE_GENERATOR=Ninja
 
 [ $TERM = rxvt-unicode ] && TERM=xterm-256color
 
