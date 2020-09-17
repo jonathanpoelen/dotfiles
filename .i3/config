@@ -92,7 +92,7 @@ bindsym Ctrl+F12 exec --no-startup-id amixer -q set Master 3+
 bindsym $mod+F10 exec --no-startup-id "~/projects/dotfiles/game/sleep-or-continue"
 bindsym $mod+F9 exec --no-startup-id "~/projects/dotfiles/game/sleep-or-continue-firefox"
 # switch number line / symbol line
-bindsym Num_Lock exec --no-startup-id "xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key$([ -f ~/rawdisk/.num-k ] && { rm ~/rawdisk/.num-k && echo 1 ; } || { :>~/rawdisk/.num-k && echo 0 ; })"
+# bindsym Num_Lock exec --no-startup-id "xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key$([ -f ~/rawdisk/.num-k ] && { rm ~/rawdisk/.num-k && echo 1 ; } || { :>~/rawdisk/.num-k && echo 0 ; })"
 bindsym Ctrl+F10 exec --no-startup-id "xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key$([ -f ~/rawdisk/.num-k ] && { rm ~/rawdisk/.num-k && echo 1 ; } || { :>~/rawdisk/.num-k && echo 0 ; })"
 bindsym Ctrl+F8 exec --no-startup-id "[ -f ~/rawdisk/.footswitch ] && { ~/game/footswitch -1m shift -2m win -3m ctrl ; rm ~/rawdisk/.footswitch ; } || { ~/game/footswitch -1k / -2k Left -3k \\\\ ; :>~/rawdisk/.footswitch ; }"
 
@@ -240,6 +240,7 @@ for_window [class="qt5ct"] floating enable sticky enable border normal
 #for_window [class="Timeset-gui"] floating enable border normal
 #for_window [class="(?i)virtualbox"] floating enable border normal
 #for_window [class="Xfburn"] floating enable
+for_window [title="Microsoft Teams Notification"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
