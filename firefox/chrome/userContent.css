@@ -83,3 +83,27 @@ html {
   /*background: #686868;*/
   /*background: #666;*/
 /*}*/
+
+
+/* Wikipédia fr: fix width */
+body.skin-vector-max-width #mw-panel {
+  left:0em!important;
+  padding-left:0!important;
+}
+body.skin-vector-max-width .mw-workspace-container {
+  max-width:100%!important;
+}
+body.skin-vector-max-width .mw-page-container { 
+  padding:0 0 0 11em !important;
+  max-width:100%!important;
+}
+body.skin-vector-max-width .mw-content-container {
+  max-width:100%!important;
+  margin-left:0em!important;
+}
+body.skin-vector-max-width .mw-page-container-inner {
+  position:inherit!important;
+}
+body.skin-vector-max-width #left-navigation {
+  padding-left:11em;
+}
