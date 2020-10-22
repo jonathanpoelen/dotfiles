@@ -99,11 +99,8 @@ body.skin-vector-max-width .mw-page-container {
 }
 body.skin-vector-max-width .mw-content-container {
   max-width:100%!important;
-  margin-left:0em!important;
+  margin-left:11em!important;
 }
-body.skin-vector-max-width .mw-page-container-inner {
-  position:inherit!important;
-}
-body.skin-vector-max-width #left-navigation {
-  padding-left:11em;
+body.skin-vector-max-width .mw-page-container {
+  padding:0!important;
 }
