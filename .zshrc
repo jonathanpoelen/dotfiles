@@ -99,7 +99,7 @@ READNULLCMD=less # pager for `<file`
 #}
 
 #loadplugins() {
-  source ~/game/zsh-history-substring-search/zsh-history-substring-search.zsh
+  eval "$(<~/game/zsh-history-substring-search/zsh-history-substring-search.zsh)"
 
   bindkey '^[K' history-substring-search-up
   bindkey '^[J' history-substring-search-down
@@ -118,19 +118,19 @@ READNULLCMD=less # pager for `<file`
 
 export FZF_DEFAULT_OPTS='--height 45% --cycle --reverse -m --ansi --tiebreak=index --no-sort --bind=ctrl-k:kill-line,alt-a:toggle-all,ctrl-a:select-all'
 
-autoload _fzf-file-or-directory _fzf-history-widget _fzf-zcomp-list _fzf-file-size
+autoload _fzf-file-or-directory _fzf-history-widget _fzf-zcomp-list _fzf-video-size
 _fzf-file-widget () { _fzf-file-or-directory '-o -type f -print -o -type l -print' }
 _fzf-directory-widget () { _fzf-file-or-directory '' }
 zle -N _fzf-file-widget
 zle -N _fzf-directory-widget
 zle -N _fzf-history-widget
 zle -N _fzf-zcomp-list
-zle -N _fzf-file-size
+zle -N _fzf-video-size
 bindkey ^\[\' _fzf-file-widget
 bindkey '^[;' _fzf-directory-widget
 bindkey '^[r' _fzf-history-widget
 bindkey '¿' _fzf-zcomp-list
-bindkey 'ö' _fzf-file-size
+bindkey 'ö' _fzf-video-size
 
 # alias afind='ack-grep -il'
 
@@ -457,12 +457,11 @@ function man(){
   # se  End standout mode
   # us  Start underlining
   # ue  End underlining
-  env \
   LESS_TERMCAP_md=$'\e[0;31m' \
   LESS_TERMCAP_se=$'\e[0m' \
   LESS_TERMCAP_ue=$'\e[0m' \
   LESS_TERMCAP_us=$'\e[0;32m' \
-  man "$@"
+  command man "$@"
   # LESS_TERMCAP_so=$'\e[7m'
 }
 
