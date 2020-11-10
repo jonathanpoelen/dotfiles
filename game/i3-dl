@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 u=$(sed '/^GET/{s/^.....//;s/.........$//;q};d')
 notify-send "dl: $u"

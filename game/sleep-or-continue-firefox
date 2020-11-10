@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 set -e
 setopt extendedglob
 pids=(${${(M)${(f)"$(ps aux)"}:#*\/firefox*}/[^0-9]#(#b)([0-9]#)*/$match[1]})

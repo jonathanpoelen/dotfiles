@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Author: http://crunchbang.org/forums/viewtopic.php?id=38748#p414992
 # m4bronto

@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 set -e
+setopt extendedglob
 pid=$(xdotool getactivewindow getwindowpid %@)
 s=${"$(</proc/$pid/stat)"/* (#b)([TS]) */${match[1]}}
 read name < /proc/$pid/cmdline || :
