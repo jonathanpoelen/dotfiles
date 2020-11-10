@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 er() {
   for f in "$@" ; do
     if [[ -f $f ]] ; then

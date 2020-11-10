@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 _nocase-glob() {
   setopt localoptions nocaseglob
   local command=$1

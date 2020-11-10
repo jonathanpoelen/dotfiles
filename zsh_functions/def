@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 def() {
   local s1=$(sdcv "$@")
   local s2=$(awk '/^[0-9]/{

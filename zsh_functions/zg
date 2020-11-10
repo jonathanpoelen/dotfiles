@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 _zg_return() {
   [[ -z $1 ]] && return 1
   echo -E $1

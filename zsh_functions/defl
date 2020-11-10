@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 defl() {
   sdcv "$@" | sed '
     /^[0-9]/!b

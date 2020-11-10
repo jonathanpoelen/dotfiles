@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 _insert-space-and-accept() {
   [[ -z $BUFFER ]] && zle up-history
   if [[ $BUFFER != \ * ]]; then

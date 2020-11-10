@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 _kill-arg()
 {
   local reply REPLY REPLY2 n=2

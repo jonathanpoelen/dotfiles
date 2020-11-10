@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 _fzf-history-widget() {
   local selected num
   setopt localoptions noglobsubst pipefail 2> /dev/null

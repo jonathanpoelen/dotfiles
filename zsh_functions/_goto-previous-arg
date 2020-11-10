@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 _goto-previous-arg()
 {
   local a=()

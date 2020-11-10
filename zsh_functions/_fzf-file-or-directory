@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 __fsel() {
   setopt localoptions pipefail 2> /dev/null
   find -L ${2-.} -mindepth 1 \( -path '*/\.*' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \) -prune \

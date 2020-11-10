@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 #precmd_functions[n]=function
 _insert_pre_cmd_prefix=
 _insert_pre_cmd_line_init=

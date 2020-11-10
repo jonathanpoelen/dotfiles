@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 _fzf-file-size ()
 {
   setopt localoptions extendedglob nullglob

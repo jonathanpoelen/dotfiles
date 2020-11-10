@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 zhead()
 {
   local l=( "${(f@)$(<${2:-/dev/stdin})}" )

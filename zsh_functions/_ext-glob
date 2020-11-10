@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 _ext-glob() {
   setopt localoptions extendedglob
   local command=$1

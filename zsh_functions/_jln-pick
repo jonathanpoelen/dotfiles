@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 _jln-pick ()
 {
   local REPLY buf

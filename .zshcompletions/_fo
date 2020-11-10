@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 #compdef fo
 
 _arguments -s \

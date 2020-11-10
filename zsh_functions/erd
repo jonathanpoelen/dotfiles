@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 erd()
 {
   local p="$PWD"

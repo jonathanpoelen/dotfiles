@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 _insert-command() {
   local REPLY
   autoload -U read-from-minibuffer
