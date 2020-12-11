@@ -11,7 +11,9 @@ if [ $# -lt 1 ] ; then
   echo -E 'Convert a video file to an audio file
 
 usage: v2a infile [outfile] [ffmpeg options]...
-usage: v2a -i infile [ffmpeg options]...'
+usage: v2a -i infile [ffmpeg options]...
+
+declare FORCE_INPLACE=1 environment variable for forced replacement in-place'
   exit 1
 fi
 
