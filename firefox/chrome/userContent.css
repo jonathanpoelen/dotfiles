@@ -86,21 +86,23 @@ html {
 
 
 /* Wikipédia fr: fix width */
-body.skin-vector-max-width #mw-panel {
+
+body.mediawiki #mw-panel {
   left:0em!important;
   padding-left:0!important;
+  background-color:#f8f8f8!important;
 }
-body.skin-vector-max-width .mw-workspace-container {
+body.mediawiki .mw-workspace-container {
+  max-width:100%!important;
+  padding-left:.5em;
+}
+body.mediawiki .mw-page-container { 
   max-width:100%!important;
 }
-body.skin-vector-max-width .mw-page-container { 
-  padding:0 0 0 11em !important;
-  max-width:100%!important;
-}
-body.skin-vector-max-width .mw-content-container {
+body.mediawiki .mw-content-container {
   max-width:100%!important;
   margin-left:11em!important;
 }
-body.skin-vector-max-width .mw-page-container {
+body.mediawiki .mw-page-container {
   padding:0!important;
 }
