@@ -8,8 +8,8 @@
 
 set -e
 
-#disable beep
-xset b off
+#disable beep      mouse acceleration: 5/2 threshold: 5
+xset b off r rate 420 30 m 5/2 5
 
 cd ~/rawdisk
 
