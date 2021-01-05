@@ -130,7 +130,7 @@ bindkey ^\[\' _fzf-file-widget
 bindkey '^[;' _fzf-directory-widget
 bindkey '^[r' _fzf-history-widget
 bindkey '¿' _fzf-zcomp-list
-bindkey 'ö' _fzf-video-size
+bindkey '®' _fzf-video-size
 
 # alias afind='ack-grep -il'
 
