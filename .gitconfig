@@ -1,21 +1,15 @@
 [user]
-  name = 
-  email = 
-  logallrefupdates = true
-
+	name = Jonathan Poelen
+	email = jonathan.poelen@gmail.com
+	logallrefupdates = true
 [core]
-  #editor = nano  
-  #pager = cat
-  pager = perl -I/usr/share/git/diff-highlight /home/jonathan/game/diff-so-fancy | less
-  whitespace = -trailing-space
-  #askpass = /home/jonathan/bin/git-ksshaskpass
+	#pager = cat
+	#pager = perl -I/usr/share/git/diff-highlight /home/jonathan/game/diff-so-fancy | less
+	#pager = delta
+	whitespace = -trailing-space
 
-#[alias]
-#  st = status
-#  ci = commit
-#  lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
-#  dw = diff --word-diff
-#  oops = commit --amend --no-edit
+#[apply]
+#  whitespace = fix
 
 [diff]
   noprefix = true
@@ -27,33 +21,37 @@
   colorMoved = plain
 
 [color]
-  status = true  
-  diff = auto
-  ui = auto
+	diff = auto
+	ui = auto
 [color "branch"]
-  upstream = cyan
-[color "diff-highlight"]
-  oldnormal = red
-  oldhighlight = red
-  newnormal = green
-  newnighlight = green
-
+	upstream = cyan
 [push]
-  default = simple
-
+	default = simple
 [pull]
-  # merges, interactive, true, false
-  rebase = merges
-
-#[pager]
-#  branch = false
-#  status = less -FX
-#  branch = cat
-
+	# merges, interactive, true, false
+	rebase=merges
+[pager]
+	branch = false
+	diff = delta
+	#status = less -FX
 [branch]
-  autoSetupMerge=always
+    autoSetupMerge=always
 
-[url "git://anongit.kde.org/"]
-  insteadOf = kde:
-[url "git@git.kde.org:"]
-  pushInsteadOf = kde:
+[delta]
+	plus-color = "#012800"
+	minus-color = "#340001"
+	# syntax-theme = Dracula
+
+	navigate = false
+	inspect-raw-lines = false
+	# line-numbers = true
+	# diff-so-fancy = true
+	# side-by-side = true
+
+	# decorations
+	# file-style = none
+	# file-decoration-style = none
+	minus-style = syntax auto
+
+[interactive]
+	diffFilter = delta --color-only

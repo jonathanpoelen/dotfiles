@@ -369,9 +369,14 @@ alias gs='git status -s'
 alias gss='git status'
 
 alias gd='git diff'
+alias gdd="GIT_PAGER='delta -n' git diff"
+alias gddd="GIT_PAGER='delta -s' git diff"
 alias gdc='git diff --word-diff-regex=.'
 alias gdw='git diff --word-diff-regex=\\w+'
 alias gdww='git diff --word-diff'
+alias lgdc='GIT_PAGER=less git diff --word-diff-regex=.'
+alias lgdw='GIT_PAGER=less git diff --word-diff-regex=\\w+'
+alias lgdww='GIT_PAGER=less git diff --word-diff'
 alias gd0='gd --unified=0'
 alias gdc0='gdc --unified=0'
 alias gdw0='gdw --unified=0'
