@@ -1,16 +1,48 @@
-!remove mod5 = Mode_switch
+!! Menu as Mode_switch
+!clear mod5
+!clear mod3
+!keycode 135 = Mode_switch
 !add mod3 = Mode_switch
-!! Menu becomes Mode_switch
-!keycode 135 = Mode_switch NoSymbol Mode_switch
+!add mod5 = ISO_Level3_Shift
+!! space + Mode_switch = Menu
+!keycode 65 = space NoSymbol Menu space NoSymbol space space
 
+! switch Esc <-> Caps_Lock
 clear Lock
-! keycode 66 = Escape
-! keycode 9 = Caps_Lock
 remove lock = Caps_Lock
 keycode 9 = Caps_Lock
-! keycode 66 = Escape
-keycode 66 = Escape NoSymbol Menu NoSymbol Escape Escape
-add lock = Caps_Lock
+keycode 66 = Escape NoSymbol Menu NoSymbol Menu Menu
+add Lock = Caps_Lock
+
+! & with |
+keycode 51 = backslash bar ampersand backslash asterisk brokenbar bar backslash bar backslash bar backslash bar backslash bar backslash
+keycode 94 = bar ampersand backslash bar asterisk notsign notsign brokenbar backslash bar notsign brokenbar backslash bar notsign brokenbar
+
+! arrows with Mode_switch
+!keycode 25 = w W Up Up aring Aring aring Aring w W aring Aring w W aring Aring
+!keycode 39 = s S Down Down ssharp section ssharp section s S ssharp section s S ssharp section
+!keycode 40 = d D Right Right eth ETH eth ETH d D eth ETH d D eth ETH
+!keycode 38 = a A Left Left aacute Aacute aacute Aacute a A aacute Aacute a A aacute Aacute
 
 ! compose on Pause/Attn
 keycode 127 = Multi_key
+
+!! reverse symbols <-> digits
+!! 1 = %
+keycode  10 = percent 1 1 percent onesuperior onehalf bar onehalf 1 percent onesuperior onehalf
+!! 2 = #
+keycode  11 = numbersign 2 2 numbersign twosuperior threequarters twosuperior threequarters 2 numbersign twosuperior dead_doubleacute
+!! 3 = &
+keycode  12 = ampersand 3 3 ampersand threesuperior onequarter threesuperior onequarter 3 ampersand threesuperior dead_macron
+!! 4 = !
+keycode  13 = exclam 4 4 exclam EuroSign sterling bar sterling 4 exclam EuroSign sterling
+!! 5 = $
+keycode  14 = dollar 5 5 dollar currency dead_cedilla currency dead_cedilla 5 dollar currency dead_cedilla
+!keycode  15 = asciicircum 6 6 asciicircum dead_circumflex onequarter dead_circumflex onequarter 6 asciicircum dead_circumflex onequarter
+keycode  15 = asciicircum 6 6 asciicircum dead_circumflex onequarter dead_circumflex exclamdown 6 asciicircum dead_circumflex exclamdown
+!! 7 = @
+keycode  16 = at 7 7 at degree onehalf dead_horn dead_macron 7 ampersand dead_horn dead_macron
+!keycode  17 = asterisk 8 8 asterisk dead_ogonek threequarters dead_ogonek threequarters 8 asterisk dead_ogonek threequarters
+!keycode  18 = parenleft 9 9 parenleft leftsinglequotemark dead_breve leftsinglequotemark dead_breve 9 parenleft leftsinglequotemark dead_breve
+!keycode  19 = parenright 0 0 parenright rightsinglequotemark dead_abovering rightsinglequotemark dead_abovering 0 parenright rightsinglequotemark dead_abovering
+!keycode  20 = underscore minus minus underscore yen dead_belowdot yen dead_belowdot minus underscore yen dead_belowdot
