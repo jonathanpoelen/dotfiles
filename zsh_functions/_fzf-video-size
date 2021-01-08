@@ -2,7 +2,7 @@
 _fzf-video-size ()
 {
   setopt localoptions extendedglob nullglob
-  local r=("${(f)$(command ls -sSh1 --color=always -- *.{mp4,avi,mkv,mpg} | fzf --ansi)}")
+  local r=("${(f)$(command ls -sSh1 --color=always -- *.{mp4,avi,mkv,mpg,ws} | fzf --ansi)}")
   if [[ $#r > 1 ]] || [[ $#r[1] != 0 ]]; then
     LBUFFER+=${(j: :)${(q)r/(#s)[ ]#[^ ]# /}}
   fi
