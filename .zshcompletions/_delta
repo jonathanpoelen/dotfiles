@@ -1,0 +1,167 @@
+#compdef delta
+
+##
+# zsh completion function for delta
+# https://github.com/dandavison/delta
+#
+
+local _delta_basic_styles=(
+  auto normal raw normal syntax blink bold dim hidden italic reverse strike underline
+  black red green yellow blue magenta cyan white
+  brightblack brightred brightgreen brightyellow brightblue brightmagenta brightcyan brightwhite
+)
+
+# Complete file theme
+_delta_theme() {
+  local -a expl
+
+  _wanted theme expl theme compadd -a "$@" - \
+    none ${(@)${(f)"$(_call_program theme delta --list-syntax-themes)"}/(#s)[^$'\t']##$'\t'}
+}
+
+# Complete style
+_delta_style() {
+  local -a expl
+
+  compset -q
+  _wanted style expl style compadd "$@" - \
+    $_delta_basic_styles omit
+}
+
+_delta_decoration() {
+  local -a expl
+
+  compset -q
+  _wanted style expl style compadd "$@" - \
+    $_delta_basic_styles overline box
+}
+
+_delta_header_style() {
+  local -a expl
+
+  compset -q
+  _wanted style expl style compadd "$@" - \
+    $_delta_basic_styles omit file line-number
+}
+
+_delta_link_format() {
+  local -a expl
+
+  compset -P '*'
+  _wanted style expl style compadd -P '{' -S '}' "$@" - \
+    path line
+}
+
+local curcontext=$curcontext descr
+local -a context line state state_descr args tmp suf
+local -A opt_args
+
+# We make heavy use of argument groups here to prevent the option specs from
+# growing unwieldy. These aren't supported in zsh <5.4, though, so we'll strip
+# them out below if necessary. This makes the exclusions inaccurate on those
+# older versions, but oh well — it's not that big a deal
+args=(
+  + '(exclusive)'
+  '(: * -)'{-h,--help}'[display help information]'
+  '(: * -)'{-V,--version}'[Prints version information]'
+  '(: * -)--list-syntax-themes[show all available syntax-highlighting themes]'
+
+  + theme
+  '--dark[dark terminal background]'
+  '--light[light terminal background]'
+  '(--show-syntax-themes)--show-syntax-themes[show all available syntax-highlighting themes]'
+  '--syntax-theme=[set the theme for syntax highlighting]: :_delta_theme'
+
+  + format
+  '(-n --line-numbers)'{-n,--line-numbers}'[show line numbers]'
+  '(-s --side-by-side)'{-s,--side-by-side}'[side-by-side diff view]'
+  '--diff-highlight[Emulate diff-highlight]'
+  '--diff-so-fancy[Emulate diff-so-fancy]'
+  '--raw[Do not alter the input in any way]'
+  '--color-only[Do not alter the input structurally in any way]'
+  '--keep-plus-minus-markers[Prefix added/removed lines with a +/- character]'
+  '--max-line-length=[Truncate lines longer than this. To prevent any truncation, set to zero]'
+  '--tabs=[The number of spaces to replace tab characters with]:width'
+  '--hyperlinks[Render commit hashes, file names, and line numbers as hyperlinks]'
+
+  + diff-option
+  '--word-diff-regex=[The regular expression used to decide what a word is for the within-line highlight algorithm]:regex'
+  '--max-line-distance=[The maximum distance between two lines for them to be inferred to be homologous]:line-distance'
+
+  + style-minus
+  '--line-numbers-minus-style=[style for line numbers in the old (minus) version of the file]:line-numbers-style:_delta_style'
+  '--minus-style=[Style for removed lines]:style:_delta_style'
+  '--minus-emph-style=[Style for emphasized sections of removed lines]:style:_delta_style'
+  '--minus-non-emph-style=[Style for non-emphasized sections of removed lines]:style:_delta_style'
+  '--minus-empty-line-marker-style=[Style for removed empty line marker]:style:_delta_style'
+
+  + style-zero
+  '--line-numbers-zero-style=[style for line numbers in unchanged (zero) lines]:line-numbers-style:_delta_style'
+  '--zero-style=[Style for unchanged lines]:style:_delta_style'
+
+  + style-plus
+  '--line-numbers-plus-style=[style for line numbers in the new (plus) version of the file]:line-numbers-style:_delta_style'
+  '--plus-style=[Style for added lines]:style:_delta_style'
+  '--plus-emph-style=[Style for emphasized sections of added lines]:style:_delta_style'
+  '--plus-non-emph-style=[Style for non-emphasized sections of added lines]:style:_delta_style'
+  '--plus-empty-line-marker-style=[Style for added empty line marker]:style:_delta_style'
+
+  + style-hash
+  '--commit-style=[Style for the commit hash line]:style:_delta_style'
+  '--commit-decoration-style=[Style for the commit hash decoration]:style:_delta_decoration'
+
+  + style-section
+  '--file-style=[Style for the file section]:style:_delta_style'
+  '--file-decoration-style=[Style for the file decoration]:style:_delta_decoration'
+
+  + style-hyperlinks
+  '--hyperlinks-file-link-format=[Format string for file hyperlinks]:format:_delta_link_format'
+
+  + style-hunk-header
+  '--hunk-header-style=[Style for the hunk-header]:style:_delta_header_style'
+  '--hunk-header-file-style=[Style for the file path part of the hunk-header]:style:_delta_style'
+  '--hunk-header-line-number-style=[Style for the line number part of the hunk-header]:line-number-style:_delta_style'
+  '--hunk-header-decoration-style=[Style for the hunk-header decoration]:style:_delta_decoration'
+
+  + style-other
+  '--line-numbers-left-format=[Format string for the left column of line numbers]:line-numbers-format:_delta_lines_numbers'
+  '--line-numbers-right-format=[Format string for the right column of line numbers]:line-numbers-format:_delta_lines_numbers'
+
+  {-w,--width}'=[The width of underline/overline decorations]:width'
+
+  '--24-bit-color=[Whether to emit 24-bit RGB color codes]:true-color'
+  '--inspect-raw-lines=[Whether to examine ANSI color escape sequences in raw lines received]: :(true false)'
+
+  '--whitespace-error-style=[Style for whitespace errors]:style:_delta_style'
+  '--line-numbers-left-style=[Style for the left column of line numbers]:style:_delta_style'
+  '--line-numbers-right-style=[Style for the right column of line numbers]:style:_delta_style'
+
+  + label
+  '--file-modified-label=[Text to display in front of a modified file path]'
+  '--file-removed-label=[Text to display in front of a removed file path]'
+  '--file-added-label=[Text to display in front of a added file path]'
+  '--file-copied-label=[Text to display in front of a copied file path]'
+  '--file-renamed-label=[Text to display in front of a renamed file path]'
+
+  + navigate
+  '(--navigate)--navigate[Activate diff navigation: use n to jump forwards and N to jump backwards]'
+
+  + config
+  '(--show-config)--show-config[Display the active values for all Delta options]'
+  '(--no-gitconfig)--no-gitconfig[Do not take any settings from git config]'
+
+  + paging
+  '--paging=[Whether to use a pager when displaying output]:mode:(auto never always)'
+
+  + language
+  '(--list-languages)--list-languages[List supported languages and associated file extensions]'
+
+  + misc
+  '--line-buffer-size=[Size of internal line buffer]:size'
+)
+
+# Strip out argument groups where unsupported (see above)
+[[ $ZSH_VERSION == (4|5.<0-3>)(.*)# ]] &&
+args=( ${(@)args:#(#i)(+|[a-z0-9][a-z0-9_-]#|\([a-z0-9][a-z0-9_-]#\))} )
+
+_arguments -s -S : $args '*: :_files'

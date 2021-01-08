@@ -62,6 +62,8 @@ fpath+=(~/projects/dotfiles/zsh_functions.zwc ~/.zshcompletions)
 # Load and run compinit
 autoload -U compinit
 compinit -i -d "${ZSH_COMPDUMP}"
+# overwrite _scss completion
+_comps[delta]=_delta
 
 PROMPT='%{$bg[grey]%}%{$fg[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg_no_bold[green]%}.%{$fg[red]%}?%?%{$fg_no_bold[red]%})$%{$reset_color%} '
 #PROMPT='%{$bg[black]%}%{$fg_bold[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg[green]%}.%{$fg_no_bold[red]%}?%?%{$fg_bold[red]%})$%{$reset_color%} '
