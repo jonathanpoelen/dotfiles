@@ -15,7 +15,7 @@ local _delta_basic_styles=(
 _delta_theme() {
   local -a expl
 
-  _wanted theme expl theme compadd -a "$@" - \
+  _wanted theme expl theme compadd "$@" - \
     none ${(@)${(f)"$(_call_program theme delta --list-syntax-themes)"}/(#s)[^$'\t']##$'\t'}
 }
 
