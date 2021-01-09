@@ -9,10 +9,17 @@ set softwrap
 set tabsize 4
 set trimblanks
 set historylog
+#set indicator
 
 ## Key bindings.
 ## See nanorc(5) for more details on this.
 bind ^L mark main
+
+set statuscolor yellow
+set titlecolor white,black
+set keycolor white
+set numbercolor white,black
+set functioncolor white
 
 #include /usr/share/nano/*.nanorc
 include /usr/share/nano/c.nanorc
