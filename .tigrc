@@ -3,4 +3,4 @@ color cursor yellow black bold
 color title-blur white default
 color title-focus white default
 #color title-focus white default standout
-set ignore-case = 1
+set ignore-case = smart-case
