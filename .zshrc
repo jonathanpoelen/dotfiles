@@ -121,8 +121,8 @@ READNULLCMD=less # pager for `<file`
 export FZF_DEFAULT_OPTS='--height 45% --cycle --reverse -m --ansi --tiebreak=index --no-sort --bind=ctrl-k:kill-line,alt-a:toggle-all,ctrl-a:select-all'
 
 autoload _fzf-file-or-directory _fzf-history-widget _fzf-zcomp-list _fzf-video-size
-_fzf-file-widget () { _fzf-file-or-directory '-o -type f -print -o -type l -print' }
-_fzf-directory-widget () { _fzf-file-or-directory '' }
+_fzf-file-widget () { _fzf-file-or-directory }
+_fzf-directory-widget () { _fzf-file-or-directory '-a -type d' }
 zle -N _fzf-file-widget
 zle -N _fzf-directory-widget
 zle -N _fzf-history-widget
@@ -405,11 +405,7 @@ alias cglg='GIT_PAGER= glgg'
 alias glg='GIT_PAGER= git log --graph --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" -n10'
 #alias glog='GIT_PAGER= git log --oneline --decorate --color --graph -n10'
 
-
-function git_current_branch () {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo ${ref#refs/heads/}
-}
+alias git_current_branch='git symbolic-ref --short HEAD'
 
 # these aliases take advantage of the previous function
 alias gl='git pull origin $(git_current_branch)'
@@ -484,7 +480,7 @@ swap() {
   mv "$1.swap-$$.tmp" "$2"
 }
 
-bak() { cp "$1" "$1"_`date +%H:%M:%S_%d-%m-%Y` ; }
+bak() { cp "$1" "$1"_${(%):-%D{%H:%M:%S_%d-%m-%Y}} }
 
 k() { awk "{ print $@ }" ; }
 
@@ -663,14 +659,10 @@ alias -g @@='|col /dev/stdin'
 ## functions
 
 #function zsh_stats() {
-#  history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n20
+#  column -c3 -s " " -t <<<${(F)${(On)"${(f)$(fc -ln 0 | awk '{CMD[$1]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}')}"}[1,20]}
 #}
 
-fo() {
-  local r=(${(f)"$(fzf -n3..,1 -d:)"})
-  "$@" ${(uq)${r/:*/}}
-}
-
+fo() { eval $@:q ${(uq)${${(f)"$(fzf -n3..,1 -d:)"}/:*/}} }
 gfo() { g -nH --color=always "$@[2,$]" |fo $1 }
 
 ler() { ~/game/waiting_for_reading $1 unrar x $1 }

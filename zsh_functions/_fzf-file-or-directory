@@ -1,33 +1,32 @@
 #!/usr/bin/env zsh
 __fsel() {
-  setopt localoptions pipefail 2> /dev/null
-  find -L ${2-.} -mindepth 1 \( -path '*/\.*' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \) -prune \
-    -o -type d -print $=1 2> /dev/null | cut -b$([ -z "$2" ] && echo 3 || echo 1)- | \
-  fzf --height 40% --reverse --cycle -m $=3 | while read item; do
-    echo -n "${(q)item} "
-  done
-  return $?
+  if [[ -z $dirs ]]; then
+    output=$(fzf $=query <<<${(F)${(f)"$(find -L ./ ! \( -name '.?*' -prune \) $=1 2> /dev/null)"}[2,-1]/??})
+  else
+    output=$(find -L $dirs ! \( -name '.?*' -prune \) $=1 2> /dev/null | fzf $=query)
+  fi
+  [[ -n $output ]] && output=${(j: :)${(qf)output}}
 }
 
 _fzf-file-or-directory() {
+  local dirs query output
   if [[ "${LBUFFER[-1]}" = ' ' ]] ; then
-    LBUFFER="${LBUFFER}$(__fsel "$1")"
+    __fsel $1 && LBUFFER+=$output
   else
     local tail=${${(z)LBUFFER}[-1]}
     if [[ "${tail[-1]}" = '/' ]] ; then
-      LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel "$1" ${~tail})"
+      dirs=(${~tail})
+    elif [[ -d "${tail:h}" ]] ; then
+      dirs=(${~tail:h})
+      query="-q ${tail:t:q}"
     else
-      if [[ -d "${tail:h}" ]] ; then
-        LBUFFER="${LBUFFER:0:-${#tail}}$(__fsel "$1" ${~tail:h} "-q ${tail:t:q}")"
-      else
-        LBUFFER="${LBUFFER}$(__fsel "$1")";
-      fi
+      query="-q ${tail:q}"
     fi
+    __fsel $1 && LBUFFER=${LBUFFER:0:-${#tail}}$output
   fi
-  local ret=$?
+
   zle redisplay
   typeset -f zle-line-init >/dev/null && zle zle-line-init
-  return $ret
 }
 
 _fzf-file-or-directory "$@"
