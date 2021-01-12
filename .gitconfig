@@ -40,18 +40,24 @@
 [delta]
 	plus-color = "#012800"
 	minus-color = "#340001"
-	# syntax-theme = Dracula
+	syntax-theme = ansi-dark
 
+	paging = always
 	navigate = false
 	inspect-raw-lines = false
-	# line-numbers = true
-	# diff-so-fancy = true
-	# side-by-side = true
 
-	# decorations
-	# file-style = none
-	# file-decoration-style = none
-	minus-style = syntax auto
+	hunk-header-line-number-style=brightyellow
+	file-style=brightyellow
+	file-decoration-style=ul ol brightyellow
+
+	# minus-style = syntax "#85434a"
+	# plus-style = syntax "#728562"
+	# minus-style = syntax 95
+	# plus-style = syntax 65
+	# minus-style = syntax 53
+	# plus-style = syntax 17
+	minus-style = syntax 236
+	plus-style = syntax 0
 
 [interactive]
 	diffFilter = delta --color-only
