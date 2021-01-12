@@ -484,7 +484,7 @@ bak() { cp "$1" "$1"_${(%):-%D{%H:%M:%S_%d-%m-%Y}} }
 
 k() { awk "{ print $@ }" ; }
 
-alias hi='XDG_DATA_DIRS=~/game vt-kate-syntax-highlighter -tMy\ Breeze\ Dark -c'
+alias hi='vt-kate-syntax-highlighter -tMy\ Breeze\ Dark -c'
 alias ihi='hi -s'
 hin() { hi "$@" | cat -n ; }
 ihin() { ihi "$@" | cat -n ; }
