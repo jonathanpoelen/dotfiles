@@ -57,7 +57,7 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
     esac
   done
 
-  if [[ $M -le 0 ]]; then
+  if (( M <= 0 )); then
     m=
   fi
 
@@ -74,10 +74,10 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
   fi
 
   if [[ -n $C ]]; then
-    [[ $v -eq 1 ]] && m='${'$m
-  elif [[ $a -eq 1 ]]; then
+    (( v == 1 )) && m='${'$m
+  elif (( a == 1 )); then
     C=$pat
-    if [[ $x -eq 0 ]]; then
+    if (( x == 0 )); then
       case $C[1]$C[$#C] in
         ('**') C=${C[2,-2]} ;;
         (?'*') C=${C[1,-2]} ; X=2 ;;
@@ -92,8 +92,8 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
   [[ -n $jn ]] && e+='${'$jn
   e+='${'$m'${'${d:+\($d\)}
 
-  if [[ $M -gt 0 ]]; then
-    if [[ $x -eq 1 ]]; then
+  if (( M > 0 )); then
+    if (( x == 1 )); then
       m='}:#'
       [[ ${pat[1]} != '*' ]] && m+='*'
       m+=$pat
@@ -108,17 +108,17 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
   fi
 
   if [[ -n $C ]]; then
-    if [[ $X -eq 3 ]]; then
+    if (( X == 3 )); then
       C+='(#e)'
-    elif [[ $X -eq 2 ]]; then
+    elif (( X == 2 )); then
       C='(#s)'$C
-    elif [[ $X -eq 0 ]]; then
+    elif (( X == 0 )); then
       m+=/
     fi
 
-    if [[ $v -eq 0 ]]; then
+    if (( v == 0 )); then
       m+="/(#m)$C/$'\x1b'[${GREP_COLOR}m\${MATCH}$'\x1b'[0m"
-    elif [[ $v -eq 1 ]]; then
+    elif (( v == 1 )); then
       m+="/(#m)$C/$'\x1b'[0m\${MATCH}$'\x1b'[${GREP_COLOR}m}/(#m)*/$'\x1b'[${GREP_COLOR}m\${MATCH}$'\x1b'[0m"
     fi
   fi
@@ -128,11 +128,11 @@ zg [-e cmd | -r | -R] [-d zshopt] [-j zshopt] [-C pattern_for_color ] [-p cmd] [
 
   shift $OPTIND
 
-  if [[ $# -eq 0 ]]; then
+  if (( $# == 0 )); then
     $=p $e'"$(</dev/stdin)"'$m
-  elif [[ $t -eq 0 ]]; then
+  elif (( t == 0 )); then
     $=p $e'"$(<'${(j:<:)${(q)@}}')"'$m
-  elif [[ $t -eq 1 ]]; then
+  elif (( t == 1 )); then
     $=p $e'"$('${(q)@}')"'$m
   else
     $=p $e$@$m

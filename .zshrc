@@ -67,8 +67,8 @@ _comps[delta]=_delta
 
 PROMPT='%{$bg[grey]%}%{$fg[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg_no_bold[green]%}.%{$fg[red]%}?%?%{$fg_no_bold[red]%})$%{$reset_color%} '
 #PROMPT='%{$bg[black]%}%{$fg_bold[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg[green]%}.%{$fg_no_bold[red]%}?%?%{$fg_bold[red]%})$%{$reset_color%} '
-if [[ $SHLVL -gt 3 ]]; then
-  PROMPT='%{$fg[yellow]%}[$(($SHLVL-3))]'"$PROMPT"
+if (( $SHLVL > 2 )); then
+  PROMPT='%{$fg[yellow]%}[$(($SHLVL-2))]'"$PROMPT"
 fi
 if [[ "$USER" = root ]]; then
   PROMPT='%{$fg_bold[red]%}root%{$fg_no_bold[green]%}@%{$fg[yellow]%}%m%{$fg_bold[magenta]%}:'"$PROMPT"
@@ -341,8 +341,8 @@ alias g1='grep -m1'
 alias rg='/usr/bin/rg --no-ignore-vcs --no-heading'
 
 function m() {
-  [[ $# -lt 1 ]] && echo "Usage: $0 missing directory" >&2 && return 1
-  mkdir -p "$@" && cd -- "$1"
+  (( $# < 1 )) && echo "Usage: $0 missing directory" >&2 && return 1
+  mkdir -p -- "$@" && cd -- "$1"
 }
 
 # some more git aliases

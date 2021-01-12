@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Color diff output, for human consumption
 
@@ -29,7 +29,7 @@
 #                         Use 't' after all matches for consistency and speed.
 
 
-# Jonathan NOTE: removal of code unnecessary in my case and -y support.
+# Jonathan NOTE: remove unnecessary code in my case and -y support.
 
 esc=$'\x1b'
 
@@ -60,23 +60,20 @@ s/^\*\{3\}.*\*\{4\}/$CHG&$RST/;t
 " "$@"
 }
 
-if [ "$#" -eq "2" ]; then
+if (( $# == 2 )); then
   /usr/bin/diff -Naru "$@" | color
   exit ${PIPESTATUS[0]}
-elif [ "$#" -gt "2" ]; then
-  y=0
-  while getopts ':yW:' optname ; do
+elif (( $# > 2 )); then
+  while getopts 'yW:' optname ; do
     case "$optname" in
-      y) y=1 break ;;
-      W) ;;
-      :|*) ;;
+      y) /usr/bin/diff -a "$@" \
+         | sed "s/.* |\(\t.*\|$\)/$CHG&$RST/;t;s/.* <\(\t.*\|$\)/$DEL&$RST/;t;s/.* >\(\t.*\|$\)/$ADD&$RST/;t"
+         exit ${PIPESTATUS[0]}
+         ;;
+      *) ;;
     esac
   done
-  if [ $y = 0 ]; then
-    /usr/bin/diff -a "$@" | color
-  else
-    /usr/bin/diff -a "$@" | sed "s/.* |\(\t.*\|$\)/$CHG&$RST/;t;s/.* <\(\t.*\|$\)/$DEL&$RST/;t;s/.* >\(\t.*\|$\)/$ADD&$RST/;t"
-  fi
+  /usr/bin/diff -a "$@" | color
   exit ${PIPESTATUS[0]}
 else
   color "$@"

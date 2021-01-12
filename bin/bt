@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 bt () {
   esc="$(echo -e "\e")"
@@ -37,7 +37,7 @@ gdbargs=()
 catchexcept=''
 
 TEMP=`getopt -o hqsfeg: --long help -n "$0" -- "$@"`
-[ $? -ne 0 ] && exit 1
+(( $? != 0 )) && exit 1
 eval set -- "$TEMP"
 while true ; do
   case "$1" in
@@ -52,7 +52,7 @@ while true ; do
   esac
 done
 
-if [ $nogdb -eq 1 ] ; then
+if (( nogdb != 1 )) ; then
   exec $filter
 fi
 

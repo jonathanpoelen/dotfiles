@@ -9,7 +9,7 @@ peval()
   "$@"
 }
 
-while [ $# -gt 0 ]; do
+while (( $# > 0 )); do
   ffmpeg -i "$1" 2>&1 >/dev/null | while read -r first _ _ start _ end; do
     if [[ $first = Chapter ]]; then
       read  # discard line with Metadata:

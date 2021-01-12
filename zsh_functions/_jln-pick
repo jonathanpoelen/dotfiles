@@ -13,7 +13,7 @@ _jln-pick ()
   if [[ $1 = 2 ]]; then
     echo output: ${buf/$'\n'*}
     read-from-minibuffer 'filter: '
-    buf=$(echo "$buf" | eval $REPLY)
+    buf=$({eval $REPLY} <<<"$buf")
   fi
 
   if [[ -n $1 ]]; then
@@ -37,7 +37,7 @@ _jln-pick ()
     done
   done <<<"$buf"
 
-  ns=(${${(f)"$(echo ${(F)view} | fzf)"}/:*})
+  ns=(${${(f)"$(fzf <<<${(F)view})"}/:*})
   buf=(${(f)buf})
   len=$#buf
   for (( i=1 ; i <= $len ; ++i )); do

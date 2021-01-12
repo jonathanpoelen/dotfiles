@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 tmpf=/tmp/sqlite_file_path
 l=$(locate \.sqlite \
 | xargs -d'\n' mimetype \
@@ -7,6 +7,6 @@ l=$(locate \.sqlite \
 echo "$l" | xargs -d'\n' du -hc | tail -n1
 while read f ; do
  sqlite3 "$f" 'VACUUM;'
- [ $? -ne 0 ] && echo -e "\tfor $f"
+ (( $? != 0 )) && echo -e "\tfor $f"
 done <<< "$l"
 echo "$l" | xargs -d'\n' du -hc | tail -n1

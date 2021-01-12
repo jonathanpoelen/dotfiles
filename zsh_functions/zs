@@ -54,7 +54,7 @@ zs()
 - -u: read and write file (only last file)
 - e: remove empty line
 - t: parameter expansion flags for file
-- t: extra parameter expansion flags for file
+- n: extra parameter expansion flags for file
 - -o: output file
 - -I override file"; return 1 ;;
       (*) cmd+='<'${(q)@[$i]}';' ; i+=-1 ;;
@@ -69,7 +69,7 @@ zs()
     fi
   fi
 
-  if [[ -n $out ]] && [[ $iout -eq 1 ]]; then
+  if [[ -n $out ]] && (( $iout == 1 )); then
     echo "$0 overwrite $out? "
     read -q || return 1
   fi

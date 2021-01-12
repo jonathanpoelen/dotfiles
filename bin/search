@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 usage() {
  echo 'usage [-d][-e][-i][-p path] filtername [...]
@@ -9,8 +9,7 @@ usage() {
 
 opt_pattern=-name
 path=.
-ext_only=0
-display=0
+typeset -i ext_only=0 display=0
 while getopts 'deip:' optname
 do
   case "$optname" in
@@ -23,21 +22,21 @@ do
 done
 shift $(($OPTIND-1))
 
-[ $# -eq 0 ] && usage && exit 1
+(( $# == 0 )) && usage && exit 1
 
-[ $ext_only -eq 1 ] && \
+(( $ext_only == 1 )) && \
   push_pattern() { p+="$opt_pattern '*\\.${1//\'/\'\\\'\'}'" ; } || \
   push_pattern() { p+="$opt_pattern '*${1//\'/\'\\\'\'}*'" ; }
 
 p="'${path//\'/\'\\\'\'}' "
 push_pattern "$1"
 shift 1
-while [ $# -ne 0 ] ; do
+while (( $# != 0 )) ; do
   p+=' -or '
   push_pattern "$1"
   shift 1
 done
 
-[ $display -eq 1 ] && echo find "$p" || eval find $p
+(( $display == 1 )) && echo find "$p" || eval find $p
 
 exit $?
