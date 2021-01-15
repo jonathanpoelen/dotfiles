@@ -122,7 +122,7 @@ export FZF_DEFAULT_OPTS='--height 45% --cycle --reverse -m --ansi --tiebreak=ind
 
 autoload _fzf-file-or-directory _fzf-history-widget _fzf-zcomp-list _fzf-video-size
 _fzf-file-widget () { _fzf-file-or-directory }
-_fzf-directory-widget () { _fzf-file-or-directory '-a -type d' }
+_fzf-directory-widget () { _fzf-file-or-directory / }
 zle -N _fzf-file-widget
 zle -N _fzf-directory-widget
 zle -N _fzf-history-widget
