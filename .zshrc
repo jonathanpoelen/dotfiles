@@ -57,7 +57,7 @@ export CMAKE_GENERATOR=Ninja
 
 # Save the location of the current completion dump file.
 ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-fpath+=(~/projects/dotfiles/zsh_functions.zwc ~/.zshcompletions)
+fpath+=(~/projects/dotfiles/zsh_functions ~/.zshcompletions)
 
 # Load and run compinit
 autoload -U compinit
