@@ -285,14 +285,14 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:
 cxxflag='-Wall -Wextra -pedantic -Waligned-new -Walloca -Walloc-zero -Warray-bounds=2 -Wcast-align -Wcast-align=strict -Wcast-qual -Wclass-memaccess -Wconditionally-supported -Wconversion -Wdisabled-optimization -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wfloat-conversion -Wfloat-equal -Wformat=2 -Wformat-overflow=2 -Wformat-security -Wformat-signedness -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnon-virtual-dtor -Wno-shadow -Wnull-dereference -Wold-style-cast -Woverloaded-virtual -Wpacked -Wredundant-decls -Wstrict-null-sentinel -Wsuggest-attribute=noreturn -Wsuggest-override -Wtrampolines -Wundef -Wunused-macros -Wuseless-cast -Wvector-operation-performance -Wzero-as-null-pointer-constant'
 alias gw++="g++ $cxxflag -fdiagnostics-color=always"
 alias gw17="g++ $cxxflag -fdiagnostics-color=always -std=c++17"
-alias gw20="g++ $cxxflag -fdiagnostics-color=always -std=c++2a"
+alias gw20="g++ $cxxflag -fdiagnostics-color=always -std=c++20"
 unset cxxflag
 
 cxxflag='-Weverything -pedantic -Wconversion -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-covered-switch-default -Wno-exit-time-destructors -Wno-global-constructors -Wno-inconsistent-missing-destructor-override -Wno-mismatched-tags -Wno-padded -Wno-shadow -Wno-switch-default -Wno-switch-enum -Wno-undefined-var-template -Wno-weak-vtables'
 export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
 alias cw++="clang++ $cxxflag -fcolor-diagnostics"
 alias cw17="clang++ $cxxflag -fcolor-diagnostics -std=c++17"
-alias cw20="clang++ $cxxflag -fcolor-diagnostics -std=c++2a"
+alias cw20="clang++ $cxxflag -fcolor-diagnostics -std=c++20"
 unset cxxflag
 
 # coverage flags: -fprofile-arcs -ftest-coverage --coverage
