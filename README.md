@@ -47,7 +47,7 @@ Check hard links
 /!\\ Update repo
 
 ```zsh
-a=($( stat -c='%h %n' $(cat hardlinks) | sed '/^=1 /!d;s/^...//;t;d' )) &&
+a=($( stat -c='%h %n' $(<hardlinks) | sed '/^=1 /!d;s/^...//;t;d' )) &&
 rm -- $=a &&
 for f in $a ; do
   ln -P -- ~/$f $f
@@ -57,7 +57,7 @@ done
 /!\\ Update `$HOME`
 
 ```zsh
-a=($( stat -c='%h %n' $(cat hardlinks) | sed '/^=1 /!d;s/^...//;t;d' )) &&
+a=($( stat -c='%h %n' $(<hardlinks) | sed '/^=1 /!d;s/^...//;t;d' )) &&
 for f in $a ; do
   rm -- ~/$f && ln -P -- $f ~/$f
 done

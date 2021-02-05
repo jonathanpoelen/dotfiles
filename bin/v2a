@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 set -e
 
 typeset -i inplace=0
@@ -18,7 +18,7 @@ declare FORCE_INPLACE=1 environment variable for forced replacement in-place'
 fi
 
 input=$1
-if (( $inplace == 0 )); then
+if (( inplace == 0 )); then
   if [[ -z $2 ]]; then
     output=${1:r}.mp4
   elif [[ -d $2 ]]; then
@@ -28,7 +28,7 @@ if (( $inplace == 0 )); then
   fi
 
   if [[ $input -ef $output ]]; then
-    if (( $FORCE_INPLACE != 1 )) ; then
+    if (( FORCE_INPLACE != 1 )) ; then
       echo -n "Edit file in-place? [y/n] "
       read -q || exit 2
     fi
@@ -39,7 +39,7 @@ else
   shift
 fi
 
-if (( $inplace == 1 )); then
+if (( inplace == 1 )); then
   output=$input.$RANDOM-$$.mp4
   ffmpeg -i $input $@ -vn $output
   mv $output $input
