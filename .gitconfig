@@ -44,7 +44,7 @@
 
 	paging = always
 	navigate = false
-	inspect-raw-lines = false
+	# inspect-raw-lines = false
 
 	# minus-style = syntax "#85434a"
 	# plus-style = syntax "#728562"
@@ -55,19 +55,22 @@
 	minus-style = syntax 236
 	plus-style = syntax 0
 
-    features=default
+	features=default
 
 [delta "default"]
 	hunk-header-line-number-style=brightyellow
-    file-style=brightyellow
+	file-style=brightyellow
 	file-decoration-style=ul ol brightyellow
 
 [delta "unified0"]
 	hunk-header-line-number-style=brightyellow
-    hunk-header-decoration-style=
-    hunk-header-style=line-number file
-    file-style=omit
-    file-decoration-style=
+	hunk-header-decoration-style=
+	hunk-header-style=line-number file
+	file-style=omit
+	file-decoration-style=
+
+[delta "long-line"]
+	max-line-length=2048
 
 [interactive]
 	diffFilter = delta --color-only

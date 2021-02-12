@@ -372,6 +372,7 @@ alias gs='git status -s'
 alias gss='git status'
 
 alias gd='git diff'
+alias gdl='DELTA_FEATURES=long-line git diff'
 alias gdn='DELTA_FEATURES=line-numbers git diff'
 alias gdd='DELTA_FEATURES=side-by-side git diff'
 alias gdc='git diff --word-diff-regex=.'
