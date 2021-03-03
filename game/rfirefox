@@ -8,7 +8,7 @@ FIREFOX=~/.mozilla/firefox/
 cd ~/rawdisk/ff/.mozilla/firefox
 dl=(*.$profile(N))
 if [ -z $dl ] || [ ! -d $dl ] ; then
-  ar=($FIREFOX/*.$profile.7z(N))
+  ar=($FIREFOX/*.$profile.zst(N))
   if [[ -z $ar ]] ; then
     dl=($FIREFOX/*.$profile)
     d=$dl[1]
@@ -18,29 +18,21 @@ if [ -z $dl ] || [ ! -d $dl ] ; then
     ar=$ar[1]
     cp $ar .
     ar=${ar:t}
-    7zr x $ar
+    tar --zstd -xf $ar
     d=${ar:0:-3}
   fi
 else
   d=$dl[1]
 fi
 
-#{
-#  sleep 30
-#  mv ~/rawdisk2/STG-backups/* ~/STG-backups/
-#  rmdir ~/rawdisk2/STG-backups
-#}&
-
 ulimit -Sv 4800000000
 
-# f=list.$d.l
 HOME=~/rawdisk/ff firefox -P $profile $@[2,-1]
-# cp $f $f.old
 [[ $(($RANDOM % 10)) == 1 ]] && for f in $d/**/*.sqlite ; do sqlite3 "$f" 'VACUUM;'; done ||:
-7zr a -mx=4 $d.7z $d
-mv $FIREFOX/$d.7z.old $FIREFOX/$d.7z.old.old ||:
-mv $FIREFOX/$d.7z $FIREFOX/$d.7z.old ||:
-mv $d.7z $FIREFOX/
+ZSTD_CLEVEL=4 tar --zstd -cf $d.zst $d
+mv $FIREFOX/$d.zst.old $FIREFOX/$d.zst.old.old ||:
+mv $FIREFOX/$d.zst $FIREFOX/$d.zst.old ||:
+mv $d.zst $FIREFOX/
 
 backup=~/rawdisk2/${(%):-%D_%*}-$profile.tabs.txt
 dejsonlz4 $d/sessionstore.jsonlz4 | jq -r '.windows[].tabs[].entries[].url' > $backup
