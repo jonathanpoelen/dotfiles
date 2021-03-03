@@ -23,16 +23,14 @@ _jln-pick ()
     return
   fi
 
-  local -a view=() a
+  local -a view a ns
   local -i len n
-  local l ns
-  n=0
   while read -A a ; do
     [[ $n > 4 ]] && break
     ((++n))
     len=$#a;
     for (( i=1 ; i <= $len ; ++i)); do
-      [[ -z "${view[$i]}" ]] && view[$i]="\e[32m$i\e[0m: "
+      [[ -z "${view[$i]}" ]] && view[$i]=$'\e[32m'$i$'\e[0m: '
       view[$i]+="${(q)a[$i]}  "
     done
   done <<<"$buf"
