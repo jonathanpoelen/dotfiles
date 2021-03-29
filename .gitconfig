@@ -70,7 +70,10 @@
 	file-decoration-style=
 
 [delta "long-line"]
-	max-line-length=2048
+	max-line-length=4096
 
 [interactive]
 	diffFilter = delta --color-only
+
+[sequence]
+	editor = interactive-rebase-tool
