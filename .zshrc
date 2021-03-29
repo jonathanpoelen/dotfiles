@@ -491,6 +491,19 @@ alias ihi='hi -s'
 hin() { hi "$@" | cat -n ; }
 ihin() { ihi "$@" | cat -n ; }
 
+za() { zoxide add $@ }
+
+z() {
+  local __zoxide_result
+  __zoxide_result=$(zoxide query -- $@) && cd $__zoxide_result
+}
+
+zi() {
+  local __zoxide_result
+  __zoxide_result=$(zoxide query -i -- $@) && cd $__zoxide_result
+}
+
+
 alias n=nano
 alias nn='nano -$'
 # my feh fork
@@ -520,43 +533,43 @@ y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-ou
 alias ak=/usr/bin/ag
 alias na='cat -n'
 
-## yay / pacman
+## paru / pacman
 
 # https://wiki.archlinux.fr/Pacman
 # https://wiki.archlinux.org/index.php/Pacman/Rosetta
 
-alias acs='yay -Ss' # search
+alias acs='paru -Ss' # search
 
-alias ag='yay -Su' # upgrade
-alias ad='yay -Sy' # update / refresh info
-alias adg='yay' # update and upgrade
-alias adga='yay -Syua' # update and upgrade AUR
+alias ag='paru -Su' # upgrade
+alias ad='paru -Sy' # update / refresh info
+alias adg='paru' # update and upgrade
+alias adga='paru -Syua' # update and upgrade AUR
 
-alias ai='yay' # install
-alias ain='yay -S' # install exactly
-alias ar='yay -R' # removes
-#alias ap='yay -Rs' # + dependancies
-alias ap='yay -Rsn' # + config
-apurge() { sudo yay -Rns $(yay -Qtdq) }
-# alias di='yay -U' # installs local package file
+alias ai='paru' # install
+alias ain='paru -S' # install exactly
+alias ar='paru -R' # removes
+#alias ap='paru -Rs' # + dependancies
+alias ap='paru -Rsn' # + config
+apurge() { sudo paru -Rns $(paru -Qtdq) }
+# alias di='paru -U' # installs local package file
 
-alias aci='yay -Qi' # info
-alias acii='yay -Si'
+alias aci='paru -Qi' # info
+alias acii='paru -Si'
 
-alias afl='yay -Ql'
+alias afl='paru -Ql'
 alias afll='pkgfile -l' # list file
-alias afss='yay -Qo' # search file
+alias afss='paru -Qo' # search file
 alias afs='pkgfile -sr' # search with regex
 
 # /var/cache/pacman/pkg/
-# alias aac='yay -Sc' # empty the cache
+# alias aac='paru -Sc' # empty the cache
 alias aac='paccache -r' # ... except the last three latest versions
 alias aacc='paccache -ruk0' # + uninstalled
 
-#alias 'yay -Qc' # changelog
+#alias 'paru -Qc' # changelog
 
-# alias deborphan='yay -Qm' # List packages that are installed but are not available in any installation source (anymore).
-# alias 'deborphan -anp1'='yay -Qt' # List packages not required by any other package
+# alias deborphan='paru -Qm' # List packages that are installed but are not available in any installation source (anymore).
+# alias 'deborphan -anp1'='paru -Qt' # List packages not required by any other package
 
 # if pacman fails
 # Mount fs
