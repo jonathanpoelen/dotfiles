@@ -43,6 +43,10 @@ keycode  15 = asciicircum 6 6 asciicircum dead_circumflex onequarter dead_circum
 !! 7 = @
 keycode  16 = at 7 7 at degree onehalf dead_horn dead_macron 7 ampersand dead_horn dead_macron
 !keycode  17 = asterisk 8 8 asterisk dead_ogonek threequarters dead_ogonek threequarters 8 asterisk dead_ogonek threequarters
-!keycode  18 = parenleft 9 9 parenleft leftsinglequotemark dead_breve leftsinglequotemark dead_breve 9 parenleft leftsinglequotemark dead_breve
-!keycode  19 = parenright 0 0 parenright rightsinglequotemark dead_abovering rightsinglequotemark dead_abovering 0 parenright rightsinglequotemark dead_abovering
-!keycode  20 = underscore minus minus underscore yen dead_belowdot yen dead_belowdot minus underscore yen dead_belowdot
+
+!! 8 = (
+keycode  18 = underscore 9 9 parenleft leftsinglequotemark dead_breve leftsinglequotemark dead_breve 9 parenleft leftsinglequotemark dead_breve
+!! 9 = _
+keycode  19 = parenleft 0 0 parenright rightsinglequotemark dead_abovering rightsinglequotemark dead_abovering 0 parenright rightsinglequotemark dead_abovering
+!! 0 = )
+keycode  20 = parenright minus minus underscore yen dead_belowdot yen dead_belowdot minus underscore yen dead_belowdot
