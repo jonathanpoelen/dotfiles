@@ -2,6 +2,7 @@ setopt prompt_subst nobeep
 
 export EDITOR=nano
 export LESS=-iRj3
+export PAGER=less
 export TMPDIR=~/rawdisk
 export RLWRAP_HOME=~/.rlwrap
 export CMAKE_GENERATOR=Ninja
@@ -186,7 +187,7 @@ zstyle ':completion:*:manuals.*'  insert-sections   true
 
 zstyle ':completion:*:*:*:*:processes' command "ps -u$USER -o pid,user,comm -w"
 
-zstyle ':completion:*:er:*' file-patterns '*(7z|Z|bz2|gz|lzma|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zma|tbz|tbz2|tgz|tlz|txz|zip|deb|cbr|cbz|jar) *(-/)'
+zstyle ':completion:*:er:*' file-patterns '*(rar|zip|zst|gz|tar|lzma|bz2|tar.gz|tar.xz|tar.bz2|tar.zma|tbz|7z|Z|tbz2|tgz|tlz|txz|deb|cbr|cbz|jar) *(-/)'
 #compdef "_files -g '(#i)*.(7z|Z|bz2|gz|lzma|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zma|tbz|tbz2|tgz|tlz|txz|zip)(-.)'" extract
 
 # disable named-directories autocompletion
@@ -234,7 +235,7 @@ zle -C complete-file complete-word _generic
 zstyle ':completion:complete-file::::' completer _files
 bindkey '^Xf' complete-file
 
-autoload -U zg zs zhead weather er erd defl def
+autoload -U zg zs zhead weather er erd defl def br
 alias err='erd ~/Videos'
 
 # some more ls aliases
@@ -332,14 +333,14 @@ alias po='popd'
 alias f='zg -a'
 alias fx='zg -xa'
 alias g=grep
-alias eg='grep -E'
-alias gf='grep -l'
-alias gf1='grep -lm1'
-alias g1='grep -m1'
 
 # altermative grep: ripgrep
 # alias ripgrep=/usr/bin/rg
 alias rg='/usr/bin/rg --no-ignore-vcs --no-heading'
+alias gn='rg --no-filename'
+alias gf='rg --files-with-matches'
+alias g1='rg -m1'
+alias gf1='gf -m1'
 
 function m() {
   (( $# < 1 )) && echo "Usage: $0 missing directory" >&2 && return 1
@@ -530,7 +531,6 @@ alias vgl='vg --leak-check=full --show-leak-kinds=all'
 
 y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$@" ; }
 
-alias ak=/usr/bin/ag
 alias na='cat -n'
 
 ## paru / pacman
@@ -636,7 +636,6 @@ alias -g T='>~/rawdisk2/l'
 alias -g TT='>~/rawdisk2/ll'
 alias -g ZT='|fzf>~/rawdisk2/l'
 
-alias -g V='|view -'
 alias -g L='|less'
 alias -g G='|grep'
 alias -g R='|rg'
@@ -653,9 +652,9 @@ alias -g T2='2>~/rawdisk2/l'
 alias -g TT2='2>~/rawdisk2/ll'
 alias -g ZT2='|fzf 2>~/rawdisk2/l'
 
-alias -g V2='|&view -'
 alias -g L2='|&less'
 alias -g G2='|&grep'
+alias -g R2='|&rg'
 alias -g F2='|&zg -a'
 alias -g S2='|&sed'
 alias -g K2='|&k'
@@ -929,10 +928,6 @@ bindkey "^[m" copy-prev-shell-word
 ## jobs
 # setopt long_list_jobs
 
-## pager
-export PAGER="less"
-export LESS="-iRj3"
-
 # export LC_CTYPE=$LANG
 
 
@@ -973,6 +968,8 @@ alias clipcopy='xclip -selection clipboard'
 copybuffer () { echo -En $BUFFER | clipcopy }
 zle -N copybuffer
 #bindkey "^[o" copybuffer
+
+alias tt="/usr/bin/time --format='%Es - %MK'"
 
 # b() { LD_PRELOAD=$HOME/lib/qt5noblink.so kate ~/projects/blog/content/post/"$@" }
 # bb() { LD_PRELOAD=$HOME/lib/qt5noblink.so kdevelop ~/projects/blog/content/post/"$@" }
