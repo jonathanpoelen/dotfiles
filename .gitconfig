@@ -33,6 +33,7 @@
 [pager]
 	branch = false
 	diff = delta
+	stash = false
 	#status = less -FX
 [branch]
     autoSetupMerge=always
@@ -75,5 +76,8 @@
 [interactive]
 	diffFilter = delta --color-only
 
-[sequence]
-	editor = interactive-rebase-tool
+#[sequence]
+#	editor = interactive-rebase-tool
+
+[pull]
+	ff = only
