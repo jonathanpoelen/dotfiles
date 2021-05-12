@@ -2,3 +2,6 @@
 [Colors:View]
 BackgroundNormal=
 BackgroundAlternate=
+
+[KDE]
+CursorBlinkRate=0
