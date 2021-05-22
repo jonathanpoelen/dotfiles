@@ -235,11 +235,11 @@ zle -C complete-file complete-word _generic
 zstyle ':completion:complete-file::::' completer _files
 bindkey '^Xf' complete-file
 
-autoload -U zg zs zhead weather er erd defl def br
+autoload -U zg zs zhead weather er erd defl def br duration
 alias err='erd ~/Videos'
 
 # some more ls aliases
-alias ll='ls -lh'
+alias ll='ls -lh --time-style=long-iso'
 alias la='ls -A'
 alias l='ls -CF'
 alias lr='ls -R'
@@ -442,6 +442,8 @@ ud() {
 alias wd='dwdiff -w$'\''\e[31m[-'\'' -x$'\''-]\e[0m'\'' -y$'\''\e[32m{+'\'' -z$'\''+}\e[0m'\'
 alias wdw='wd -C0'
 
+export DELTA_PAGER=less-if-not-empty
+
 a() { echo $(($*)) }
 
 #alias brightness='xrandr --output LVDS-0 --brightness'
@@ -528,6 +530,8 @@ alias bjam='bjam --build-dir='$HOME'/projects/build'
 
 vg() { valgrind --suppressions=$HOME/projects/dotfiles/usr/lib/valgrind/dl_init.supp "$@" 2> >(colout -t valgrind) ; }
 alias vgl='vg --leak-check=full --show-leak-kinds=all'
+
+alias gdbrun='gdb -ex run --args'
 
 y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$@" ; }
 
@@ -971,9 +975,10 @@ zle -N copybuffer
 
 alias tt="/usr/bin/time --format='%Es - %MK'"
 
-# b() { LD_PRELOAD=$HOME/lib/qt5noblink.so kate ~/projects/blog/content/post/"$@" }
-# bb() { LD_PRELOAD=$HOME/lib/qt5noblink.so kdevelop ~/projects/blog/content/post/"$@" }
-# _blog_file_completion () { local a=(~/projects/blog/content/post/*(om)) ; reply=(${a:t}) }
-# compctl -K _blog_file_completion -M 'r:|[_[:lower:]]=** r:|=*' b bb
+# set auto-completion
+_comps[tt]=_precommand
+_comps[duration]=_precommand
+
+bindkey -r '^[h'
 
 rand() REPLY=$RANDOM

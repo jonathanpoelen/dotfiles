@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+read l || exit 0
+exec {stdin}<&0
+less $@ <<<$l <&$stdin

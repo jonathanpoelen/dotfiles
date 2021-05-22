@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+duration() {
+  local cmd=(${(q)@})
+  local -i t1=${(%):-%D{%s%N}}
+  eval $cmd
+  local -i t2=${(%):-%D{%s%N}}
+  local -i seconds=$(((t2-t1)/1_000_000_000))
+  local -i milliseconds=$(((t2-t1)/1_000_000 - seconds*1000))
+  echo $seconds.${(l:3::0:)milliseconds}s
+}
