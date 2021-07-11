@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-set -e
+set -ex
 
 profile=${1:-default}
 FIREFOX=~/.mozilla/firefox/

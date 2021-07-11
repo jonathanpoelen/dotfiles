@@ -37,35 +37,6 @@
                 "text-color": "#d04444"
             }
         },
-        "Zsh": {
-            "Backquote": {
-                "text-color": "#fff041"
-            },
-            "Builtin": {
-                "bold": true
-            },
-            "Expression": {
-                "text-color": "#2fcf72"
-            },
-            "Glob": {
-                "bold": true
-            },
-            "Here Doc": {
-                "text-color": "#c13f3f"
-            },
-            "Option": {
-                "text-color": "#55b5ff"
-            },
-            "Path": {
-                "text-color": "#bb8ac8"
-            },
-            "String DoubleQ": {
-                "text-color": "#f4664d"
-            },
-            "String Transl.": {
-                "text-color": "#d04444"
-            }
-        },
         "ISO C++": {
             "Attribute": {
                 "text-color": "#3198d9"
@@ -140,6 +111,55 @@
         "XML": {
             "Element Symbols": {
                 "text-color": "#00aaff"
+            },
+            "Attribute Separator": {
+                "text-color": "#00ff00"
+            }
+        },
+        "xslt": {
+            "Tag Symbols": {
+                "text-color": "#00aaff"
+            },
+            "Attribute Separator": {
+                "text-color": "#00ff00"
+            },
+            "XSLT XPath Attribute": {
+                "text-color": "#55bb22"
+            },
+            "XPath Attribute": {
+                "text-color": "#c1139d"
+            },
+            "Variable": {
+                "text-color": "#c0c022"
+            }
+        },
+        "Zsh": {
+            "Backquote": {
+                "text-color": "#fff041"
+            },
+            "Builtin": {
+                "bold": true
+            },
+            "Expression": {
+                "text-color": "#2fcf72"
+            },
+            "Glob": {
+                "bold": true
+            },
+            "Here Doc": {
+                "text-color": "#c13f3f"
+            },
+            "Option": {
+                "text-color": "#55b5ff"
+            },
+            "Path": {
+                "text-color": "#bb8ac8"
+            },
+            "String DoubleQ": {
+                "text-color": "#f4664d"
+            },
+            "String Transl.": {
+                "text-color": "#d04444"
             }
         }
     },

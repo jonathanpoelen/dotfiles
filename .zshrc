@@ -121,18 +121,20 @@ READNULLCMD=less # pager for `<file`
 
 export FZF_DEFAULT_OPTS='--height 45% --cycle --reverse -m --ansi --tiebreak=index --no-sort --bind=ctrl-k:kill-line,alt-a:toggle-all,ctrl-a:select-all'
 
-autoload _fzf-file-or-directory _fzf-history-widget _fzf-zcomp-list _fzf-video-size
-_fzf-file-widget () { _fzf-file-or-directory }
+toggle-fzf-tab() { source ~/projects/fzf-tab/fzf-tab.zsh }
+zle -N toggle-fzf-tab
+bindkey "¿" toggle-fzf-tab
+
+autoload _fzf-file-or-directory _fzf-history-widget _fzf-video-size
 _fzf-directory-widget () { _fzf-file-or-directory / }
-zle -N _fzf-file-widget
+zle -N _fzf-file-or-directory
 zle -N _fzf-directory-widget
 zle -N _fzf-history-widget
 zle -N _fzf-zcomp-list
 zle -N _fzf-video-size
-bindkey ^\[\' _fzf-file-widget
+bindkey ^\[\' _fzf-file-or-directory
 bindkey '^[;' _fzf-directory-widget
 bindkey '^[r' _fzf-history-widget
-bindkey '¿' _fzf-zcomp-list
 bindkey '®' _fzf-video-size
 
 # alias afind='ack-grep -il'
@@ -231,12 +233,15 @@ zstyle '*' single-ignored show
 # don't complete the same filenames again
 zstyle ':completion:*:(rm|cp|mv|ls):*' ignore-line other
 
+zstyle ':completion:*:git-checkout:*' sort false
+
 zle -C complete-file complete-word _generic
 zstyle ':completion:complete-file::::' completer _files
 bindkey '^Xf' complete-file
 
-autoload -U zg zs zhead weather er erd defl def br duration
+autoload -U zg zs zhead weather er erd defl def br duration zmv
 alias err='erd ~/Videos'
+alias mmv='noglob zmv -W'
 
 # some more ls aliases
 alias ll='ls -lh --time-style=long-iso'
@@ -509,8 +514,6 @@ zi() {
 
 alias n=nano
 alias nn='nano -$'
-# my feh fork
-alias ii='~/projects/feh/src/feh --begin-top -Z --fontpath '$HOME/projects/feh/share/fonts
 alias i=imv
 alias x=xpdf
 alias t=tree
@@ -531,7 +534,9 @@ alias bjam='bjam --build-dir='$HOME'/projects/build'
 vg() { valgrind --suppressions=$HOME/projects/dotfiles/usr/lib/valgrind/dl_init.supp "$@" 2> >(colout -t valgrind) ; }
 alias vgl='vg --leak-check=full --show-leak-kinds=all'
 
-alias gdbrun='gdb -ex run --args'
+gdbrun() gdb -q -ex run --args $@
+bt() gdb -q -batch -ex 'set style enabled on' -ex run -ex bt --args $@
+bte() gdb -q -batch -ex 'set style enabled on' -ex 'catch throw' -ex run -ex bt --args $@
 
 y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$@" ; }
 

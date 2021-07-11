@@ -1,4 +1,4 @@
-#!/bin/env zsh
+#!/usr/bin/env zsh
 
 set -e
 SCK=~/rawdisk/music-control.sck

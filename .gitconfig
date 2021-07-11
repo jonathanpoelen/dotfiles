@@ -1,3 +1,6 @@
+[init]
+	defaultBranch=main
+
 [user]
 	name = Jonathan Poelen
 	email = jonathan.poelen@gmail.com

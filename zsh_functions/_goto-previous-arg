@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
-_goto-previous-arg()
-{
-  local a=()
-  a+=(${(z)LBUFFER})
-  CURSOR=$(($CURSOR-${#${a[-1]}}-1))
-}
+
+emulate -L zsh
+
+local -a words
+words=(${(Z:n:)LBUFFER})
+CURSOR=$(($CURSOR-${#${words[-1]}}-1))
