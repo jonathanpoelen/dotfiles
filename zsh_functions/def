@@ -1,10 +1,18 @@
 #!/usr/bin/env zsh
-def() {
-  local s1=$(sdcv "$@")
-  local s2=$(awk '/^[0-9]/{
-    if (and(i,1)) print "\033[35;1m" $0
-    else     print "\033[33;1m" $0
-    ++i
-  }'<<<"$s1")
-  [[ -z $s2 ]] && echo "$s1" || echo "$s2"
-}
+
+emulate -L zsh -o extendedglob
+
+local lines lines2 def
+def=$(sdcv "$@") || exit $?
+lines=(${(f@)def})
+lines2=(${(M)lines:#[0-9]*})
+if [[ -z $lines2 ]]; then
+  lines2=(${(M)lines:#    *})
+  echo -E "${lines2[1]:4}"
+else
+  local -i i=0
+  for line in $lines2 ; do
+    echo -E $'\033'"[$((i%2?33:35));1m$line"
+    ((i++))
+  done
+fi

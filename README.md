@@ -68,10 +68,15 @@ Zsh precompiled
 ===============
 
 ```zsh
-zsh -c "autoload zrecompile
+zsh -c "rm -f ~/projects/dotfiles/zsh_funcs/* ||:
+ln -P ~/projects/dotfiles/zsh_functions/{def,defl,erd} ~/projects/zsh-scripts/{functions,widgets}/* ~/projects/dotfiles/zsh_funcs/
+mv ~/projects/dotfiles/zsh_funcs/extract ~/projects/dotfiles/zsh_funcs/er
+rm ~/projects/dotfiles/zsh_funcs/{jln-backward-arg-end,jln-forward-arg-end,jln-kill-arg}
+
+autoload zrecompile
 zrecompile -p \
   -R ~/.zshrc -- \
   -M ${ZSH_COMPDUMP:-~/.zcompdump} -- \
   ~/.zshcompletions.zwc ~/.zshcompletions/_* -- \
-  ~/projects/dotfiles/zsh_functions.zwc ~/projects/dotfiles/zsh_functions/*"
+  ~/projects/dotfiles/zsh_funcs.zwc ~/projects/dotfiles/zsh_funcs/*"
 ```

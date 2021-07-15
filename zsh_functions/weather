@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
-weather()
-{
-  local f=${TMPDIR:-/tmp}/.weather
-  [[ -f $f ]] || curl v2.wttr.in/paris -so$f
-  echo -E "$(<$f)"
-}
+
+local f=${TMPDIR:-/tmp}/.weather
+[[ -f $f ]] || curl v2.wttr.in/paris -so$f
+echo -E "$(<$f)"

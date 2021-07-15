@@ -1,11 +1,9 @@
 #!/usr/bin/env zsh
-erd()
-{
-  local p="$PWD"
-  cd "$1"
-  shift
-  for f in "$@" ; do
-    er "$p/$f"
-  done
-  cd "$p"
-}
+
+local p="$PWD"
+cd "$1"
+shift
+for f in "$@" ; do
+  er "$p/$f"
+done
+

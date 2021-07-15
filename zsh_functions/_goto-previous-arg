@@ -1,7 +1,0 @@
-#!/usr/bin/env zsh
-
-emulate -L zsh
-
-local -a words
-words=(${(Z:n:)LBUFFER})
-CURSOR=$(($CURSOR-${#${words[-1]}}-1))

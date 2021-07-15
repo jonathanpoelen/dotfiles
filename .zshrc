@@ -58,7 +58,7 @@ export CMAKE_GENERATOR=Ninja
 
 # Save the location of the current completion dump file.
 ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-fpath+=(~/projects/dotfiles/zsh_functions ~/.zshcompletions)
+fpath+=(~/projects/dotfiles/zsh_funcs ~/.zshcompletions)
 
 # Load and run compinit
 autoload -U compinit
@@ -125,17 +125,17 @@ toggle-fzf-tab() { source ~/projects/fzf-tab/fzf-tab.zsh }
 zle -N toggle-fzf-tab
 bindkey "¿" toggle-fzf-tab
 
-autoload _fzf-file-or-directory _fzf-history-widget _fzf-video-size
-_fzf-directory-widget () { _fzf-file-or-directory / }
-zle -N _fzf-file-or-directory
-zle -N _fzf-directory-widget
-zle -N _fzf-history-widget
-zle -N _fzf-zcomp-list
-zle -N _fzf-video-size
-bindkey ^\[\' _fzf-file-or-directory
-bindkey '^[;' _fzf-directory-widget
-bindkey '^[r' _fzf-history-widget
-bindkey '®' _fzf-video-size
+autoload jln-fzf-files jln-fzf-file-size jln-fzf-history-widget
+zle -N fzf-directories jln-fzf-files
+zstyle :fzf-directories globqualifiers '/'
+zle -N jln-fzf-files
+zle -N fzf-directories
+zle -N jln-fzf-history-widget
+zle -N jln-fzf-file-size
+bindkey ^\[\' jln-fzf-files
+bindkey '^[;' fzf-directories
+bindkey '^[r' jln-fzf-history-widget
+bindkey '®' jln-fzf-file-size
 
 # alias afind='ack-grep -il'
 
@@ -626,9 +626,9 @@ alias 5='cd -5'
 
 ## aliases
 
-autoload _ext-glob _nocase-glob
-alias ex='noglob _ext-glob ' # delay globbing until inside (ex echo .(#i)ic*)
-alias ix='noglob _nocase-glob'
+autoload jln-glob
+alias ex='noglob jln-glob extendedglob'
+alias ix='noglob jln-glob nocase,numeric'
 
 alias a='noglob a'
 alias wg='noglob wget'
@@ -858,15 +858,15 @@ bindkey 'ä' _previous-dir
 
 # see split-shell-arguments and replace-argument
 
-autoload -U _goto-previous-arg _goto-next-arg _kill-arg _transpose-arg
-zle -N _goto-previous-arg
-zle -N _goto-next-arg
-zle -N _kill-arg
-zle -N _transpose-arg
-bindkey '^[^B' _goto-previous-arg
-bindkey '^[^F' _goto-next-arg
-bindkey '^[^K' _kill-arg
-bindkey '^[^T' _transpose-arg
+autoload -U jln-backward-arg jln-forward-arg jln-kill-arg-and-space jln-transpose-arg
+zle -N jln-backward-arg
+zle -N jln-forward-arg
+zle -N jln-kill-arg-and-space
+zle -N jln-transpose-arg
+bindkey '^[^B' jln-backward-arg
+bindkey '^[^F' jln-forward-arg
+bindkey '^[^K' jln-kill-arg-and-space
+bindkey '^[^T' jln-transpose-arg
 
 #_inc_last_arg() {
 #  local r=${BUFFER/* }
@@ -890,9 +890,9 @@ function kill-prev-char-region()
 zle -N kill-prev-char-region
 bindkey '^X^K' kill-prev-char-region
 
-autoload -U _prefix-cmd-widget
-zle -N _prefix-cmd-widget
-bindkey '^[^@' _prefix-cmd-widget
+autoload -U jln-save-command-line
+zle -N jln-save-command-line
+bindkey '^[^@' jln-save-command-line
 
 bindkey '^@' set-mark-command
 
@@ -915,15 +915,12 @@ bindkey '^@' set-mark-command
 #bindkey -s '^[[Z' '\t'
 #
 
-autoload -U _jln-pick
-_jln-pick-line () { _jln-pick 1 }
-_jln-pick-line-col () { _jln-pick 2 }
-zle -N _jln-pick
-zle -N _jln-pick-line
-zle -N _jln-pick-line-col
-bindkey '^[&' _jln-pick
-bindkey '^[|' _jln-pick-line
-bindkey '^[ç' _jln-pick-line-col
+autoload -U jln-pick
+zle -N jln-pick-column jln-pick
+zle -N jln-pick
+zstyle :jln-pick-column mode column
+bindkey '^[&' jln-pick
+bindkey '^[|' jln-pick-column
 
 ## misc
 
@@ -956,17 +953,17 @@ setopt auto_cd
 #     SCREEN_NO=""
 # fi
 
-autoload -U _smart-sudo
-alias sudo=_smart-sudo
-compdef _sudo _smart-sudo
+autoload -U smart-sudo
+alias sudo=smart-sudo
+compdef _sudo smart-sudo
 
-autoload -U _insert-sudo-and-accept _insert-space-and-accept _insert-command
-zle -N _insert-sudo-and-accept
-zle -N _insert-space-and-accept
-zle -N _insert-command
-bindkey '\e\e' _insert-sudo-and-accept
-bindkey '^[j' _insert-space-and-accept
-bindkey '^[#' _insert-command
+autoload -U jln-insert-sudo jln-insert-space-and-accept jln-insert-command
+zle -N jln-insert-sudo
+zle -N jln-insert-space-and-accept
+zle -N jln-insert-command
+bindkey '\e\e' jln-insert-sudo
+bindkey '^[j' jln-insert-space-and-accept
+bindkey '^[#' jln-insert-command
 
 _insert_cb() { LBUFFER+=${(q)$(xclip -out)} }
 zle -N _insert_cb
