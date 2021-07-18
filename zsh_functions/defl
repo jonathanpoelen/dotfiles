@@ -3,8 +3,9 @@
 emulate -L zsh -o extendedglob
 
 local lines lines2 def
-def=$(sdcv "$@") || exit $?
+def=$(sdcv -n "$@") || exit $?
 lines=(${(f@)def})
+echo -E '> '${${lines[3]/#-->}:l}
 local -i i j ie=$#lines
 for ((i=1; i<=ie; i++)); do
   case $lines[i] in
