@@ -858,14 +858,20 @@ bindkey 'ä' _previous-dir
 
 # see split-shell-arguments and replace-argument
 
-autoload -U jln-backward-arg jln-forward-arg jln-kill-arg-and-space jln-transpose-arg
+autoload -U jln-backward-arg jln-backward-arg-end jln-forward-arg jln-forward-arg-end jln-kill-arg jln-kill-arg-and-space jln-transpose-arg
 zle -N jln-backward-arg
+zle -N jln-backward-arg-end
 zle -N jln-forward-arg
+zle -N jln-forward-arg-end
+zle -N jln-kill-arg
 zle -N jln-kill-arg-and-space
 zle -N jln-transpose-arg
 bindkey '^[^B' jln-backward-arg
+bindkey '^[^N' jln-backward-arg-end
 bindkey '^[^F' jln-forward-arg
-bindkey '^[^K' jln-kill-arg-and-space
+bindkey '^[^G' jln-forward-arg-end
+bindkey '^[^K' jln-kill-arg
+bindkey '^[^J' jln-kill-arg-and-space
 bindkey '^[^T' jln-transpose-arg
 
 #_inc_last_arg() {
