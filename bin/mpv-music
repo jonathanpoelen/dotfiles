@@ -6,7 +6,7 @@ PIPE=~/rawdisk/music-control.pipe
 
 {
   sleep 3
-  rm $PIPE ||:
+  rm $PIPE 2>/dev/null ||:
   mkfifo $PIPE
   tail -f $PIPE | socat - $SCK
 }&
