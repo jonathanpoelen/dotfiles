@@ -3,7 +3,7 @@
 emulate -L zsh -o extendedglob
 
 local lines lines2 def
-def=$(sdcv -n "$@") || exit $?
+def=$(sdcv -n "$@") || return $?
 lines=(${(f@)def})
 lines2=(${(M)lines:#[0-9]*})
 echo -E '> '${${lines[3]/#-->}:l}

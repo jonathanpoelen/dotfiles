@@ -3,7 +3,7 @@
 emulate -L zsh -o extendedglob
 
 local lines lines2 def
-def=$(sdcv -n "$@") || exit $?
+def=$(sdcv -n "$@") || return $?
 lines=(${(f@)def})
 echo -E '> '${${lines[3]/#-->}:l}
 local -i i j ie=$#lines
@@ -11,7 +11,7 @@ for ((i=1; i<=ie; i++)); do
   case $lines[i] in
     ' '*) echo -E $'\033[33;1m'$lines[i]$'\033[0m'
           echo -E "${(F)lines[i+1,-1]}"
-          exit
+          return
           ;;
     '1'*) echo -E $'\033[33;1m'$lines[i]$'\033[0m'
           j=1
@@ -23,7 +23,7 @@ for ((i=1; i<=ie; i++)); do
               echo -E $lines[i]
             fi
           done
-          exit
+          return
           ;;
   esac
   echo -E $lines[i]
