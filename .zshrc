@@ -231,7 +231,7 @@ zstyle ':completion::*' cache-path ~/rawdisk/zsh_cache/
 zstyle '*' single-ignored show
 
 # don't complete the same filenames again
-zstyle ':completion:*:(rm|cp|mv|ls):*' ignore-line other
+zstyle ':completion:*:(rm|cp|mv|ls|er|p):*' ignore-line other
 
 zstyle ':completion:*:git-checkout:*' sort false
 
@@ -568,7 +568,8 @@ alias acii='paru -Si'
 alias afl='paru -Ql'
 alias afll='pkgfile -l' # list file
 alias afss='paru -Qo' # search file
-alias afs='pkgfile -sr' # search with regex
+# alias afs='pkgfile -sr' # search with regex
+alias afs='pacman -Ql |rg'
 
 # /var/cache/pacman/pkg/
 # alias aac='paru -Sc' # empty the cache
@@ -983,10 +984,12 @@ zle -N copybuffer
 
 alias tt="/usr/bin/time --format='%Es - %MK'"
 
+alias kk=kdevelop
+
 # set auto-completion
 _comps[tt]=_precommand
 _comps[duration]=_precommand
 
-bindkey -r '^[h'
-
 rand() REPLY=$RANDOM
+
+# [[ -s "$HOME/.xmake/profile" ]] && source "$HOME/.xmake/profile" # load xmake profile
