@@ -19,7 +19,7 @@ if [ -z $dl ] || [ ! -d $dl ] ; then
     cp $ar .
     ar=${ar:t}
     tar --zstd -xf $ar
-    d=${ar:0:-3}
+    d=${ar:0:-4}
   fi
 else
   d=$dl[1]
