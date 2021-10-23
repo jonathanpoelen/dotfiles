@@ -6,6 +6,6 @@ for f in $@ ; {
 }
 
 for ((i=1; i <= $#files; i+=100)) {
-  gmic $files[$i,$(($i+99))] -adjust_colors -10,20,0,0,0,0 -ow -q
+  gmic $files[$i,$(($i+99))] -adjust_colors 0,0,-20,0,0,0 -ow -q
 }
 
