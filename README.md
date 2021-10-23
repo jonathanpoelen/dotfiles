@@ -67,6 +67,8 @@ done
 Zsh precompiled
 ===============
 
+Depends on [zsh_scripts](https://github.com/jonathanpoelen/zsh_scripts).
+
 ```zsh
 zsh -c "rm -f ~/projects/dotfiles/zsh_funcs/* ||:
 ln -P ~/projects/dotfiles/zsh_functions/{def,defl,erd} ~/projects/zsh-scripts/{functions,widgets}/* ~/projects/dotfiles/zsh_funcs/
