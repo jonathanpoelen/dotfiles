@@ -64,6 +64,7 @@ fpath+=(~/projects/dotfiles/zsh_funcs ~/.zshcompletions)
 autoload -U compinit
 compinit -i -d "${ZSH_COMPDUMP}"
 # overwrite _scss completion
+# /usr/share/zsh/site-functions/_delta should also be removed (installed by git-delta)
 _comps[delta]=_delta
 
 PROMPT='%{$bg[grey]%}%{$fg[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg_no_bold[green]%}.%{$fg[red]%}?%?%{$fg_no_bold[red]%})$%{$reset_color%} '
@@ -254,6 +255,9 @@ alias l1='ls -1'
 alias l.='ls -d -- .*'
 alias l/='ls -d -- */'
 alias lh='ls -sh'
+alias lf='ls *(^/)'
+alias lfh='ls -sh *(^/)'
+
 # alias sl=ls # often screw this u
 
 function lll() {
@@ -628,15 +632,13 @@ alias 5='cd -5'
 ## aliases
 
 autoload jln-glob
-alias ex='noglob jln-glob extendedglob'
-alias ix='noglob jln-glob nocase,numeric'
+alias nx='jln-glob numeric ; jln-glob-pop'
+alias ex='jln-glob extendedglob ; jln-glob-pop'
+alias ix='jln-glob nocase numeric ; jln-glob-pop'
 
 alias a='noglob a'
 alias wg='noglob wget'
 alias y='noglob y'
-
-alias lf='ls *(^/)'
-alias lfh='ls -sh *(^/)'
 
 
 ## global aliases
@@ -989,6 +991,7 @@ alias kk=kdevelop
 # set auto-completion
 _comps[tt]=_precommand
 _comps[duration]=_precommand
+_comps[jln-glob-pop]=_precommand
 
 rand() REPLY=$RANDOM
 
