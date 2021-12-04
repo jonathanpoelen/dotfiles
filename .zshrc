@@ -542,7 +542,7 @@ gdbrun() gdb -q -ex run --args $@
 bt() gdb -q -batch -ex 'set style enabled on' -ex run -ex bt --args $@
 bte() gdb -q -batch -ex 'set style enabled on' -ex 'catch throw' -ex run -ex bt --args $@
 
-y() { youtube-dl --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$@" ; }
+y() { yt-dlp --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$@" ; }
 
 alias na='cat -n'
 
