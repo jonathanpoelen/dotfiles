@@ -7,7 +7,7 @@ FIREFOX=~/.mozilla/firefox/
 
 cd ~/rawdisk/ff/.mozilla/firefox
 dl=(*.$profile(N))
-if [ -z $dl ] || [ ! -d $dl ] ; then
+if [[ -z $dl ]] || [[ ! -d $dl ]] ; then
   ar=($FIREFOX/*.$profile.zst(N))
   if [[ -z $ar ]] ; then
     dl=($FIREFOX/*.$profile)
