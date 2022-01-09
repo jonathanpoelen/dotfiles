@@ -7,7 +7,7 @@ export TMPDIR=~/rawdisk
 export RLWRAP_HOME=~/.rlwrap
 export CMAKE_GENERATOR=Ninja
 
-[ $TERM = rxvt-unicode ] && TERM=xterm-256color
+[[ $TERM = rxvt-unicode ]] && TERM=xterm-256color
 
 #if [[ -x /usr/bin/dircolors ]]; then
   # test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -57,15 +57,18 @@ export CMAKE_GENERATOR=Ninja
 
 
 # Save the location of the current completion dump file.
-ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-fpath+=(~/projects/dotfiles/zsh_funcs ~/.zshcompletions)
+fpath=(~/projects/dotfiles/zsh_funcs ~/.zshcompletions $fpath)
 
 # Load and run compinit
 autoload -U compinit
 compinit -i -d "${ZSH_COMPDUMP}"
-# overwrite _scss completion
+
+# autoload bashcompinit
+# bashcompinit
+
 # /usr/share/zsh/site-functions/_delta should also be removed (installed by git-delta)
 _comps[delta]=_delta
+
 
 PROMPT='%{$bg[grey]%}%{$fg[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg_no_bold[green]%}.%{$fg[red]%}?%?%{$fg_no_bold[red]%})$%{$reset_color%} '
 #PROMPT='%{$bg[black]%}%{$fg_bold[cyan]%}%3~%{$reset_color%}!%{$fg_bold[grey]%}%h%(?.%{$fg[green]%}.%{$fg_no_bold[red]%}?%?%{$fg_bold[red]%})$%{$reset_color%} '
@@ -85,7 +88,8 @@ PS2='%{$fg[green]%}>%{$reset_color%}'
 
 # Customize to your needs...
 # export PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
-export PATH=~/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:~/.local/bin:/usr/bin/vendor_perl
+# export PATH=~/bin:/usr/sbin:/usr/bin:/sbin:/bin:~/.local/bin:/usr/bin/vendor_perl
+export PATH=~/bin:/usr/bin:~/.local/bin:/usr/bin/vendor_perl
 READNULLCMD=less # pager for `<file`
 
 #zstyle ':completion:*' hosts off
@@ -114,7 +118,7 @@ READNULLCMD=less # pager for `<file`
   #ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
 #}
 
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 # export PATH="$PATH:$HOME/.fzf/bin"
 #PATH+=':/$HOME/.fzf/bin'
 #FZF_COMPLETION_TRIGGER=','
@@ -127,12 +131,11 @@ zle -N toggle-fzf-tab
 bindkey "¿" toggle-fzf-tab
 
 autoload jln-fzf-files jln-fzf-file-size jln-fzf-history-widget
-zle -N fzf-directories jln-fzf-files
-zstyle :fzf-directories globqualifiers '/'
 zle -N jln-fzf-files
-zle -N fzf-directories
 zle -N jln-fzf-history-widget
 zle -N jln-fzf-file-size
+zle -N fzf-directories jln-fzf-files
+zstyle :fzf-directories globqualifiers '/'
 bindkey ^\[\' jln-fzf-files
 bindkey '^[;' fzf-directories
 bindkey '^[r' jln-fzf-history-widget
@@ -190,8 +193,10 @@ zstyle ':completion:*:manuals.*'  insert-sections   true
 
 zstyle ':completion:*:*:*:*:processes' command "ps -u$USER -o pid,user,comm -w"
 
-zstyle ':completion:*:er:*' file-patterns '*(rar|zip|zst|gz|tar|lzma|bz2|tar.gz|tar.xz|tar.bz2|tar.zma|tbz|7z|Z|tbz2|tgz|tlz|txz|deb|cbr|cbz|jar) *(-/)'
+zstyle ':completion:*:er:*' file-patterns '*.(rar|zip|zst|gz|tar|lzma|bz2|tar.gz|tar.xz|tar.bz2|tar.zma|tbz|7z|Z|tbz2|tgz|tlz|txz|deb|cbr|cbz|jar) *(-/)'
 #compdef "_files -g '(#i)*.(7z|Z|bz2|gz|lzma|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zma|tbz|tbz2|tgz|tlz|txz|zip)(-.)'" extract
+
+zstyle ':completion:*:pp:*' file-patterns '*.mp4'
 
 # disable named-directories autocompletion
 zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
@@ -258,12 +263,20 @@ alias lh='ls -sh'
 alias lf='ls *(^/)'
 alias lfh='ls -sh *(^/)'
 
-# alias sl=ls # often screw this u
-
 function lll() {
   ls -l --color=always "$@" | less
   return $?
 }
+
+lv() { jln-glob extendedglob; local files="*~(${(qj:|:)@})"; jln-glob-pop ls -- $~a }
+llv() { jln-glob extendedglob; local files="*~(${(qj:|:)@})"; jln-glob-pop ll -- $~a }
+ldv() { jln-glob extendedglob; local files="*~(${(qj:|:)@})"; jln-glob-pop ls -d -- $~a }
+lldv() { jln-glob extendedglob; local files="*~(${(qj:|:)@})"; jln-glob-pop ll -d -- $~a }
+alias lv='noglob lv'
+alias llv='noglob llv'
+alias ldv='noglob ldv'
+alias lldv='noglob lldv'
+
 
 alias mv='mv -i'
 alias cp='cp -i'
@@ -286,13 +299,6 @@ hsi() { zg -ac "(#i)$*" history }
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=00;37:quote=00;32'
 
-# -Wstrict-overflow=1 # -Wall
-# -Wstrict-overflow=2
-# -Wstrict-overflow=3
-# -Wstrict-overflow=4
-# -Wstrict-overflow=5
-# -Wstrict-default # bad idea
-# -Wmissing-format-attribute
 cxxflag='-Wall -Wextra -pedantic -Waligned-new -Walloca -Walloc-zero -Warray-bounds=2 -Wcast-align -Wcast-align=strict -Wcast-qual -Wclass-memaccess -Wconditionally-supported -Wconversion -Wdisabled-optimization -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wfloat-conversion -Wfloat-equal -Wformat=2 -Wformat-overflow=2 -Wformat-security -Wformat-signedness -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnon-virtual-dtor -Wno-shadow -Wnull-dereference -Wold-style-cast -Woverloaded-virtual -Wpacked -Wredundant-decls -Wstrict-null-sentinel -Wsuggest-attribute=noreturn -Wsuggest-override -Wtrampolines -Wundef -Wunused-macros -Wuseless-cast -Wvector-operation-performance -Wzero-as-null-pointer-constant'
 alias gw++="g++ $cxxflag -fdiagnostics-color=always"
 alias gw17="g++ $cxxflag -fdiagnostics-color=always -std=c++17"
@@ -315,11 +321,6 @@ unset cxxflag
 alias ux='chmod +x'
 alias wl='wc -l'
 
-lv() { _ext-glob ls *~"$@" }
-llv() { _ext-glob ls -l *~"$@" }
-alias lv='noglob lv'
-alias llv='noglob llv'
-
 # some more cd aliases
 alias '..'='cd ..'
 alias '...'='cd ../..'
@@ -327,10 +328,24 @@ alias '....'='cd ../../..'
 alias '.....'='cd ../../../..'
 alias -- -='cd -'
 alias -- _='cd -'
+alias 1='cd -'
+alias 2='cd -2'
+alias 3='cd -3'
+alias 4='cd -4'
+alias 5='cd -5'
+# alias 6='cd -6'
+# alias 7='cd -7'
+# alias 8='cd -8'
+# alias 9='cd -9'
+
 
 alias md='mkdir -p'
 alias rd=rmdir
-alias d='echo ${(F)${(f)"$(dirs -v)"}[1,10]}'
+alias d='echo -E ${(F)${(Af)"$(dirs -v)"}[1,10]}'
+m() {
+  (( $# < 1 )) && echo "Usage: $0 missing directory" >&2 && return 1
+  mkdir -p -- "$@" && cd -- "$1"
+}
 
 alias tmp='cd ~/rawdisk2'
 
@@ -350,11 +365,6 @@ alias gn='rg --no-filename'
 alias gf='rg --files-with-matches'
 alias g1='rg -m1'
 alias gf1='gf -m1'
-
-function m() {
-  (( $# < 1 )) && echo "Usage: $0 missing directory" >&2 && return 1
-  mkdir -p -- "$@" && cd -- "$1"
-}
 
 # some more git aliases
 alias gsh='git stash'
@@ -489,9 +499,11 @@ mem() { ps h -C"$*" -o fname,rss }
 psg() { zg -ac "$*" ps aux }
 
 swap() {
-  mv "$1" "$1.swap-$$.tmp" && \
-  mv "$2" "$1" && \
-  mv "$1.swap-$$.tmp" "$2"
+  1=$1:a
+  2=$2:a
+  mv $1 $1.swap-$$.tmp &&
+  mv $2 $1 &&
+  mv $1.swap-$$.tmp $2
 }
 
 bak() { cp "$1" "$1"_${(%):-%D{%H:%M:%S_%d-%m-%Y}} }
@@ -529,6 +541,12 @@ alias v=vim
 alias s=sed
 alias mpv='mpv --no-resume-playback'
 p() { mpv --no-resume-playback -af scaletempo --really-quiet -fs --speed=1.61 "$@" ; } # auto-complete only for files
+pp() {
+  emulate -L zsh -o extendedglob
+  local audio=($1:r:r.f(dash-|hls-program_)audio*)
+  p $1 --audio-file=$audio
+}
+
 
 alias mmcal="gcal -H '\e[01;33m:\e[0m:\e[31m:\e[0m' -s1 -q FR -N"
 alias mcal="mmcal .+"
@@ -616,19 +634,6 @@ setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
 
-#alias ..='cd ..'
-
-alias 1='cd -'
-alias 2='cd -2'
-alias 3='cd -3'
-alias 4='cd -4'
-alias 5='cd -5'
-# alias 6='cd -6'
-# alias 7='cd -7'
-# alias 8='cd -8'
-# alias 9='cd -9'
-
-
 ## aliases
 
 autoload jln-glob
@@ -689,10 +694,10 @@ alias -g @@='|col /dev/stdin'
 #}
 
 fo() { eval $@:q ${(uq)${${(f)"$(fzf -n3..,1 -d:)"}/:*/}} }
-gfo() { g -nH --color=always "$@[2,$]" |fo $1 }
+gfo() { rg -nH --color=always "$@[2,$]" |fo $1 }
 
 ler() { ~/game/waiting_for_reading $1 unrar x $1 }
-
+zstyle ':completion:*:ler:*' file-patterns '*(rar|RAR) *(-/)'
 
 ## history
 
@@ -700,8 +705,8 @@ ler() { ~/game/waiting_for_reading $1 unrar x $1 }
 # if [[ -z $HISTFILE ]]; then
     HISTFILE=$HOME/.zhistory
 # fi
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=1000
+SAVEHIST=5000
 
 # setopt correct
 setopt nocaseglob
