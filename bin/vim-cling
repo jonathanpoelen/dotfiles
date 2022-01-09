@@ -12,7 +12,7 @@ set -o pipefail
 
 color='\\x1b[48;2;44;44;44m'
 echo '#!/bin/zsh
-sh() { XDG_DATA_DIRS=~/game vt-kate-syntax-highlighter -t"My" -uscpp }
+sh() { vt-kate-syntax-highlighter -tMy\ Breeze\ Dark -uscpp }
 tail -f '$FIFO' 2>/dev/null >>(
   stdbuf -o0 cling -std=c++14' $@ ' |& while [ 1 ] ; do
     # ";;" -> exit 8
@@ -30,7 +30,7 @@ tail -f '$FIFO' 2>/dev/null >>(
 chmod u+x $CLING
 
 (
-  sleep .5
+  sleep .3
   tmux -S $SOCK splitw -h
   tmux -S $SOCK send-keys " exec $CLING"$'\n'
   tmux -S $SOCK select-pane -L
