@@ -196,8 +196,6 @@ zstyle ':completion:*:*:*:*:processes' command "ps -u$USER -o pid,user,comm -w"
 zstyle ':completion:*:er:*' file-patterns '*.(rar|zip|zst|gz|tar|lzma|bz2|tar.gz|tar.xz|tar.bz2|tar.zma|tbz|7z|Z|tbz2|tgz|tlz|txz|deb|cbr|cbz|jar) *(-/)'
 #compdef "_files -g '(#i)*.(7z|Z|bz2|gz|lzma|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zma|tbz|tbz2|tgz|tlz|txz|zip)(-.)'" extract
 
-zstyle ':completion:*:pp:*' file-patterns '*.mp4'
-
 # disable named-directories autocompletion
 zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 cdpath=(.)
@@ -237,7 +235,7 @@ zstyle ':completion::*' cache-path ~/rawdisk/zsh_cache/
 zstyle '*' single-ignored show
 
 # don't complete the same filenames again
-zstyle ':completion:*:(rm|cp|mv|ls|er|p):*' ignore-line other
+zstyle ':completion:*:(rm|cp|mv|ls|er|p|pp):*' ignore-line other
 
 zstyle ':completion:*:git-checkout:*' sort false
 
@@ -287,7 +285,7 @@ alias cr='cp -R'
 alias bat='bat --theme=TwoDark'
 
 # alias c='cat'
-c() { echo -E "$(<$1)" }
+c() { local f; for f; echo -E "$(<$f)" }
 
 alias j='jobs'
 
@@ -540,13 +538,17 @@ alias ts='tree -sh'
 alias v=vim
 alias s=sed
 alias mpv='mpv --no-resume-playback'
+
 p() { mpv --no-resume-playback -af scaletempo --really-quiet -fs --speed=1.61 "$@" ; } # auto-complete only for files
 pp() {
   emulate -L zsh -o extendedglob
-  local audio=($1:r:r.f(dash-|hls-program_)audio*)
-  p $1 --audio-file=$audio
+  local audio f
+  for f; {
+    audio=($f:r:r.f(dash-|hls-)*[aA]udio*)
+    p $f --audio-file=$audio
+  }
 }
-
+zstyle ':completion:*:pp:*' file-patterns '*.mp4'
 
 alias mmcal="gcal -H '\e[01;33m:\e[0m:\e[31m:\e[0m' -s1 -q FR -N"
 alias mcal="mmcal .+"
@@ -556,11 +558,15 @@ alias bjam='bjam --build-dir='$HOME'/projects/build'
 vg() { valgrind --suppressions=$HOME/projects/dotfiles/usr/lib/valgrind/dl_init.supp "$@" 2> >(colout -t valgrind) ; }
 alias vgl='vg --leak-check=full --show-leak-kinds=all'
 
-gdbrun() gdb -q -ex run --args $@
-bt() gdb -q -batch -ex 'set style enabled on' -ex run -ex bt --args $@
-bte() gdb -q -batch -ex 'set style enabled on' -ex 'catch throw' -ex run -ex bt --args $@
+alias gdbrun='gdb -q -ex run --args'
+alias bt="gdb -q -batch -ex 'set style enabled on' -ex run -ex bt --args"
+alias bte="gdb -q -batch -ex 'set style enabled on' -ex 'catch throw' -ex run -ex bt --args"
 
-y() { yt-dlp --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist "$@" ; }
+y() yt-dlp --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist $@
+yy() yt-dlp --no-part --no-mtime --no-playlist $@
+
+alias y='noglob y'
+alias yy='noglob yy'
 
 alias na='cat -n'
 
@@ -643,8 +649,6 @@ alias ix='jln-glob nocase numeric ; jln-glob-pop'
 
 alias a='noglob a'
 alias wg='noglob wget'
-alias y='noglob y'
-
 
 ## global aliases
 
@@ -990,6 +994,7 @@ zle -N copybuffer
 #bindkey "^[o" copybuffer
 
 alias tt="/usr/bin/time --format='%Es - %MK'"
+e() { for f in $@[2,-1] ; $1 $f }
 
 alias kk=kdevelop
 
