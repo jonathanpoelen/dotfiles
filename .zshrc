@@ -243,7 +243,7 @@ zle -C complete-file complete-word _generic
 zstyle ':completion:complete-file::::' completer _files
 bindkey '^Xf' complete-file
 
-autoload -U zg zs zhead weather er erd defl def br duration zmv
+autoload -U zg zs zhead weather er erd defl def br duration each zmv
 alias err='erd ~/Videos'
 alias mmv='noglob zmv -W'
 
@@ -994,12 +994,11 @@ zle -N copybuffer
 #bindkey "^[o" copybuffer
 
 alias tt="/usr/bin/time --format='%Es - %MK'"
-e() { for f in $@[2,-1] ; $1 $f }
-
 alias kk=kdevelop
 
 # set auto-completion
 _comps[tt]=_precommand
+_comps[each]=_precommand
 _comps[duration]=_precommand
 _comps[jln-glob-pop]=_precommand
 
