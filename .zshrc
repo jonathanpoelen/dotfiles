@@ -458,6 +458,7 @@ ud() {
 }
 alias wd='dwdiff -w$'\''\e[31m[-'\'' -x$'\''-]\e[0m'\'' -y$'\''\e[32m{+'\'' -z$'\''+}\e[0m'\'
 alias wdw='wd -C0'
+alias ldelta='DELTA_FEATURES=long-line delta'
 
 export DELTA_PAGER=less-if-not-empty
 
