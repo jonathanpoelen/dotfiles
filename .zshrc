@@ -285,7 +285,7 @@ alias cr='cp -R'
 alias bat='bat --theme=TwoDark'
 
 # alias c='cat'
-c() { local f; for f; echo -E "$(<$f)" }
+c() { local f; for f; >&1 <$f }
 
 alias j='jobs'
 
@@ -339,7 +339,7 @@ alias 5='cd -5'
 
 alias md='mkdir -p'
 alias rd=rmdir
-alias d='echo -E ${(F)${(Af)"$(dirs -v)"}[1,10]}'
+alias d='>&1 <<<${(F)${(Af)"$(dirs -v)"}[1,10]}'
 m() {
   (( $# < 1 )) && echo "Usage: $0 missing directory" >&2 && return 1
   mkdir -p -- "$@" && cd -- "$1"
@@ -688,8 +688,8 @@ alias -g Z2='|&fzf'
 alias -g C='--color=always'
 alias -g ZF='|fo'
 
-col() { for l in ${(f)"$(<$1)"} ; echo ${${(Az)l}[$2]} }
-colx() { for l in ${(f)"$(eval ${(q)@[2,$]})"} ; echo ${${(Az)l}[$1]} }
+col() { for l in ${(f)"$(<$1)"} ; >&1 <<<${${(Az)l}[$2]} }
+colx() { for l in ${(f)"$(eval ${(q)@[2,$]})"} ; >&1 <<<${${(Az)l}[$1]} }
 alias -g @@='|col /dev/stdin'
 
 ## functions
@@ -990,7 +990,7 @@ bindkey '^[V' _insert_cb # previously quoted-insert
 
 alias clipcopy='xclip -selection clipboard'
 
-copybuffer () { echo -En $BUFFER | clipcopy }
+copybuffer () { clipcopy <<<$BUFFER }
 zle -N copybuffer
 #bindkey "^[o" copybuffer
 
