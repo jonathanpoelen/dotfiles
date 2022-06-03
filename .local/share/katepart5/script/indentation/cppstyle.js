@@ -113,7 +113,7 @@ function tryToKeepInlineComment(line)
             document.insertText(
                 line - 1
               , lastPos + 1
-              , String().fill(' ', gSameLineCommentStartAt - lastPos - 1)
+              , String().fill(' ', sc.before.length - lastPos - 1)
                   + "//"
                   + sc.after.rtrim()
               );
@@ -407,8 +407,8 @@ function trySplitComment_ch(line)
         {
             if (0 < match[1].trim().length)                 // Is there some text before the comment?
             {
-                // Align comment to gSameLineCommentStartAt
-                result = gSameLineCommentStartAt;
+                // Align comment
+                result = match[1].length;
             }
             else
             {
@@ -945,18 +945,8 @@ function trySameLineComment(cursor)
             return;
         // If no text after the comment and it still not aligned
         var text_len = sc.before.rtrim().length;
-        if (text_len != 0 && sc.after.length == 0 && text_len < gSameLineCommentStartAt)
-        {
-            // Align it!
-            document.insertText(
-                line
-              , column - 2
-              , String().fill(' ', gSameLineCommentStartAt - sc.before.length)
-              );
-            document.insertText(line, gSameLineCommentStartAt + 2, ' ');
-        }
         // If text in a comment equals to '/' or ' /' -- it looks like a 3rd '/' pressed
-        else if (sc.after == " /" || sc.after == "/")
+        if (sc.after == " /" || sc.after == "/")
         {
             // Form a Doxygen comment!
             document.removeText(line, column - sc.after.length, line, column);
@@ -1553,7 +1543,7 @@ function tryOperator(cursor, ch)
             document.removeText(line, column - 1, line, column);
         }
         // Append one more if only two here and we are in 'dsOperator' mode, see https://invent.kde.org/frameworks/syntax-highlighting/-/merge_requests/150
-        else if (prev[1] == '.' && prev[2] == '.' && document.defStyleNum(line, column) === 5)
+        else if (prev[1] == '.' && prev[2] == '.' /*&& document.defStyleNum(line, column) === 5*/)
         {
             addCharOrJumpOverIt(line, column, '.');
         }                                                   // Otherwise, do nothing...
