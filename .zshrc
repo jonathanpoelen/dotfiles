@@ -130,16 +130,19 @@ toggle-fzf-tab() { source ~/projects/fzf-tab/fzf-tab.zsh }
 zle -N toggle-fzf-tab
 bindkey "¿" toggle-fzf-tab
 
-autoload jln-fzf-files jln-fzf-file-size jln-fzf-history-widget
+autoload jln-fzf-files jln-fzf-history-widget
 zle -N jln-fzf-files
 zle -N jln-fzf-history-widget
-zle -N jln-fzf-file-size
+zle -N fzf-file-size jln-fzf-files
 zle -N fzf-directories jln-fzf-files
-zstyle :fzf-directories globqualifiers '/'
+zstyle :fzf-directories glob-qualifiers '/'
+zstyle :fzf-file-size glob-qualifiers '^/'
+zstyle :fzf-file-size selector jln-fzf-size-selector
+zstyle :fzf-file-size disable-recursive 1
 bindkey ^\[\' jln-fzf-files
 bindkey '^[;' fzf-directories
 bindkey '^[r' jln-fzf-history-widget
-bindkey '®' jln-fzf-file-size
+bindkey '®' fzf-file-size
 
 # alias afind='ack-grep -il'
 
@@ -560,8 +563,8 @@ vg() { valgrind --suppressions=$HOME/projects/dotfiles/usr/lib/valgrind/dl_init.
 alias vgl='vg --leak-check=full --show-leak-kinds=all'
 
 alias gdbrun='gdb -q -ex run --args'
-alias bt="gdb -q -batch -ex 'set style enabled on' -ex run -ex bt --args"
-alias bte="gdb -q -batch -ex 'set style enabled on' -ex 'catch throw' -ex run -ex bt --args"
+alias bt="gdb -q --batch --return-child-result -x ~/.gdbbt -ex run --args"
+alias bte="gdb -q --batch --return-child-result -x ~/.gdbbt -ex 'catch throw' -ex run --args"
 
 y() yt-dlp --no-part -k --no-mtime --youtube-skip-dash-manifest --merge-output-format none --ffmpeg-location ~/rawdisk --no-playlist $@
 yy() yt-dlp --no-part --no-mtime --no-playlist $@
