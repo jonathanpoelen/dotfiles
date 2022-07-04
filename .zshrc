@@ -52,7 +52,7 @@ export CMAKE_GENERATOR=Ninja
 '*.snapshot=38;5;139:*.ninja=38;5;160:*.build=38;5;186'
   alias ls='ls --color=auto'
   alias grep='grep --color=auto --exclude-dir=.git'
-  GREP_COLOR='1;31'
+  GREP_COLORS='ms=1;31:ne'
 #fi
 
 
@@ -248,7 +248,12 @@ bindkey '^Xf' complete-file
 
 autoload -U zg zs zhead weather er erd defl def br duration each zmv
 alias err='erd ~/Videos'
+alias zcp='zmv -C'
+alias zln='zmv -L'
 alias mmv='noglob zmv -W'
+alias ccp='noglob zmv -WC'
+alias lln='noglob zmv -WL'
+
 
 # some more ls aliases
 alias ll='ls -lh --time-style=long-iso'
@@ -283,9 +288,11 @@ alias mv='mv -i'
 alias cp='cp -i'
 alias df='df -h'
 alias du='du -h'
+alias dus='du -sh'
 alias free='free -h'
 alias cr='cp -R'
 alias bat='bat --theme=TwoDark'
+alias o=xdg-open
 
 # alias c='cat'
 c() { local f; for f; >&1 <$f }
@@ -656,44 +663,22 @@ alias wg='noglob wget'
 
 ## global aliases
 
-alias -g N='>/dev/null'
-alias -g T='>~/rawdisk2/l'
-alias -g TT='>~/rawdisk2/ll'
-alias -g ZT='|fzf>~/rawdisk2/l'
-
-alias -g L='|less'
-alias -g G='|grep'
-alias -g R='|rg'
-alias -g F='|zg -a'
-alias -g S='|sed'
-alias -g K='|k'
-alias -g A='|awk'
-alias -g W='|while read'
-alias -g X='|xargs -d\\n'
-alias -g Z='|fzf'
-
-alias -g N2='2>/dev/null'
-alias -g T2='2>~/rawdisk2/l'
-alias -g TT2='2>~/rawdisk2/ll'
-alias -g ZT2='|fzf 2>~/rawdisk2/l'
-
-alias -g L2='|&less'
-alias -g G2='|&grep'
-alias -g R2='|&rg'
-alias -g F2='|&zg -a'
-alias -g S2='|&sed'
-alias -g K2='|&k'
-alias -g A2='|&awk'
-alias -g W2='|&while read'
-alias -g X2='|&xargs -d\\n'
-alias -g Z2='|&fzf'
-
-alias -g C='--color=always'
-alias -g ZF='|fo'
+alias -g \
+  C='--color=always' \
+  ZF='|fo' \
+  @@='|col /dev/stdin' \
+  NN='*(oc[1])' NNF='*(oc[1].)' NND='*(oc[1]/)' \
+\
+  N='>/dev/null'   T='>~/rawdisk2/l'   TT='>~/rawdisk2/ll' \
+  N2='2>/dev/null' T2='2>~/rawdisk2/l' TT2='2>~/rawdisk2/ll' \
+\
+  F='|zg -a'    K='|k'    L='|less'    O='|sort'    R='|rg'    S='|sed' \
+  F2='|&zg -a'  K2='|&k'  L2='|&less'  O2='|&sort'  R2='|&rg'  S2='|&sed' \
+  U='|sort -u'    W='|while read'    X='|xargs -d\\n'    Z='|fzf' \
+  U2='|&sort -u'  W2='|&while read'  X2='|&xargs -d\\n'  Z2='|&fzf'
 
 col() { for l in ${(f)"$(<$1)"} ; >&1 <<<${${(Az)l}[$2]} }
 colx() { for l in ${(f)"$(eval ${(q)@[2,$]})"} ; >&1 <<<${${(Az)l}[$1]} }
-alias -g @@='|col /dev/stdin'
 
 ## functions
 
