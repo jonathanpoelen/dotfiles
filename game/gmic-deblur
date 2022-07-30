@@ -1,8 +1,8 @@
-#!/usr/bin/env zsh
+#!/bin/zsh
 files=()
 for f in $@ ; {
   [[ $f[1] == / ]] && p= || p=./
-  [ -d $f ] && files+=($p$f/**/*(^/)) || files+=($p$f)
+  [[ -d $f ]] && files+=($p$f/**/*(^/)) || files+=($p$f)
 }
 
 for ((i=1; i <= $#files; i+=100)) {
