@@ -8,15 +8,15 @@ for f in $@ ; {
 for ((i=1; i <= $#files; i+=100)) {
   gmic $files[$i,$(($i+99))] \
   'j={$!-1}' \
-  -repeat '$!,k' 'f={$j,n}' \
+  -repeat '$!' 'f={$j,n}' \
     -split_tiles'[$j]' -100,1 \
     -repeat '{($!-$j)/2-1},i' \
       -move'[{$i*2+$j+1}]' '{$i*2+$j}' \
     -done \
     -append'[$j-{$!-1}]' x \
     -split_tiles'[$j]' 1,-100 \
-    -repeat '{($!-$j)/2-1},i' \
-      -move'[{$i*2+$j+1}]' '{$i*2+$j}' \
+    -repeat '{($!-$j)/2-1}' \
+      -move'[{$>*2+$j+1}]' '{$>*2+$j}' \
     -done \
     -append'[$j-{$!-1}]' y \
     -o'[$j]' '$f' \

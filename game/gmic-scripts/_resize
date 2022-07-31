@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 gmic "$@" \
-  -repeat '$!,k' \
-    -if '{w#$k>900}' \
-      -resize'[$k]' '{900},{h#$k/(w#$k/900.)}' \
+  -repeat '$!' \
+    -if '{w#$>>900}' \
+      -resize'[$>]' '{900},{h#$>/(w#$>/900.)}' \
     -fi \
-    -o'[$k]' 'jpg:{$k,n},40' \
+    -o'[$>]' 'jpg:{$>,n},40' \
   -done -q

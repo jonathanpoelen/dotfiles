@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
 gmic "$@" \
-  -repeat '$!,k' \
-    -if '{w#$k>h#$k}' \
-      -split_tiles'[$k]' 2,1 \
-      -o'[{$k+1}]' '{$k,f}/{$k,b}_a.{$k,x}' \
-      -ow'[$k]' \
-      -rm'[$k]' \
+  -repeat '$!' \
+    -if '{w#$>>h#$>}' \
+      -split_tiles'[$>]' 2,1 \
+      -o'[{$>+1}]' '{$>,f}/{$>,b}_a.{$>,x}' \
+      -ow'[$>]' \
+      -rm'[$>]' \
     -fi \
   -done -q
