@@ -239,7 +239,7 @@ URxvt.scrollWithBuffer: true
 ! URxvt.cutchars: '`\'&()*,;<=>?@[]^{|}:'
 URxvt.cutchars: '`\'"&()*;<>?^|:'
 
-Rxvt.perl-ext: new-window,clipboard
+Rxvt.perl-ext-common: new-window,searchable-scrollback,clipboard,-confirm-paste
 Rxvt.keysym.Control-Shift-N: perl:new-window
 
 URxvt*termName: rxvt-unicode
