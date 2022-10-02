@@ -34,6 +34,12 @@ KDE bold fonts does not work
 Remove the `Regular` value in `grep ^Font $HOME/.config/k*`.
 
 
+GTK overlay-scrollbar
+=====================
+
+`gsettings set org.gnome.desktop.interface overlay-scrolling false`
+
+
 Ninja
 =====
 

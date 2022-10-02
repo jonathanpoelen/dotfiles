@@ -1,0 +1,21 @@
+.window-frame {
+  box-shadow: none;
+  margin: 0;
+}
+
+scrollbar {
+  /*has-backwards-stepper: true;
+  has-forward-stepper: true;
+  has-secondary-backward-stepper: true;
+  has-secondary-forward-stepper: true;*/
+  min-width: 10;
+}
+
+slider {
+ /*color: #00FF00;*/
+ slider-width: 10;
+ min-width: 10;
+/* has-backwards-stepper: true;
+ has-forward-stepper: true;*/
+}
+
