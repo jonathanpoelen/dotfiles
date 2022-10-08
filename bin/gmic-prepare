@@ -1,12 +1,19 @@
 #!/bin/zsh
+
+# Scale images to my eReader (1072×1448)
+
+width=1072
+height=1448
+by=120
+
 files=()
 for f in $@ ; {
   [[ $f[1] == / ]] && p= || p=./
   [[ -d $f ]] && files+=($p$f/**/*(^/)) || files+=($p$f)
 }
 
-for ((i=1; i <= $#files; i+=100)) {
-  gmic $files[$i,$(($i+99))] \
+for ((i=1; i <= $#files; i+=$by)) {
+  gmic $files[$i,$i+$by-1] \
   -adjust_colors'[0-100%]' -5,10 \
   dk=0 \
   -repeat '$!' \
@@ -19,8 +26,9 @@ for ((i=1; i <= $#files; i+=100)) {
   -done \
   -autocrop'[0-100%]' \
   -repeat '$dk' \
-    -if '{w#$>>900}' \
-      -resize_mn'[$>]' '{900},{h#$>/(w#$>/900.)},1,1' \
+    -if '{w#$>>'$width'||h#$>>'$height'}' \
+      'ratio=max({w#$>/'$width'},{h#$>/'$height'})' \
+      -resize_mn'[$>]' '{w#$>/$ratio},{h#$>/$ratio},1,1' \
     -fi \
     -o'[$>]' 'jpg:{$>,n},40' \
   -done -q
