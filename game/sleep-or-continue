@@ -6,5 +6,5 @@ s=${"$(</proc/$pid/stat)"/* (#b)([TS]) */${match[1]}}
 read name < /proc/$pid/cmdline || :
 case "$name" in
   ''|urxvt*) exit 0 ;;
-  *) [ "$s" = 'T' ] && kill -CONT $pid || kill -STOP $pid
+  *) [[ "$s" = 'T' ]] && kill -CONT $pid || kill -STOP $pid
 esac
