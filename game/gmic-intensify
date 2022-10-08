@@ -5,7 +5,9 @@ for f in $@ ; {
   [[ -d $f ]] && files+=($p$f/**/*(^/)) || files+=($p$f)
 }
 
-for ((i=1; i <= $#files; i+=100)) {
-  gmic $files[$i,$(($i+99))] -adjust_colors 0,0,-20,0,0,0 -ow -q
-}
+intensity=${INTENSITY:-20}
+adjust_colors=${ADJUST:-0,0,-$intensity,0,0,0}
 
+for ((i=1; i <= $#files; i+=100)) {
+  gmic $files[$i,$(($i+99))] -adjust_colors $adjust_colors -ow -q
+}
