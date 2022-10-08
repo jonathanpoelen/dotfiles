@@ -7,7 +7,7 @@ for f in $@ ; {
 
 for ((i=1; i <= $#files; i+=100)) {
   gmic $files[$i,$(($i+99))] \
-  -adjust_colors'[0-100%]' -10,20\
+  -adjust_colors'[0-100%]' -5,10 \
   dk=0 \
   -repeat '$!' \
     -if '{w#$dk>h#$dk}' \
@@ -20,7 +20,7 @@ for ((i=1; i <= $#files; i+=100)) {
   -autocrop'[0-100%]' \
   -repeat '$dk' \
     -if '{w#$>>900}' \
-      -resize'[$>]' '{900},{h#$>/(w#$>/900.)}' \
+      -resize_mn'[$>]' '{900},{h#$>/(w#$>/900.)},1,1' \
     -fi \
     -o'[$>]' 'jpg:{$>,n},40' \
   -done -q
