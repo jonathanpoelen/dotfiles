@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+read pid o <<<"${(M)${(f)"$(ps h -o pid,command -C mpv)"}:#*music-control*}" &&
+>> ~/track_passed.txt <<<${(M)${(f)"$(readlink /proc/$pid/fd/*)"}:#/home/jonathan/*} &&
+echo playlist-next > ~/rawdisk/music-control.pipe

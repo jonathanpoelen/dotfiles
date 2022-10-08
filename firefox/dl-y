@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+export HOME=/home/jonathan
+cd ~/rawdisk2
+
+mpv -af scaletempo --really-quiet -fs --speed=1.61 "$1"

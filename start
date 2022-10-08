@@ -6,8 +6,6 @@
 #sudo mount -t tmpfs -o size=256M tmpfs ~/.ccache &&
 #sudo mount -t tmpfs -o size=128M tmpfs ~/projects/build &&
 
-set -e
-
 #disable beep      mouse acceleration: 5/2 threshold: 5
 xset b off r rate 420 30 m 5/2 5
 
@@ -18,12 +16,12 @@ ln -s ~/.cache ~/.config ff/ &&
 ln -s ~/.mozilla/systemextensionsdev ~/.mozilla/extensions/ ff/.mozilla/ &&
 ln -s ~/.mozilla/firefox/{Crash\ Reports,Pending\ Pings,profiles.ini} ff/.mozilla/firefox ||
 function firefox { echo "\e[31merror: Create ~/rawdisk/ff\e[0m" }
-# ~/projects/dotfiles/game/rfirefox default&
+# ~/projects/dotfiles/bin/rfirefox default&
 
 # redshift -l 48.85:2.34 -t 5700:4000 -g 0.85 -m randr &
 
 # :bind Y composite get_current_url | js -p 'localhost:10411/'+JS_ARG | open_quiet
-socat tcp-l:10411,reuseaddr,fork,crlf system:'echo -e HTTP/1.0 204 OK\\\\n; ~/projects/dotfiles/game/i3-dl' &
+socat tcp-l:10411,reuseaddr,fork,crlf system:'echo -e HTTP/1.0 204 OK\\\\n; ~/projects/dotfiles/firefox/i3-dl' &
 # socat tcp-l:11977,reuseaddr,fork,crlf system:'echo -e HTTP/1.0 200\\\\nContent-Type\: text/html\\\\n;echo $(<~/projects/private-game/redirection.html)' &
 
 cd ~/rawdisk2
@@ -33,4 +31,4 @@ sleep .3
 :>~/rawdisk/.num-k
 xmodmap ~/.Xmodmap
 
-# source ~/projects/dotfiles/start && ~/projects/dotfiles/game/rfirefox & i3-msg 'move scratchpad'
+# source ~/projects/dotfiles/start && ~/projects/dotfiles/bin/rfirefox & i3-msg 'move scratchpad'
