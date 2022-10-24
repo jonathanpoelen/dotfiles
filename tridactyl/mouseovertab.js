@@ -1,3 +1,4 @@
+// command mouseovertab js
 if (tri.ext_mouseover_links)
 {
   for(const elem of tri.ext_mouseover_links)
