@@ -86,13 +86,13 @@ bindsym $mod+Mod1+Left exec --no-startup-id "echo playlist-prev > ~/rawdisk/musi
 bindsym $mod+Mod1+Up exec --no-startup-id "echo seek 5 > ~/rawdisk/music-control.pipe"
 bindsym $mod+Mod1+Down exec --no-startup-id "echo seek -5 > ~/rawdisk/music-control.pipe"
 bindsym $mod+Mod1+l exec --no-startup-id "echo cycle loop-file > ~/rawdisk/music-control.pipe"
-bindsym $mod+u exec --no-startup-id "~/projects/dotfiles/game/track_passed"
+bindsym $mod+u exec --no-startup-id "~/projects/dotfiles/bin/track_passed"
 # Sound 2
 bindsym Ctrl+F11 exec --no-startup-id amixer -q set Master 3-
 bindsym Ctrl+F12 exec --no-startup-id amixer -q set Master 3+
 # send pause/continue signal to active program
-bindsym $mod+F10 exec --no-startup-id "~/projects/dotfiles/game/sleep-or-continue"
-bindsym $mod+F9 exec --no-startup-id "~/projects/dotfiles/game/sleep-or-continue-firefox"
+bindsym $mod+F10 exec --no-startup-id "~/projects/dotfiles/bin/sleep-or-continue"
+bindsym $mod+F9 exec --no-startup-id "~/projects/dotfiles/bin/sleep-or-continue-firefox"
 # switch number line / symbol line
 # bindsym Num_Lock exec --no-startup-id "xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key$([ -f ~/rawdisk/.num-k ] && { rm ~/rawdisk/.num-k && echo 1 ; } || { :>~/rawdisk/.num-k && echo 0 ; })"
 bindsym Ctrl+F10 exec --no-startup-id "xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key$([ -f ~/rawdisk/.num-k ] && { rm ~/rawdisk/.num-k && echo 1 ; } || { :>~/rawdisk/.num-k && echo 0 ; })"
