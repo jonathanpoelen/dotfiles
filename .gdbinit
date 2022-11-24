@@ -11,3 +11,6 @@ set print frame-arguments all
 
 # Don't wrap line or the coloring regexp won't work.
 #set width 0
+
+# set debuginfod enabled ask
+set debuginfod enabled off
