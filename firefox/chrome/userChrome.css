@@ -1,26 +1,57 @@
 /*
-  url OSD on the right
+  status panel / URL OSD
 */
 
-panel[type="arrow"] {
-  transition: none !important;
-}
-#statuspanel-label {
-  margin-right: 0px !important;
-  padding-right: 5px !important;
-}
-/* statuspanel[type="overLink"] */
-#statuspanel {
-  right: 0px !important;
-}
+/*
+https://github.com/mozilla/gecko-dev/blob/master/browser/themes/linux/browser.css
+https://github.com/mozilla/gecko-dev/blob/master/browser/base/content/browser.css
+https://github.com/mozilla/gecko-dev/blob/master/browser/base/content/main-popupset.inc.xhtml
+*/
 
 /* Remove the delay and transition */
-#statuspanel[type=overLink],
-#statuspanel[inactive][previoustype=overLink]
+#statuspanel[type="overLink"],
+#statuspanel[inactive][previoustype="overLink"]
 {
   transition: none !important;
 }
 
+/* status to the right */
+
+#statuspanel-label {
+  margin-left: 0 !important;
+  margin-right: 53px !important; /* tridactyl status */
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+#statuspanel {
+  width: 100% !important;
+  margin: 0 !important;
+  text-align: right !important;
+  right: 0 !important;
+}
+
+#statuspanel[sizelimit] {
+  max-width: calc(100% - 5px) !important; /* 5px for scrollbar */
+}
+
+#statuspanel[mirror] {
+  text-align: left !important;
+  left: 0 !important;
+}
+
+#statuspanel > #statuspanel-label {
+  border-left-style: solid;
+  border-top-right-radius: 0 !important;
+  border-top-left-radius: .3em !important;
+}
+
+#statuspanel[mirror] > #statuspanel-label {
+  opacity: 0.6;
+  border-right-style: solid;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: .3em !important;
+}
 
 
 /*
