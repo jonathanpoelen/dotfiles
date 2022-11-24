@@ -181,6 +181,11 @@
             "XSLT XPath Attribute": {
                 "text-color": "#55bb22"
             }
+        },
+        "Common Lisp": {
+            "Brackets": {
+                "text-color": "#00aaff"
+            }
         }
     },
     "editor-colors": {
