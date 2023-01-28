@@ -37,6 +37,11 @@
                 "text-color": "#d04444"
             }
         },
+        "Common Lisp": {
+            "Brackets": {
+                "text-color": "#00aaff"
+            }
+        },
         "ISO C++": {
             "Attribute": {
                 "text-color": "#3198d9"
@@ -180,11 +185,6 @@
             },
             "XSLT XPath Attribute": {
                 "text-color": "#55bb22"
-            }
-        },
-        "Common Lisp": {
-            "Brackets": {
-                "text-color": "#00aaff"
             }
         }
     },
