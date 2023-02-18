@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+set -e
+
+(( $# == 0 )) && dirs=(*(/)) || dirs=($@)
+
+gmic-prepare $dirs
+jpegoptim $dirs/*/*.{jpg,jpeg}(N) ||:
+dirs2pdf -tpb58 -s5 -n800 $dirs
