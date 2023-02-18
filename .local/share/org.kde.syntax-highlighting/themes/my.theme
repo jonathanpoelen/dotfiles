@@ -95,6 +95,11 @@
                 "text-color": "#37aff0"
             }
         },
+        "JavaScript": {
+            "Reserved": {
+                "text-color": "#d5c8c3"
+            }
+        },
         "Lua": {
             "BFunc": {
                 "text-color": "#aa52d0"
