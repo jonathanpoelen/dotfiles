@@ -47,7 +47,8 @@ bindsym $mod+z exec --no-startup-id morc_menu
 ################################################################################################
 
 # exec --no-startup-id volumeicon
-bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
+bindsym $mod+Ctrl+m exec terminal -e alsamixer
+bindsym $mod+Ctrl+comma exec terminal -e alsamixer -V capture
 #exec --no-startup-id pulseaudio
 #exec --no-startup-id pa-applet
 #bindsym $mod+Ctrl+m exec pavucontrol
@@ -63,9 +64,9 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 # bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
 
 # Start Applications
-bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
-#bindsym $mod+F2 exec palemoon
-bindsym $mod+F3 exec pcmanfm
+# bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
+# bindsym $mod+F2 exec palemoon
+# bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 # bindsym $mod+Shift+F3 exec gksu pcmanfm
 # bindsym $mod+F5 exec terminal -e 'mocp'
@@ -75,16 +76,16 @@ bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart du
 bindsym Print exec --no-startup-id i3-scrot
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
-#bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
+# bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 # Control player
 bindsym $mod+space exec --no-startup-id "echo cycle pause > ~/rawdisk/music-control.pipe"
 bindsym $mod+n exec --no-startup-id "echo playlist-next > ~/rawdisk/music-control.pipe"
-bindsym $mod+Mod1+Right exec --no-startup-id "echo playlist-next > ~/rawdisk/music-control.pipe"
-bindsym $mod+Mod1+Left exec --no-startup-id "echo playlist-prev > ~/rawdisk/music-control.pipe"
-bindsym $mod+Mod1+Up exec --no-startup-id "echo seek 5 > ~/rawdisk/music-control.pipe"
-bindsym $mod+Mod1+Down exec --no-startup-id "echo seek -5 > ~/rawdisk/music-control.pipe"
+bindsym $mod+Mod1+Next exec --no-startup-id "echo playlist-next > ~/rawdisk/music-control.pipe"
+bindsym $mod+Mod1+Delete exec --no-startup-id "echo playlist-prev > ~/rawdisk/music-control.pipe"
+bindsym $mod+Mod1+Home exec --no-startup-id "echo seek 5 > ~/rawdisk/music-control.pipe"
+bindsym $mod+Mod1+End exec --no-startup-id "echo seek -5 > ~/rawdisk/music-control.pipe"
 bindsym $mod+Mod1+l exec --no-startup-id "echo cycle loop-file > ~/rawdisk/music-control.pipe"
 bindsym $mod+u exec --no-startup-id "~/projects/dotfiles/bin/track_passed"
 # Sound 2
