@@ -5,5 +5,5 @@ set -e
 (( $# == 0 )) && dirs=(*(/)) || dirs=($@)
 
 gmic-prepare $dirs
-jpegoptim $dirs/*/*.{jpg,jpeg}(N) ||:
+jpegoptim $dirs/*/*.{jpg,jpeg,png}(N) ||:
 dirs2pdf -tpb58 -s5 -n800 $dirs
