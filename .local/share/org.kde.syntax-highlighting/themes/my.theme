@@ -27,6 +27,9 @@
             "Option": {
                 "text-color": "#55b5ff"
             },
+            "Parameter Expansion": {
+                "text-color": "#fc9bff"
+            },
             "Path": {
                 "text-color": "#bb8ac8"
             },
@@ -35,6 +38,9 @@
             },
             "String Transl.": {
                 "text-color": "#d04444"
+            },
+            "Variable": {
+                "text-color": "#7e92ef"
             }
         },
         "Common Lisp": {
