@@ -22,12 +22,13 @@ https://github.com/mozilla/gecko-dev/blob/master/browser/base/content/main-popup
   top: 0 !important;
   inset-inline: auto !important;
   margin-left: 50%;
+  height: 1.6em;
 }
 
 #statuspanel-label{
   margin-left: -50% !important;
-  border-width: 0 1px 1px 1px;     
-  border-style: none solid solid solid !important;
+  border-width: 0;
+  padding-top: 0 !important;
 }
 
 
