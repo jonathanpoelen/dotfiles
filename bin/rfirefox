@@ -3,7 +3,7 @@
 # Open firefox in a memory directory.
 # At the end of a session, the profile folder is compressed into a zst archive.
 #
-# Backup tabs url are in ~/STG-backups/stg-backups.7z
+# Backup tabs url are in ~/STG-backups/$profile.backups.7z
 
 set -ex
 
@@ -21,9 +21,8 @@ if [[ -z $dl ]] || [[ ! -d $dl ]] ; then
     d=$d:t
   else
     ar=$ar[1]
-    cp $ar .
-    ar=${ar:t}
     tar --zstd -xf $ar
+    ar=${ar:t}
     d=${ar:0:-4}
   fi
 else
@@ -48,5 +47,5 @@ mv $d.zst $FIREFOX/
 # extract and save tabs url
 backup=~/rawdisk2/${(%):-%D_%*}-$profile.tabs.txt
 dejsonlz4 $d/sessionstore.jsonlz4 | jq -r '.windows[].tabs[].entries[].url' > $backup
-7zr a ~/STG-backups/stg-backups.7z $backup
+7zr a ~/STG-backups/$profile.backups.7z $backup
 rm $backup
