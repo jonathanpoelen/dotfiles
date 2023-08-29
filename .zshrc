@@ -298,7 +298,7 @@ alias du='du -h'
 alias dus='du -sh'
 alias free='free -h'
 alias cr='cp -R'
-alias bat='bat --theme=TwoDark'
+alias bat='bat --theme=Catppuccin-macchiato'
 alias o=xdg-open
 
 # alias c='cat'
@@ -445,7 +445,6 @@ alias glg='GIT_PAGER= git log --graph --pretty=tformat:"%Cred%h%Creset -%C(auto)
 
 alias git_current_branch='git symbolic-ref --short HEAD'
 
-# these aliases take advantage of the previous function
 alias gl='git pull origin $(git_current_branch)'
 alias gp='git push origin $(git_current_branch)'
 # alias glp='git pull origin $(git_current_branch) && git push origin $(git_current_branch)'
@@ -494,6 +493,7 @@ a() { echo $(($*)) }
 alias isearch='search -i'
 
 function man(){
+  # man 5 termcap
   # mb  Start blinking
   # md  Start bold mode
   # me  End all mode like so, us, mb, md and mr
@@ -501,12 +501,17 @@ function man(){
   # se  End standout mode
   # us  Start underlining
   # ue  End underlining
-  LESS_TERMCAP_md=$'\e[0;31m' \
-  LESS_TERMCAP_se=$'\e[0m' \
-  LESS_TERMCAP_ue=$'\e[0m' \
-  LESS_TERMCAP_us=$'\e[0;32m' \
-  command man "$@"
-  # LESS_TERMCAP_so=$'\e[7m'
+  if [[ $1 = 3 ]]; then
+    GROFF_NO_SGR=1 command man -P"sh -c 'col -bx | bat -l man -p --theme=Catppuccin-macchiato'" "$@"
+  else
+    LESS_TERMCAP_md=$'\e[31m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[32m' \
+    LESS_TERMCAP_so=$'\e[47;30m' \
+    GROFF_NO_SGR=1 \
+    command man "$@"
+  fi
 }
 
 # alias qdbus=/usr/lib/x86_64-linux-gnu/qt4/bin/qdbus
