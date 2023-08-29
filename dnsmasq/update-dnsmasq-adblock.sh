@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-set -e
-rm /usr/local/share/dnsmasq.blacklist.txt ||:
-wget -O /usr/local/share/dnsmasq.blacklist.txt https://github.com/notracking/hosts-blocklists/raw/master/dnsmasq/dnsmasq.blacklist.txt
+set -ex
+file=/usr/lib/dnsmasq.blacklist.txt
+rm "$file" ||:
+wget -O "$file" https://github.com/notracking/hosts-blocklists/raw/master/dnsmasq/dnsmasq.blacklist.txt
 systemctl restart NetworkManager.service
 # or systemctl restart dnsmasq
