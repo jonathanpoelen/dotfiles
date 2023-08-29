@@ -28,16 +28,22 @@
 	ui = auto
 [color "branch"]
 	upstream = cyan
+
 [push]
-	default = simple
+	default = current
+	#autoSetupRemote = true
+
 [pull]
 	# merges, interactive, true, false
 	rebase=merges
+	#ff = only
+
 [pager]
 	branch = false
 	diff = delta
 	stash = false
 	#status = less -FX
+
 [branch]
     autoSetupMerge=always
 
@@ -81,6 +87,3 @@
 
 #[sequence]
 #	editor = interactive-rebase-tool
-
-[pull]
-	ff = only
