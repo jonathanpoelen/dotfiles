@@ -137,11 +137,14 @@ zle -N jln-fzf-files
 zle -N jln-fzf-history-widget
 zle -N fzf-file-size jln-fzf-files
 zle -N fzf-directories jln-fzf-files
+zle -N fzf-file-norec jln-fzf-files
 zstyle :fzf-directories glob-qualifiers '/'
 zstyle :fzf-file-size glob-qualifiers '^/'
 zstyle :fzf-file-size selector jln-fzf-size-selector
 zstyle :fzf-file-size disable-recursive 1
+zstyle :fzf-file-norec disable-recursive 1
 bindkey ^\[\' jln-fzf-files
+bindkey ^\[\\ fzf-file-norec
 bindkey '^[;' fzf-directories
 bindkey '^[r' jln-fzf-history-widget
 bindkey '®' fzf-file-size
