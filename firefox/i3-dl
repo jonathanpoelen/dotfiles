@@ -1,7 +1,20 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 
-u=$(sed '/^GET/{s/^.....//;s/.........$//;q};d')
+u=$(<&0)
+u=${u/$'\n'*/}
+p=
+if [[ ${u:4:3} = '/p/' ]]; then
+  p=1
+  u=${u:7:-9}
+else
+  u=${u:5:-9}
+fi
+
 notify-send "dl: $u"
-u="${u//\'/\'\\\'\'}"
-i3-msg "workspace 8; exec terminal -e ~/projects/private-game/dl-url '$u'; workspace 8"
-sleep 2
+u=${u//\'/\'\\\'\'}
+
+if [[ -n $p ]]; then
+  i3-msg "exec ~/projects/private-game/open-url '$u'"
+else
+  i3-msg "workspace 8; exec terminal -e ~/projects/private-game/dl-url '$u'; workspace 8"
+fi
