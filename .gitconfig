@@ -48,22 +48,19 @@
     autoSetupMerge=always
 
 [delta]
-	plus-style = syntax "#012800"
-	minus-style = normal "#340001"
-	syntax-theme = ansi-dark
+	#plus-style = syntax "#012800"
+	#minus-style = normal "#340001"
+	syntax-theme = Catppuccin-macchiato
 
 	paging = always
 	navigate = false
 	# inspect-raw-lines = false
 
-	# minus-style = syntax "#85434a"
-	# plus-style = syntax "#728562"
-	# minus-style = syntax 95
-	# plus-style = syntax 65
-	# minus-style = syntax 53
-	# plus-style = syntax 17
-	minus-style = syntax 236
-	plus-style = syntax 0
+	true-color = always
+	minus-style = syntax "#401a23"
+	minus-emph-style = syntax "#713232"
+	plus-style = syntax "#174023"
+	plus-emph-style = syntax "#327e32"
 
 	features=default
 
