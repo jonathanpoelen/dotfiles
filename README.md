@@ -14,6 +14,16 @@ sudo find mime -exec xdg-mime install {} \;
 ```
 
 
+X resources
+===========
+
+Load a resource file, and merge with the current settings:
+
+```sh
+xrdb -merge ~/.Xresources
+```
+
+
 Less binding
 ============
 
