@@ -16,7 +16,7 @@
 
 [diff]
   noprefix = true
-  suppressBlankEmpty = true
+  # suppressBlankEmpty = true # issue with some commands such as `git add -p`
   indentHeuristic = true
   #wordRegex = .
   mnemonicPrefix = true
