@@ -91,7 +91,9 @@ PS2='%{$fg[green]%}>%{$reset_color%}'
 # Customize to your needs...
 # export PATH=~/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 # export PATH=~/bin:/usr/sbin:/usr/bin:/sbin:/bin:~/.local/bin:/usr/bin/vendor_perl
-export PATH=~/bin:/usr/bin:~/.local/bin:/usr/bin/vendor_perl
+export PATH=~/bin:/usr/bin:~/.my-venv/bin:~/.local/bin:/usr/bin/vendor_perl
+alias pip=~/.my-venv/bin/pip
+alias py=~/.my-venv/bin/python
 READNULLCMD=less # pager for `<file`
 
 #zstyle ':completion:*' hosts off
@@ -421,6 +423,7 @@ alias gdc0='DELTA_FEATURES=unified0 gdc --unified=0'
 alias gdw0='DELTA_FEATURES=unified0 gdw --unified=0'
 alias gdww0='DELTA_FEATURES=unified0 gdww --unified=0'
 alias cgd='DELTA_PAGER= gd'
+alias cgdl='DELTA_PAGER= DELTA_FEATURES=long-line gd'
 alias lcgd='GIT_PAGER= gd'
 alias cgdc='DELTA_PAGER= gdc'
 alias cgdw='DELTA_PAGER= gdw'
@@ -551,7 +554,8 @@ zi() {
 
 alias n=nano
 alias nn='nano -$'
-alias i=imv
+alias i='imv -f'
+alias ii='imv -fs none'
 alias x=xpdf
 alias t=tree
 alias td='tree -d'
