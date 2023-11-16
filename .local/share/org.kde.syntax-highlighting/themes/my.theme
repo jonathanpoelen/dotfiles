@@ -103,7 +103,7 @@
         },
         "JavaScript": {
             "Reserved": {
-                "text-color": "#d5c8c3"
+                "text-color": "#4be1e1"
             }
         },
         "Lua": {
@@ -130,6 +130,32 @@
         "Python": {
             "Definition Keyword": {
                 "text-color": "#ff82f9"
+            }
+        },
+        "Rust": {
+            "CConstant": {
+                "text-color": "#2dcaca"
+            },
+            "Constant": {
+                "text-color": "#2ecfcf"
+            },
+            "Definition": {
+                "text-color": "#a7ffff"
+            },
+            "Lifetime": {
+                "text-color": "#31dc78"
+            },
+            "Macro": {
+                "text-color": "#48d96a"
+            },
+            "Scope": {
+                "text-color": "#4eea72"
+            },
+            "Self": {
+                "text-color": "#ffaaff"
+            },
+            "Symbol": {
+                "text-color": "#ff557f"
             }
         },
         "XML": {
@@ -246,7 +272,7 @@
         },
         "Attribute": {
             "selected-text-color": "#fdbc4b",
-            "text-color": "#37aff4"
+            "text-color": "#48b8f4"
         },
         "BaseN": {
             "selected-text-color": "#f67400",
@@ -258,7 +284,7 @@
         },
         "Char": {
             "selected-text-color": "#3daee9",
-            "text-color": "#3daee9"
+            "text-color": "#4bbae9"
         },
         "Comment": {
             "selected-text-color": "#808080",
@@ -279,7 +305,7 @@
             "text-color": "#fdbc4b"
         },
         "DataType": {
-            "text-color": "#3abaff"
+            "text-color": "#4bc6ff"
         },
         "DecVal": {
             "selected-text-color": "#f67400",
@@ -297,7 +323,7 @@
         "Extension": {
             "bold": true,
             "selected-text-color": "#bdc3c7",
-            "text-color": "#21aaff"
+            "text-color": "#34b8ff"
         },
         "Float": {
             "selected-text-color": "#f67400",
@@ -318,15 +344,15 @@
         "Keyword": {
             "bold": true,
             "selected-text-color": "#cfcfc2",
-            "text-color": "#d5d5c8"
+            "text-color": "#dfdfd1"
         },
         "Normal": {
             "selected-text-color": "#cfcfc2",
-            "text-color": "#d5d5c8"
+            "text-color": "#dfdfd1"
         },
         "Operator": {
             "selected-text-color": "#cfcfc2",
-            "text-color": "#44efef"
+            "text-color": "#55ffff"
         },
         "Others": {
             "selected-text-color": "#27ae60",
@@ -343,7 +369,7 @@
         },
         "SpecialChar": {
             "selected-text-color": "#3daee9",
-            "text-color": "#3daee9"
+            "text-color": "#49b6e9"
         },
         "SpecialString": {
             "selected-text-color": "#da4453",
@@ -355,7 +381,7 @@
         },
         "Variable": {
             "selected-text-color": "#27aeae",
-            "text-color": "#30d5d5"
+            "text-color": "#34e8e8"
         },
         "VerbatimString": {
             "selected-text-color": "#da4453",
