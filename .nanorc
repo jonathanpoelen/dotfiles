@@ -22,8 +22,8 @@ set numbercolor white,black
 set functioncolor white
 
 #include /usr/share/nano/*.nanorc
-include /usr/share/nano/c.nanorc
-include /usr/share/nano/python.nanorc
+include ~/.nanosyntax/c.nanorc
+include ~/.nanosyntax/python.nanorc
 include ~/.nanosyntax/sh.nanorc
 include /usr/share/nano/javascript.nanorc
 include /usr/share/nano/json.nanorc
