@@ -267,8 +267,9 @@ URxvt.keysym.A-End: command:\033]721;99999\007
 !My TomorrowNightBright
 
 *foreground:   #d5d8d6
-!*background:   #0F1218
 *background:   #171a23
+!*background: #232629
+!*foreground: #c5cbcf
 !urxvt.cursorColor:  #aeafad
 
 ! Black / Grey
