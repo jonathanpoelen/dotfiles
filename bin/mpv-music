@@ -11,5 +11,5 @@ PIPE=~/rawdisk/music-control.pipe
   tail -f $PIPE | socat - $SCK
 }&
 
-mpv --no-resume-playback --quiet --shuffle --idle=yes --input-ipc-server=$SCK --no-video --no-input-terminal --demuxer-lavf-buffersize=262144 --loop-playlist "$@"
+mpv --no-resume-playback --quiet --shuffle --idle=yes --input-ipc-server=$SCK --no-video --no-input-terminal --demuxer-lavf-buffersize=1048576 --loop-playlist "$@"
 # --audio-channels=mono
