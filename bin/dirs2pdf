@@ -2,12 +2,17 @@
 
 set -e
 
-zparseopts -E -D -Aparams h help t b: s: p n:
+zparseopts -E -D -Aparams h help t b: A s: p n:
 
 if ((${+params[-h]} || ${+params[-help]})); then
   >&0 <<<"$0 [ -h | --help ] [-t [-b BASE] [-s TIME_SIZE]] [-p] [-n MAX_PAGE] directories...
   -t             add timestamp
-  -b BASE        base format between 2 and 66 inclusive (O-9a-zA-Z@#~={}()[])
+  -b BASE        timestamp base format between 2 and 73 inclusive (0-9A-Za-z@#~={}()[])
+  -A {lu,ul,a}   order of characters in the base
+                   - ul=digit,upper,lower,symbol (default)
+                   - lu=digit,lower,upper,symbol
+                   - a=ascii (digit, upper, lower with scattered symbol)
+  -B CHARS       timestamp base format characters (-b and -A are ignored)
   -s TIME_SIZE   indicates how many characters should be displayed timestamp
   -p             add number of page
   -n MAX_PAGE    split into several pdf of manixum MAX_PAGE pages"
@@ -28,12 +33,19 @@ fi
 if (( ${+params[-t]} )); then
   timestamp=${(%):-%D{%s}}
 
-  # base 10 to [2-66]
-  declare -i base=${params[-b]}
-  if (( 2 <= base && base <= 66 )); then
-    declare chars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#~={}()[]'
+  # base 10 to [2-73]
+  declare chars=${params[-B]}
+  declare -i base=$#chars
+  if (( !base )); then
+    base=${params[-b]}
+    case ${+params[-A]} in
+      lu) chars='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@#~={}()[]' ;;
+      a)  chars='#()0123456789=@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]abcdefghijklmnopqrstuvwxyz{}~' ;;
+      *)  chars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#~={}()[]' ;;
+    esac
+  fi
+  if (( 2 <= base && base <= $#chars )); then
     declare -i t=$timestamp r
-    chars=${chars:0:$base}
     timestamp=
     while (( t > 0 )); do
       ((r=t%base, t/=base, 1))
