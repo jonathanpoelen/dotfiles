@@ -298,6 +298,7 @@ alias cp='cp -i'
 alias df='df -h'
 alias du='du -h'
 alias dus='du -sh'
+alias duc='du -shc'
 alias free='free -h'
 alias cr='cp -R'
 alias bat='bat --theme=Catppuccin-macchiato'
@@ -534,7 +535,7 @@ bak() { cp "$1" "$1"_${(%):-%D{%H:%M:%S_%d-%m-%Y}} }
 
 k() { awk "{ print $@ }" ; }
 
-alias hi='vt-kate-syntax-highlighter -tMy\ Breeze\ Dark -c'
+alias hi='ksyntaxhighlighter6 -tMy\ Breeze\ Dark -b'
 alias ihi='hi -s'
 hin() { hi "$@" | cat -n ; }
 ihin() { ihi "$@" | cat -n ; }
@@ -589,14 +590,14 @@ alias gdbrun='gdb -q -ex run --args'
 alias bt="gdb -q --batch --return-child-result -x ~/.gdbbt -ex run --args"
 alias bte="gdb -q --batch --return-child-result -x ~/.gdbbt -ex 'catch throw' -ex run --args"
 
-y() yt-dlp --no-part -k --no-mtime --youtube-skip-dash-manifest --ffmpeg-location ~/rawdisk --no-playlist $@
-yy() yt-dlp --no-part --no-mtime --no-playlist $@
-yp() yt-dlp --no-part --no-mtime --yes-playlist $@
+y() yt-dlp --no-part --no-mtime --no-playlist $@
+yy() yt-dlp --no-part --no-mtime --yes-playlist $@
 
 alias y='noglob y'
 alias yy='noglob yy'
 
 alias na='cat -n'
+alias ne='cat -e'
 
 ## paru / pacman
 
