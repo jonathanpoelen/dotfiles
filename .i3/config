@@ -88,16 +88,23 @@ bindsym $mod+Mod1+Home exec --no-startup-id "echo seek 5 > ~/rawdisk/music-contr
 bindsym $mod+Mod1+End exec --no-startup-id "echo seek -5 > ~/rawdisk/music-control.pipe"
 bindsym $mod+Mod1+l exec --no-startup-id "echo cycle loop-file > ~/rawdisk/music-control.pipe"
 bindsym $mod+u exec --no-startup-id "~/projects/dotfiles/bin/track_passed"
+
 # Sound 2
 bindsym Ctrl+F11 exec --no-startup-id amixer -q set Master 3-
 bindsym Ctrl+F12 exec --no-startup-id amixer -q set Master 3+
+
 # send pause/continue signal to active program
 bindsym $mod+F10 exec --no-startup-id "~/projects/dotfiles/bin/sleep-or-continue"
 bindsym $mod+F9 exec --no-startup-id "~/projects/dotfiles/bin/sleep-or-continue-firefox"
+
 # switch number line / symbol line
 # bindsym Num_Lock exec --no-startup-id "xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key$([ -f ~/rawdisk/.num-k ] && { rm ~/rawdisk/.num-k && echo 1 ; } || { :>~/rawdisk/.num-k && echo 0 ; })"
 bindsym Ctrl+F10 exec --no-startup-id "xmodmap ~/projects/dotfiles/xmodmap/qwerty-shift-number-key$([ -f ~/rawdisk/.num-k ] && { rm ~/rawdisk/.num-k && echo 1 ; } || { :>~/rawdisk/.num-k && echo 0 ; })"
 bindsym Ctrl+F8 exec --no-startup-id "[ -f ~/rawdisk/.footswitch ] && { ~/game/footswitch -1m shift -2m win -3m ctrl ; rm ~/rawdisk/.footswitch ; } || { ~/game/footswitch -1k / -2k Left -3k \\\\ ; :>~/rawdisk/.footswitch ; }"
+
+# scroll with keyboard
+bindsym XF86AudioLowerVolume exec --no-startup-id xdotool click --repeat 3 --delay 1 5
+bindsym XF86AudioRaiseVolume exec --no-startup-id xdotool click --repeat 3 --delay 1 4
 
 # focus_follows_mouse no
 
