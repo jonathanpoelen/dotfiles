@@ -223,6 +223,11 @@
             "XSLT XPath Attribute": {
                 "text-color": "#55bb22"
             }
+        },
+        "YAML": {
+            "Boolean": {
+                "text-color": "#3fcf3f"
+            }
         }
     },
     "editor-colors": {
