@@ -63,7 +63,7 @@ https://github.com/mozilla/gecko-dev/blob/master/browser/base/content/main-popup
 }
 
 :root[sizemode="fullscreen"],
-#navigator-toolbox[inFullscreen]{ margin-top: 0 !important; }
+:root[sizemode="fullscreen"] #navigator-toolbox{ margin-top: 0 !important; }
 
 #navigator-toolbox{
   position: fixed !important;
@@ -108,5 +108,5 @@ https://github.com/mozilla/gecko-dev/blob/master/browser/base/content/main-popup
   opacity: 1 !important;
 }
 
-#navigator-toolbox[inFullscreen] > #PersonalToolbar,
+:root[sizemode="fullscreen"] > #PersonalToolbar,
 #PersonalToolbar[collapsed="true"]{ display: none }
