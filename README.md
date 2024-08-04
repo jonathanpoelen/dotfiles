@@ -24,6 +24,14 @@ xrdb -merge ~/.Xresources
 ```
 
 
+Profile
+=======
+
+```sh
+ln ~/.profile ~/.zprofile
+```
+
+
 Less binding
 ============
 
