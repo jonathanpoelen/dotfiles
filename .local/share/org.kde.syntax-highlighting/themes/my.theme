@@ -321,9 +321,9 @@
             "text-color": "#a43340"
         },
         "Error": {
-            "selected-text-color": "#da4453",
-            "text-color": "#da4453",
-            "underline": true
+            "selected-text-color": "#ee0000",
+            "text-color": "#eff",
+            "background-color": "#aa4453"
         },
         "Extension": {
             "bold": true,
