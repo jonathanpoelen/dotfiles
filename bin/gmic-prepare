@@ -4,7 +4,7 @@
 
 width=1072
 height=1448
-by=120
+by=100
 
 files=()
 for f in $@ ; {
