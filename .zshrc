@@ -399,7 +399,9 @@ alias gb='git branch'
 alias gba='git branch -a'
 alias gs='git status -s'
 alias gss='git status'
+alias gri='git rebase -i'
 
+# git diff
 alias gd='git diff'
 alias gdl='DELTA_FEATURES=long-line git diff'
 alias gdn='DELTA_FEATURES=line-numbers git diff'
@@ -432,6 +434,7 @@ alias gm='git merge'
 alias grh='git reset HEAD'
 alias grhh='git reset HEAD --hard'
 
+# git log
 alias glp='git log -p --'
 alias glgg='git log --stat --pretty=tformat:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset" -n4'
 alias cglg='GIT_PAGER= glgg'
