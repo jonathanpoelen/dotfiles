@@ -4,12 +4,17 @@ set -e
 SCK=~/rawdisk/music-control.sck
 PIPE=~/rawdisk/music-control.pipe
 
+rm $PIPE 2>/dev/null ||:
+mkfifo $PIPE
 {
+  # wait for server to open
   sleep 3
-  rm $PIPE 2>/dev/null ||:
-  mkfifo $PIPE
+  # redirects a pipe file to the ipc server
   tail -f $PIPE | socat - $SCK
 }&
 
-mpv --no-resume-playback --quiet --shuffle --idle=yes --input-ipc-server=$SCK --no-video --no-input-terminal --demuxer-lavf-buffersize=1048576 --loop-playlist "$@"
-# --audio-channels=mono
+mpv --no-resume-playback --quiet --shuffle \
+  --idle=yes --input-ipc-server=$SCK \
+  --no-video --no-input-terminal \
+  --demuxer-lavf-buffersize=1048576 \
+  --reset-on-next-file=loop-file --loop-playlist "$@"
