@@ -1,11 +1,12 @@
 #-------- General Options ----------
 
-#set autoindent
+set autoindent
 set nowrap
 set matchbrackets "(<[{)>]}"
 #set mouse
 set smarthome
 set softwrap
+#set atblanks
 set tabsize 4
 set trimblanks
 set historylog
@@ -14,6 +15,7 @@ set historylog
 ## Key bindings.
 ## See nanorc(5) for more details on this.
 bind ^L mark main
+#bind M-L linter main
 
 set statuscolor yellow
 set titlecolor white,black
