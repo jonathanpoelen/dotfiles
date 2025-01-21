@@ -319,7 +319,7 @@ cxxflag='-Weverything -pedantic -Wconversion -Wno-c++98-compat -Wno-c++98-compat
 export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
 alias cw++="clang++ $cxxflag -fcolor-diagnostics"
 alias cw17="clang++ $cxxflag -fcolor-diagnostics -std=c++17"
-alias cw20="clang++ $cxxflag -fcolor-diagnostics -std=c++20"
+alias cw20="clang++ $cxxflag -fcolor-diagnostics -std=c++20 -Wno-c++20-compat"
 unset cxxflag
 
 # coverage flags: -fprofile-arcs -ftest-coverage --coverage
@@ -566,10 +566,9 @@ alias mpv='mpv --no-resume-playback'
 
 p() { mpv --no-resume-playback -af scaletempo --really-quiet -fs --speed=1.61 "$@" ; } # auto-complete only for files
 pp() {
-  emulate -L zsh -o extendedglob
   local audio f
   for f; {
-    audio=($f:r:r.f(dash-|hls-)*[aA]udio*)
+    audio=($f:r:r.f*)
     p $f --audio-file=$audio
   }
 }
@@ -801,7 +800,7 @@ bindkey '^[[1;5B' down-line-or-beginning-search
 #bindkey "$terminfo[kcuu1]" up-line-or-beginning-search
 #bindkey "$terminfo[kcud1]" down-line-or-beginning-search
 
-# Cycle through globs choices, one at a time.  Bound to '^n' below.
+# Cycle through globs choices, one at a time.
 _cycle-glob ()
 {
   setopt local_options glob_complete
@@ -1007,7 +1006,8 @@ copybuffer () { clipcopy <<<$BUFFER }
 zle -N copybuffer
 #bindkey "^[o" copybuffer
 
-alias tt="/usr/bin/time --format='%Es - %MK'"
+# uses a function to make command autocompletion work (_precommand)
+tt() /usr/bin/time --format='%Es - %MK' "$@"
 alias kk=kdevelop
 
 # set auto-completion
