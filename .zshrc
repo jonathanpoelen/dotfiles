@@ -259,7 +259,6 @@ zstyle ':completion:complete-file::::' completer _files
 bindkey '^Xf' complete-file
 
 autoload -U zg zs zhead weather er erd defl def br duration each zmv
-alias err='erd ~/Videos'
 alias zcp='zmv -C'
 alias zln='zmv -L'
 alias mmv='noglob zmv -W'
@@ -285,16 +284,6 @@ function lll() {
   ls -l --color=always "$@" | less
   return $?
 }
-
-lv() { jln-glob extendedglob; local files="*~(${(qj:|:)@})"; jln-glob-pop ls -- $~a }
-llv() { jln-glob extendedglob; local files="*~(${(qj:|:)@})"; jln-glob-pop ll -- $~a }
-ldv() { jln-glob extendedglob; local files="*~(${(qj:|:)@})"; jln-glob-pop ls -d -- $~a }
-lldv() { jln-glob extendedglob; local files="*~(${(qj:|:)@})"; jln-glob-pop ll -d -- $~a }
-alias lv='noglob lv'
-alias llv='noglob llv'
-alias ldv='noglob ldv'
-alias lldv='noglob lldv'
-
 
 alias mv='mv -i'
 alias cp='cp -i'
@@ -377,7 +366,6 @@ alias po='popd'
 # some more grep aliases
 alias f='zg -a'
 alias fx='zg -xa'
-alias g=grep
 
 # altermative grep: ripgrep
 # alias ripgrep=/usr/bin/rg
@@ -557,7 +545,6 @@ zi() {
 
 
 alias n=nano
-alias nn='nano -$'
 alias i='imv -f'
 alias ii='imv -fs none'
 alias x=xpdf
