@@ -247,7 +247,10 @@ zstyle ':completion::*' cache-path ~/rawdisk/zsh_cache/
 zstyle '*' single-ignored show
 
 # don't complete the same filenames again
-zstyle ':completion:*:(rm|cp|mv|ls|er|p|pp):*' ignore-line other
+zstyle ':completion:*:(rm|cp|mv|ls|er|p|pp|manga2pdf):*' ignore-line other
+
+# only directory
+zstyle ':completion:*:manga2pdf:*' file-patterns '*(-/)'
 
 zstyle ':completion:*:git-checkout:*' sort false
 
