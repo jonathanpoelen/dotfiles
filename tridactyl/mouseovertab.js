@@ -7,6 +7,7 @@ if (tri.ext_mouseover_links)
     tri.browserBg.tabs.create({url:elem.href, active:false});
   }
   tri.ext_mouseover_links = undefined;
+  document.onmouseover = undefined;
 }
 else
 {
