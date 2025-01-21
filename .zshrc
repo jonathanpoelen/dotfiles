@@ -500,7 +500,11 @@ function man(){
   # us  Start underlining
   # ue  End underlining
   if [[ $1 = 3 ]]; then
-    GROFF_NO_SGR=1 command man -P"sh -c 'col -bx | bat -l man -p --theme=Catppuccin-macchiato'" "$@"
+    local paging=
+    if [[ -n $PAGER ]]; then
+      local paging="--color=always | $PAGER"
+    fi
+    GROFF_NO_SGR=1 command man -P"sh -c 'col -bx | bat -l man -p --theme=Catppuccin-macchiato $paging'" "$@"
   else
     LESS_TERMCAP_md=$'\e[31m' \
     LESS_TERMCAP_se=$'\e[0m' \
