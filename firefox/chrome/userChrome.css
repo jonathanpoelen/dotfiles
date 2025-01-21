@@ -66,9 +66,8 @@ https://github.com/mozilla/gecko-dev/blob/master/browser/base/content/main-popup
 :root[sizemode="fullscreen"] #navigator-toolbox{ margin-top: 0 !important; }
 
 #navigator-toolbox{
+  --browser-area-z-index-toolbox: 3; /* aaa */
   position: fixed !important;
-  display: block;
-  transition-delay: var(--uc-autohide-toolbox-delay) !important;
   transform-origin: top;
   transform: rotateX(var(--uc-toolbox-rotation));
   opacity: 0;
@@ -77,12 +76,23 @@ https://github.com/mozilla/gecko-dev/blob/master/browser/base/content/main-popup
   pointer-events: none;
 }
 
-
-/* #mainPopupSet:hover ~ box > toolbox, */
-/* Uncomment the above line to make toolbar visible if some popup is hovered */
+:root[sessionrestored] #urlbar[popover]{
+  pointer-events: none;
+  opacity: 0;
+  transform-origin: 0px calc(0px - var(--tab-min-height) - var(--tab-block-margin) * 2);
+  transform: rotateX(89.9deg);
+}
+#mainPopupSet:has(> [role="group"][panelopen]) ~ toolbox #urlbar[popover],
+#navigator-toolbox:is(:hover,:focus-within) #urlbar[popover],
+#urlbar-container > #urlbar[popover]:is([focused],[open]){
+  pointer-events: auto;
+  opacity: 1;
+  transform: rotateX(0deg);
+}
+#mainPopupSet:has(> [role="group"][panelopen]) ~ toolbox,
+#navigator-toolbox:has(#urlbar:is([open],[focus-within])),
 #navigator-toolbox:hover,
 #navigator-toolbox:focus-within{
-  transition-delay: 33ms !important;
   transform: rotateX(0);
   opacity: 1;
 }
@@ -108,5 +118,5 @@ https://github.com/mozilla/gecko-dev/blob/master/browser/base/content/main-popup
   opacity: 1 !important;
 }
 
-:root[sizemode="fullscreen"] > #PersonalToolbar,
+#navigator-toolbox[inFullscreen] > #PersonalToolbar,
 #PersonalToolbar[collapsed="true"]{ display: none }
