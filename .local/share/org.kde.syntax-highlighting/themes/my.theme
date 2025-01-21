@@ -127,6 +127,14 @@
                 "text-color": "#9175ff"
             }
         },
+        "Markdown": {
+            "List: Strong Text": {
+                "text-color": "#fdbc4b"
+            },
+            "Strong Text": {
+                "text-color": "#fdbc4b"
+            }
+        },
         "Python": {
             "Definition Keyword": {
                 "text-color": "#ff82f9"
@@ -164,6 +172,11 @@
             },
             "Element Symbols": {
                 "text-color": "#00aaff"
+            }
+        },
+        "YAML": {
+            "Boolean": {
+                "text-color": "#3fcf3f"
             }
         },
         "Zsh": {
@@ -223,11 +236,6 @@
             "XSLT XPath Attribute": {
                 "text-color": "#55bb22"
             }
-        },
-        "YAML": {
-            "Boolean": {
-                "text-color": "#3fcf3f"
-            }
         }
     },
     "editor-colors": {
@@ -239,7 +247,7 @@
         "IconBorder": "#31363b",
         "IndentationLine": "#3a3f44",
         "LineNumbers": "#7a7c7d",
-        "MarkBookmark": "#0404bf",
+        "MarkBookmark": "#b6b65b",
         "MarkBreakpointActive": "#8b0607",
         "MarkBreakpointDisabled": "#820683",
         "MarkBreakpointReached": "#6d6e07",
@@ -321,9 +329,9 @@
             "text-color": "#a43340"
         },
         "Error": {
+            "background-color": "#aa4453",
             "selected-text-color": "#ee0000",
-            "text-color": "#eff",
-            "background-color": "#aa4453"
+            "text-color": "#eeffff"
         },
         "Extension": {
             "bold": true,
