@@ -909,8 +909,18 @@ function kill-prev-char-region()
   zle vi-find-prev-char
   zle kill-region
 }
+
+function kill-next-char-region()
+{
+  zle set-mark-command
+  zle vi-find-next-char
+  zle kill-region
+}
+
 zle -N kill-prev-char-region
+zle -N kill-next-char-region
 bindkey '^X^K' kill-prev-char-region
+bindkey '^X^D' kill-next-char-region
 
 autoload -U jln-save-command-line
 zle -N jln-save-command-line
