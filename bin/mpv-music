@@ -1,16 +1,20 @@
 #!/usr/bin/env zsh
 
 set -e
+
 SCK=~/rawdisk/music-control.sck
 PIPE=~/rawdisk/music-control.pipe
 
 rm $PIPE 2>/dev/null ||:
+# to send commands before the server is launched
 mkfifo $PIPE
 {
-  # wait for server to open
+  # wait until the server to open
   sleep 3
   # redirects a pipe file to the ipc server
   tail -f $PIPE | socat - $SCK
+  # do not use `socat PIPE:$PIPE $SCK`,
+  # because it causes infinite cpu usage when a track is not found (???)
 }&
 
 mpv --no-resume-playback --quiet --shuffle \
