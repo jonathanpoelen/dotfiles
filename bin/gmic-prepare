@@ -2,9 +2,22 @@
 
 # Scale images to my eReader (1072×1448)
 
+# Environment variable
+# - BY (default is 50)
+#     Process image by group of BY.
+#     Greater value is faster, but use more memory.
+# - LEFT_TO_RIGHT (default is 0)
+#     Reverse the of double pages when splitted.
+
+declare -i by
+
 width=1072
 height=1448
-by=100
+by=${BY:=50}
+rename_idx=0
+
+(( by )) || by=50
+(( ${LEFT_TO_RIGHT:=0} )) || rename_idx=1
 
 files=()
 for f in $@ ; {
@@ -19,7 +32,7 @@ for ((i=1; i <= $#files; i+=$by)) {
   -repeat '$!' \
     -if '{w#$dk>h#$dk}' \
       -split_tiles'[$dk]' 2,1 \
-      -name'[{$dk+1}]' '{$dk,f}/{$dk,b}_a.{$dk,x}' \
+      -name'[{$dk+'$rename_idx'}]' '{$dk,f}/{$dk,b}_a.{$dk,x}' \
       dk+=1 \
     -fi \
     dk+=1 \
