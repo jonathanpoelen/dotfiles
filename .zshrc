@@ -404,7 +404,7 @@ alias fx='zg -xa'
 
 # altermative grep: ripgrep
 # alias ripgrep=/usr/bin/rg
-alias rg='/usr/bin/rg --no-ignore-vcs --no-heading'
+alias rg='/usr/bin/rg --no-ignore-vcs --no-ignore-global --no-heading --hidden --glob='\''!{.git}'\'
 alias gn='rg --no-filename'
 alias gf='rg --files-with-matches'
 alias g1='rg -m1'
