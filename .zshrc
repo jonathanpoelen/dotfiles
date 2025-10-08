@@ -292,12 +292,13 @@ zle -C complete-file complete-word _generic
 zstyle ':completion:complete-file::::' completer _files
 bindkey '^Xf' complete-file
 
-autoload -U zg zs zhead weather er erd defl def br duration each zmv
+autoload -U zg zs zhead weather er erd defl def br duration each zcalc zmv
 alias zcp='zmv -C'
 alias zln='zmv -L'
 alias mmv='noglob zmv -W'
 alias ccp='noglob zmv -WC'
 alias lln='noglob zmv -WL'
+alias aa='zcalc -r5'
 
 
 # some more ls aliases
