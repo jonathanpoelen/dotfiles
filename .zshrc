@@ -525,8 +525,6 @@ a() { echo $(($*)) }
 #}
 #alias jhibernate='sudo pm-hibernate'
 
-alias isearch='search -i'
-
 function man(){
   # man 5 termcap
   # mb  Start blinking
