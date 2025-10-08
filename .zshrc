@@ -122,17 +122,33 @@ bindkey '^[S' history-search-space
   FAST_HIGHLIGHT+=(chroma-/usr/bin/rg chroma/-grep.ch)
 #}
 
-#loadplugins() {
-  eval "$(<~/game/zsh-history-substring-search/zsh-history-substring-search.zsh)"
+# history-substring-search
+# @{
+# lazy loading
+history-substring-search-up() {
+  source ~/game/zsh-history-substring-search/zsh-history-substring-search.zsh
+  history-substring-search-up
+}
+history-substring-search-down() {
+  source ~/game/zsh-history-substring-search/zsh-history-substring-search.zsh
+  history-substring-search-down
+}
 
-  bindkey '^[K' history-substring-search-up
-  bindkey '^[J' history-substring-search-down
+zle -N history-substring-search-up
+zle -N history-substring-search-down
 
-  #source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-  #ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-  # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8
-  #ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
-#}
+bindkey '^[K' history-substring-search-up
+bindkey '^[J' history-substring-search-down
+# @}
+
+# autosuggestion
+# @{
+#ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+#ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=30
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+#source ~/game/zsh-autosuggestions/zsh-autosuggestions.zsh
+#bindkey '^ ' autosuggest-accept # must be after bindkey '^@' ... ???
+# @}
 
 #[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 # export PATH="$PATH:$HOME/.fzf/bin"
