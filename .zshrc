@@ -621,11 +621,19 @@ alias gdbrun='gdb -q -ex run --args'
 alias bt="gdb -q --batch --return-child-result -x ~/.gdbbt -ex run --args"
 alias bte="gdb -q --batch --return-child-result -x ~/.gdbbt -ex 'catch throw' -ex run --args"
 
-y() yt-dlp --no-part --no-mtime --no-playlist $@
-yy() yt-dlp --no-part --no-mtime --yes-playlist $@
+y() yt-dlp --no-part --no-mtime --no-playlist -f 'bv*[height<=1080]+ba/b' $@
+yl() yt-dlp --no-part --no-mtime --no-playlist -f 'bv*[height<=720]+ba/b' $@
+yh() yt-dlp --no-part --no-mtime --no-playlist $@
+yy() yt-dlp --no-part --no-mtime --yes-playlist -f 'bv*[height<=1080]+ba/b' $@
+yyl() yt-dlp --no-part --no-mtime --yes-playlist -f 'bv*[height<=720]+ba/b' $@
+yyh() yt-dlp --no-part --no-mtime --yes-playlist $@
 
 alias y='noglob y'
+alias yl='noglob yl'
+alias yh='noglob yh'
 alias yy='noglob yy'
+alias yyl='noglob yyl'
+alias yyh='noglob yyh'
 
 alias na='cat -n'
 alias ne='cat -e'
