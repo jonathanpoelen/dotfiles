@@ -112,9 +112,14 @@ bindkey '^[S' history-search-space
 #function cmdcoloring {
   #ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-  # fast-theme ~/projects/dotfiles/.fzs/jln.ini
-  # FAST_THEME_NAME=jln
-  source ~/game/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+  # https://github.com/z-shell/F-Sy-H
+  # fast-theme ~/projects/dotfiles/zsh-fast-syntax-highlighting.ini
+  # remove hex-color: in functions/fast-highlight, if block with 0-9a-fA-F
+  # compile:
+  #  for f in {chroma,functions,share}/**(x^/) chroma/*.ch ; zrecompile -p -U -z $f.zwc $f || break
+  fpath+=(~/game/zsh-fast-syntax-highlighting/)
+  source ~/game/zsh-fast-syntax-highlighting/F-Sy-H.plugin.zsh
+  FAST_HIGHLIGHT+=(chroma-/usr/bin/rg chroma/-grep.ch)
 #}
 
 #loadplugins() {
