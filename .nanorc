@@ -24,12 +24,14 @@ set numbercolor white,black
 set functioncolor white
 
 #include /usr/share/nano/*.nanorc
+include ~/.nanosyntax/gitcommit.nanorc
+include ~/.nanosyntax/gitrebase.nanorc
 include ~/.nanosyntax/c.nanorc
 include ~/.nanosyntax/python.nanorc
 include ~/.nanosyntax/sh.nanorc
-include /usr/share/nano/javascript.nanorc
-include /usr/share/nano/json.nanorc
-include /usr/share/nano/xml.nanorc
-include /usr/share/nano/html.nanorc
-include /usr/share/nano/css.nanorc
-include /usr/share/nano/lua.nanorc
+#include /usr/share/nano/javascript.nanorc
+#include /usr/share/nano/json.nanorc
+#include /usr/share/nano/xml.nanorc
+#include /usr/share/nano/html.nanorc
+#include /usr/share/nano/css.nanorc
+#include /usr/share/nano/lua.nanorc

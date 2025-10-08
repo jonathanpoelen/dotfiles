@@ -1,0 +1,20 @@
+syntax "gitrebase" ".git/rebase-merge/git-rebase-todo"
+comment "#"
+
+# overlong lines
+color brightred ".{90}$"
+
+# module
+color yellow "\[\w+\]"
+
+# comment
+color cyan "^#.*$"
+
+# hash comment
+color gray "^\w+ [0-9a-z]{7,9} # "
+
+# hash
+color green "^\w+ [0-9a-z]{7,9} "
+
+# command
+color brightblue "^([presfxbdltmu]|pick|rework|edit|squash|fixup|exec|break|drop|label|reset|merge|update-ref) "
