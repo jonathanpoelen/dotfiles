@@ -488,7 +488,7 @@ alias glr='gl --rebase'
 
 
 # some more diff aliases
-alias diff='/usr/bin/diff -u --color'
+alias diff='/usr/bin/diff -U3 --color'
 alias yd='/usr/bin/diff --color -y -W $COLUMNS'
 alias ydc=icdiff
 nd() {
