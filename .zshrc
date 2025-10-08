@@ -239,7 +239,7 @@ zstyle ':completion:*:manuals.*'  insert-sections   true
 
 zstyle ':completion:*:*:*:*:processes' command "ps -u$USER -o pid,user,comm -w"
 
-zstyle ':completion:*:er:*' file-patterns '*.(rar|zip|zst|gz|tar|lzma|bz2|tar.gz|tar.xz|tar.bz2|tar.zma|tbz|7z|Z|tbz2|tgz|tlz|txz|deb|cbr|cbz|jar) *(-/)'
+zstyle ':completion:*:er:*' file-patterns '*.(rar|zip|zst|gz|tar|lzma|bz2|tar.gz|tar.xz|tar.lz|tar.bz2|tar.zma|tbz|7z|Z|tbz2|tgz|tlz|txz|deb|cbr|cbz|jar) *(-/)'
 #compdef "_files -g '(#i)*.(7z|Z|bz2|gz|lzma|rar|tar|tar.bz2|tar.gz|tar.xz|tar.zma|tbz|tbz2|tgz|tlz|txz|zip)(-.)'" extract
 
 # disable named-directories autocompletion
