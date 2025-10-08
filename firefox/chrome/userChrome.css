@@ -83,17 +83,16 @@ https://github.com/mozilla/gecko-dev/blob/master/browser/base/content/main-popup
   transform: rotateX(89.9deg);
 }
 
-#mainPopupSet:has(> [panelopen]:not(#ask-chat-shortcuts,#tab-preview-panel)) ~ toolbox #urlbar[popover],
-#navigator-toolbox:is(:hover,:focus-within) #urlbar[popover],
+#mainPopupSet:has(> [panelopen]:not(#ask-chat-shortcuts,#selection-shortcut-action-panel,#chat-shortcuts-options-panel,#tab-preview-panel)) ~ toolbox #urlbar[popover],
+#navigator-toolbox:is(:hover,:focus-within,[movingtab]) #urlbar[popover],
 #urlbar-container > #urlbar[popover]:is([focused],[open]){
   pointer-events: auto;
   opacity: 1;
   transform: rotateX(0deg);
 }
-#mainPopupSet:has(> [panelopen]:not(#ask-chat-shortcuts,#tab-preview-panel)) ~ toolbox,
+#mainPopupSet:has(> [panelopen]:not(#ask-chat-shortcuts,#selection-shortcut-action-panel,#chat-shortcuts-options-panel,#tab-preview-panel)) ~ toolbox,
 #navigator-toolbox:has(#urlbar:is([open],[focus-within])),
-#navigator-toolbox:hover,
-#navigator-toolbox:focus-within{
+#navigator-toolbox:is(:hover,:focus-within,[movingtab]){
   transform: rotateX(0);
   opacity: 1;
 }
