@@ -105,6 +105,10 @@ READNULLCMD=less # pager for `<file`
 #zle -N incremental-complete-word
 #bindkey '^Xi' incremental-complete-word
 
+autoload history-beginning-search-menu
+zle -N history-search-space history-beginning-search-menu
+bindkey '^[S' history-search-space
+
 #function cmdcoloring {
   #ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
