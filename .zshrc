@@ -1,6 +1,9 @@
-setopt prompt_subst nobeep
-
 set -o pipefail
+
+setopt prompt_subst nobeep auto_cd
+# setopt multios
+# setopt cdablevarS
+#
 
 export EDITOR=nano
 export LESS=-iRj3
@@ -972,11 +975,6 @@ bindkey "^[m" copy-prev-shell-word
 
 autoload colors; colors;
 
-#setopt no_beep
-setopt auto_cd
-# setopt multios
-# setopt cdablevarS
-#
 # if [[ x$WINDOW != x ]]
 # then
 #     SCREEN_NO="%B$WINDOW%b "
