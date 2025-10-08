@@ -135,6 +135,11 @@
                 "text-color": "#fdbc4b"
             }
         },
+        "Perl": {
+            "Special Variable": {
+                "text-color": "#55ffff"
+            }
+        },
         "Python": {
             "Definition Keyword": {
                 "text-color": "#ff82f9"
@@ -240,7 +245,7 @@
     },
     "editor-colors": {
         "BackgroundColor": "#232629",
-        "BracketMatching": "#3e1e4d",
+        "BracketMatching": "#963e1e4d",
         "CodeFolding": "#224e65",
         "CurrentLine": "#2a2e32",
         "CurrentLineNumber": "#a5a6a8",
@@ -292,8 +297,8 @@
             "text-color": "#f67400"
         },
         "BuiltIn": {
-            "selected-text-color": "#bdc3c7",
-            "text-color": "#7f8c8d"
+            "selected-text-color": "#75bfc4",
+            "text-color": "#609ca0"
         },
         "Char": {
             "selected-text-color": "#3daee9",
