@@ -6,7 +6,7 @@ set -e
 
 gmic-prepare $dirs
 for d in $dirs; do
-  rm $d/*/*{jpg,jpeg,png}(NLk-2) ||: # remove <2K
+  rm -- $d/*/*{jpg,jpeg,png}(NLk-2) ||: # remove <2K
   jpegoptim $d/*/*.{jpg,jpeg,png}(N) ||:
 done
 dirs2pdf -tpb58 -s5 -n800 $dirs
