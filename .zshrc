@@ -435,9 +435,11 @@ alias gba='git branch -a'
 alias gs='git status -s'
 alias gss='git status'
 alias gri='git rebase -i'
+alias grc='git rebase --continue'
 
 # git diff
 alias gd='git diff'
+alias gda='git diff --staged'
 alias gdl='DELTA_FEATURES=long-line git diff'
 alias gdn='DELTA_FEATURES=line-numbers git diff'
 alias gdd='DELTA_FEATURES=side-by-side git diff'
