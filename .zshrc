@@ -211,9 +211,15 @@ zmodload -i zsh/complist
 # zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[_[:lower:]]=** r:|[_[:upper:]]=** r:|=*'
-zstyle ':completion:*' matcher-list 'm:{[:lower:]_-}={[:upper:]-_}' 'r:|[.,_-]=* r:|[_[:lower:]]=** r:|[_[:upper:]]=** r:|=*' 'l:|=* r:|=*'
-zstyle ':completion:*:(argument-rest|files):*' matcher-list 'm:{[:lower:]_-}={[:upper:]-_} r:|[.,_-]=* r:|[_[:lower:]]=** r:|=* l:|=*'
-
+# zstyle ':completion:*' matcher-list 'm:{[:lower:]_-}={[:upper:]-_}' 'r:|[.,_-]=* r:|[_[:lower:]]=** r:|[_[:upper:]]=** r:|=*' 'l:|=* r:|=*'
+# zstyle ':completion:*:(argument-rest|files):*' matcher-list 'm:{[:lower:]_-}={[:upper:]-_} r:|[.,_-]=* r:|[_[:lower:]]=** r:|=* l:|=*'
+# ':completion:*:*:*:*:(arguments|files)'
+zstyle ':completion:*' matcher-list \
+  'm:{[:lower:]_-}={[:upper:]-_}' \
+  '+r:|[.,_-]=**' \
+  'r:|{[:upper:]}=** l:{[:upper:]_-}|=**' \
+  'm:{[:lower:]_-}={[:upper:]-_} r:|=* l:|=*' \
+  'm:{[:lower:]_-}={[:upper:]-_} r:|{[:alpha:]_-}=** l:{[:alpha:]_-}|=**'
 
 zstyle ':completion:*:*:*:*:*' menu select
 
