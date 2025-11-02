@@ -17,8 +17,9 @@ mkfifo $PIPE
   # because it causes infinite cpu usage when a track is not found (???)
 }&
 
+# --stream-buffer-size=2MiB reading by chunk of 256KiB... (?)
 mpv --no-resume-playback --quiet --shuffle \
   --idle=yes --input-ipc-server=$SCK \
   --no-video --no-input-terminal \
-  --demuxer-lavf-buffersize=1048576 \
+  --stream-buffer-size=2MiB \
   --reset-on-next-file=loop-file --loop-playlist "$@"
