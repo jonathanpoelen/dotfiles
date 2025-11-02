@@ -1030,7 +1030,7 @@ autoload colors; colors;
 
 autoload -U smart-sudo
 alias sudo=smart-sudo
-compdef _sudo smart-sudo
+compdef smart-sudo=sudo
 
 autoload -U jln-insert-sudo jln-insert-space-and-accept jln-insert-command
 zle -N jln-insert-sudo
