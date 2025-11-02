@@ -568,7 +568,7 @@ bak() { cp "$1" "$1"_${(%):-%D{%H:%M:%S_%d-%m-%Y}} }
 
 k() { awk "{ print $@ }" ; }
 
-alias hi='ksyntaxhighlighter6 -tMy\ Breeze\ Dark -b -fansi256Colors'
+alias hi='ksyntaxhighlighter6 -tJln\ Dark -b -fansi256Colors'
 alias ihi='hi -s'
 hin() { hi "$@" | cat -n ; }
 ihin() { ihi "$@" | cat -n ; }
