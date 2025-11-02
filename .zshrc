@@ -222,7 +222,10 @@ zstyle ':completion:*' matcher-list \
   '+r:|[.,_-]=**' \
   'r:|{[:upper:]}=** l:{[:upper:]_-}|=**' \
   'm:{[:lower:]_-}={[:upper:]-_} r:|=* l:|=*' \
-  'm:{[:lower:]_-}={[:upper:]-_} r:|{[:alpha:]_-}=** l:{[:alpha:]_-}|=**'
+  '+r:?||[[:digit:]]=**' \
+  'm:{[:lower:]_-}={[:upper:]-_} r:|{[:alpha:]_-}=** l:{[:alpha:]_-}|=**' \
+  '+r:|{[:digit:]}=** l:{[:digit:]}|=**' \
+  'm:{[:lower:]_-}={[:upper:]-_} r:?|=* l:|?=*'
 
 zstyle ':completion:*:*:*:*:*' menu select
 
