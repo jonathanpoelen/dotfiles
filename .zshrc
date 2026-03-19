@@ -756,8 +756,27 @@ colx() { for l in ${(f)"$(eval ${(q)@[2,$]})"} ; >&1 <<<${${(Az)l}[$1]} }
 #  column -c3 -s " " -t <<<${(F)${(On)"${(f)$(fc -ln 0 | awk '{CMD[$1]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}')}"}[1,20]}
 #}
 
-fo() { eval $@:q ${(uq)${${(f)"$(fzf -n3..,1 -d:)"}/:*/}} }
-gfo() { rg -nH --color=always "$@[2,$]" |fo $1 }
+# Filter with fzf and runs a command on the first colon-separated field from each line
+fo() {
+  emulate -L zsh -o errreturn
+  [[ -n $1 ]] || 1=${1:-${EDITOR:-$PAGER}}
+  eval $@:q ${(uq)${${(f)"$(fzf -m -n3..,1 -d:)"}/:*/}} <$TTY
+}
+gfo() { rg -nH --color=always $@[2,$] | fo $1 }
+krg() {
+  emulate -L zsh -o errreturn -o extendedglob
+  local f lines=("${(f)$(rg -nH --color=always $@ | fzf -m -n3..,1 -d:)}") params=()
+  local -A files
+  for f in $lines ; do
+    if [[ $f = (#b)(#s)([^:]##):([^:]##)* ]]; then
+      if [[ -z $files[$match[1]] ]]; then
+        files[$match[1]]=1
+        params+=($match[1]:$match[2])
+      fi
+    fi
+  done
+  [[ -n $params ]] && kdevelop $params
+}
 
 ler() { ~/game/waiting_for_reading $1 unrar x $1 }
 zstyle ':completion:*:ler:*' file-patterns '*(rar|RAR) *(-/)'
@@ -1062,10 +1081,12 @@ tt() /usr/bin/time --format='%Es - %MK' "$@"
 alias kk=kdevelop
 
 # set auto-completion
+# compdef _completer cmd
 _comps[tt]=_precommand
 _comps[each]=_precommand
 _comps[duration]=_precommand
 _comps[jln-glob-pop]=_precommand
+_comps[krg]=_rg
 
 rand() REPLY=$RANDOM
 
