@@ -7,8 +7,15 @@
 
 set -ex
 
+use_snap=0
+
 profile=${1:-default}
-FIREFOX=~/.mozilla/firefox/
+
+if [[ $use_snap == 1 ]]; then
+  FIREFOX=~/snap/firefox/common/.mozilla/firefox/
+else
+  FIREFOX=~/.mozilla/firefox/
+fi
 
 cd ~/rawdisk/ff/.mozilla/firefox
 dl=(*.$profile(N))
@@ -25,6 +32,10 @@ if [[ -z $dl ]] || [[ ! -d $dl ]] ; then
     ar=${ar:t}
     d=${ar:0:-4}
   fi
+  # for ubuntu with firefox in snap
+  if [[ $use_snap == 1 ]]; then
+    ln -s ~/rawdisk/ff/.mozilla/firefox/$d ~/snap/firefox/common/.mozilla/firefox ||:
+  fi
 else
   d=$dl[1]
 fi
@@ -38,6 +49,7 @@ if [[ $(($RANDOM % 10)) == 1 ]]; then
     sqlite3 "$f" 'VACUUM;'
   done
 fi
+
 ZSTD_CLEVEL=4 tar --zstd -cf $d.zst $d
 # rotate zst files (3 files)
 mv $FIREFOX/$d.zst.old $FIREFOX/$d.zst.old.old ||:

@@ -11,10 +11,13 @@ xset b off r rate 350 30 m 5/2 5
 
 cd ~/rawdisk
 
+ffpath=~/.mozilla
+#ffpath=~/snap/firefox/common/.mozilla
+
 md ff/.mozilla/firefox &&
 ln -s ~/.cache ~/.config ff/ &&
-ln -s ~/.mozilla/systemextensionsdev ~/.mozilla/extensions/ ff/.mozilla/ &&
-ln -s ~/.mozilla/firefox/{Crash\ Reports,Pending\ Pings,profiles.ini} ff/.mozilla/firefox ||
+ln -s $ffpath/extensions/ ff/.mozilla/ &&
+ln -s $ffpath/firefox/{Crash\ Reports,Pending\ Pings,profiles.ini} ff/.mozilla/firefox ||
 function firefox { echo "\e[31merror: Create ~/rawdisk/ff\e[0m" }
 # ~/projects/dotfiles/bin/rfirefox default&
 
