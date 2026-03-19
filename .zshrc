@@ -633,6 +633,7 @@ alias gdbrun='gdb -q -ex run --args'
 alias bt="gdb -q --batch --return-child-result -x ~/.gdbbt -ex run --args"
 alias bte="gdb -q --batch --return-child-result -x ~/.gdbbt -ex 'catch throw' -ex run --args"
 
+alias yt-dlp='uvx yt-dlp'
 y() yt-dlp --no-part --no-mtime --no-playlist -f 'bv*[height<=1080]+ba/b' $@
 yl() yt-dlp --no-part --no-mtime --no-playlist -f 'bv*[height<=720]+ba/b' $@
 yh() yt-dlp --no-part --no-mtime --no-playlist $@
