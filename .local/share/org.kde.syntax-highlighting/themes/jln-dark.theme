@@ -5,7 +5,7 @@
     ],
     "license": "SPDX-License-Identifier: MIT",
     "name": "Jln Dark",
-    "revision": 1
+    "revision": 2
   },
   "editor-colors": {
     "BackgroundColor": "#232629",
@@ -50,7 +50,7 @@
       "text-color": "#3fa058"
     },
     "Attribute": {
-      "selected-text-color": "#fdbc4b",
+      "selected-text-color": "#48b8f4",
       "text-color": "#48b8f4"
     },
     "BaseN": {
@@ -58,8 +58,8 @@
       "text-color": "#f67400"
     },
     "BuiltIn": {
-      "selected-text-color": "#75bfc4",
-      "text-color": "#60aca0"
+      "selected-text-color": "#71b9bd",
+      "text-color": "#71b9bd"
     },
     "Char": {
       "selected-text-color": "#3daee9",
@@ -103,7 +103,7 @@
     },
     "Extension": {
       "bold": true,
-      "selected-text-color": "#bdc3c7",
+      "selected-text-color": "#34b8ff",
       "text-color": "#34b8ff"
     },
     "Float": {
@@ -162,8 +162,8 @@
       "text-color": "#f44f4f"
     },
     "Variable": {
-      "selected-text-color": "#27aeae",
-      "text-color": "#34e8e8"
+      "selected-text-color": "#54e8e8",
+      "text-color": "#54e8e8"
     },
     "VerbatimString": {
       "selected-text-color": "#da4453",
@@ -185,37 +185,46 @@
     },
     "Bash": {
       "Backquote": {
+        "selected-text-color": "#fff041",
         "text-color": "#fff041"
       },
       "Builtin": {
         "bold": true
       },
       "Expression": {
+        "selected-text-color": "#2fcf72",
         "text-color": "#2fcf72"
       },
       "Glob": {
         "bold": true
       },
       "Here Doc": {
+        "selected-text-color": "#c83f3f",
         "text-color": "#c13f3f"
       },
       "Option": {
-        "text-color": "#55b5ff"
+        "selected-text-color": "#c56070",
+        "text-color": "#c56070"
       },
       "Parameter Expansion": {
-        "text-color": "#fc9bff"
+        "selected-text-color": "#ec9bef",
+        "text-color": "#ec9bef"
       },
       "Path": {
+        "selected-text-color": "#bb8ac8",
         "text-color": "#bb8ac8"
       },
       "String DoubleQ": {
+        "selected-text-color": "#f4664d",
         "text-color": "#f4664d"
       },
       "String Transl.": {
+        "selected-text-color": "#d04444",
         "text-color": "#d04444"
       },
       "Variable": {
-        "text-color": "#7e92ef"
+        "selected-text-color": "#7e9bef",
+        "text-color": "#7e9bef"
       }
     },
     "Common Lisp": {
@@ -225,96 +234,120 @@
     },
     "ISO C++": {
       "Attribute": {
-        "text-color": "#3198d9"
+        "selected-text-color": "#51a8e9",
+        "text-color": "#51a8e9"
       },
       "Boost Stuff": {
+        "selected-text-color": "#42c27a",
         "text-color": "#42c27a"
       },
       "CONSTS/MACROS": {
+        "selected-text-color": "#a4bbd9",
         "text-color": "#a4bbd9"
       },
       "Char": {
-        "text-color": "#b47999"
+        "selected-text-color": "#ba7f9f",
+        "text-color": "#ba7f9f"
       },
       "Data Members (m_*)": {
+        "selected-text-color": "#ceac61",
         "text-color": "#ceac61"
       },
       "Data Type": {
+        "selected-text-color": "#2ed1d3",
         "text-color": "#2ed1d3"
       },
       "Globals (g_*)": {
+        "selected-text-color": "#da91da",
         "text-color": "#da91da"
       },
       "Internals": {
+        "selected-text-color": "#a8a8a8",
         "text-color": "#a8a8a8"
       },
       "Prep. Lib": {
         "text-color": "#5cbc5c"
       },
       "Preprocessor": {
-        "text-color": "#60c260"
+        "selected-text-color": "#67be60",
+        "text-color": "#67be60"
       },
       "Separator Symbol": {
+        "selected-text-color": "#fff041",
         "text-color": "#fff041"
       },
-      "Standard Attribute": {
-        "text-color": "#2e91cf"
-      },
-      "Standard Classes": {
-        "text-color": "#00d092"
-      },
-      "Statics (s_*)": {
-        "text-color": "#55aaff"
-      },
       "Symbol": {
+        "selected-text-color": "#f44f4f",
         "text-color": "#f44f4f"
-      },
-      "Type Modifiers": {
-        "text-color": "#37aff0"
       }
     },
     "JavaScript": {
       "Reserved": {
+        "selected-text-color": "#4be1e1",
         "text-color": "#4be1e1"
       }
     },
     "Lua": {
       "BFunc": {
+        "selected-text-color": "#aa52d0",
         "text-color": "#aa52d0"
       },
       "Keyword": {
+        "selected-text-color": "#47b836",
         "text-color": "#47b836"
-      },
-      "Metamethod": {
-        "text-color": "#8a9899"
       },
       "Self Variable": {
         "italic": true,
+        "selected-text-color": "#d38c69",
         "text-color": "#d38c69"
       },
       "Special Variable": {
+        "selected-text-color": "#d38c69",
         "text-color": "#d38c69"
       },
       "Variable": {
+        "selected-text-color": "#9175ff",
         "text-color": "#9175ff"
       }
     },
     "Markdown": {
+      "List: Emphasis Text": {
+        "selected-text-color": "#48b8f4",
+        "text-color": "#48b8f4"
+      },
+      "Emphasis Text": {
+        "selected-text-color": "#48b8f4",
+        "text-color": "#48b8f4"
+      },
       "List: Strong Text": {
-        "text-color": "#fdbc4b"
+        "selected-text-color": "#fdbc4b",
+        "text-color": "#fdbc4b",
+        "bold": false
       },
       "Strong Text": {
+        "selected-text-color": "#fdbc4b",
+        "text-color": "#fdbc4b",
+        "bold": false
+      },
+      "List: Strong-Emphasis Text": {
+        "selected-text-color": "#fdbc4b",
+        "text-color": "#fdbc4b"
+      },
+      "Strong-Emphasis Text": {
+        "selected-text-color": "#fdbc4b",
         "text-color": "#fdbc4b"
       }
     },
     "Perl": {
       "Special Variable": {
+        "selected-text-color": "#55ffff",
         "text-color": "#55ffff"
       }
     },
     "Python": {
       "Definition Keyword": {
-        "text-color": "#ff82f9"
+        "selected-text-color": "#ec9bef",
+        "text-color": "#ec9bef"
       }
     },
     "Rust": {
@@ -325,34 +358,29 @@
         "text-color": "#2ecfcf"
       },
       "Definition": {
+        "selected-text-color": "#a7ffff",
         "text-color": "#a7ffff"
       },
-      "Lifetime": {
-        "text-color": "#31dc78"
-      },
       "Macro": {
+        "selected-text-color": "#48d96a",
         "text-color": "#48d96a"
       },
       "Scope": {
+        "selected-text-color": "#4eea72",
         "text-color": "#4eea72"
       },
       "Self": {
-        "text-color": "#ffaaff"
+        "selected-text-color": "#ec9bef",
+        "text-color": "#ec9bef"
       },
       "Symbol": {
+        "selected-text-color": "#ff557f",
         "text-color": "#ff557f"
-      }
-    },
-    "XML": {
-      "Attribute Separator": {
-        "text-color": "#00ff00"
-      },
-      "Element Symbols": {
-        "text-color": "#00aaff"
       }
     },
     "YAML": {
       "Boolean": {
+        "selected-text-color": "#3fcf3f",
         "text-color": "#3fcf3f"
       }
     },
@@ -360,10 +388,6 @@
       "Backquote": {
         "selected-text-color": "#fff041",
         "text-color": "#fff041"
-      },
-      "Builtin": {
-        "bold": true,
-        "text-color": "#71b9bd"
       },
       "Dollar Prefix": {
         "selected-text-color": "#2ecf46",
@@ -378,39 +402,21 @@
         "selected-text-color": "#a8ce56",
         "text-color": "#a8ce56"
       },
-      "Glob Flag": {
-        "selected-text-color": "#55ffff"
-      },
       "Here Doc": {
         "selected-text-color": "#c13f3f",
         "text-color": "#c13f3f"
       },
-      "Operator": {
-        "selected-text-color": "#55fffe"
-      },
       "Option": {
-        "selected-text-color": "#ba6070",
-        "text-color": "#60baff"
-      },
-      "OtherCommand": {
-        "selected-text-color": "#34b8ff"
+        "selected-text-color": "#c56070",
+        "text-color": "#c56070"
       },
       "Parameter Expansion": {
         "selected-text-color": "#dd75ff",
         "text-color": "#fc9bff"
       },
-      "Parameter Expansion Operator": {
-        "selected-text-color": "#55fffe"
-      },
       "Path": {
         "selected-text-color": "#bb8ac8",
         "text-color": "#bb8ac8"
-      },
-      "Pattern": {
-        "text-color": "#d544a2"
-      },
-      "Redirection": {
-        "selected-text-color": "#55ffff"
       },
       "String DoubleQ": {
         "selected-text-color": "#d64646",
@@ -421,25 +427,44 @@
         "text-color": "#d04444"
       },
       "Variable": {
-        "selected-text-color": "#afc8ff",
+        "selected-text-color": "#83a0ff",
         "text-color": "#83a0ff"
+      }
+    },
+    "XML": {
+      "Attribute Separator": {
+        "selected-text-color": "#88ee00",
+        "text-color": "#88ee00"
+      },
+      "Attribute": {
+        "selected-text-color": "#27be60",
+        "text-color": "#27be60"
+      },
+      "Element Symbols": {
+        "selected-text-color": "#00aaff",
+        "text-color": "#00aaff"
       }
     },
     "xslt": {
       "Attribute Separator": {
-        "text-color": "#00ff00"
+        "selected-text-color": "#88ee00",
+        "text-color": "#88ee00"
+      },
+      "Attribute": {
+        "selected-text-color": "#27be60",
+        "text-color": "#27be60"
       },
       "Tag Symbols": {
+        "selected-text-color": "#00aaff",
         "text-color": "#00aaff"
       },
       "Variable": {
+        "selected-text-color": "#c0c022",
         "text-color": "#c0c022"
       },
       "XPath Attribute": {
+        "selected-text-color": "#c1139d",
         "text-color": "#c1139d"
-      },
-      "XSLT XPath Attribute": {
-        "text-color": "#55bb22"
       }
     },
     "CSV": {
