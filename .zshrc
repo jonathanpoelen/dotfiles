@@ -354,6 +354,8 @@ cxxflag='-Wall -Wextra -pedantic -Waligned-new -Walloca -Walloc-zero -Warray-bou
 alias gw++="g++ $cxxflag -fdiagnostics-color=always"
 alias gw17="g++ $cxxflag -fdiagnostics-color=always -std=c++17"
 alias gw20="g++ $cxxflag -fdiagnostics-color=always -std=c++20"
+alias gw23="g++ $cxxflag -fdiagnostics-color=always -std=c++23"
+alias gw26="g++ $cxxflag -fdiagnostics-color=always -std=c++26"
 unset cxxflag
 
 cxxflag='-Weverything -pedantic -Wconversion -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-covered-switch-default -Wno-exit-time-destructors -Wno-global-constructors -Wno-inconsistent-missing-destructor-override -Wno-mismatched-tags -Wno-padded -Wno-shadow -Wno-switch-default -Wno-switch-enum -Wno-undefined-var-template -Wno-weak-vtables'
@@ -361,6 +363,8 @@ export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
 alias cw++="clang++ $cxxflag -fcolor-diagnostics"
 alias cw17="clang++ $cxxflag -fcolor-diagnostics -std=c++17"
 alias cw20="clang++ $cxxflag -fcolor-diagnostics -std=c++20 -Wno-c++20-compat"
+alias cw23="clang++ $cxxflag -fcolor-diagnostics -std=c++23 -Wno-c++20-compat"
+alias cw26="clang++ $cxxflag -fcolor-diagnostics -std=c++26 -Wno-c++20-compat"
 unset cxxflag
 
 # coverage flags: -fprofile-arcs -ftest-coverage --coverage
