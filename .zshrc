@@ -613,7 +613,9 @@ p() { mpv --no-resume-playback -af scaletempo --really-quiet -fs --speed=1.61 "$
 pp() {
   local audio f
   for f; {
-    audio=($f:r:r.f*)
+    # video: filename.fhls-nnn.mp4
+    # audio: filename.fhls-audio-xxx.mp4
+    audio=(${f%[-.]*.*}-audio*)
     p $f --audio-file=$audio
   }
 }
