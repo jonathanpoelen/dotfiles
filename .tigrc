@@ -1,6 +1,7 @@
 set tab-size = 4
-color cursor yellow black bold
+color cursor color213 black
 color title-blur white default
 color title-focus white default
+color cursor-blur black color13
 #color title-focus white default standout
 set ignore-case = smart-case
