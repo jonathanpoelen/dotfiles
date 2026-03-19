@@ -58,6 +58,14 @@ GTK overlay-scrollbar
 `gsettings set org.gnome.desktop.interface overlay-scrolling false`
 
 
+Configure default application
+=============================
+
+`xdg-mime default pcmanfm.desktop inode/directory`
+
+`.desktop` generally in `/usr/share/applications/` and `~/.local/share/applications`.
+
+
 Ninja
 =====
 
